@@ -1,0 +1,33 @@
+# 원본·가공 데이터, 모델, 학습 산출물: 용량·배포 조건 때문에 저장소에 넣지 않음
+/4. X-ray*
+/xray_dataset/
+/data/
+/runs/
+/weights/
+/weight/
+/handoff/
+/archive/
+/third_party/
+/.venv/
+/.claude/
+*.pt
+*.pth
+*.weights
+*.zip
+*.tar.gz
+*.npy
+__pycache__/
+*.pyc
+
+# 원시 검출·스트레스 결과 (스크립트로 다시 만들 수 있음)
+eval/**/*dets*.csv
+eval/**/*site*.csv
+eval/**/*.log
+eval/**/*per_defect*.csv
+eval/**/stress_fp*.csv
+
+# 합성 학습 모델(tpB/tpC/tpCC/tpG/tpX) 결과: 팀 결정으로 합성은 평가 전용 → 넣지 않음 (archive/ 참고)
+eval/**/*_tp[A-Z]*
+
+# 10월 1일 판 PDF, REPORT.md 와 내용이 다름
+/REPORT.pdf

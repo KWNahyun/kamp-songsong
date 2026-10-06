@@ -1,0 +1,313 @@
+model,feature,bin,n,recall
+YOLOv3-SPP 416,edge_dist,"[0, 8)",255,0.2627450980392157
+YOLOv3-SPP 416,edge_dist,"[8, 16)",320,0.42083333333333334
+YOLOv3-SPP 416,edge_dist,"[16, 36)",637,0.2532705389848247
+YOLOv3-SPP 416,edge_dist,"[36, 200)",588,0.3707482993197279
+YOLOv3-SPP 416,bg_rank,"[0.0, 0.1)",100,0.68
+YOLOv3-SPP 416,bg_rank,"[0.1, 0.25)",288,0.47800925925925924
+YOLOv3-SPP 416,bg_rank,"[0.25, 0.5)",521,0.19769673704414586
+YOLOv3-SPP 416,bg_rank,"[0.5, 0.75)",446,0.296711509715994
+YOLOv3-SPP 416,bg_rank,"[0.75, 1.01)",445,0.3146067415730337
+YOLOv3-SPP 416,dist_real,"[20, 40)",377,0.27055702917771884
+YOLOv3-SPP 416,dist_real,"[40, 80)",663,0.3202614379084967
+YOLOv3-SPP 416,dist_real,"[80, 160)",671,0.3522106308991555
+YOLOv3-SPP 416,dist_real,"[160, 1000)",89,0.3408239700374532
+D-FINE-S ② COCO,edge_dist,"[0, 8)",255,0.730718954248366
+D-FINE-S ② COCO,edge_dist,"[8, 16)",320,0.8729166666666667
+D-FINE-S ② COCO,edge_dist,"[16, 36)",637,0.8833071690214548
+D-FINE-S ② COCO,edge_dist,"[36, 200)",588,0.8078231292517006
+D-FINE-S ② COCO,bg_rank,"[0.0, 0.1)",100,0.9133333333333333
+D-FINE-S ② COCO,bg_rank,"[0.1, 0.25)",288,0.8483796296296297
+D-FINE-S ② COCO,bg_rank,"[0.25, 0.5)",521,0.7651951375559821
+D-FINE-S ② COCO,bg_rank,"[0.5, 0.75)",446,0.8834080717488789
+D-FINE-S ② COCO,bg_rank,"[0.75, 1.01)",445,0.8426966292134831
+D-FINE-S ② COCO,dist_real,"[20, 40)",377,0.8947833775419982
+D-FINE-S ② COCO,dist_real,"[40, 80)",663,0.8466566113624937
+D-FINE-S ② COCO,dist_real,"[80, 160)",671,0.8002980625931445
+D-FINE-S ② COCO,dist_real,"[160, 1000)",89,0.7602996254681648
+D-FINE-S ② COCO [val·test 기증],edge_dist,"[0, 8)",255,0.7019607843137254
+D-FINE-S ② COCO [val·test 기증],edge_dist,"[8, 16)",320,0.8697916666666666
+D-FINE-S ② COCO [val·test 기증],edge_dist,"[16, 36)",637,0.8932496075353218
+D-FINE-S ② COCO [val·test 기증],edge_dist,"[36, 200)",588,0.8010204081632653
+D-FINE-S ② COCO [val·test 기증],bg_rank,"[0.0, 0.1)",100,0.9133333333333333
+D-FINE-S ② COCO [val·test 기증],bg_rank,"[0.1, 0.25)",288,0.8472222222222222
+D-FINE-S ② COCO [val·test 기증],bg_rank,"[0.25, 0.5)",521,0.7683941138835573
+D-FINE-S ② COCO [val·test 기증],bg_rank,"[0.5, 0.75)",446,0.8834080717488789
+D-FINE-S ② COCO [val·test 기증],bg_rank,"[0.75, 1.01)",445,0.8262172284644195
+D-FINE-S ② COCO [val·test 기증],dist_real,"[20, 40)",377,0.8868258178603006
+D-FINE-S ② COCO [val·test 기증],dist_real,"[40, 80)",663,0.8501759678230266
+D-FINE-S ② COCO [val·test 기증],dist_real,"[80, 160)",671,0.7893691008445107
+D-FINE-S ② COCO [val·test 기증],dist_real,"[160, 1000)",89,0.7827715355805244
+D-FINE-S ③ PIDray,edge_dist,"[0, 8)",255,0.8784313725490196
+D-FINE-S ③ PIDray,edge_dist,"[8, 16)",320,0.9375
+D-FINE-S ③ PIDray,edge_dist,"[16, 36)",637,0.8890633176347462
+D-FINE-S ③ PIDray,edge_dist,"[36, 200)",588,0.7437641723356009
+D-FINE-S ③ PIDray,bg_rank,"[0.0, 0.1)",100,0.94
+D-FINE-S ③ PIDray,bg_rank,"[0.1, 0.25)",288,0.8263888888888888
+D-FINE-S ③ PIDray,bg_rank,"[0.25, 0.5)",521,0.746001279590531
+D-FINE-S ③ PIDray,bg_rank,"[0.5, 0.75)",446,0.905829596412556
+D-FINE-S ③ PIDray,bg_rank,"[0.75, 1.01)",445,0.9056179775280899
+D-FINE-S ③ PIDray,dist_real,"[20, 40)",377,0.852343059239611
+D-FINE-S ③ PIDray,dist_real,"[40, 80)",663,0.8602312719959779
+D-FINE-S ③ PIDray,dist_real,"[80, 160)",671,0.8400397416790859
+D-FINE-S ③ PIDray,dist_real,"[160, 1000)",89,0.8127340823970037
+D-FINE-S ③ PIDray [val·test 기증],edge_dist,"[0, 8)",255,0.8522875816993464
+D-FINE-S ③ PIDray [val·test 기증],edge_dist,"[8, 16)",320,0.9333333333333333
+D-FINE-S ③ PIDray [val·test 기증],edge_dist,"[16, 36)",637,0.8901098901098901
+D-FINE-S ③ PIDray [val·test 기증],edge_dist,"[36, 200)",588,0.7420634920634921
+D-FINE-S ③ PIDray [val·test 기증],bg_rank,"[0.0, 0.1)",100,0.9466666666666667
+D-FINE-S ③ PIDray [val·test 기증],bg_rank,"[0.1, 0.25)",288,0.8217592592592593
+D-FINE-S ③ PIDray [val·test 기증],bg_rank,"[0.25, 0.5)",521,0.7472808701215611
+D-FINE-S ③ PIDray [val·test 기증],bg_rank,"[0.5, 0.75)",446,0.9073243647234679
+D-FINE-S ③ PIDray [val·test 기증],bg_rank,"[0.75, 1.01)",445,0.8853932584269663
+D-FINE-S ③ PIDray [val·test 기증],dist_real,"[20, 40)",377,0.8461538461538461
+D-FINE-S ③ PIDray [val·test 기증],dist_real,"[40, 80)",663,0.8657616892911011
+D-FINE-S ③ PIDray [val·test 기증],dist_real,"[80, 160)",671,0.8276204669647292
+D-FINE-S ③ PIDray [val·test 기증],dist_real,"[160, 1000)",89,0.797752808988764
+D-FINE-S ① 없음,edge_dist,"[0, 8)",255,0.7647058823529411
+D-FINE-S ① 없음,edge_dist,"[8, 16)",320,0.8947916666666667
+D-FINE-S ① 없음,edge_dist,"[16, 36)",637,0.8566195709052852
+D-FINE-S ① 없음,edge_dist,"[36, 200)",588,0.6984126984126984
+D-FINE-S ① 없음,bg_rank,"[0.0, 0.1)",100,0.87
+D-FINE-S ① 없음,bg_rank,"[0.1, 0.25)",288,0.8020833333333334
+D-FINE-S ① 없음,bg_rank,"[0.25, 0.5)",521,0.7319257837492003
+D-FINE-S ① 없음,bg_rank,"[0.5, 0.75)",446,0.8527653213751868
+D-FINE-S ① 없음,bg_rank,"[0.75, 1.01)",445,0.8044943820224719
+D-FINE-S ① 없음,dist_real,"[20, 40)",377,0.8001768346595933
+D-FINE-S ① 없음,dist_real,"[40, 80)",663,0.8064353946706888
+D-FINE-S ① 없음,dist_real,"[80, 160)",671,0.8002980625931445
+D-FINE-S ① 없음,dist_real,"[160, 1000)",89,0.7228464419475655
+D-FINE-S ① 없음 [val·test 기증],edge_dist,"[0, 8)",255,0.7607843137254902
+D-FINE-S ① 없음 [val·test 기증],edge_dist,"[8, 16)",320,0.8916666666666667
+D-FINE-S ① 없음 [val·test 기증],edge_dist,"[16, 36)",637,0.8540031397174255
+D-FINE-S ① 없음 [val·test 기증],edge_dist,"[36, 200)",588,0.6950113378684807
+D-FINE-S ① 없음 [val·test 기증],bg_rank,"[0.0, 0.1)",100,0.8566666666666667
+D-FINE-S ① 없음 [val·test 기증],bg_rank,"[0.1, 0.25)",288,0.7916666666666666
+D-FINE-S ① 없음 [val·test 기증],bg_rank,"[0.25, 0.5)",521,0.744721689059501
+D-FINE-S ① 없음 [val·test 기증],bg_rank,"[0.5, 0.75)",446,0.8467862481315396
+D-FINE-S ① 없음 [val·test 기증],bg_rank,"[0.75, 1.01)",445,0.7925093632958802
+D-FINE-S ① 없음 [val·test 기증],dist_real,"[20, 40)",377,0.8099027409372237
+D-FINE-S ① 없음 [val·test 기증],dist_real,"[40, 80)",663,0.7983911513323279
+D-FINE-S ① 없음 [val·test 기증],dist_real,"[80, 160)",671,0.7923497267759563
+D-FINE-S ① 없음 [val·test 기증],dist_real,"[160, 1000)",89,0.7378277153558053
+D-FINE-S + 옮겨 심기 B,edge_dist,"[0, 8)",255,1.0
+D-FINE-S + 옮겨 심기 B,edge_dist,"[8, 16)",320,1.0
+D-FINE-S + 옮겨 심기 B,edge_dist,"[16, 36)",637,0.9979068550497122
+D-FINE-S + 옮겨 심기 B,edge_dist,"[36, 200)",588,0.9982993197278912
+D-FINE-S + 옮겨 심기 B,bg_rank,"[0.0, 0.1)",100,1.0
+D-FINE-S + 옮겨 심기 B,bg_rank,"[0.1, 0.25)",288,0.9965277777777778
+D-FINE-S + 옮겨 심기 B,bg_rank,"[0.25, 0.5)",521,0.9980806142034548
+D-FINE-S + 옮겨 심기 B,bg_rank,"[0.5, 0.75)",446,0.9992526158445441
+D-FINE-S + 옮겨 심기 B,bg_rank,"[0.75, 1.01)",445,1.0
+D-FINE-S + 옮겨 심기 B,dist_real,"[20, 40)",377,1.0
+D-FINE-S + 옮겨 심기 B,dist_real,"[40, 80)",663,0.9994972347913524
+D-FINE-S + 옮겨 심기 B,dist_real,"[80, 160)",671,0.9970193740685543
+D-FINE-S + 옮겨 심기 B,dist_real,"[160, 1000)",89,1.0
+D-FINE-S + 옮겨 심기 B [val·test 기증],edge_dist,"[0, 8)",255,1.0
+D-FINE-S + 옮겨 심기 B [val·test 기증],edge_dist,"[8, 16)",320,1.0
+D-FINE-S + 옮겨 심기 B [val·test 기증],edge_dist,"[16, 36)",637,1.0
+D-FINE-S + 옮겨 심기 B [val·test 기증],edge_dist,"[36, 200)",588,0.9994331065759637
+D-FINE-S + 옮겨 심기 B [val·test 기증],bg_rank,"[0.0, 0.1)",100,1.0
+D-FINE-S + 옮겨 심기 B [val·test 기증],bg_rank,"[0.1, 0.25)",288,1.0
+D-FINE-S + 옮겨 심기 B [val·test 기증],bg_rank,"[0.25, 0.5)",521,1.0
+D-FINE-S + 옮겨 심기 B [val·test 기증],bg_rank,"[0.5, 0.75)",446,0.9992526158445441
+D-FINE-S + 옮겨 심기 B [val·test 기증],bg_rank,"[0.75, 1.01)",445,1.0
+D-FINE-S + 옮겨 심기 B [val·test 기증],dist_real,"[20, 40)",377,1.0
+D-FINE-S + 옮겨 심기 B [val·test 기증],dist_real,"[40, 80)",663,1.0
+D-FINE-S + 옮겨 심기 B [val·test 기증],dist_real,"[80, 160)",671,0.9995032290114257
+D-FINE-S + 옮겨 심기 B [val·test 기증],dist_real,"[160, 1000)",89,1.0
+D-FINE-S + 옮겨 심기 C,edge_dist,"[0, 8)",255,1.0
+D-FINE-S + 옮겨 심기 C,edge_dist,"[8, 16)",320,1.0
+D-FINE-S + 옮겨 심기 C,edge_dist,"[16, 36)",637,0.9994767137624281
+D-FINE-S + 옮겨 심기 C,edge_dist,"[36, 200)",588,0.9982993197278912
+D-FINE-S + 옮겨 심기 C,bg_rank,"[0.0, 0.1)",100,1.0
+D-FINE-S + 옮겨 심기 C,bg_rank,"[0.1, 0.25)",288,0.9988425925925926
+D-FINE-S + 옮겨 심기 C,bg_rank,"[0.25, 0.5)",521,0.9980806142034548
+D-FINE-S + 옮겨 심기 C,bg_rank,"[0.5, 0.75)",446,1.0
+D-FINE-S + 옮겨 심기 C,bg_rank,"[0.75, 1.01)",445,1.0
+D-FINE-S + 옮겨 심기 C,dist_real,"[20, 40)",377,1.0
+D-FINE-S + 옮겨 심기 C,dist_real,"[40, 80)",663,1.0
+D-FINE-S + 옮겨 심기 C,dist_real,"[80, 160)",671,0.998012916045703
+D-FINE-S + 옮겨 심기 C,dist_real,"[160, 1000)",89,1.0
+D-FINE-S + 옮겨 심기 C [val·test 기증],edge_dist,"[0, 8)",255,1.0
+D-FINE-S + 옮겨 심기 C [val·test 기증],edge_dist,"[8, 16)",320,0.9989583333333333
+D-FINE-S + 옮겨 심기 C [val·test 기증],edge_dist,"[16, 36)",637,0.9994767137624281
+D-FINE-S + 옮겨 심기 C [val·test 기증],edge_dist,"[36, 200)",588,0.9994331065759637
+D-FINE-S + 옮겨 심기 C [val·test 기증],bg_rank,"[0.0, 0.1)",100,1.0
+D-FINE-S + 옮겨 심기 C [val·test 기증],bg_rank,"[0.1, 0.25)",288,1.0
+D-FINE-S + 옮겨 심기 C [val·test 기증],bg_rank,"[0.25, 0.5)",521,1.0
+D-FINE-S + 옮겨 심기 C [val·test 기증],bg_rank,"[0.5, 0.75)",446,0.9985052316890882
+D-FINE-S + 옮겨 심기 C [val·test 기증],bg_rank,"[0.75, 1.01)",445,0.9992509363295881
+D-FINE-S + 옮겨 심기 C [val·test 기증],dist_real,"[20, 40)",377,1.0
+D-FINE-S + 옮겨 심기 C [val·test 기증],dist_real,"[40, 80)",663,1.0
+D-FINE-S + 옮겨 심기 C [val·test 기증],dist_real,"[80, 160)",671,0.9995032290114257
+D-FINE-S + 옮겨 심기 C [val·test 기증],dist_real,"[160, 1000)",89,0.9925093632958801
+YOLOv3-SPP 416 [val·test 기증],edge_dist,"[0, 8)",255,0.2679738562091503
+YOLOv3-SPP 416 [val·test 기증],edge_dist,"[8, 16)",320,0.41770833333333335
+YOLOv3-SPP 416 [val·test 기증],edge_dist,"[16, 36)",637,0.2553636839351125
+YOLOv3-SPP 416 [val·test 기증],edge_dist,"[36, 200)",588,0.3792517006802721
+YOLOv3-SPP 416 [val·test 기증],bg_rank,"[0.0, 0.1)",100,0.73
+YOLOv3-SPP 416 [val·test 기증],bg_rank,"[0.1, 0.25)",288,0.47453703703703703
+YOLOv3-SPP 416 [val·test 기증],bg_rank,"[0.25, 0.5)",521,0.21305182341650672
+YOLOv3-SPP 416 [val·test 기증],bg_rank,"[0.5, 0.75)",446,0.28176382660687593
+YOLOv3-SPP 416 [val·test 기증],bg_rank,"[0.75, 1.01)",445,0.31760299625468164
+YOLOv3-SPP 416 [val·test 기증],dist_real,"[20, 40)",377,0.2696728558797524
+YOLOv3-SPP 416 [val·test 기증],dist_real,"[40, 80)",663,0.32428355957767724
+YOLOv3-SPP 416 [val·test 기증],dist_real,"[80, 160)",671,0.35866865375062096
+YOLOv3-SPP 416 [val·test 기증],dist_real,"[160, 1000)",89,0.3408239700374532
+YOLOv8s ② COCO,edge_dist,"[0, 8)",255,0.4366013071895425
+YOLOv8s ② COCO,edge_dist,"[8, 16)",320,0.5260416666666666
+YOLOv8s ② COCO,edge_dist,"[16, 36)",637,0.3673469387755102
+YOLOv8s ② COCO,edge_dist,"[36, 200)",588,0.3945578231292517
+YOLOv8s ② COCO,bg_rank,"[0.0, 0.1)",100,0.73
+YOLOv8s ② COCO,bg_rank,"[0.1, 0.25)",288,0.47800925925925924
+YOLOv8s ② COCO,bg_rank,"[0.25, 0.5)",521,0.27383237364043506
+YOLOv8s ② COCO,bg_rank,"[0.5, 0.75)",446,0.38938714499252614
+YOLOv8s ② COCO,bg_rank,"[0.75, 1.01)",445,0.49138576779026216
+YOLOv8s ② COCO,dist_real,"[20, 40)",377,0.3740053050397878
+YOLOv8s ② COCO,dist_real,"[40, 80)",663,0.42433383609854197
+YOLOv8s ② COCO,dist_real,"[80, 160)",671,0.45603576751117736
+YOLOv8s ② COCO,dist_real,"[160, 1000)",89,0.1947565543071161
+YOLOv8s ② COCO [val·test 기증],edge_dist,"[0, 8)",255,0.44836601307189544
+YOLOv8s ② COCO [val·test 기증],edge_dist,"[8, 16)",320,0.528125
+YOLOv8s ② COCO [val·test 기증],edge_dist,"[16, 36)",637,0.3772893772893773
+YOLOv8s ② COCO [val·test 기증],edge_dist,"[36, 200)",588,0.4007936507936508
+YOLOv8s ② COCO [val·test 기증],bg_rank,"[0.0, 0.1)",100,0.7466666666666667
+YOLOv8s ② COCO [val·test 기증],bg_rank,"[0.1, 0.25)",288,0.4849537037037037
+YOLOv8s ② COCO [val·test 기증],bg_rank,"[0.25, 0.5)",521,0.27575175943698016
+YOLOv8s ② COCO [val·test 기증],bg_rank,"[0.5, 0.75)",446,0.4013452914798206
+YOLOv8s ② COCO [val·test 기증],bg_rank,"[0.75, 1.01)",445,0.49962546816479403
+YOLOv8s ② COCO [val·test 기증],dist_real,"[20, 40)",377,0.3881520778072502
+YOLOv8s ② COCO [val·test 기증],dist_real,"[40, 80)",663,0.43137254901960786
+YOLOv8s ② COCO [val·test 기증],dist_real,"[80, 160)",671,0.46050670640834573
+YOLOv8s ② COCO [val·test 기증],dist_real,"[160, 1000)",89,0.20224719101123595
+YOLOv8s ③ PIDray,edge_dist,"[0, 8)",255,0.6300653594771242
+YOLOv8s ③ PIDray,edge_dist,"[8, 16)",320,0.6864583333333333
+YOLOv8s ③ PIDray,edge_dist,"[16, 36)",637,0.4369440083725798
+YOLOv8s ③ PIDray,edge_dist,"[36, 200)",588,0.46201814058956914
+YOLOv8s ③ PIDray,bg_rank,"[0.0, 0.1)",100,0.77
+YOLOv8s ③ PIDray,bg_rank,"[0.1, 0.25)",288,0.5648148148148148
+YOLOv8s ③ PIDray,bg_rank,"[0.25, 0.5)",521,0.3384516954574536
+YOLOv8s ③ PIDray,bg_rank,"[0.5, 0.75)",446,0.4940209267563528
+YOLOv8s ③ PIDray,bg_rank,"[0.75, 1.01)",445,0.6606741573033708
+YOLOv8s ③ PIDray,dist_real,"[20, 40)",377,0.48099027409372236
+YOLOv8s ③ PIDray,dist_real,"[40, 80)",663,0.5233785822021116
+YOLOv8s ③ PIDray,dist_real,"[80, 160)",671,0.5429706905116741
+YOLOv8s ③ PIDray,dist_real,"[160, 1000)",89,0.4232209737827715
+YOLOv8s ③ PIDray [val·test 기증],edge_dist,"[0, 8)",255,0.6300653594771242
+YOLOv8s ③ PIDray [val·test 기증],edge_dist,"[8, 16)",320,0.7166666666666667
+YOLOv8s ③ PIDray [val·test 기증],edge_dist,"[16, 36)",637,0.46153846153846156
+YOLOv8s ③ PIDray [val·test 기증],edge_dist,"[36, 200)",588,0.4574829931972789
+YOLOv8s ③ PIDray [val·test 기증],bg_rank,"[0.0, 0.1)",100,0.79
+YOLOv8s ③ PIDray [val·test 기증],bg_rank,"[0.1, 0.25)",288,0.5625
+YOLOv8s ③ PIDray [val·test 기증],bg_rank,"[0.25, 0.5)",521,0.3570057581573896
+YOLOv8s ③ PIDray [val·test 기증],bg_rank,"[0.5, 0.75)",446,0.5044843049327354
+YOLOv8s ③ PIDray [val·test 기증],bg_rank,"[0.75, 1.01)",445,0.6764044943820224
+YOLOv8s ③ PIDray [val·test 기증],dist_real,"[20, 40)",377,0.5128205128205128
+YOLOv8s ③ PIDray [val·test 기증],dist_real,"[40, 80)",663,0.5409753645047762
+YOLOv8s ③ PIDray [val·test 기증],dist_real,"[80, 160)",671,0.5424739195230999
+YOLOv8s ③ PIDray [val·test 기증],dist_real,"[160, 1000)",89,0.4157303370786517
+YOLOv8s ① 없음,edge_dist,"[0, 8)",255,0.3568627450980392
+YOLOv8s ① 없음,edge_dist,"[8, 16)",320,0.47708333333333336
+YOLOv8s ① 없음,edge_dist,"[16, 36)",637,0.15175300889586604
+YOLOv8s ① 없음,edge_dist,"[36, 200)",588,0.28458049886621317
+YOLOv8s ① 없음,bg_rank,"[0.0, 0.1)",100,0.7433333333333333
+YOLOv8s ① 없음,bg_rank,"[0.1, 0.25)",288,0.40046296296296297
+YOLOv8s ① 없음,bg_rank,"[0.25, 0.5)",521,0.05950095969289827
+YOLOv8s ① 없음,bg_rank,"[0.5, 0.75)",446,0.20029895366218237
+YOLOv8s ① 없음,bg_rank,"[0.75, 1.01)",445,0.4441947565543071
+YOLOv8s ① 없음,dist_real,"[20, 40)",377,0.20866489832007074
+YOLOv8s ① 없음,dist_real,"[40, 80)",663,0.3031674208144796
+YOLOv8s ① 없음,dist_real,"[80, 160)",671,0.3164431197218082
+YOLOv8s ① 없음,dist_real,"[160, 1000)",89,0.1760299625468165
+YOLOv8s ① 없음 [val·test 기증],edge_dist,"[0, 8)",255,0.35947712418300654
+YOLOv8s ① 없음 [val·test 기증],edge_dist,"[8, 16)",320,0.48541666666666666
+YOLOv8s ① 없음 [val·test 기증],edge_dist,"[16, 36)",637,0.16378859236002094
+YOLOv8s ① 없음 [val·test 기증],edge_dist,"[36, 200)",588,0.28514739229024944
+YOLOv8s ① 없음 [val·test 기증],bg_rank,"[0.0, 0.1)",100,0.7433333333333333
+YOLOv8s ① 없음 [val·test 기증],bg_rank,"[0.1, 0.25)",288,0.4074074074074074
+YOLOv8s ① 없음 [val·test 기증],bg_rank,"[0.25, 0.5)",521,0.06845809341010876
+YOLOv8s ① 없음 [val·test 기증],bg_rank,"[0.5, 0.75)",446,0.20926756352765322
+YOLOv8s ① 없음 [val·test 기증],bg_rank,"[0.75, 1.01)",445,0.44569288389513106
+YOLOv8s ① 없음 [val·test 기증],dist_real,"[20, 40)",377,0.21485411140583555
+YOLOv8s ① 없음 [val·test 기증],dist_real,"[40, 80)",663,0.3092006033182504
+YOLOv8s ① 없음 [val·test 기증],dist_real,"[80, 160)",671,0.32488822652757077
+YOLOv8s ① 없음 [val·test 기증],dist_real,"[160, 1000)",89,0.16853932584269662
+YOLOv8s + 옮겨 심기 B,edge_dist,"[0, 8)",255,1.0
+YOLOv8s + 옮겨 심기 B,edge_dist,"[8, 16)",320,1.0
+YOLOv8s + 옮겨 심기 B,edge_dist,"[16, 36)",637,0.9984301412872841
+YOLOv8s + 옮겨 심기 B,edge_dist,"[36, 200)",588,0.9982993197278912
+YOLOv8s + 옮겨 심기 B,bg_rank,"[0.0, 0.1)",100,1.0
+YOLOv8s + 옮겨 심기 B,bg_rank,"[0.1, 0.25)",288,0.9965277777777778
+YOLOv8s + 옮겨 심기 B,bg_rank,"[0.25, 0.5)",521,0.9980806142034548
+YOLOv8s + 옮겨 심기 B,bg_rank,"[0.5, 0.75)",446,1.0
+YOLOv8s + 옮겨 심기 B,bg_rank,"[0.75, 1.01)",445,1.0
+YOLOv8s + 옮겨 심기 B,dist_real,"[20, 40)",377,1.0
+YOLOv8s + 옮겨 심기 B,dist_real,"[40, 80)",663,1.0
+YOLOv8s + 옮겨 심기 B,dist_real,"[80, 160)",671,0.9970193740685543
+YOLOv8s + 옮겨 심기 B,dist_real,"[160, 1000)",89,1.0
+YOLOv8s + 옮겨 심기 B [val·test 기증],edge_dist,"[0, 8)",255,1.0
+YOLOv8s + 옮겨 심기 B [val·test 기증],edge_dist,"[8, 16)",320,1.0
+YOLOv8s + 옮겨 심기 B [val·test 기증],edge_dist,"[16, 36)",637,1.0
+YOLOv8s + 옮겨 심기 B [val·test 기증],edge_dist,"[36, 200)",588,1.0
+YOLOv8s + 옮겨 심기 B [val·test 기증],bg_rank,"[0.0, 0.1)",100,1.0
+YOLOv8s + 옮겨 심기 B [val·test 기증],bg_rank,"[0.1, 0.25)",288,1.0
+YOLOv8s + 옮겨 심기 B [val·test 기증],bg_rank,"[0.25, 0.5)",521,1.0
+YOLOv8s + 옮겨 심기 B [val·test 기증],bg_rank,"[0.5, 0.75)",446,1.0
+YOLOv8s + 옮겨 심기 B [val·test 기증],bg_rank,"[0.75, 1.01)",445,1.0
+YOLOv8s + 옮겨 심기 B [val·test 기증],dist_real,"[20, 40)",377,1.0
+YOLOv8s + 옮겨 심기 B [val·test 기증],dist_real,"[40, 80)",663,1.0
+YOLOv8s + 옮겨 심기 B [val·test 기증],dist_real,"[80, 160)",671,1.0
+YOLOv8s + 옮겨 심기 B [val·test 기증],dist_real,"[160, 1000)",89,1.0
+YOLOv8s + 옮겨 심기 C,edge_dist,"[0, 8)",255,1.0
+YOLOv8s + 옮겨 심기 C,edge_dist,"[8, 16)",320,1.0
+YOLOv8s + 옮겨 심기 C,edge_dist,"[16, 36)",637,0.9994767137624281
+YOLOv8s + 옮겨 심기 C,edge_dist,"[36, 200)",588,0.9982993197278912
+YOLOv8s + 옮겨 심기 C,bg_rank,"[0.0, 0.1)",100,1.0
+YOLOv8s + 옮겨 심기 C,bg_rank,"[0.1, 0.25)",288,0.9988425925925926
+YOLOv8s + 옮겨 심기 C,bg_rank,"[0.25, 0.5)",521,0.9980806142034548
+YOLOv8s + 옮겨 심기 C,bg_rank,"[0.5, 0.75)",446,1.0
+YOLOv8s + 옮겨 심기 C,bg_rank,"[0.75, 1.01)",445,1.0
+YOLOv8s + 옮겨 심기 C,dist_real,"[20, 40)",377,1.0
+YOLOv8s + 옮겨 심기 C,dist_real,"[40, 80)",663,1.0
+YOLOv8s + 옮겨 심기 C,dist_real,"[80, 160)",671,0.998012916045703
+YOLOv8s + 옮겨 심기 C,dist_real,"[160, 1000)",89,1.0
+YOLOv8s + 옮겨 심기 C [val·test 기증],edge_dist,"[0, 8)",255,1.0
+YOLOv8s + 옮겨 심기 C [val·test 기증],edge_dist,"[8, 16)",320,1.0
+YOLOv8s + 옮겨 심기 C [val·test 기증],edge_dist,"[16, 36)",637,1.0
+YOLOv8s + 옮겨 심기 C [val·test 기증],edge_dist,"[36, 200)",588,1.0
+YOLOv8s + 옮겨 심기 C [val·test 기증],bg_rank,"[0.0, 0.1)",100,1.0
+YOLOv8s + 옮겨 심기 C [val·test 기증],bg_rank,"[0.1, 0.25)",288,1.0
+YOLOv8s + 옮겨 심기 C [val·test 기증],bg_rank,"[0.25, 0.5)",521,1.0
+YOLOv8s + 옮겨 심기 C [val·test 기증],bg_rank,"[0.5, 0.75)",446,1.0
+YOLOv8s + 옮겨 심기 C [val·test 기증],bg_rank,"[0.75, 1.01)",445,1.0
+YOLOv8s + 옮겨 심기 C [val·test 기증],dist_real,"[20, 40)",377,1.0
+YOLOv8s + 옮겨 심기 C [val·test 기증],dist_real,"[40, 80)",663,1.0
+YOLOv8s + 옮겨 심기 C [val·test 기증],dist_real,"[80, 160)",671,1.0
+YOLOv8s + 옮겨 심기 C [val·test 기증],dist_real,"[160, 1000)",89,1.0
+YOLOv8s + 학습량 대조,edge_dist,"[0, 8)",255,0.27450980392156865
+YOLOv8s + 학습량 대조,edge_dist,"[8, 16)",320,0.39166666666666666
+YOLOv8s + 학습량 대조,edge_dist,"[16, 36)",637,0.20826792255363685
+YOLOv8s + 학습량 대조,edge_dist,"[36, 200)",588,0.3100907029478458
+YOLOv8s + 학습량 대조,bg_rank,"[0.0, 0.1)",100,0.6933333333333334
+YOLOv8s + 학습량 대조,bg_rank,"[0.1, 0.25)",288,0.3761574074074074
+YOLOv8s + 학습량 대조,bg_rank,"[0.25, 0.5)",521,0.13755598208573255
+YOLOv8s + 학습량 대조,bg_rank,"[0.5, 0.75)",446,0.23243647234678624
+YOLOv8s + 학습량 대조,bg_rank,"[0.75, 1.01)",445,0.3535580524344569
+YOLOv8s + 학습량 대조,dist_real,"[20, 40)",377,0.22988505747126436
+YOLOv8s + 학습량 대조,dist_real,"[40, 80)",663,0.2885872297637003
+YOLOv8s + 학습량 대조,dist_real,"[80, 160)",671,0.31793343268753105
+YOLOv8s + 학습량 대조,dist_real,"[160, 1000)",89,0.21348314606741572
+YOLOv8s + 학습량 대조 [val·test 기증],edge_dist,"[0, 8)",255,0.28888888888888886
+YOLOv8s + 학습량 대조 [val·test 기증],edge_dist,"[8, 16)",320,0.40208333333333335
+YOLOv8s + 학습량 대조 [val·test 기증],edge_dist,"[16, 36)",637,0.21664050235478807
+YOLOv8s + 학습량 대조 [val·test 기증],edge_dist,"[36, 200)",588,0.32936507936507936
+YOLOv8s + 학습량 대조 [val·test 기증],bg_rank,"[0.0, 0.1)",100,0.7233333333333334
+YOLOv8s + 학습량 대조 [val·test 기증],bg_rank,"[0.1, 0.25)",288,0.39814814814814814
+YOLOv8s + 학습량 대조 [val·test 기증],bg_rank,"[0.25, 0.5)",521,0.14843250159948818
+YOLOv8s + 학습량 대조 [val·test 기증],bg_rank,"[0.5, 0.75)",446,0.2406576980568012
+YOLOv8s + 학습량 대조 [val·test 기증],bg_rank,"[0.75, 1.01)",445,0.36479400749063673
+YOLOv8s + 학습량 대조 [val·test 기증],dist_real,"[20, 40)",377,0.2458001768346596
+YOLOv8s + 학습량 대조 [val·test 기증],dist_real,"[40, 80)",663,0.314228255404726
+YOLOv8s + 학습량 대조 [val·test 기증],dist_real,"[80, 160)",671,0.3174366616989568
+YOLOv8s + 학습량 대조 [val·test 기증],dist_real,"[160, 1000)",89,0.2247191011235955

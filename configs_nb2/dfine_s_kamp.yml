@@ -1,0 +1,61 @@
+# D-FINE-S, KAMP v2 분할, COCO 사전학습에서 미세조정 (-t weights/dfine_s_coco.pth)
+# 공식 custom 설정(dfine_hgnetv2_s_custom.yml)에서 바꾼 점:
+#  - 데이터: handoff/kamp_xray_v2 이미지, category_id 0 으로 바꾼 COCO json (data/nb2/dfine_*.json), num_classes 1
+#  - RandomZoomOut 제거: 영상을 최대 1/4 로 줄여 2px 결함이 사라짐 (YOLOv8 scale 0.2 와 같은 취지)
+#  - 배치 64 → 16 (학습 이미지 350장: 64 면 epoch 당 5 iter), lr 은 공식 비율 유지하며 1/2
+#  - epoch 220 → 160 (증강 정지 150), iter 수 약 3,500
+__include__: [
+  '../third_party/D-FINE/configs/dfine/custom/dfine_hgnetv2_s_custom.yml',
+]
+output_dir: ./runs/nb2/dfine_s
+
+num_classes: 1
+remap_mscoco_category: False
+
+train_dataloader:
+  total_batch_size: 16
+  num_workers: 4
+  dataset:
+    img_folder: /data/knhyun/KAMP/handoff/kamp_xray_v2
+    ann_file: /data/knhyun/KAMP/data/nb2/dfine_train.json
+    transforms:
+      ops:
+        - {type: RandomPhotometricDistort, p: 0.5}
+        - {type: RandomIoUCrop, p: 0.8}
+        - {type: SanitizeBoundingBoxes, min_size: 1}
+        - {type: RandomHorizontalFlip}
+        - {type: Resize, size: [640, 640], }
+        - {type: SanitizeBoundingBoxes, min_size: 1}
+        - {type: ConvertPILImage, dtype: 'float32', scale: True}
+        - {type: ConvertBoxes, fmt: 'cxcywh', normalize: True}
+      policy:
+        name: stop_epoch
+        epoch: 150
+        ops: ['RandomPhotometricDistort', 'RandomIoUCrop']
+  collate_fn:
+    stop_epoch: 150
+
+val_dataloader:
+  total_batch_size: 32
+  num_workers: 4
+  dataset:
+    img_folder: /data/knhyun/KAMP/handoff/kamp_xray_v2
+    ann_file: /data/knhyun/KAMP/data/nb2/dfine_val.json
+
+epochs: 160
+optimizer:
+  type: AdamW
+  params:
+    -
+      params: '^(?=.*backbone)(?!.*norm|bn).*$'
+      lr: 0.0001
+    -
+      params: '^(?=.*backbone)(?=.*norm|bn).*$'
+      lr: 0.0001
+      weight_decay: 0.
+    -
+      params: '^(?=.*(?:encoder|decoder))(?=.*(?:norm|bn|bias)).*$'
+      weight_decay: 0.
+  lr: 0.0002
+  betas: [0.9, 0.999]
+  weight_decay: 0.0001

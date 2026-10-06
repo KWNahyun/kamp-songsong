@@ -1,0 +1,2 @@
+model,stem,x,y,conf,dist_to_gt,machine,in_product,dist_prod_edge
+nb2/yolov8s_pidray_s2,002_20200629_082639(2),227.84152999999998,197.702405,0.40951258,25.870024362665834,1호기,True,68.0

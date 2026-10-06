@@ -1,0 +1,2 @@
+model,stem,x,y,conf,dist_to_gt,machine,in_product,dist_prod_edge
+nb2/yolov8s_scratch_s2,002_20200629_082639(2),227.719545,197.30003499999998,0.43204927,25.67227660353188,1호기,True,68.0
