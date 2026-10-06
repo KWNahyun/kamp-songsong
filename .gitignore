@@ -30,5 +30,3 @@ eval/**/stress_fp*.csv
 # 합성 학습 모델(tpB/tpC/tpCC/tpG/tpX) 결과: 팀 결정으로 합성은 평가 전용 → 넣지 않음 (archive/ 참고)
 eval/**/*_tp[A-Z]*
 
-# 10월 1일 판 PDF, REPORT.md 와 내용이 다름
-/REPORT.pdf

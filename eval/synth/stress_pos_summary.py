@@ -13,8 +13,7 @@ plt.rcParams.update({'font.family': 'Noto Sans CJK JP', 'axes.unicode_minus': Fa
 K = '/data/knhyun/KAMP'; S = f'{K}/eval/synth'; O = f'{K}/eval/out_nb2'
 NAME = {'': 'YOLOv3-SPP 416', 'yolov8s': 'YOLOv8s ② COCO', 'dfine_s': 'D-FINE-S ② COCO',
         'yolov8s_scratch': 'YOLOv8s ① 없음', 'yolov8s_pidray': 'YOLOv8s ③ PIDray', 'dfine_s_scratch': 'D-FINE-S ① 없음', 'dfine_s_pidray': 'D-FINE-S ③ PIDray',
-        'yolov8s_tpB': 'YOLOv8s + 옮겨 심기 B', 'yolov8s_tpC': 'YOLOv8s + 옮겨 심기 C', 'yolov8s_tpX': 'YOLOv8s + 학습량 대조',
-        'dfine_s_tpB': 'D-FINE-S + 옮겨 심기 B', 'dfine_s_tpC': 'D-FINE-S + 옮겨 심기 C'}
+}
 pd.set_option('display.width', 250)
 
 
@@ -26,7 +25,8 @@ def fit50(x, y):
 
 
 rows, feats, curves = [], [], {}
-for f in sorted(glob.glob(f'{S}/stress_pos_site*.csv')):
+FIG_MODELS = ['YOLOv3-SPP 416', 'YOLOv8s ② COCO', 'D-FINE-S ② COCO']   # 그림은 §4.5 표의 세 모델 (train 기증)
+for f in sorted(f for f in glob.glob(f'{S}/stress_pos_site*.csv') if '_tp' not in f):   # 합성 학습 모델(tp*)은 제외: 합성은 평가 전용 (팀 결정 2026-10-06)
     tag = os.path.basename(f)[len('stress_pos_site'):-4].lstrip('_'); hd = tag.endswith('hd'); base = tag[:-3] if tag.endswith('_hd') else ('' if tag == 'hd' else tag)
     n = NAME.get(base, base) + (' [val·test 기증]' if hd else '')
     D = pd.read_csv(f); D['hit'] = D.conf >= .25
@@ -62,7 +62,7 @@ print(Fe.pivot_table(index=['feature', 'bin'], columns='model', values='recall',
 if curves:
     fig, ax = plt.subplots(1, 1, figsize=(8.5, 5.2))
     cmap = plt.get_cmap('tab10')
-    for i, (n, (r, c)) in enumerate(curves.items()):
+    for i, (n, (r, c)) in enumerate((n, curves[n]) for n in FIG_MODELS if n in curves):
         ax.plot(r.index, r.values, 'o-', color=cmap(i % 10), lw=2, ms=4, label=f'{n} (무작위 자리)')
         ax.plot(c.index, c.values, 's--', color=cmap(i % 10), lw=1, ms=3, alpha=.6)
     ax.set_xlabel('광학 밀도 배율 k (1 = 실제 결함 농도)'); ax.set_ylabel('검출률 (신뢰도 ≥ 0.25)'); ax.set_ylim(0, 1.03); ax.grid(alpha=.3)
