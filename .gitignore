@@ -21,6 +21,7 @@ __pycache__/
 
 # 원시 검출·스트레스 결과 (스크립트로 다시 만들 수 있음)
 eval/**/*dets*.csv
+eval/**/preds_*.csv
 eval/**/*site*.csv
 eval/**/*.log
 eval/**/*per_defect*.csv
