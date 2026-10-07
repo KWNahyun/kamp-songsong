@@ -34,4 +34,5 @@ eval/**/*_tp[A-Z]*
 # Final-model package: data, checkpoints, generated outputs remain local
 /repro/.venv/
 /repro/checkpoints/*.pth
+!/repro/checkpoints/maluq_seed20260930.pth
 /repro/outputs/
