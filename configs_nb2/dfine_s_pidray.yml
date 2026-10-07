@@ -1,0 +1,49 @@
+# 사전학습 조건 ③ 1단계: D-FINE-S, COCO 사전학습 → PIDray 흑백 (외부 데이터, 학술 목적만, 12종) (-t weights/dfine_s_coco.pth)
+# 공식 custom 설정(dfine_hgnetv2_s_custom.yml)에서 바꾼 점:
+#  - 데이터: data/external/pidray_gray, category_id 0~11 로 바꾼 COCO json (data/nb2/dfine_pidray_*.json), num_classes 12
+#  - 배치 64 → 32, lr 은 공식 비율 유지하며 1/2. 증강은 공식 기본값 그대로 (물체가 커서 축소해도 사라지지 않음)
+#  - epoch 220 → 48 (증강 정지 44), iter 수 약 12,800 (KAMP 단계의 약 3.6배)
+__include__: [
+  '../third_party/D-FINE/configs/dfine/custom/dfine_hgnetv2_s_custom.yml',
+]
+output_dir: ./runs/nb2/pretrain_pidray_dfine_s
+
+num_classes: 12
+remap_mscoco_category: False
+
+train_dataloader:
+  total_batch_size: 32
+  num_workers: 6
+  dataset:
+    img_folder: /data/knhyun/KAMP/data/external/pidray_gray/images/train
+    ann_file: /data/knhyun/KAMP/data/nb2/dfine_pidray_train.json
+    transforms:
+      policy:
+        epoch: 44
+  collate_fn:
+    stop_epoch: 44
+
+val_dataloader:
+  total_batch_size: 64
+  num_workers: 4
+  dataset:
+    img_folder: /data/knhyun/KAMP/data/external/pidray_gray/images/val
+    ann_file: /data/knhyun/KAMP/data/nb2/dfine_pidray_val.json
+
+epochs: 48
+optimizer:
+  type: AdamW
+  params:
+    -
+      params: '^(?=.*backbone)(?!.*norm|bn).*$'
+      lr: 0.0001
+    -
+      params: '^(?=.*backbone)(?=.*norm|bn).*$'
+      lr: 0.0001
+      weight_decay: 0.
+    -
+      params: '^(?=.*(?:encoder|decoder))(?=.*(?:norm|bn|bias)).*$'
+      weight_decay: 0.
+  lr: 0.0002
+  betas: [0.9, 0.999]
+  weight_decay: 0.0001

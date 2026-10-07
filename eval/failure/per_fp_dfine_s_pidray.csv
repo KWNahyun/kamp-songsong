@@ -1,0 +1,2 @@
+model,stem,x,y,conf,dist_to_gt,machine,in_product,dist_prod_edge
+nb2/dfine_s_pidray_s1,001_20200629_082834(2),502.985,228.576635,0.5560138,146.2987770383718,3호기,True,45.393798828125

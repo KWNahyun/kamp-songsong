@@ -1,0 +1,6 @@
+# 사전학습 조건 ① (사전학습 없음): dfine_s_kamp.yml 과 같고, ImageNet backbone 자동 다운로드만 끔. -t 없이 학습
+__include__: [
+  './dfine_s_kamp.yml',
+]
+HGNetv2:
+  pretrained: False
