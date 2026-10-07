@@ -1,0 +1,128 @@
+{
+  "date_kst": "2026-10-07",
+  "overall_status": "frozen_inference_evaluation_complete_full_training_not_verified",
+  "source_repository": "https://github.com/KWNahyun/kamp-songsong",
+  "source_commit": "7dd38486dde36839708d77a387d8967efba766e3",
+  "dfine_commit": "956d1709314c2c6a4df6f34de232054578a7449f",
+  "validation_environment": {
+    "python": "3.13.5",
+    "torch": "2.10.0",
+    "torchvision": "0.25.0",
+    "device": "macOS CPU"
+  },
+  "checks_passed": [
+    "fixed_split_hash",
+    "all_500_image_label_coco_agreement",
+    "group_leakage",
+    "all_500_grayscale_uint8_decode",
+    "decoded_pixel_duplicates_between_splits",
+    "dependency_install_and_conflicts",
+    "prepare_train_val_640",
+    "training_config_and_dataloader",
+    "mal_forward_backward_on_two_real_train_images_untrained_model",
+    "uq_forward_backward_frozen_detector_identity_untrained_model",
+    "untrained_maluq_architecture_and_postprocessor",
+    "coco_evaluator_perfect_and_empty_fixture",
+    "python_shell_syntax",
+    "root_shell_runner_data_check",
+    "missing_checkpoint_failures",
+    "frozen_checkpoint_sha256",
+    "initialization_checkpoint_sha256",
+    "all_150_frozen_inference_and_evaluation",
+    "84_test_prediction_image_ids_hashes_bounding_boxes_csv_and_overlays",
+    "packaged_vs_upstream_cpu_exact_predictions",
+    "actual_initialization_mal_forward_backward",
+    "actual_representative_uq_forward_backward_frozen_detector_identity"
+  ],
+  "not_run": [
+    "full_three_seed_training",
+    "gpu_frozen_checkpoint_comparison",
+    "historical_baseline_pidray_synthesis_experiments"
+  ],
+  "missing_files": [],
+  "data_counts": {
+    "train": {
+      "images": 350,
+      "boxes": 797
+    },
+    "val": {
+      "images": 66,
+      "boxes": 144
+    },
+    "test": {
+      "images": 84,
+      "boxes": 206
+    }
+  },
+  "final_model_conflict": "upstream README: MAL+UQ; upstream REPORT section 5: YOLOv8s seed 1",
+  "data_source": "existing local manufacturing-data team handoff kamp_xray_v2; original files read only",
+  "new_files": [
+    "requirements.txt",
+    "run_all.py",
+    "repro/scripts/audit_dataset.py",
+    "docs/EXPERIMENT_SCOPE.md",
+    "docs/UPSTREAM_README.md",
+    "predictions/STATUS.md",
+    "REVIEW_REPORT.md"
+  ],
+  "automatic_approval_rejection": {
+    "action": "copy dataset, source and weights to ailab5090-jeongwon",
+    "reason": "explicit user authorization to export this payload to this destination missing"
+  },
+  "actual_validation_metrics": {
+    "AP": 38.72851832282536,
+    "AP50": 97.86303630363037,
+    "AP75": 18.22549493920374,
+    "TP": 142,
+    "FP": 8,
+    "FN": 2,
+    "GT": 144,
+    "images": 66,
+    "recall": 0.9861111111111112,
+    "FP_per_image": 0.12121212121212122,
+    "positive_images": 66,
+    "positive_alarm_images": 66,
+    "threshold": 0.19337229430675507,
+    "normal_specificity": null,
+    "threshold_optimized": false
+  },
+  "actual_test_metrics": {
+    "AP": 38.55465015227687,
+    "AP50": 94.45480972250748,
+    "AP75": 15.045461511387655,
+    "TP": 197,
+    "FP": 16,
+    "FN": 9,
+    "GT": 206,
+    "images": 84,
+    "recall": 0.9563106796116505,
+    "FP_per_image": 0.19047619047619047,
+    "positive_images": 84,
+    "positive_alarm_images": 84,
+    "threshold": 0.19337229430675507,
+    "normal_specificity": null,
+    "threshold_optimized": false
+  },
+  "frozen_runtime": {
+    "mode": "predict",
+    "seconds": 19.945722818374634,
+    "device": "cpu",
+    "torch": "2.10.0",
+    "seeds": [
+      20260930
+    ],
+    "scope": "MAL+UQ final-model path; historical baseline and synthesis experiments are separate",
+    "threshold": 0.19337229430675507,
+    "threshold_optimized_on_test": false
+  },
+  "representative_sha256": "ddbdbc3638e661003b49922832edb84a44c8d0b95e30d33906ff4cae984c6461",
+  "initialization_sha256": "0ac6124d45341889b9999b2294540cc6105add3679fe6182ea692c9e6917f531",
+  "validation_ap_reference": 39.27580797691046,
+  "validation_ap_difference": -0.5472896540850982,
+  "upstream_comparison": {
+    "source_commit": "7dd38486dde36839708d77a387d8967efba766e3",
+    "comparison": "original GitHub predict.py with CUDA calls mechanically changed to CPU vs packaged predict.py CPU",
+    "predictions_exactly_equal": true,
+    "validation_candidate_count": 13300
+  }
+}

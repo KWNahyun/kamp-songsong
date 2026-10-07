@@ -28,3 +28,11 @@ Dependencies: environment/requirements.lock.txt is a historical full environment
 including Ultralytics used for baseline comparisons. It is not a minimal D-FINE-only list.
 Dependency packages and their license texts are not bundled as vendor source.
 No blanket license is assigned to the team-created package or to KAMP data by this file.
+
+Packaging review, 2026-10-07:
+D-FINE submodule is expanded into real source files in this ZIP at the recorded commit.
+licenses/D_FINE_LICENSE was copied from that checkout.
+licenses/DEIM_LICENSE was retrieved from Intellindust-AI-Lab/DEIM/LICENSE
+(GitHub redirects the old ShihuaHuang95/DEIM repository there),
+blob SHA: 1fae0a691f08b2abcf738bf12e47b2218f8c5679.
+This does not recover the unrecorded historical MAL reference source commit.

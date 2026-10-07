@@ -1,0 +1,3 @@
+building train_dataloader with batch_size=2...
+REAL CHECKPOINT LOADED dfine_s_coco_init.pth
+MAL FORWARD/BACKWARD PASSED 34.05424499511719

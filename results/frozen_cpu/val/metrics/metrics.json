@@ -1,0 +1,17 @@
+{
+  "AP": 38.72851832282536,
+  "AP50": 97.86303630363037,
+  "AP75": 18.22549493920374,
+  "TP": 142,
+  "FP": 8,
+  "FN": 2,
+  "GT": 144,
+  "images": 66,
+  "recall": 0.9861111111111112,
+  "FP_per_image": 0.12121212121212122,
+  "positive_images": 66,
+  "positive_alarm_images": 66,
+  "threshold": 0.19337229430675507,
+  "normal_specificity": null,
+  "threshold_optimized": false
+}

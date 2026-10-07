@@ -1,0 +1,2 @@
+# Python 3.13; CPU/CUDA torch installation is described in README.md.
+-r repro/requirements.txt

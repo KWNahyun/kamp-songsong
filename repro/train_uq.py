@@ -22,6 +22,9 @@ def main(mode: str, seed: int, base: str, smoke: bool = False) -> None:
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
+    device = torch.device(arguments.device)
+    if device.type == "cuda" and not torch.cuda.is_available():
+        raise RuntimeError("CUDA is unavailable")
     torch.cuda.manual_seed_all(seed)
 
     from selector_patch import _max_iou_target, install_model
@@ -29,11 +32,8 @@ def main(mode: str, seed: int, base: str, smoke: bool = False) -> None:
     install_model(mode)
     from src.core import YAMLConfig
 
-    config_name = "dfine_UQ_seed20260929.yml" if mode == "unary" else "dfine_RQS_seed20260929.yml"
     config = YAMLConfig(str(arguments.config.resolve()))
-    model = config.model.cuda()
-    parent = 'kamp_v2_baselines' if base == 'base' else 'kamp_v2_mal'
-    base_name = 'dfine_s' if base == 'base' else 'dfine_M'
+    model = config.model.to(device)
     control_path = arguments.base_checkpoint.resolve()
     control = torch.load(control_path, map_location="cpu", weights_only=False)
     control_state = control["ema"]["module"] if "ema" in control else control["model"]
@@ -63,10 +63,10 @@ def main(mode: str, seed: int, base: str, smoke: bool = False) -> None:
         epoch_losses = []
         for batch_index, (samples, targets) in enumerate(train_loader):
             if smoke and batch_index >= 2: break
-            samples = samples.cuda(non_blocking=True)
+            samples = samples.to(device, non_blocking=True)
             targets = [
                 {
-                    key: value.cuda(non_blocking=True) if torch.is_tensor(value) else value
+                    key: value.to(device, non_blocking=True) if torch.is_tensor(value) else value
                     for key, value in target.items()
                 }
                 for target in targets
@@ -140,5 +140,6 @@ if __name__ == "__main__":
     parser.add_argument("--seed", type=int, default=20260929)
     parser.add_argument("--base", choices=["mal"], default="mal")
     parser.add_argument("--smoke", action="store_true")
+    parser.add_argument("--device", default="cuda:0")
     arguments = parser.parse_args()
     main(arguments.mode, arguments.seed, arguments.base, arguments.smoke)
