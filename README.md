@@ -6,7 +6,7 @@ KAMP 제6회 경진대회 ④번, **X-ray 영상 기반 완제품 이물질 탐�
 
 ## 빠른 시작: 고정 최종 모델 추론과 평가
 
-아래는 대회 결과를 재현하는 가장 짧은 경로입니다. 대표 모델 가중치 `repro/checkpoints/maluq_seed20260930.pth`는 저장소에 포함되어 있다. KAMP 원본 데이터와 마커 제거 입력 영상은 대회 제공 조건에 따라 별도로 준비한다.
+아래는 대회 결과를 재현하는 가장 짧은 경로입니다. 대표 모델 가중치 `repro/checkpoints/maluq_seed20260930.pth`와 MAL 재학습 초기화 가중치 `repro/checkpoints/dfine_s_coco_init.pth`는 저장소에 포함되어 있다. KAMP 원본 데이터와 마커 제거 입력 영상은 대회 제공 조건에 따라 별도로 준비한다.
 
 ```bash
 # 1) 저장소와 Python 환경 준비
@@ -93,7 +93,7 @@ MAL은 D-FINE의 기존 matching을 유지하면서 DEIM의 Matchability-Aware L
 ## 재현성 범위
 
 - 고정 대표 가중치의 추론·평가 경로는 마커 제거 입력과 지정한 설정에서 재현하도록 구성했습니다.
-- 대표 checkpoint는 저장소에 포함한다. KAMP 데이터, 원본 BMP, 합성 이미지와 중간 산출물은 공개 권한을 확인하지 못했으므로 저장소에 포함하지 않는다.
+- 대표 checkpoint와 MAL 재학습 초기화 checkpoint는 저장소에 포함한다. KAMP 데이터, 원본 BMP, 합성 이미지와 중간 산출물은 공개 권한을 확인하지 못했으므로 저장소에 포함하지 않는다.
 - D-FINE은 Apache-2.0, DEIM/MAL은 해당 upstream 고지에 따라 출처를 기록했습니다. 자세한 사항은 [`repro/THIRD_PARTY_NOTICES.txt`](repro/THIRD_PARTY_NOTICES.txt)를 참고하세요.
 - GPU, CUDA, torch 버전은 `repro/environment/`에 기록했습니다. 전체 학습은 CUDA 연산 특성상 bitwise 동일성을 보장하지 않으므로 seed 3회 평균과 표준편차로 비교합니다.
 

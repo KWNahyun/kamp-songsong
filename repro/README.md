@@ -1,6 +1,6 @@
 # 최종 MAL+UQ 재현 패키지
 
-`repro/`는 대표 모델 **D-FINE-S + MAL + UQ + NMS(0.7)** 의 추론, 공식 COCO 평가, 그리고 MAL/UQ 재학습 경로를 담는다. 데이터와 가중치는 KAMP 제공 조건 및 팀 내 공유 권한에 따라 별도로 배치한다.
+`repro/`는 대표 모델 **D-FINE-S + MAL + UQ + NMS(0.7)** 의 추론, 공식 COCO 평가, 그리고 MAL/UQ 재학습 경로를 담는다. 대표 추론 가중치와 MAL 재학습 초기화 가중치는 `checkpoints/`에 포함되어 있으며, KAMP 데이터만 별도로 준비한다.
 
 ## 준비
 
@@ -15,7 +15,7 @@
 ## 입력과 가중치
 
 - 입력은 마커 제거 이미지로 구성한 `kamp_xray_v2` 패키지다.
-- 대표 가중치는 `checkpoints/README.md`에 적힌 파일명과 SHA-256을 확인해 `repro/checkpoints/`에 둔다.
+- 대표 가중치와 MAL 재학습 초기화 가중치는 `repro/checkpoints/`에 포함되어 있다. 파일명과 SHA-256은 `checkpoints/README.md`에서 확인할 수 있다.
 - `manifests/split_manifest.csv`와 `manifests/model.json`에는 고정 split, 이미지 크기, NMS IoU, box scale, 검증 operating point가 기록돼 있다.
 
 ## 고정 모델 평가

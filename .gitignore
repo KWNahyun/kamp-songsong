@@ -35,4 +35,5 @@ eval/**/*_tp[A-Z]*
 /repro/.venv/
 /repro/checkpoints/*.pth
 !/repro/checkpoints/maluq_seed20260930.pth
+!/repro/checkpoints/dfine_s_coco_init.pth
 /repro/outputs/
