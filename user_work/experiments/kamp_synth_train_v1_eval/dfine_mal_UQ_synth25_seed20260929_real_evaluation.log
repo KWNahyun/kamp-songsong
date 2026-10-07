@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/home/viplab/contest/experiments/kamp_synth_train_v1_eval/evaluate_real.py", line 132, in <module>
+    main()
+    ~~~~^^
+  File "/home/viplab/contest/experiments/kamp_synth_train_v1_eval/evaluate_real.py", line 124, in main
+    ground_truth, predictions = predict(job, split)
+                                ~~~~~~~^^^^^^^^^^^^
+  File "/home/viplab/contest/experiments/kamp_synth_train_v1_eval/evaluate_real.py", line 51, in predict
+    model, config = load_model(job)
+                    ~~~~~~~~~~^^^^^
+  File "/home/viplab/contest/experiments/kamp_synth_train_v1_eval/evaluate_real.py", line 31, in load_model
+    install_model("unary")
+    ~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/viplab/contest/experiments/kamp_v2_uq/selector_patch.py", line 162, in install_model
+    raise RuntimeError("Install relative selector only once per process")
+RuntimeError: Install relative selector only once per process

@@ -1,0 +1,69 @@
+{
+  "status": "finished",
+  "started": "2026-10-01T13:09:48.378574+00:00",
+  "test_used": false,
+  "jobs": [
+    {
+      "name": "dfine_base_UQ_seed20260929",
+      "base": "base",
+      "seed": 20260929,
+      "status": "trained",
+      "started": "2026-10-01T13:09:48.406380+00:00",
+      "pid": 1970341,
+      "finished": "2026-10-01T13:11:26.246818+00:00",
+      "returncode": 0
+    },
+    {
+      "name": "dfine_mal_UQ_seed20260929",
+      "base": "mal",
+      "seed": 20260929,
+      "status": "trained",
+      "started": "2026-10-01T13:11:26.266321+00:00",
+      "pid": 1971753,
+      "finished": "2026-10-01T13:13:03.173629+00:00",
+      "returncode": 0
+    },
+    {
+      "name": "dfine_base_UQ_seed20260930",
+      "base": "base",
+      "seed": 20260930,
+      "status": "trained",
+      "started": "2026-10-01T13:13:03.194076+00:00",
+      "pid": 1973112,
+      "finished": "2026-10-01T13:14:40.638342+00:00",
+      "returncode": 0
+    },
+    {
+      "name": "dfine_mal_UQ_seed20260930",
+      "base": "mal",
+      "seed": 20260930,
+      "status": "trained",
+      "started": "2026-10-01T13:14:40.656193+00:00",
+      "pid": 1974473,
+      "finished": "2026-10-01T13:16:19.121200+00:00",
+      "returncode": 0
+    },
+    {
+      "name": "dfine_base_UQ_seed20261001",
+      "base": "base",
+      "seed": 20261001,
+      "status": "trained",
+      "started": "2026-10-01T13:16:19.141240+00:00",
+      "pid": 1975863,
+      "finished": "2026-10-01T13:17:56.295686+00:00",
+      "returncode": 0
+    },
+    {
+      "name": "dfine_mal_UQ_seed20261001",
+      "base": "mal",
+      "seed": 20261001,
+      "status": "trained",
+      "started": "2026-10-01T13:17:56.313319+00:00",
+      "pid": 1977224,
+      "finished": "2026-10-01T13:19:31.451877+00:00",
+      "returncode": 0
+    }
+  ],
+  "pid": 1970336,
+  "finished": "2026-10-01T13:19:31.452159+00:00"
+}

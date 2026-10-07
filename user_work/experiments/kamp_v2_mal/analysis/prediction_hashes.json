@@ -1,0 +1,26 @@
+[
+  {
+    "run": "dfine_s_seed20260929",
+    "predictions_sha256": "16eee9dd8843c067845c0208df32dbf66ed881c495e5b95e8694ea7259a58352"
+  },
+  {
+    "run": "dfine_s_seed20260930",
+    "predictions_sha256": "fe5cb4bea15b62ce0124f72cb05696a25a4b5297efcb41ef47d8fb45989b5a31"
+  },
+  {
+    "run": "dfine_s_seed20261001",
+    "predictions_sha256": "a498729579cc7d5e2db8e36e300d945ba95bed93ac73fd420de81ca686fe3bcf"
+  },
+  {
+    "run": "dfine_M_seed20260929",
+    "predictions_sha256": "61a42e007bd3980e6d64d53da89f3bd1d8a342d8150e60e25a74090541cd4e9a"
+  },
+  {
+    "run": "dfine_M_seed20260930",
+    "predictions_sha256": "b0181eb17b128850c780b99c2eed44f3c95da24b682e461f206683cf6af832d3"
+  },
+  {
+    "run": "dfine_M_seed20261001",
+    "predictions_sha256": "5f63c4890b27c66d3ef805f927aa18811dfda001821340a84a854bc7925ec96a"
+  }
+]

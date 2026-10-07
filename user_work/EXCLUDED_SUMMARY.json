@@ -1,0 +1,8 @@
+{
+  "large_artifact_over_5MiB": 85,
+  "weights_cache_or_other_binary": 464319,
+  "symlink": 840,
+  "external_dataset_image": 257,
+  "machine_or_auth_related": 1,
+  "third_party_source_document": 27
+}

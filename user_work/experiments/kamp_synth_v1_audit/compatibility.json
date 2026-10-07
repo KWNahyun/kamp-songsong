@@ -1,0 +1,10 @@
+{
+  "input_compatible": true,
+  "all_images_validated": 12750,
+  "prediction_adapter_needed": "JSON file_name,bbox xywh,score -> CSV image_id,x1,y1,x2,y2,conf",
+  "provided_metric": "many-to-many center proximity / evaluation-region hit, not IoU AP",
+  "erased_is_real_normal": false,
+  "positive_images_identical_to_erased": 47,
+  "inference_executed": false,
+  "generation_code_in_archive": false
+}

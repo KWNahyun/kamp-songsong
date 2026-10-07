@@ -1,0 +1,7 @@
+﻿name,variant,seed,no50,between50and75,good75_bad_leader,good75_good_leader,multiple50_score05,nms_lost75_at001,topk_missing50_recovered_final,layer2_good75_same_query_lost,layer2_good75_all_final_lost
+dfine_M_seed20260929,M,20260929,6,73,8,55,73,33,0,3,3
+dfine_M_seed20260930,M,20260930,3,68,22,49,115,41,84,12,5
+dfine_M_seed20261001,M,20261001,3,78,14,47,131,41,0,2,1
+dfine_s,dfine_s,20260929,3,76,13,50,119,35,92,24,13
+dfine_s_seed20260930,dfine_s,20260930,3,53,45,41,137,43,118,12,4
+dfine_s_seed20261001,dfine_s,20261001,6,59,29,48,131,31,104,19,10

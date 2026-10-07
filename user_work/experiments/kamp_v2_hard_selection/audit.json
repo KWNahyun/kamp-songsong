@@ -1,0 +1,44 @@
+[
+  {
+    "base": "base",
+    "seed": 20260929,
+    "train_images_with_hard_pairs": 349,
+    "train_hard_pairs": 19756,
+    "test_used": false
+  },
+  {
+    "base": "base",
+    "seed": 20260930,
+    "train_images_with_hard_pairs": 347,
+    "train_hard_pairs": 21679,
+    "test_used": false
+  },
+  {
+    "base": "base",
+    "seed": 20261001,
+    "train_images_with_hard_pairs": 349,
+    "train_hard_pairs": 20399,
+    "test_used": false
+  },
+  {
+    "base": "mal",
+    "seed": 20260929,
+    "train_images_with_hard_pairs": 350,
+    "train_hard_pairs": 20497,
+    "test_used": false
+  },
+  {
+    "base": "mal",
+    "seed": 20260930,
+    "train_images_with_hard_pairs": 349,
+    "train_hard_pairs": 21067,
+    "test_used": false
+  },
+  {
+    "base": "mal",
+    "seed": 20261001,
+    "train_images_with_hard_pairs": 350,
+    "train_hard_pairs": 19435,
+    "test_used": false
+  }
+]

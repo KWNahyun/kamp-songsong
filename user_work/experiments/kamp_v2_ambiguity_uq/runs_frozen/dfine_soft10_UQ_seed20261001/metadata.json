@@ -1,0 +1,15 @@
+{
+  "run": "dfine_soft10_UQ_seed20261001",
+  "mode": "unary",
+  "seed": 20261001,
+  "epochs": 30,
+  "base_bitwise_identical": true,
+  "base_kind": "soft10",
+  "base_checkpoint": "/home/viplab/contest/experiments/kamp_v2_ambiguity/runs/soft10_seed20261001/best_stg1.pth",
+  "base_frozen": true,
+  "selector_parameters": 62007,
+  "train_images": 350,
+  "validation_used_for_training_or_selection": false,
+  "test_used": false,
+  "wall_seconds": 180.69601559638977
+}

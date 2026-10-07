@@ -1,0 +1,1640 @@
+                                                                                                                                                                                                   1
+
+
+
+
+                                                              Frequency-aware Feature Fusion for
+                                                                   Dense Image Prediction
+                                             Linwei Chen, Ying Fu, Senior Member, IEEE, Lin Gu, Chenggang Yan,Tatsuya Harada, Member, IEEE,
+                                                                             and Gao Huang, Member, IEEE,
+
+                                                Abstract—Dense image prediction tasks demand features with strong category information and precise spatial boundary details at
+                                                high resolution. To achieve this, modern hierarchical models often utilize feature fusion, directly adding upsampled coarse features
+                                                from deep layers and high-resolution features from lower levels. In this paper, we observe rapid variations in fused feature values within
+                                                objects, resulting in intra-category inconsistency due to disturbed high-frequency features. Additionally, blurred boundaries in fused
+arXiv:2408.12879v1 [cs.CV] 23 Aug 2024
+
+
+
+
+                                                features lack accurate high frequency, leading to boundary displacement. Building upon these observations, we propose
+                                                Frequency-Aware Feature Fusion (FreqFusion), integrating an Adaptive Low-Pass Filter (ALPF) generator, an offset generator, and an
+                                                Adaptive High-Pass Filter (AHPF) generator. The ALPF generator predicts spatially-variant low-pass filters to attenuate high-frequency
+                                                components within objects, reducing intra-class inconsistency during upsampling. The offset generator refines large inconsistent
+                                                features and thin boundaries by replacing inconsistent features with more consistent ones through resampling, while the AHPF
+                                                generator enhances high-frequency detailed boundary information lost during downsampling. Comprehensive visualization and
+                                                quantitative analysis demonstrate that FreqFusion effectively improves feature consistency and sharpens object boundaries. Extensive
+                                                experiments across various dense prediction tasks confirm its effectiveness. The code is made publicly available at
+                                                https://github.com/ying-fu/FreqFusion.
+
+                                                Index Terms—feature fusion, feature upsampling, dense prediction, semantic segmentation, object detection, instance segmentation,
+                                                panoptic segmentation.
+
+                                                                                                                            ✦
+
+                                         1     I NTRODUCTION
+
+
+                                         D     ENSE image prediction encompasses various computer vi-
+                                               sion tasks that involve labeling each pixel in an image with a
+                                         predefined class. These tasks include object detection [1], semantic
+                                                                                                                                details [15], [19], [20]. During standard feature fusion, coarse
+                                                                                                                                features are simply upsampled via nearest neighbor or bilinear
+                                                                                                                                interpolation and then added or concatenated with high-resolution
+                                         segmentation [2], [3], instance segmentation [4], and panoptic                         features.
+                                         segmentation [5]. They are crucial for scene understanding and                              Nonetheless, standard feature fusion exhibits two issues that
+                                         are important for real-world applications such as autonomous                           significantly impact dense prediction, namely, intra-category in-
+                                         driving [6], [7], medical imaging [8], [9], and robotics [10]. These                   consistency and boundary displacement, as illustrated in Figure 1.
+                                         tasks require robust category information for object classification                    One main reason for intra-class inconsistency arises from the
+                                         and detailed spatial boundary information for object location.                         substantial differences between various parts of the same ob-
+                                             Modern models [12]–[14] typically use a hierarchical design                        ject [21]. For instance, the wheel of a car may exhibit more
+                                         with multiple downsampling operations to progressively reduce                          texture and darkness, while the car window appears smooth and
+                                         feature size. This process often results in the loss of detailed                       shiny. But standard feature fusion [16] falls short in addressing
+                                         boundary information, which is essential for precise dense pixel-                      these inconsistent features. Instead, simple bilinear upsampling,
+                                         wise predictions. To solve this, feature fusion [15] is widely                         commonly employed in it, may worsen the problem by upsampling
+                                         used [2], [9], [16]–[18] to combine higher-level coarse features                       a single inconsistent feature to multiple pixels, exacerbating intra-
+                                         from deep layers with lower-level but high-resolution features.                        category inconsistency. Additionally, prior studies [22], [23] have
+                                         Empirically, higher-level features tend to carry more category                         observed that simple interpolation often overly smooths features,
+                                         information, while lower-level features provide more boundary                          resulting in boundary displacement.
+                                                                                                                                     To quantify these problems, we employ feature similarity
+                                                                                                                                analysis, as illustrated in Figure 2. Intra-category inconsistency
+                                         •    Linwei Chen and Ying Fu are with MIIT Key Laboratory of Complex-
+                                              field Intelligent Sensing, Beijing Institute of Technology, Beijing, China,       can be assessed through intra-category similarity, which measures
+                                              and School of Computer Science and Technology, Beijing Institute of               the similarity between the feature vector and the category-wise
+                                              Technology, Beijing, China.                                                       averaged feature, i.e., category center [24]. Similarly, we can
+                                         •    Lin Gu is with RIKEN AIP, Tokyo, Japan, and RCAST, The University of
+                                              Tokyo, Tokyo, Japan.
+                                                                                                                                evaluate inter-class similarity, allowing us to calculate the simi-
+                                         •    Chenggang Yan is with the School of Automation at Hangzhou Dianzi                 larity margin. The boundary displacement can be characterized by
+                                              University, Hangzhou, China.                                                      low intra-category similarity and similarity margin of boundary
+                                         •    Tatsuya Harada is with the Research Center for Advanced Science and               areas. As illustrated in Figure 1, the inconsistent features in the
+                                              Technology, The University of Tokyo, Tokyo, Japan and RIKEN AIP, Tokyo,
+                                              Japan.                                                                            interior bus and truck exhibit low intra-category similarity, and
+                                         •    Gao Huang is with Department of Automation, Tsinghua University,                  the boundaries also manifest low and diminishing intra-category
+                                              Beijing, China.                                                                   similarity. Given that the classification score is determined by
+                                         B Corresponding author: Ying Fu (fuying@bit.edu.cn)                                    computing the similarity between learned category-aware fixed
+                                                                                                                                                                     2
+
+                                                                                                  category similarity with nearby features exhibiting high intra-
+                                                                                                  category similarity, thereby refining both the interior and bound-
+                                                                                                  aries. The AHPF generator extracts high-frequency details from
+Feature IntraSim
+
+
+
+
+                                                                                                  lower-level features that cannot be recovered after downsampling,
+                                                                                                  resulting in more accurate boundary delineation. These three
+                                                                                                  components work collaboratively to recover fused features with
+                                                                                                  consistent category information and sharp boundaries.
+                                                                                                       Specifically, the ALPF generator applies low-pass filters to
+                                                                                                  smooth and upsample coarse high-level features, thereby reduc-
+                                                                                                  ing the disparity between pixel values and minimizing feature
+                                                                                                  inconsistency. To prevent blurring at boundaries, inspired by [26],
+                                                                                                  it predicts spatially variant low-pass filters for each upsampled
+                                                                                                  feature coordinate instead of using the fixed kernel in the con-
+                                                                                                  ventional interpolation [27]. Through feature similarity analysis,
+                                                                                                  we reveal that smooth features with spatial-variant low-pass fil-
+Prediction
+
+
+
+
+                                                                                                  ters can largely reduce overall feature inconsistency. It increases
+                                                                                                  intra-category similarity and leads to a higher similarity margin,
+                                                                                                  thereby enhancing the consistency and discriminative nature of the
+                                                                                                  features. Consequently, it benefits dense prediction tasks.
+                                                                                                       While the use of smooth features with the ALPF generator
+                    Standard fusion   FreqFusion (Ours)   Standard fusion   FreqFusion (Ours)     increases overall intra-category similarity, it may not excel in
+                                                                                                  rectifying large areas of inconsistent features or fine boundaries.
+      Fig. 1. Feature intra-category similarity (IntraSim) and prediction visu-
+      alization. The brighter color indicates a higher IntraSim for the bus (left                 Expanding the size of low-pass filters is beneficial for addressing
+      two columns) and truck (right two columns). The standard feature fusion                     large areas of inconsistent features but can be detrimental to
+      demonstrates low IntraSim within objects and at their boundaries. We                        thin and boundary areas. Conversely, reducing the size of low-
+      observe rapid changes or variations in feature values within objects, i.e.,
+      disturbed high-frequency features leading to relatively low intra-category
+                                                                                                  pass filters benefits thin and boundary areas but hinders the
+      similarity [11] and resulting in intra-category inconsistency. Furthermore,                 correction of large areas with inconsistent features To address this
+      the blurred boundary lacks accurate high frequency, leading to boundary                     contradiction, we introduce the offset generator. It is motivated
+      displacement. The proposed FreqFusion shows more consistent fea-                            by the observation that low intra-category similarity features often
+      tures and clear boundaries, contributing to more consistent prediction
+      with finer boundaries.                                                                      have neighbors with high intra-category similarity, as shown in
+                                                                                                  Figure 1. The offset generator first calculates local similarity
+                                       average                                                    and then predicts an offset in the direction of high similarity
+                   Ground truth                                 Intra-category
+                                        bus category center                                       for resampling. This approach allows for resampling features
+                                                                   similarity
+                                                                                     Similarity   with high intra-category similarity to replace features with low
+                                                                                 ⊖
+                                                                                      margin      intra-category similarity. Thus, the offset generator can rectify
+                                              feature vector Inter-category
+                                      average                   similarity                        inconsistent features in both large areas and thin boundary regions.
+                                                                                                       Although the ALPF generator and offset generator effectively
+                     Feature map          car category center                                     recover upsampled high-level features with high intra-class con-
+                                                                                                  sistency and refined boundaries, the detailed boundary information
+      Fig. 2. Illustration of intra-category similarity, inter-category similarity,
+      and similarity margin. Different colors indicate different categories.                      in lower-level features lost during downsampling cannot be fully
+                                                                                                  restored in high-level features. According to the Nyquist-Shannon
+                                                                                                  Sampling Theorem [28], [29], frequencies higher than the Nyquist
+      weights and features [25], features with low intra-class similarity                         frequency, which is equivalent to half of the sampling rate, are
+      and low similarity margin lead to low classification scores for the                         permanently lost during downsampling. For instance, frequencies
+      corresponding category and result in misclassifications.                                    above 14 become aliased during a 2× downsampling operation
+           In this paper, we observe the presence of rapid changes or                             (e.g., a 1×1 convolution layer with a stride of 2 has a sampling
+      variations in feature values within the object, i.e., disturbed high-                       rate of 21 ). To address this limitation, we introduce the AHPF
+      frequency in the feature leads to low intra-category similarity [11],                       generator, which extracts detailed boundary information by pre-
+      resulting in intra-category inconsistency. Furthermore, the blurred                         dicting and applying spatially variant high-pass filters to low-level
+      boundary exhibits a lack of accurate high frequency, leading to                             features, thereby enhancing the high-frequency power above the
+      boundary displacement, as shown in Figure 1.                                                Nyquist frequency and sharping the boundary. Frequency analysis
+           Building upon these observations, we propose frequency-                                demonstrates an improvement in high-frequency power, resulting
+      aware feature fusion (FreqFusion), a method designed to enhance                             in finer visualized dense prediction results.
+      features during the process of feature fusion. FreqFusion consists                               Qualitative results showcase the effectiveness of FreqFusion in
+      of three key components: Adaptive Low-Pass Filter (ALPF) gen-                               recovering high-resolution features with discriminative category
+      erator, offset generator, and Adaptive High-Pass Filter (AHPF)                              information and clear boundaries. Quantitative analysis reveals
+      generator. The ALPF generator predicts spatially-variant low-pass                           significant improvements in intra-category similarity and similar-
+      filters, aiming to reduce intra-class inconsistency by attenuating                          ity margin. This, in turn, leads to substantial performance enhance-
+      high-frequency components within objects and smoothing the                                  ments across various tasks, including semantic segmentation, ob-
+      features during upsampling. The offset generator predicts offsets                           ject detection, instance segmentation, and panoptic segmentation,
+      to resample feature pixels and replaces features with low intra-                            outperforming previous state-of-the-art methods. Specifically, 1)
+                                                                                                                                             3
+
+for semantic segmentation, FreqFusion enhances SegFormer-                 prediction tasks, including instance segmentation and panoptic
+B1 [30] and SegNeXt-T [31] by 2.8 and 2.0 mIoU, respectively.             segmentation.
+It achieves a gain of +1.4/0.7 mIoU for Heavy Mask2Former-                    Different from image processing or generation tasks [44]–[55],
+Swin-B/L [32] on the Challenging ADE20K dataset [33]. 2) for              in these representative architectures for dense prediction, feature
+object detection, FreqFusion boosts AP by 1.8 with Faster R-              fusion is an essential component. This is because most backbone
+CNN-R50 [1] on MS COCO [34]; 3) for instance segmentation,                architectures involve multiple downsampling stages [13], [14],
+FreqFusion improves the performance of Mask R-CNN-R50 [4]                 [56], while the expected output often requires high-resolution
+by 1.7 box AP and 1.3 mask AP on MS COCO [1]; 4) for                      information for accurate object classification and detailed spatial
+Panoptic Segmentation, FreqFusion outperforms other upsamplers            boundaries for precise object localization. Feature fusion offers a
+by significant margins, achieves a 1.9 PQ improvement with                simple solution by combining low-level, high-resolution features
+Panoptic FPN-R50 [18] on MS COCO [1].                                     with coarse, high-level features. In this work, we further propose
+    Our main contributions can be summarized as follows:                  an effective feature fusion method named FreqFusion, to obtain
+      •    We identify two significant issues present in widely-used      high-quality fused features with consistent category informa-
+           standard feature fusion techniques: intra-category incon-      tion and clear boundaries. The proposed FreqFusion seamlessly
+           sistency and boundary displacement. We also introduce          integrates with state-of-the-art architectures, from CNNs (e.g.,
+           feature similarity analysis to quantitatively measure these    SegNeXt [31]) to Transformers (e.g., SegFormer [30]), providing
+           issues, which not only contributes to the development of       a performance boost with minimal additional parameters and
+           new feature fusion methods but also has the potential to       computational cost.
+           inspire advancements in related areas and beyond.                  We select a few representative models as baselines in different
+      •    We propose FreqFusion, which addresses category incon-         tasks, including SegNeXt [31], SegFormer [30], and Mask2Former
+           sistency and boundary displacement by adaptively smooth-       for semantic segmentation, Faster R-CNN for object detection,
+           ing the high-level feature with spatial-variant low-pass       Mask R-CNN [4] for instance segmentation, Panoptic FPN [5]
+           filters, resampling nearby category-consistent features to     for panoptic segmentation). We demonstrate how FreqFusion is
+           replace inconsistent features in the high-level feature, and   applied to these tasks and how it improves upon these baselines.
+           enhancing the high frequency of lower-level features.
+      •    Qualitative and quantitative results demonstrate that Fre-
+                                                                          2.2   Feature Fusion and Aggregation.
+           qFusion increases intra-category similarity and similarity
+           margin, leading to a consistent and considerable improve-      Feature fusion is a process to fuse lower-level high-resolution
+           ment across various tasks, including semantic segmenta-        features and higher-level coarse features to obtain details and
+           tion, object detection, instance segmentation, and panoptic    semantic information [15]. While feature aggregation aggregates
+           segmentation.                                                  features from different network stages, i.e., it consists of a series
+    The paper is structured as follows: Section 2 introduces related      of feature fusion operations.
+work. Section 3 describes the similarity metric for analysis. Sec-            There are two most common feature aggregation architectures,
+tion 4 presents the proposed method, accompanied by extensive             one is top-down, e.g., SegNet [41], U-Net [9], RefineNet [57], and
+visual and quantitative feature analysis results demonstrating its        DeepLabv3+ [3], which fuse features from low resolution to high
+effectiveness in addressing feature inconsistency and boundary            resolution. The other is bottom-up, e.g., FRRN [58], DLA [59],
+displacement. Section 5 showcases experimental results. Section 6         and SeENet [60], which aggregate features from high resolution to
+outlines the significant differences between the proposed method          low resolution. Owing to the gap between resolution and semantic
+and previous approaches. Finally, Section 7 summarizes the paper.         levels, a simple fusion strategy is less effective [15].
+                                                                              Next, we introduce recent methods to improve feature fusion,
+                                                                          which can be categorized into two types: 1) kernel-based, and 2)
+                                                                          sampling-based.
+2     R ELATED W ORK
+                                                                          Kernel-based. To fuse low and high-resolution features, feature
+We begin by reviewing dense prediction tasks and techniques
+                                                                          upsampling is needed to upscale the low-resolution features. Tra-
+for feature fusion and aggregation. Subsequently, we introduce
+                                                                          ditional upsampling operations, e.g., nearest neighbor and bilinear
+advancements in frequency domain learning.
+                                                                          interpolation use fixed/hand-crafted kernels that are defined by
+                                                                          the relative distance between pixels. Though kernel parameters of
+2.1       Dense Image Prediction.                                         deconvolution [61], Pixel shuffle [62], and DUpsampling [63] are
+Dense image prediction tasks encompass various challenges, such           learnable, the upsampling kernels are fixed and spatially-invariant
+as object detection [1], [35], semantic segmentation [2], [3], [36],      once learned. The importance of dynamic property has been
+[37], instance segmentation [4], [38]–[40], and panoptic segmen-          emphasized recently. As a hand-crafted operator, un-pooling [41]
+tation [5]. The advancements in dense prediction primarily hinge          has dynamic upsampling behavior, in other words, upsampled
+on a few seminal deep network architectures. For instance, since          positions are conditioned on max pooling indices. CARAFE [64]
+the advent of fully convolutional networks (FCNs) in semantic             dynamically reassembles the local decoder features in a context-
+segmentation [2], the field has evolved with foundational segmen-         aware manner. Similar to CARAFE, IndexNet [65] and A2U [66]
+tation architectures like U-Net [9], SegNet [41], and DeepLab [3],        also only consider the assets of encoder features for dynamic
+[42]. Similarly, in object detection, models such as R-CNN [1]            upsampling. SAPA [22] and FADE [23] further consider the assets
+and YOLO [43] have dominated the landscape in recent years.               of both encoder and decoder features for generating upsampling
+Subsequently, typical network architectures like Feature Pyramid          kernels. In summary, the essence of these operators lies in the data-
+Networks (FPNs) [16] have been widely used in other dense                 dependent upsampling kernels, whose parameters are predicted by
+                                                                                                                                                     4
+
+a sub-network. This underscores a promising avenue for exploring       [89] Luo et al. [11] demonstrate that perturbing high frequencies
+better feature upsampling.                                             leads to a large reduction in intra-category similarity, thereby
+Sampling-based. Recently, a series of methods aim to improve           degrading feature representations.
+feature fusion by adjusting sampling coordinates. GUM [67]                 In this work, we consider intra-category inconsistency as the
+learns the guidance offsets and applies those offsets to upsampled     presence of disturbed high frequency, significantly reducing intra-
+feature maps. SFNet [19] warps coarse high-level features with         category similarity, as observed in [11]. Boundary displacement is
+predicted offsets for alignment. AlignSeg [68] further predicts off-   regarded as a lack of high frequency, as noted in [83]. Thus, we
+sets for aligning multi-resolution features and context modeling.      employ adaptive low-pass filters to reduce feature inconsistency
+FaPN [69] utilizes deformable convolution [70] to align features       and high-pass filters to enhance useful high-frequency details and
+from the coarsest resolution to the finest resolution progressively.   sharpen boundaries. This demonstrates an innovative application
+IFA [20] aligns multi-resolution features with implicit offsets        of frequency-domain techniques in addressing intra-category in-
+by using implicit neural representation. Dysample [71] learn to        consistency and boundary displacement in feature fusion, benefit-
+upsample by learning to sample the coarse high-level feature           ing various fundamental computer vision tasks.
+dynamically. These methods apply explicit or implicit spatial
+offsets to align the low and high-resolution features. Moreover,       3     F EATURE S IMILARITY A NALYSIS M ETRICS
+recent works [15], [21], [72] employ channel attention or gates to     We begin by introducing metrics for feature similarity analysis.
+combine lower and higher-level features, using adaptive weights        These metrics aim to quantify both intra-category inconsistency
+conditioned on higher-level features rather than equal weights. The    and boundary displacement issues that emerge during the process
+Mask2Former utilizes a deformable attention module [73], which         of feature fusion. This establishes a solid foundation for develop-
+applies both spatial offsets and adaptive attention weights to fuse    ing and analyzing effective feature fusion techniques.
+multi-scale features.                                                       Feature similarity is widely used for assessing the quality of
+    Our work is closely related to both kernel-based and dynamic       extracted features [24], [90]–[92]. Typically, features within the
+sampling-based methods. While previous studies empirically ob-         same category should show high similarity, ensuring high intra-
+serve the problem in standard feature fusion, they lack clear          category similarity. On the other hand, features from different
+definitions supported by quantitative measurements. In contrast,       categories should exhibit low similarity, resulting in low inter-
+we clearly identify and define the issues of intra-category in-        category similarity. A large gap between intra-category and inter-
+consistency and boundary displacement, measuring them through          category similarities, referred to as similarity margin, is crucial for
+feature similarity analysis. The proposed FreqFusion effectively       preventing misclassification.
+addresses these issues with the goal of achieving simultaneous              To facilitate a quantitative assessment of intra-category incon-
+feature consistency and boundary sharpness.                            sistency and boundary displacement, as well as to assess the qual-
+                                                                       ity of the fused features, we introduce metrics encompassing intra-
+2.3   Frequency Domain Learning                                        category similarity, similarity margin, and similarity accuracy.
+                                                                       These metrics offer a comprehensive framework for evaluating
+Frequency-domain analysis, as a fundamental tool [74], [75], has
+                                                                       the discriminative power of extracted feature maps.
+long been proven to be an effective tool for traditional signal
+processing. Recently, a series of works have introduced frequency      Intra-category & inter-category similarity. Intra-category sim-
+analysis to deep learning.                                             ilarity is computed by first deriving the category center through
+    In this context, they are employed to examine the optimization     the averaging of features within each category. Subsequently, we
+strategies [76] and generalization capabilities [77] of Deep Neural    calculate the cosine similarity between the category center and the
+Networks (DNNs). Rahaman et al. [78] and Xu et al. [79] find           feature vector belonging to the same category. This is expressed
+the effective target function for a deeper hidden layer bias towards   as:
+lower frequencies during training, thus these networks prioritize                    cls=1             cls=1        1           X
+                                                                           IntraSim(Yi,j   ) = CosSim(Yi,j   ,                            Yi,j ).   (1)
+learning the low-frequency modes, this phenomenon is called                                                      |Ωcls=1 |
+                                                                                                                             i,j∈Ωcls=1
+spectral bias/frequency principle. Zhang et al. [80] investigate how
+                                                                       Here, we consider binary segmentation that has two categories,
+frequency aliasing impacts the shift-invariance of modern mod-
+                                                                       cls = 1 denotes the ground truth category of feature vector Yi,j ,
+els, and subsequently, AdaBlur [26] applied content-aware low-
+                                                                       Ωcls=1 represents the area belonging to category 1, and CosSim
+pass filters during downsampling for anti-aliasing. Additionally,
+                                                                       is the cosine similarity. Similarly, the inter-category similarity is
+FLC [81] also demonstrated that frequency aliasing degrades the
+                                                                       calculated using the same method, with the distinction that the
+robustness of models. Qin et al. [82] and Magid et al. [83] ex-
+                                                                       category center and feature vector are from different categories.
+plore utilizing more frequency components obtained from discrete
+                                                                                     cls=1             cls=1        1           X
+cosine transform coefficients for channel attention mechanisms.            InterSim(Yi,j   ) = CosSim(Yi,j   ,                            Yi,j ).   (2)
+                                                                                                                 |Ωcls=0 |
+Huang et al. [84] employ the conventional convolution theorem in                                                             i,j∈Ωcls=0
+DNNs, demonstrating that adaptive frequency filters can efficiently
+                                                                       Here, Ωcls=0 indicates the area that belong to category from Yi,j .
+serve as global token mixers. A series of frequency-domain
+techniques have also been seamlessly integrated into DNN archi-        Similarity margin. Consequently, the similarity margin is deter-
+tectures, facilitating the learning of non-local features [84]–[88].   mined by subtracting the inter-category similarity from the intra-
+Chen et al. [38] demonstrate how the low-pass filter suppress high     category similarity
+frequency feature noise caused by noise in the images, effectively          SimMargin(Yi,j ) = IntraSim(Yi,j ) − InterSim(Yi,j ).                   (3)
+addressing the challenges of instance segmentation in low-light
+conditions. Many works demonstrate adversarial attack can be           Similarity accuracy. To comprehensively assess the risk of mis-
+achieved by manipulate the high frequency components [11], [76],       classification rate resulting from intra-category inconsistency and
+                                                                                                                                                                                                                                             5
+
+                                                                                                                                                          ⊛
+                                              C/r×)×)
+                                                           ⊛                             Pixel
+                                                                                                                                               !×)×)
+                                                                                                                                                                                   Pixel
+
+
+
+
+                                                                                                                                                                  %
+                                                                                                              2%
+
+
+
+
+                                                                                                                                                                                                 2%
+                                                                                    %
+
+
+
+
+                                                                                                                                                                 ×
+                                                                                                                                                                                                                                 %
+
+
+
+
+                                                                                                                                                        ×+
+                                                                                                             ×
+
+
+
+
+                                                                                                                                                         )
+
+
+
+                                                                                                                                                                  $
+                                                                                                                                                                                                                               ×2
+
+
+
+
+                                                                                 ×
+
+
+
+
+                                                                                                                                                                                               ×
+              %
+
+
+
+
+                                                                                                            2$
+                                           %
+
+
+
+
+                                                                                                                                                                !×
+                                                                                         Shuffle                                                                                   Shuffle
+
+
+
+
+                                                          ×+
+
+
+
+
+                                                                                 $
+
+
+
+
+                                                                                                                                                                                             2$
+                                                           )
+
+
+
+
+                                                                                                                                                      )+
+                                         ×
+             ×
+
+
+
+
+                                                                               '×
+
+
+
+
+                                                                                                        '×
+                                                                                                                                                                                                                          2$
+
+
+
+
+                                                                                                                                                              4×
+                                         $
+
+
+
+
+                                                                                                                                                                                         !×
+                                                                                                                               ALPF
+          $
+
+
+
+
+                                                                                                                                                   4×
+                                                        )+
+
+
+
+
+                                                                            !/
+
+
+
+
+                                                                                                                                                                                                            Resamp
+                                    '×
+
+
+
+
+                                                                                                     !/
+                             conv
+        !×                                                                                                                                                                                                           !×
+
+
+
+
+                                                     4×
+
+
+
+
+                                                                          4×
+                                    !/
+                                                                                                                             Generator
+                                                                                                                                        Pixel Unshuffle
+                      !!"#
+
+
+
+
+                                                                                                                                   2%
+                                                       ALPF
+
+
+
+
+                                                                                                                                  ×
+                                                                                                                               2$
+                                                                                          Initial
+                                                                                                  ⨁
+
+
+
+
+                                                                                                                             '×
+                                                     Generator                                                                                      Offset
+
+
+
+
+                                                                                                                            !/
+                                                                                          fusion                                                                                                                                   2%
+                      2%                                                                                                                           Generator                                                                   ×
+                  ×                                            Pixel Unshuffle                                                                                                                                            2$
+                                                2%
+
+
+
+
+                                                                                                                                                                                             2%
+             2$                                                                                                                                                                                                      !×
+                                               ×
+                                                                                                                                         #$
+
+
+
+
+                                                                                                                                                                                             ×
+                                             2$
+
+
+
+
+                                                                                          ×(
+        !×
+
+
+
+
+                                                                                           )
+
+
+
+
+                                                                                                                                                                                          2$
+                                         '×
+
+
+
+
+                                                                                                                                                                                        !×
+                                                                                        )(
+                             conv
+                                     !/
+
+
+
+
+                                                                     AHPF
+
+
+
+
+                                                                                                                                                                                                          ⨁
+                                                                                                                                                         ×(
+                                                                                                                                                          )
+                                                                  Generator
+
+
+
+
+                                                                                                                                                       )(
+                                                                                                                                   AHPF                                                                   Final
+                                                                                                                                                                                                                                   !!
+
+
+
+
+                                                                                                                                                                              2%
+                       "$                                                      ( )(                                              Generator                                       $!                       fusion
+                                                                           !/'×)×
+                                                                                                            ⨁
+
+
+
+
+                                                                                                                                                                             ×
+                                                                                         ⊛
+
+
+
+
+                                                                                                                                                                            2$
+                                                                                                                                                                           ×
+                                                                                                                                                                       2)
+                                                                                                                                                ( )
+                                                                                                                                              !×)× (
+                                                                                                                                                         ⊛
+
+
+
+
+                                                                                                                                                                                             ⨁
+                           Adaptive low/high-pass filter                         conv      Conv layer Resamp                             Resampling procedure ⨁ Pixel-wise add ⊛ Convolve
+
+Fig. 3. The illustration of FreqFusion. Pixel unshuffle involves resizing the spatial dimensions of the feature by half and expanding the channel by a
+factor of 4×, dividing them into 4 groups, such as from C × 2H × 2W to 4 × C × H × W . Pixel shuffle [62] is the reverse operation, transitioning
+from 4 × C × H × W to C × 2H × 2W . The Adaptive Low-Pass Filter (ALPF) generator and Adaptive High-Pass in the initial fusion share the same
+parameters as those in the final fusion.
+
+
+                                                                                                                                                                                                                      Identity
+                                                                                               Similarity
+
+
+
+
+                                                                                                                                                                                                                      kernel
+
+
+
+
+                                                                                                                                                                                                                                      ×)(
+                                                                                                 Local
+                                                                           ×)+
+
+
+
+
+                                                                                                                                                                                                                                    )(
+                               Pixel                                Reshape                                                                                                                    Reshape
+                                                     4×) 2×1×1
+                                                                         )+
+
+
+
+
+                                                                                                                                                                            conv
+                                                                                                                          conv
+                  conv
+
+
+
+
+                                                                    &Softmax                                                                                                                   &Softmax
+                               Unshuffle
+                                                                                                                                              ⨂
+                                                               ) 2×1×1                                                                                                                   ( 2×1×1
+                                                                                                                                                                                         )
+                                                                                                                                                                                                           ⊖
+                                                                         low-pass                                                                                                               low-pass   Filter
+                                                                                                                                                                                                                   High-pass
+        #$                                                                 filter         #$        .$            #   $
+                                                                                                                             ,$         -$               $$           #$                          filter inversion
+                                                                                                                                                                                                                     filter
+
+
+                               (a) ALPF generator                                                                (b) Offset generator                                              (c) AHPF generator
+
+Fig. 4. The illustration of generators in FreqFusion. ⊗ represents element-wise multiplication, and ⊖ represents subtraction.
+
+
+boundary displacements, we assign each feature to a category                                                                      Standard feature fusion. Generally, a common way of feature
+based on its most similar category center. Thus, we can calculate                                                                 fusion can be formulated as [15], [16], [93]:
+the accuracy, i.e., similarity accuracy. It measures the proportion
+of features exhibiting greater inter-category similarity than intra-                                                                                          Yl = F UP (Yl+1 ) + Xl ,                                                      (4)
+category similarity across all categories.
+    The metrics of intra-category similarity, similarity margin, and                                                              where Xl ∈ RC×2H×2W , Y l+1 ∈ RC×H×W represent the l-th
+similarity accuracy collectively evaluate the category information                                                                features generated by the backbone and the fused feature at the
+present in the features, which provides discriminative power and                                                                  l-th level, respectively. We assume they have the same number
+separation between different categories.                                                                                          of channels; if not, a simple projection function like a 1 × 1
+                                                                                                                                  convolution can ensure this [16], which we omit for brevity. The
+4     F REQUENCY - AWARE F EATURE F USION                                                                                         term F UP denotes upsampling, for example, 2× nearest neighbor
+In this section, we introduce FreqFusion as shown in Figure 3.                                                                    or bilinear interpolation [16], [17].
+It consists of three essential components: the Adaptive Low-Pass                                                                      Although widely used, this straightforward approach to feature
+Filter (ALPF) generator, the offset generator, and the Adaptive                                                                   fusion manifests two issues that detrimentally impact dense pre-
+High-Pass Filter (AHPF) generator, as illustrated in Figure 4.                                                                    diction, i.e., intra-category inconsistency and boundary displace-
+    FreqFusion operates through two primary stages, i.e., initial                                                                 ment. Standard fusion falls short in rectifying these inconsistent
+fusion and final fusion. Prior to the final fusion step, it is necessary                                                          features, and simple interpolation within it may even worsen the
+to compress and fuse both low-level and high-level features to                                                                    problem by upscaling a single inconsistent feature to multiple
+serve as input for the three generators, ensuring efficiency in the                                                               inconsistent pixels. Furthermore, as observed in various prior
+final fusion stage. We first introduce how we enhance initial fu-                                                                 works [2], [22], [65], outputs from simple interpolation often lean
+sion, elucidating its significance within the FreqFusion framework.                                                               towards excessive smoothness, resulting in boundary displace-
+Subsequently, we provide detailed insights into the functioning of                                                                ment. Additionally, the detailed boundary information in lower-
+each of the three generators, thereby offering a comprehensive                                                                    level features is not fully utilized.
+understanding of their roles in the fusion process.                                                                               Design of FreqFusion. As shown in Figure 3, the proposed
+                                                                                                                                  FreqFusion can be formally written as:
+4.1   Overview of FreqFusion
+                                                                                                                                              l       l+1
+We begin by presenting the widely-used standard feature fusion                                                                               Yi,j = Ỹi+u,j+v + X̃li,j ,
+                                                                                                                                                                                                                                            (5)
+approach, followed by an overview of the design of FreqFusion.                                                                           Ỹl+1 = F UP (F LP (Yl+1 )),                   X̃l = F HP (Xl ) + Xl .
+                                                                                                                                                                                                                          6
+
+                                                                                                                                              TABLE 1
+                                                                                                            Quantitative feature analysis results. FreqFusion considerably improves
+                                                                                                             intra-category similarity (IntraSim), similarity margin (SimMargin), and
+                                                                                                               similarity accuracy (SimAcc) for both overall and boundary regions,
+                                                                                                              alleviating intra-category inconsistency and boundary displacement.
+
+                                                                                                                                                                                                    Boundary
+                                                                                                              Method                                IntraSim↑   SimMargin↑   SimAcc↑
+                                                                                                                                                                                       IntraSim↑   SimMargin↑   SimAcc↑
+ (a) Learned convolutional kernels   (b) Fourier transformed kernels    (c) Frequency spectrum of kernels     Standard feature fusion                0.697        0.255       0.907     0.584        0.202       0.632
+                                                                                                              FreqFusion                             0.799        0.297       0.941     0.694        0.239       0.728
+                                                                                                              w/o ALPF Generator (Initial fusion)    0.792        0.288       0.929     0.687        0.230       0.725
+Fig. 5. Frequency analysis of the learned convolutional kernel in the                                         w/o AHPF Generator (Initial fusion)    0.798        0.296       0.940     0.690        0.232       0.726
+                                                                                                              w/o ALPF Generator (Final fusion)      0.727        0.245       0.918     0.610        0.229       0.724
+ALHPF generator is presented. In (a), the nine learned kernels for                                            w/o Offset Generator (Final fusion)    0.760        0.295       0.925     0.648        0.235       0.720
+generating 3 × 3 spatial-variant low-pass filters are displayed. A brighter                                   w/o AHPF Generator (Final fusion)      0.796        0.295       0.938     0.688        0.228       0.718
+
+color indicates a higher learned weight. (b) illustrates their correspond-
+ing Fourier-transformed kernels. To further analyze their characteristics,
+we average their frequency amplitudes and present the frequency spec-
+trum in (c), demonstrating higher power for high-frequency components,                                      generators. Firstly, it employs simple interpolation for upsampling
+indicating reliance on high-frequency components in the feature for filter                                  the compressed feature, resulting in blurred boundaries [22], [71].
+prediction.                                                                                                 Secondly, frequency analysis reveals that the ALPF generator
+                                                                                                            heavily relies on high-frequency information in the fused com-
+       (a) w/o FreqFusion                     (b) FreqFusion                    (c) FreqFusion
+       bilinear upsampling                w/ simple initial fusion         w/ enhanced initial fusion
+                                                                                                            pressed feature. However, traditional convolutional layers can only
+                                                                                                            capture fixed patterns of high frequency. Therefore, we propose
+                                                                                                            further enhancements to the initial fusion process.
+                                                                                                            Upsampling for initial fusion. Several seminal works [19], [22],
+                                                                                                            [23] have emphasized the significance of upsampling, highlighting
+                                                                                                            that simple interpolation techniques, such as nearest-neighbor
+                                                                                                            or bilinear interpolation, can introduce smooth and inaccurate
+                                                                                                            boundaries. Despite this awareness, for generating the initial
+        (d) Ground truth                (e) Variance of predicted LPF      (f) Variance of predicted LPF    upsampled intermediate feature, they [19], [23] still employ simple
+                                                                                                            interpolation, inevitably leading to similar issues in the interme-
+Fig. 6. Visualization for initial fusion. In comparison with (a), the Freq-                                 diate feature. Consequently, this results in suboptimal upsampling
+Fusion recovers more detailed features in (b). Moreover, with enhanced
+initial fusion, (c) exhibits clearer boundaries. (e) and (f) depict the                                     outcomes in subsequent stages.
+standard variance of predicted low-pass filters (LPF), (f) demonstrates a                                       To address this issue, as depicted in Figure 3, we utilize
+more effective maintenance of boundaries.                                                                   the ALPF generator to take compressed low-level features as
+                                                                                                            input and generate an initial low-pass filter to upsample the
+where F LP denotes the low-pass filters predicted by the ALPF                                               compressed high-level features. Leveraging the high-resolution
+generator, (u, v) indicates the offset values predicted by the offset                                       structure present in the low level can be beneficial for upsampling
+generator for the feature coordinates at (i, j), and F HP represents                                        coarse high-level features [23]. The detail of ALPF generator is
+the high-pass filters predicted by the AHPF generator, respectively.                                        described in Section 4.3. By adopting this approach, we circum-
+They address category inconsistency and boundary displacement                                               vent the use of simple interpolation, resulting in finer initial fusion
+by adaptively smoothing the high-level feature with spatial-variant                                         results and benefiting subsequent generators.
+low-pass filters, resampling nearby category-consistent features to                                         High-frequency enhancement for initial fusion. The frequency
+replace inconsistent features in the high-level feature, and enhanc-                                        analysis, as illustrated in Figure 5, highlights a distinct reliance
+ing the high-frequency boundary details of lower-level features.                                            of the ALPF generator on high-frequency information within the
+    To efficiently generate the low-pass filters F LP , offset values                                       fused compressed feature. Notably, this reliance stems from the
+(u, v), and high-pass filter F HP , it is necessary to first compress                                       inherent nature of convolutional layers, which are constrained to
+Xl and Yl+1 and fuse them for input into the three generators, a                                            capturing fixed patterns of high frequency.
+process we refer to as initial fusion. A simple initial fusion [19],                                             Building upon this insight, we propose employing the AHPF
+[23], [68] can be formally expressed as:                                                                    generator as a strategic enhancement. The details of the AHPF
+                                                                                                            generator are described in Section 4.5. The AHPF generator, as a
+             Zl = F UP (Conv1×1 (Yl+1 ))) + Conv1×1 (Xl ).                                           (6)    dynamic component in our framework, is crafted to extract high-
+where Zl ∈ RC/r×2H×2W indicates the fused compressed                                                        frequency components from the feature map, thus overcoming
+feature, and the r is the channel reduction rate for reducing                                               limitations posed by standard convolutional layers. Unlike convo-
+the following computational cost of three generators. The 1 × 1                                             lutions with fixed learned weights, the spatially variant high-pass
+convolutional layer is utilized for channel compression. Next, we                                           filter utilized by the AHPF generator demonstrates an adaptive
+proceed to explain how we enhance the initial fusion, followed by                                           capability to capture high-frequency patterns.
+describing the details of the three generators                                                                   Consequently, the AHPF generator enriches the feature rep-
+                                                                                                            resentation with finely tuned high-frequency details, thereby fa-
+                                                                                                            cilitating more effective downstream processing. As depicted in
+4.2      Enhancing Initial Fusion                                                                           Figure 6, the enhanced initial fusion benefits the subsequent gen-
+The three generators rely on the initially fused compressed feature                                         erators to better adapt to the feature content, resulting in finer final
+Zl to predict adaptive filters and resampling offsets. However, the                                         fused results. Quantitative feature similarity analysis in Table 1
+simple initial fusion presented in Equation (6) exhibits two sub-                                           also demonstrates the benefits of the ALPF and AHPF generators
+optimal aspects, which can adversely affect the subsequent three                                            in improving feature consistency and boundary sharpness.
+                                                                                                                                                                                                 7
+
+
+
+                                                                                                                                                        (0, 2)
+                                                                                                                           .%,'
+
+
+
+
+                                                                                                                      Fig. 8. Illustration of how local similarity guides the offset prediction for
+                                                                                                                      resampling. The brighter color indicates a higher intra-category similar-
+                                                                                                                      ity. The 3 × 3 gray grid indicates the cosine similarity Si,j between the
+                                                                                                                      pixel at (i, j) and its 8 local neighbors, including itself, for better visu-
+(a) Standard feature fusion     (b) +ALPF generator        (c) +ALPF generator             (d) Ground truth           alization. A brighter color indicates a higher similarity. Local similarity
+                                                               +Offset generator                                      guides the offset generator to sample towards features with high intra-
+                                                                                                                      category similarity, thereby reducing the ambiguity in boundary or intra-
+      (a) Bilinear upsampling        (b) +ALPF generator   (c) +ALPF & offset generators
+Fig. 7. Visualization for intra-category similarity of features. We illus-
+                                                                                             (d) Ground truth         category inconsistent areas.
+trate the intra-category similarity for the car category, and a brighter
+color indicates a higher similarity. The bilinear upsampled results exhibit
+severe inconsistencies in features and displacements along the bound-
+aries. Our proposed ALPF generator addresses these inconsistencies,
+enhancing feature consistency and refining boundaries. Furthermore,
+the offset generator not only further improves feature consistency but
+also contributes to achieving more accurate boundary delineations.
+
+
+4.3      Adaptive Low-Pass Filter Generator
+The Adaptive Low-Pass Filter (ALPF) generator is designed to
+predict dynamic low-pass filters, aiming to effectively smooth
+high-level features to mitigate feature inconsistency [11] and sub-
+sequently upsample the high-level feature. To achieve high-quality
+adaptive low-pass filters, it is crucial to leverage the advantages                                                      Resampling offsets             Zoom in                Ground truth
+of both high-level and low-level features [23]. Thus, the ALPF
+generator takes the initially fused Zl as input and predicts spatial-                                                 Fig. 9. Visualization for resampling offsets predicted by the offset
+variant low-pass filters. It comprises a 3 × 3 convolutional layer                                                    generator. The offsets at the inside boundaries of the buses and cars
+followed by a softmax layer, which is represented as:                                                                 are toward the interior places where the features are more consistent
+                                                                                                                      and clear, while the offsets at the inside boundaries are towards the
+                   V̄l = Conv3×3 (Zl ),                                                                               contrary direction, which makes the boundary clearer.
+                                                                             l,p,q
+             l,p,q             l
+                                                                       exp(V̄i,j   )                            (7)
+           W̄i,j   = Softmax(V̄i,j )= P                                        l,p,q
+                                                                                                    ,
+                                                                   p,q∈Ω exp(V̄i,j )
+                                                                                                                      content to smooth and enhance feature consistency. To provide
+                                 2
+where V̄l ∈ RK̄ ×2H×2W represents spatially-variant filter                                                            deeper insights, visualized results are presented in Figure 7. The
+weights, where K̄ indicates the kernel size of the low-pass filter.                                                   findings depicted in Figure 7(a) reveal that the commonly used
+After reshaping, V̄l contains K̄ × K̄ filters for each position.                                                      bilinear upsampled feature in standard feature fusion exhibits sig-
+Here, Ω denotes a size of K̄ × K̄ . Upon passing through a                                                            nificant intra-category inconsistency and boundary displacement.
+kernel-wise softmax to constrain the filters to be all positive                                                       For instance, the car’s interior shows low intra-category similarity,
+and sum to one, the results are smooth and low-pass filters in                                                        and the boundary appears blurred, indicating severe displacement.
+           2
+W̄ ∈ RK̄ ×2H×2W [26].                                                                                                     In contrast, Figure 7(b) demonstrates improved features char-
+    Next, we upscale Y l+1 ∈ RC×H×W using a sub-pixel                                                                 acterized by enhanced interior consistency, which can be attributed
+upsampling technique [62]. Specifically, we reshape W̄l in a pixel                                                    to the introduction of the ALPF generator. This component ef-
+unshuffle way [62], reducing the height and width by half and                                                         fectively mitigates intra-category inconsistency, resulting in more
+expanding the channel by 4×. We then divide the channels into 4                                                       cohesive features. Additionally, there is a noticeable improvement
+groups, with each group having a spatially-variant low-pass filter                                                    in boundary sharpness.
+                        2
+denoted as W̄l,g ∈ RK̄ ×H×W , where g ∈ {1, 2, 3, 4} indicates
+the group. Consequently, we obtain 4 groups of low-pass filtered                                                          Quantitative analysis, as presented in Table 1, corroborates
+features, represented as Ỹ l+1,g ∈ RC×H×W , which are then                                                           these observations. Standard feature fusion techniques exhibit
+rearranged to form a 2× upsampled feature Ỹ l+1 ∈ RC×2H×2W                                                           relatively low intra-category similarity, similarity margin, and
+as:                                                                                                                   similarity accuracy, thus increasing the risk of misclassification.
+     l+1,g
+              X       l,g,p,q
+                                                                                                                      However, the incorporation of the ALPF generator within the
+                                 l+1
+  Ỹi,j    =       W̄i,j      · Yi+p,j+q ,                                                                            FreqFusion framework yields notable improvements. Specifically,
+             p,q∈Ω                                                (8)                                                 there is a substantial increase in overall intra-category similarity
+    Ỹl+1 = PixelShuffle(Ỹl+1,1 , Ỹl+1,2 , Ỹl+1,3 , Ỹl+1,4 ).                                                     (0.727→0.799), similarity margin (0.245→0.297), and similarity
+                                                                                                                      accuracy (0.918→0.941). In summary, the ALPF generator plays
+   As illustrated in Figure 6, the ALPF generator adaptively                                                          a pivotal role in enhancing feature consistency, thereby bolstering
+predicts spatially variant low-pass filters based on the feature                                                      the effectiveness of the FreqFusion approach.
+                                                                                                                                            8
+
+4.4   Offset Generator                                                  present in lower-level features, lost during downsampling, cannot
+While the ALPF generator smooths features to enhance overall            be fully restored in high-level features.
+intra-category similarity, it may fall short in rectifying extensive        According to the Nyquist-Shannon Sampling Theorem [28],
+areas of inconsistent features or refining thin and boundary areas.     [29], frequencies higher than the Nyquist frequency, which is
+Increasing the size of low-pass filters proves beneficial for ad-       equivalent to half of the sampling rate, are permanently lost
+dressing large inconsistent regions but can adversely impact thin       during downsampling. For example, when the high-level feature
+and boundary areas. Conversely, reducing the filter size aids in        is downsampled by a factor of 2 compared to the low-level feature
+preserving thin and boundary areas but may hinder the correction        to be fused (e.g., using a 1×1 convolution layer with a stride of 2
+of extensive areas with inconsistent features.                          for downsampling, resulting in a sampling rate of 21 ), frequencies
+    To address this dilemma, we propose the offset generator.           above 14 become aliased during the process.
+Motivated by the observation that neighboring features with low             To elaborate, we transform the feature map X ∈ RC×H×W
+intra-category similarity often exhibit features with high intra-       into the frequency domain using the Discrete Fourier Transform
+category similarity. The offset generator begins the process by         (DFT), denoted as XF = F(X), expressed as:
+computing local cosine similarity:                                                              H−1 W −1
+                                                                                           1 X X
+                         PC         l      l                               XF (u, v) =               X(h, w)e−2πj(uh+vw) ,               (11)
+          l,p,q              c=1 Zc,i,j · Zc,i+p,j+q                                      HW h=0 w=0
+        Si,j = qP                      qP                    ,   (9)
+                       C      l      2    C      l         2
+                       c=1 (Zc,i,j )      c=1 (Zc,i+p,j+q )             where XF ∈ RC×H×W represents the output array of complex
+where S ∈ R8×H×W contain the cosine similarity between                  numbers from the DFT. H and W denote its height and width.
+each pixel and its 8 neighbor pixels, which encourage the offset        h, w indicate the coordinates of feature map X. The normalized
+generator to sample towards features with high intra-category           frequencies in the height and width dimensions are given by |u|
+similarity, thereby reducing the ambiguity in boundary or intra-        and |v|. Consequently, the set of high frequencies larger than the
+category inconsistent areas, as depicted in Figures 8 and 9.            Nyquist frequency H+ = {(u, v) | |k| > 14 or |l| > 14 } is
+    Specifically, the offset generator takes the Zl and S as input      aliased and permanently lost in downsampled high-level features.
+and predicts offsets. It consists of two 3 × 3 convolutional layers         To address this limitation, we employ the AHPF generator to
+to predict the offset direction and offset scale, represented as:       enhance detailed boundary information lost during downsampling.
+                                                                        Specifically, the AHPF generator takes the initially fused Zl as
+          Ol = D l · A l ,                                              input and predicts spatial-variant high-pass filters. It consists of a
+          Dl = Conv3 × 3(Concat(Zl , Sl )),                     (10)    3 × 3 convolutional layer followed by a softmax layer and a filter
+              l
+          A = Sigmoid(Conv3 × 3(Concat(Z , S ))), l   l                 inversion operation, represented as:
+
+where D ∈ R2G×H×W represents the direction of offsets,
+          l                                                                              V̂l = Conv3×3 (Zl ),
+                                                                                       l,p,q                 l
+Al ∈ R2G×H×W aims to control the magnitude of offsets,                               Ŵi,j   = E − Softmax(V̂i,j )
+and Ol ∈ R2G×H×W is the final predicted offsets for each                                                           l,p,q                 (12)
+                                                                                                  p,q
+                                                                                                             exp(V̂i,j   )
+pixel of the high-level feature. G denotes the number of offset                               =E        −P                      ,
+                                                                                                                        l,p,q
+groups; we strategically divide the feature into distinct groups,                                           p,q∈Ω exp(V̂i,j )
+assigning unique spatial offsets for a more granular resampling.                          2
+
+This approach allows for resampling features with high intra-           where V̂l ∈ RK̂ ×H×W contains initial kernels at each location
+category similarity to replace features with low intra-category         (i, j). K̂ indicates the kernel size of high-pass filters. To ensure
+similarity. In this way, the offset generator can address large areas   the final generated kernels Ŵl are high-pass, we follow [83] to
+of inconsistent features and refine the boundary.                       obtain low-pass kernels with kernel-wise softmax first and then
+    As shown in Figure 9, at the inner boundaries of buses              invert the kernels by subtracting them from the identity kernel
+and cars, our offset generator strategically directs offsets toward     E, whose weights are [[0, 0, 0], [0, 1, 0], [0, 0, 0]] when K̂ = 3.
+interior locations where features exhibit higher consistency and        After applying high-pass filters and adding residually, we obtain
+clarity. Conversely, at the outer boundaries, we observe the offsets    the enhanced results expressed as:
+being strategically directed in the opposite direction, enriching                                                l,p,q
+                                                                                                         X
+                                                                                        X̃li,j = Xli,j +      Ŵi,j    · Xli,j .        (13)
+the boundary regions with enhanced clarity. This intentional                                            p,q∈Ω
+divergence in offset direction serves to accentuate the object
+boundaries. Consequently, as shown in Figure 7(c), the offset gen-           In Figure 10, the effectiveness of the AHPF generator in en-
+erator contributes to achieving more consistent features and more       hancing detailed boundary information is evident. For instance, the
+accurate boundary delineations. Quantitative analysis in Table 1        original feature lacks clarity in delineating the outline of the bus
+reveals that it enhances intra-category similarity (0.760→0.799)        and the details of a person’s head. However, with the incorporation
+and enhances similarity accuracy both overall (0.925→0.941) and         of the AHPF generator, these boundary details are substantially
+at the boundary (0.720→0.728). This suggests that the offset gen-       improved, resulting in a finer and more refined lower-level feature.
+erator provides benefits in addressing intra-category inconsistency     The enhancement introduced by the AHPF generator highlights
+and boundary displacement issues.                                       its capability to capture and preserve intricate details and bound-
+                                                                        aries, which are crucial for tasks requiring high-resolution and
+4.5   Adaptive High-Pass Filter Generator                               accurate feature representations. These visualizations corroborate
+Although the ALPF generator and offset generator effectively            and align with the quantitative frequency analysis presented in
+recover upsampled high-level features with high intra-class con-        Figure 11, which illustrates that the AHPF generator enhances
+sistency and refined boundaries, the detailed boundary information      high-frequency power above the Nyquist frequency.
+                                                                                                                                                            9
+
+                                                                                         object class are appropriately clustered. Typically, the decoder
+                                                                                         of a segmentation model employs a stage-by-stage upsampling
+                                                                                         and fusion architecture [17], [30], highlighting the crucial role of
+                                                                                         feature fusion in this process.
+                                                                                             Given the significance of feature fusion, FreqFusion is particu-
+                                                                                         larly well-suited to justify its behaviors in the context of semantic
+                                                                                         segmentation tasks. The inherent requirements of this task involve
+                                                                                         the precise clustering and separating of pixels for distinct object
+                                                                                         classes. This necessitates both low intra-category inconsistency
+                                                                                         and low boundary displacement, underscoring the importance of
+                                                                                         effective feature fusion mechanisms, such as those employed by
+                  (a) Low-level feature        (b) +AHPF generator    (c) Ground truth   FreqFusion.
+
+    Fig. 10. Visualization of low-level features. The AHPF generator signif-             5.1.1 Experimental Settings
+    icantly enhances boundaries by dynamically extracting high-frequency
+    information from the low level, resulting in clearer object boundaries.              Datasets. We evaluate our methods on several popular challenging
+    The red box indicates the zoom-in area.                                              datasets including Citysacpes [96], ADE20K [33], and COCO-
+                                                                                         Stuff [97]. Citysacpes [96] contains 19 semantic categories for
+                      10 2                                                               semantic segmentation tasks and consists of 5,000 finely annotated
+                                                                     Original            images of 2048 × 1024 pixels, its training, validation, and test
+                                                                     w/ AHPF (Ours)      set have 2,975, 500, and 1,525 samples, respectively. We only
+                                                                     Nyquist frequency
+                                                                                         use the training set for learning. ADE20K [33] is a challenging
+Frequency amplitude
+
+
+
+
+                                                                                         dataset that contains 150 semantic classes. It consists of 20,210,
+                                                                                         2,000, and 3,352 images for the training, validation, and test sets.
+                                                                                         COCO-Stuff [97] is a challenging benchmark, which contains
+                                                                                         172 semantic categories and 164k images in total. i.e., 118k for
+                      10 3                                                               training, 5k for validation, 20k for test-dev and 20k for the test-
+                                                                                         challenge.
+                                                                                         Metrics. In line with previous works such as Segformer [30],
+                                                                                         Mask2Former [32], and SegNext [31], we evaluate segmentation
+                                                                                         quality using the mean Intersection over Union (mIoU) for overall
+                             0.0        0.1         0.2       0.3       0.4        0.5   results and boundary Intersection over Union (bIoU) [98] for
+                               Low frequency                          High frequency     boundary delineation. Additionally, we present results regarding
+                                                                                         the number of GFLOPs and parameters to facilitate a comprehen-
+    Fig. 11. Quantitative frequency analysis. We present the results on                  sive comparison of computational and storage costs.
+    a logarithmic scale for better visualization. It indicates that the AHPF
+    generator enhances high-frequency power, thereby improving the level                 Implementation Details. When applying the proposed method
+    of detail in the features and producing clearer boundaries.                          to existing methods (SegFormer [30], Mask2Former [32], Seg-
+                                                                                         NeXt [31], etc.), we adopt their original training setting. e.g.,
+                                                                                         for SegFormer [30] and SegNeXt [31], we use common data
+        Quantitative analysis in Table 1 demonstrates that it enhances                   augmentation including random horizontal flipping, random re-
+    the boundary similarity margin (0.228→0.239) and boundary                            sizing from 0.5 to 2, and random cropping (1024×1024 on
+    similarity accuracy (0.718→0.728). This suggests that the AHPF                       Cityscapes, 512×512 on ADE20K and COCO-Stuff). The batch
+    generator provides benefits in addressing boundary displacement                      size is set to 8 for the Cityscapes dataset and 16 for all the
+    issues.                                                                              other datasets. AdamW [99] is applied to train our models. The
+                                                                                         initial learning rate is 0.00006 and the poly-learning rate decay
+     5                 E XPERIMENTAL R ESULTS                                            policy [3] is employed. We train our model 160K iterations for
+                                                                                         ADE20K, and Cityscapes, and 80K iterations for COCO-Stuff. For
+    We first showcase the universality of the proposed FreqFusion                        SegFormer [30] and Mask2Former [32], which fuse 4×, 8×, 16×,
+    across four typical dense prediction tasks, including semantic                       and 32× downsampled features, we utilize 3 FreqFusion modules.
+    segmentation, object detection, instance segmentation, and panop-                    For SegNeXt [31], which fuses 8×, 16×, and 32× downsampled
+    tic segmentation. Following the setting [22], [71] we set the                        features, we employ 2 FreqFusion modules.
+    kernel size in Deconvolution and Pixel Shuffle [62] as 3. For
+    CARAFE [94], we adhere to its default configuration. We uti-                         5.1.2   Semantic Segmentation Results
+    lize the ‘HIN’ version of IndexNet [95] and the ‘dynamic-cs-
+    d†’ version of A2U [66]. In the interest of stability across all                     Comparison with previous state-of-the-art methods. As
+    dense prediction tasks, we opt for FADE [23] without a gating                        demonstrated in Table 2, employing the widely-used SegFormer-
+    mechanism and SAPA-B [22].                                                           B1 [30] as the segmentation model, FreqFusion achieves a 2.8
+                                                                                         mIoU improvement on ADE20K, surpassing all previous state-of-
+                                                                                         the-art competitors, including CARAFE, IndexNet, A2U, FADE,
+    5.1                  Semantic Segmentation                                           SAPA-B, Dysample-S+, and Dysample+. Notably, FreqFusion
+    Semantic segmentation necessitates the prediction of per-pixel                       outperforms the second-place Dysample-S+ by a large margin of
+    class labels, ensuring that pixel groups belonging to the same                       1.2 mIoU.
+                                                                                                                                                                                                   10
+
+                                                                                                                              TABLE 5
+                                                                                                 Semantic segmentation results with recent state-of-the-art large model
+                                                                                                  Mask2Former [32] on ADE20K. The best performance is in boldface.
+
+
+                                                                                                                 Mask2Former[CVPR2022] [32]          Backbone           mIoU
+                                                                                                                 Bilinear                            Swin-B†            53.9
+                                                                                                                 FreqFusion (Ours)                   Swin-B†         55.3 (+1.4)
+                                                                                                                 Bilinear                            Swin-L†            56.1
+                                                                                                                 FreqFusion (Ours)                   Swin-L†         56.8 (+0.7)
+
+
+                                                                                                                               TABLE 6
+      Ground truth              Standard feature fusion              FreqFusion (Ours)            Results reported on various challenging datasets with SegNeXt [31],
+                                                                                                    including Cityscapes [96], ADE20K [33], and COCO-stuff [97].
+Fig. 12. Visualization for feature fusion. In comparison with standard
+feature fusion, the fused features obtained by FreqFusion exhibit more                                                                                Cityscapes     ADE20K          COCO-stuff
+consistent features with sharper boundaries. The red boxes indicate the                            Method                         Params   FLOPs
+                                                                                                                                                        mIoU          mIoU             mIoU
+zoom-in areas.                                                                                     SegNeXt-T[NeurIPS2022] [31]    4.26M    6.59G         79.8           41.1            38.7
+                                                                                                   + FreqFusion (Ours)            +0.18M   +0.44G     80.8 (+1.0)    43.5 (+2.4)     40.7 (+2.0)
+
+                              TABLE 2
+Comparison with recent state-of-the-art methods on the ADE20K [33]
+   validation set. We present mIoU and bIoU results to assess the                                                             TABLE 7
+ intra-category consistency and boundary displacement of the final                               Comparison with recent state-of-the-art methods on the ADE20K [33]
+                             predictions.                                                                                  validation set.
+
+                                                                                                       Method                              Params (M)        FLOPs (G)         mIoU
+  Method                               Params (M)        FLOPs (G)         mIoU          bIoU
+                                                                                                       SegNeXt-T [NeurIPS2022] [31]        4.26              6.59                  41.1
+  Segformer-B1 [NeurIPS2021] [30]      13.74             15.91                41.7        27.8
+                                                                                                       + Dysample+[ICCV2023] [71]          +0.04             +0.03                 42.2
+  + Deconv[CVPR2010] [100]             +3.5              +34.4                40.7        25.9
+  + PixelShuffle[CVPR2016] [62]        +14.2             +34.4                41.5        26.6         + FreqFusion (Ours)                 +0.18             +0.44                 43.5
+  + CARAFE[ICCV2019] [94]              +0.44             +1.45                42.8        29.8
+  + IndexNet[TPAMI2020] [65]           +12.6             +30.65               41.5        28.3
+  + A2U[CVPR2021] [66]                 +0.12             +0.41                41.5        27.3                                  TABLE 8
+  + FADE[ECCV2022] [23]                +0.29             +2.65                43.1        31.7        Inference speed evaluation. We apply FreqFusion to efficient
+  + SAPA-B[NeurIPS2022] [22]           +0.1              +1.0                 43.2        31.0     segmentation model SegNeXt-T [31]. The frame per second (FPS)
+  + Dysample-S+[ICCV2023] [71]         +0.01             +0.3                 43.6        29.9
+                                                                                                  results are tested with an image size of 1024 × 2048 on a single RTX
+  + Dysample+[ICCV2023] [71]           +0.1              +0.4                 43.3        29.2
+                                                                                                           3090. FreqFusion shows a minor impact on the FPS.
+  + FreqFusion (Ours)                  +0.34             +2.35                44.5        32.8
+                                                                                                              Model      SegNeXt-T [31]    +Dysample [71]       +FreqFusion (Ours)
+                              TABLE 3                                                                         FPS                26.5              25.9                 23.0
+   Comparison with recent state-of-the-art dynamic sampling-based
+      segmentation methods on Cityscapes [96] validation set.
+                                                                                                 cluding AlignSeg, IFA, SFNet, and the original Mask2Former,
+    Method                                              Backbone                mIoU             which adopt an offset-based mechanism. Remarkably, FreqFusion
+    AlignSeg [TPAMI2021] [68]                           ResNet-50                78.5            demonstrates superior performance even when using ResNet-50
+    IFA [ECCV2022] [20]                                 ResNet-50                78.0            as the backbone, surpassing Mask2Former with a heavier ResNet-
+    SFNet [IJCV2023] [19]                               ResNet-50                79.2
+    FaPN [ICCV2021] [69]                                ResNet-50                80.0            101 by a margin of 0.4 mIoU.
+    Mask2Former[CVPR2022] [32]                          ResNet-50                79.4
+                                                                                                 Combination with various model structures. In Table 4, we
+    FaPN [ICCV2021] [69]                                ResNet-101               80.1
+    Mask2Former[CVPR2022] [32]                          ResNet-101               80.1            apply FreqFusion to various state-of-the-art methods from re-
+    Mask2Former [32] + FreqFusion (Ours)                ResNet-50             80.5 (+1.4)        cent CNNs (e.g., SegNeXt [31]) to Transformers (e.g., Seg-
+                                                                                                 Former [30]). The UPerNet [17] adopt FPN [16] structure, while
+                                                                                                 SegFormer [30] and SegNeXt [31] use concatenation for fea-
+                                TABLE 4                                                          ture fusion. Though their structures show a large difference,
+       The combination of the proposed FreqFusion and various
+       state-of-the-art model structures. Results are reported on                                our FreqFusion can consistently improve their performance with
+ Cityscapes [96] validation set with single scale inference. The FLOPs                           very minor extra parameters and computation. This shows that
+       results are calculated with an image size of 1024 × 2048.                                 FreqFusion generalizes well to various modern model structures.
+                                                                                                 Combination with large models. When applied to MaskFormer
+                                  Parameters (M)     FLOPs (G)                  mIoU
+   Method           Backbone
+                                  Vanilla   Ours   Vanilla   Ours     Vanilla          Ours
+                                                                                                 with a large backbone, FreqFusion demonstrates substantial im-
+   UPerNet [17]     ResNet-50       28.8    29.0   300.9     315.8     78.8      79.8 (+1.0)     provements in the mIoU metric. Specifically, the mIoU increases
+   SegFormer [30]   MiT-B1          13.7    14.1   243.7     271.8     78.5      80.1 (+1.6)     from 53.9 to 55.3 (+1.4) when employing Swin-B and from 56.1 to
+   SegNeXt [31]     MSCAN-T          4.3    4.4     50.5      52.4     79.8      80.8 (+1.0)
+                                                                                                 56.8 (+0.7) with Swin-L, as illustrated in Table 5. This observation
+                                                                                                 underscores the effectiveness of FreqFusion even when integrated
+Combination with state-of-the-art methods. As evidenced in                                       with recent state-of-the-art heavy segmentation models. It implies
+Table 3, when employing Mask2Former [32] as the segmentation                                     that intra-category inconsistency and boundary displacement are
+model, FreqFusion achieves a notable 1.4 mIoU improvement                                        widely prevalent challenges in these advanced models.
+on the Cityscapes dataset, outperforming its competitors, in-                                    Experiments with various challenging datasets. Utilizing Seg-
+                                                                                                                                          11
+
+
+SegNeXt
++FreqFusion (Ours)
+Ground truth
+
+
+
+
+Fig. 13. Visualization on the Cityscapes [96] validation set. Compared with the vanilla model SegNeXt [31] (row one), the proposed FreqFusion
+(row two) considerably improves the segmentation accuracy and consistency.
+SegFormer
++FreqFusion (Ours)
+Ground truth
+
+
+
+
+Fig. 14. Visualization on the ADE20K [33] validation set. Compared with the vanilla model SegFormer [30] (row one), the proposed FreqFusion
+(row two) considerably improves the segmentation accuracy and consistency.
+
+
+NeXt [31] as the segmentation model, we conducted experiments           23.0, which is very close to the fastest recent Dysample [71] with
+on diverse and challenging datasets. The results, as presented in       an FPS of 25.9. This indicates that while the proposed method is
+Table 6, consistently demonstrate that the proposed FreqFusion          slightly slower, it achieves much higher accuracy, demonstrating
+leads to improvements across multiple datasets. Specifically, Freq-     the satisfactory efficiency of our method.
+Fusion improves SegNeXt [31] by 1.0, 2.4, and 2.0 on Cityscapes,
+ADE20K, and COCO-stuff, respectively.                                   Visual results. As shown in Figure 12, we visualize the fea-
+                                                                        tures. In comparison with standard feature fusion, the fused
+FPS results. Here, we provide additional FPS (frames per sec-           features obtained by FreqFusion exhibit more consistent features
+ond) results for further efficiency analysis and comparison. As         with sharper boundaries. Additionally, in Figures 13 and 14,
+shown in Tables 7 and 8, when combining our method with the             we present additional visualizations of segmentation results on
+state-of-the-art efficient segmentation model SegNeXt, FreqFusion       Cityscapes [96] and ADE20K [33]. Compared with the baseline
+introduces more parameters and GFLOPs than the recent state-of-         model SegNeXt [31] and SegFormer [30], which adopt standard
+the-art method Dysample [71]. However, FreqFusion demonstrates          feature fusion, the proposed FreqFusion significantly improves
+a much higher performance improvement (+2.4 mIoU vs. +1.1               segmentation accuracy and consistency. These results validate the
+mIoU) than Dysample. Moreover, FreqFusion achieves an FPS of            effectiveness of FreqFusion.
+                                                                                                                                                                                                   12
+
+                                  Object Detection                                      Instance Segmentation                                           Panoptic Segmentation
+CARAFE
+Dysample+
+FreqFusion (Ours)
+Ground truth
+
+
+
+
+Fig. 15. Visualization on the COCO [34] validation set. We select the top two best-performing methods, CARAFE [94] (row one) and Dysample [71]
+(row two), excluding our proposed FreqFusion. In comparison, our FreqFusion (row three) demonstrates superior prediction accuracy and
+consistency.
+
+
+                                              TABLE 9                                                                                TABLE 10
+                    Object detection results of Faster R-CNN with ResNet-50 on                             Instance segmentation results of Mask R-CNN with ResNet50 on
+                            MS-COCO. Best performance is in boldface.                                    MS-COCO. The parameter increment is identical as in Faster R-CNN.
+                                                                                                          The upper table shows box AP results for detection, and the bottom
+                                                                                                           table shows mask AP results for instance segmentation. The best
+          Method                        Backbone   Param.   AP     AP50   AP75   APS    APM     APL
+                                                                                                                             performance is in boldface.
+          Nearest                         R50      46.8M    37.5   58.2   40.8   21.3    41.1   48.9
+          Deconv                          R50      +2.4M    37.3   57.8   40.3   21.3    41.1   48.0
+          PixelShuffle[CVPR2016] [62]     R50      +9.4M    37.5   58.5   40.4   21.5    41.5   48.3
+          CARAFE[ICCV2019] [94]           R50      +0.3M    38.6   59.9   42.2   23.3    42.2   49.7       Method                        Backbone     AP     AP50      AP75   APS    APM    APL
+          IndexNet[TPAMI2020] [65]        R50      +8.4M    37.6   58.4   40.9   21.5    41.3   49.2
+          A2U[CVPR2021] [66]              R50      +38.9K   37.3   58.7   40.0   21.7    41.1   48.5       Nearest                          R50       38.3    58.7      42    21.9   41.8   50.2
+          FADE[ECCV2022] [23]             R50      +0.2M    38.5   59.6   41.8   23.1    42.2   49.3       Deconv                           R50       37.9    58.5     41.0   22.0   41.6   49.0
+          SAPA-B[NeurIPS2022] [22]        R50      +0.1M    37.8   59.2   40.6   22.4    41.4   49.1       PixelShuffle[CVPR2016] [62]      R50       38.5    59.4     41.9   22.0   42.3   49.8
+          DySample-S+[ICCV2023] [71]      R50      +8.2K    38.6   59.8   42.1   22.5    42.1   50.0       CARAFE[ICCV2019] [94]            R50       39.2    60.0     43.0   23.0   42.8   50.8
+          DySample+[ICCV2023] [71]        R50      +65.5K   38.7   60.0   42.2   22.5    42.4   50.2       IndexNet[TPAMI2020] [65]         R50       38.4    59.2     41.7   22.1   41.7   50.3
+          FreqFusion (Ours)               R50      +0.3M    39.4   60.9   42.7   23.0    43.3   50.9       A2U[CVPR2021] [66]               R50       38.2    59.2     41.4   22.3   41.7   49.6
+          Nearest                        R101      65.8M    39.4   60.1   43.1   22.4    43.7   51.1
+                                                                                                           FADE[ECCV2022] [23]              R50       39.1    60.3     42.4   23.6   42.3   51.0
+          DySample+[ICCV2023] [71]       R101      +65.5K   40.5   61.6   43.8   24.2    44.5   52.3       SAPA-B[NeurIPS2022] [22]         R50       38.7    59.7     42.2   23.1   41.8   49.9
+          FreqFusion (Ours)              R101      +0.3M    41.0   62.2   44.9   24.7    45.0   53.4       DySample-S+[ICCV2023] [71]       R50       39.3    60.3     42.8   23.2   42.7   50.8
+                                                                                                           DySample+[ICCV2023] [71]         R50       39.6    60.4     43.5   23.4   42.9   51.7
+                                                                                                           FreqFusion (Ours)                R50       40.0    61.2     43.5   24.3   43.9   51.5
+                                                                                                           Nearest                         R101       40.0    60.4     43.7   22.8   43.7   52.0
+                                                                                                           DySample+[ICCV2023] [71]        R101       41.0    61.9     44.9   24.3   45.0   53.5
+5.2                 Object Detection                                                                       FreqFusion (Ours)               R101       41.6    62.4     45.7   25.0   45.6   54.2
+                                                                                                                                         Instance Segmentation Mask Results
+Object detection concurrently tackles the ‘where-and-what’ prob-
+                                                                                                           Nearest                          R50       34.7    55.8     37.2   16.1   37.3   50.8
+lem, involving the localization of objects through bounding boxes                                          Deconv                           R50       34.5    55.5     36.8   16.4   37.0   49.5
+and the assignment of class labels. This dual objective necessitates                                       PixelShuffle[CVPR2016] [62]      R50       34.8    56.0     37.3   16.3   37.5   50.4
+                                                                                                           CARAFE[ICCV2019] [94]            R50       35.4    56.7     37.6   16.9   38.1   51.3
+both accurate spatial localization and precise object classification.                                      IndexNet[TPAMI2020] [65]         R50       34.7    55.9     37.1   16.0   37.0   51.1
+                                                                                                           A2U[CVPR2021] [66]               R50       34.6    56.0     36.8   16.1   37.4   50.3
+Given the prevalence of FPN-like architectures in many existing                                            FADE[ECCV2022] [23]              R50       35.1    56.7     37.2   16.7   37.5   51.4
+                                                                                                           SAPA-B[NeurIPS2022] [22]         R50       35.1    56.5     37.4   16.7   37.6   50.6
+object detectors, the role of feature fusion becomes crucial for                                           DySample-S+[ICCV2023] [71]       R50       35.5    56.8     37.8   17.0   37.9   51.9
+obtaining semantically consistent and clear feature maps, thereby                                          DySample+[ICCV2023] [71]         R50       35.7    57.3     38.2   17.3   38.2   51.8
+                                                                                                           FreqFusion (Ours)                R50       36.0    57.9     38.1   17.9   39.0   52.3
+enhancing the overall performance of the model in terms of both                                            Nearest                         R101       36.0    57.6     38.5   16.5   39.3   52.2
+localization and classification.                                                                           DySample+[ICCV2023] [71]        R101       36.8    58.7     39.5   17.5   40.0   53.8
+                                                                                                           FreqFusion (Ours)               R101       37.4    59.6     39.9   18.4   40.6   54.3
+
+
+5.2.1                  Experimental Settings
+Datasets and Metrics. For object detection experiments, we
+                                                                                                        APL are employed. Here, S , M , and L denote small (area: 10-
+leverage the MS COCO [34] dataset, encompassing 80 object cat-
+                                                                                                        144 pixels), medium (area: 144 to 1024 pixels), and large objects
+egories. Evaluation is performed using the Average Precision (AP)
+                                                                                                        (area: 1024 pixels and above), respectively.
+metric. The standard COCO metrics, including AP (averaged over
+IoU thresholds from 0.5 to 0.95 with a stride of 0.05), AP50 (IoU                                       Implementation Details. Among the various existing detectors,
+threshold is 0.5), AP75 (IoU threshold is 0.75), APS , APM , and                                        we opt for the widely-used Faster R-CNN [1] with ResNet-50
+                                                                                                                                                         13
+
+                             TABLE 11                                                    approach to Faster R-CNN, our modifications are confined to the
+ Panoptic segmentation results with Panoptic FPN on MS-COCO. The                         feature fusion stages within the Feature Pyramid Network (FPN).
+                 best performance is in boldface.
+                                                                                         The codebase from mmdetection [101] is utilized, and training
+                                                                                         adheres to the default 1× schedule, comprising 12 epochs. For
+  Method                        Backbone   Params   PQ     P Qth   P Qst   SQ     RQ
+                                                                                         Faster R-CNN with FPN, which fuse 4×, 8×, 16×, and 32×
+  Nearest                         R50      46.0M    40.2   47.8    28.9    77.8   49.3
+  Deconv                          R50      +1.8M    39.6   47.0    28.4    77.1   48.5   downsampled features, we utilize 3 FreqFusion modules.
+  PixelShuffle[CVPR2016] [62]     R50      +7.1M    40.0   47.4    28.8    77.1   49.1
+  CARAFE[ICCV2019] [94]           R50      +0.2M    40.8   47.7    30.4    78.2   50.0
+  IndexNet[TPAMI2020] [65]        R50      +6.3M    40.2   47.6    28.9    77.1   49.3   5.3.2 Instance Segmentation Results
+  A2U[CVPR2021] [66]              R50      +29.2K   40.1   47.6    28.7    77.3   48.0
+  FADE[ECCV2022] [23]             R50      +0.1M    40.9   48.0    30.3    78.1   50.1   Quantitative and qualitative results are shown in Table 10 and
+  SAPA-B[NeurIPS2022] [22]        R50      +0.1M    40.6   47.7    29.8    78.0   49.6
+  DySample-S+[ICCV2023] [71]      R50      +6.2K    41.1   48.1    30.5    78.2   50.2   Figure 15, with ResNet serving as the backbone. FreqFusion
+  DySample+[ICCV2023] [71]        R50      +49.2K   41.5   48.5    30.8    78.3   50.7
+  FreqFusion (Ours)               R50      +0.3M    42.7   49.3    32.7    79.0   51.9
+                                                                                         showcases exceptional performance, manifesting a noteworthy im-
+  Nearest                        R101      65.0M    42.2   50.1    30.3    78.3   51.4   provement of 1.3 mask AP and 1.7 box AP on the COCO dataset.
+  DySample+[ICCV2023] [71]       R101      +49.2K   43.0   50.2    32.1    78.6   52.4   This accomplishment positions FreqFusion as the leading method,
+  FreqFusion (Ours)              R101      +0.3M    44.0   50.8    33.7    79.4   53.4
+                                                                                         outperforming prominent competitors, including CARAFE, In-
+                                                                                         dexNet, A2U, FADE, SAPA-B, Dysample-S+, and Dysample+.
+and ResNet-101 [13] as our baseline. Over the years, Faster R-                               FreqFusion demonstrates a substantial lead over the second-
+CNN has undergone multiple design iterations, demonstrating                              place Dysample+, achieving a margin of 0.3 mask AP and 0.4
+stable performance and significant improvements since its original                       box AP. Even when employing ResNet-50 as the backbone, Freq-
+version. We choose to validate FreqFusion based on the Faster                            Fusion maintains competitive performance compared to the more
+R-CNN architecture. The implementation provided by mmdetec-                              robust ResNet-101, yielding comparable results at 36.0 mask AP
+tion [101] is employed, following its 1× (12 epochs) training                            and 40.0 box AP. With ResNet-101 as the backbone, FreqFusion
+configurations. Modifications are exclusively made to the feature                        consistently delivers commendable improvements, achieving a
+fusion stages in the Feature Pyramid Network (FPN).                                      1.4 mask AP and 1.6 box AP boost. This outperformance is
+                                                                                         highlighted by a 0.6/0.6 mask/box AP lead over Dysample+. These
+5.2.2 Object Detection Results                                                           results underscore the robustness and efficacy of FreqFusion in
+                                                                                         advancing instance segmentation performance.
+Quantitative and qualitative results are shown in Table 9 and
+Figure 15. FreqFusion demonstrates the highest performance,
+achieving a notable 1.9 AP improvement on the COCO dataset,                              5.4     Panoptic Segmentation
+surpassing all competing methods, including CARAFE, IndexNet,                            Panoptic segmentation serves as a comprehensive integration of
+A2U, FADE, SAPA-B, Dysample-S+, and Dysample+.                                           semantic segmentation and instance segmentation, providing a
+    Notably, FreqFusion exhibits a lead over the second-place                            holistic perspective for classifying both stuff and things at the
+Dysample+, achieving a substantial margin of 0.7 AP. Even with                           pixel level. In this section, we investigate the impact of various
+ResNet-50 as the backbone, FreqFusion maintains competitive                              feature fusion methods on the panoptic segmentation task.
+performance compared to the more robust ResNet-101, achieving
+comparable results at 39.4 AP.                                                           5.4.1    Experimental Settings
+    When ResNet-101 is utilized as the backbone, FreqFusion                              Datasets and metrics. For panoptic segmentation, we utilize the
+continues to deliver a commendable 1.6 AP improvement, out-                              MS COCO [34] dataset, which encompasses 80 object categories.
+performing Dysample+ by 0.5 AP. These results underscore the                             In this context, we report task-specific metrics, namely PQ, SQ,
+robustness and efficacy of FreqFusion in enhancing object detec-                         and RQ [5], as our evaluation criteria.
+tion performance.                                                                        Implementation details. From the panoptic segmentation model,
+                                                                                         we opt for Panoptic FPN [18] with ResNet-50, modifying solely
+5.3     Instance Segmentation                                                            the upsampling stages in FPN. The mmdetection [101] codebase
+Instance segmentation is a task involving the detection and delin-                       is employed, and we adhere to 1× (12 epochs) training config-
+eation of each distinct object within an image. The intricate nature                     urations. For Panoptic FPN, which fuse 4×, 8×, 16×, and 32×
+of instance segmentation demands not only the preservation of                            downsampled features, we utilize 3 FreqFusion modules.
+consistent category information but also the precise delineation
+                                                                                         5.4.2 Panoptic Segmentation Results
+of object boundaries. Therefore, the choice and quality of feature
+fusion become critical components in the design and evaluation of                        To establish a clear and controlled baseline, we maintained the
+instance segmentation models.                                                            same settings as the previous work [71]. This allows us to fairly
+                                                                                         evaluate the performance improvements attributed to FreqFusion
+5.3.1      Experimental Settings                                                         and compare it with recent state-of-the-art feature fusion methods.
+                                                                                             Table 11 provides a comprehensive overview of the quantita-
+Datasets and metric. Similar to object detection, we leverage the                        tive results, with ResNet serving as the backbone. Qualitative re-
+widely used MS COCO [34] dataset for our instance segmentation                           sults are shown in Figure 15. FreqFusion demonstrates exceptional
+experiments. The evaluation metrics include the standard Box                             performance, showcasing a significant improvement of 2.5 PQ on
+AP (Average Precision) and Mask AP, offering a comprehensive                             the COCO dataset. This places FreqFusion as the leading method,
+assessment of detection and segmentation performance.                                    surpassing notable competitors, including CARAFE, IndexNet,
+Implementation details For our instance segmentation experi-                             A2U, FADE, SAPA-B, Dysample-S+, and Dysample+.
+ments, we employ Mask RCNN [4] with both ResNet-50 and                                       Notably, FreqFusion establishes a substantial lead over the
+ResNet-101 [13] as the baseline architectures. Following a similar                       second-place Dysample+, achieving a remarkable margin of 1.2
+                                                                                                                                            14
+
+PQ. Even when employing ResNet-50 as the backbone, FreqFu-             interpolation methods, many still resort to using such techniques as
+sion maintains competitive performance compared to the more            bilinear interpolation for initial fusion [19], [23]. The results in Ta-
+robust ResNet-101, achieving higher results at 42.7 PQ as opposed      ble 15 demonstrate the effectiveness of the enhanced initial fusion
+to 42.2 PQ.                                                            in improving segmentation performance. When solely utilizing the
+    With ResNet-101 as the backbone, FreqFusion consistently           ALPF generator, there is a noticeable boost of +0.3 in mIoU.
+delivers commendable improvements, achieving a notable 1.8 PQ          Furthermore, the combination of both ALPF and AHPF generators
+boost. A 1.0 AP lead over Dysample+ further emphasizes this            in the enhanced initial fusion further elevates the performance to
+outperformance. These results strongly underscore the robustness       43.5. This highlights the collaborative synergy of both generators
+and efficacy of FreqFusion in advancing Panoptic Segmentation          in refining segmentation features during the initial fusion process.
+performance.                                                           The findings underscore the significance of the initial fusion
+                                                                       stage for achieving superior segmentation results. By addressing
+5.5   Ablation Studies                                                 the inherent limitations of simple interpolation methods, such as
+In this section, we conduct ablation studies for the proposed          blurred boundaries, we can significantly enhance the accuracy and
+FreqFusion. We use the recent state-of-the-art efficient segmen-       quality of segmentation outcomes.
+tation architecture SegNeXt [31] as the baseline for its high
+performance and efficiency. Results are reported on challenging        6    D ISCUSSION WITH R ELATED W ORKS
+dataset ADE20K [33].
+Ablation study for three generators. Table 12 presents a com-          Our work is closely related to previous studies in various aspects,
+prehensive ablation study, meticulously assessing the individual       and we elaborate on these relationships and distinctions in detail.
+contributions of the Adaptive Low-Pass Filter (ALPF), Adaptive              Kernel-based methods like A2U [66] and IndexNet [65] exclu-
+High-Pass Filter (AHPF), and offset generators in the final fusion     sively rely on low-level features for dynamic kernel generation,
+process of FreqFusion. When ALPF is introduced independently,          posing a risk of introducing noise into the kernels. Similarly,
+a marginal yet noteworthy improvement in mIoU of +0.9 is               SAPA [22] leverages the similarity between low-level and high-
+observed. This indicates the initial impact of adaptive low-pass       level features for kernel generation, but this approach also carries
+filtering on refining high-level features during upsampling. The       the potential for noise introduction. In contrast, CARAFE [94]
+combination of ALPF and AHPF demonstrates a synergistic effect,        solely employs high-level features for dynamic kernel genera-
+resulting in a more substantial enhancement. The mIoU achieves         tion, overlooking the importance of the high-resolution structure
+42.9 (+1.8), highlighting the complementary roles played by both       inherent in low-level features, which has been demonstrated to
+generators in addressing intra-category inconsistency and bound-       be crucial for effective upsampling [23]. Conversely, FADE [23]
+ary displacement. Notably, the inclusion of the offset generator       incorporates both low-level and high-level features for dynamic
+leads to the highest mIoU of 43.5 (+2.4). These findings under-        kernel generation. However, it still adopts simple nearest-neighbor
+score the collaborative effectiveness of ALPF, AHPF, and offset        interpolation for upsampling, leading to boundary displacement
+generators within FreqFusion. Each component is instrumental           issues. To address these challenges, our proposed FreqFusion
+in tackling specific challenges related to pixel-wise category         utilizes both low-level and high-level features and introduces the
+consistency and spatial boundary accuracy. Quantitative analyses       ALPF generator and AHPF generator to enhance the initial fusion.
+in Table 1 also verify that three generators benefit solving intra-         Recent sampling-based methods such as AlignSeg [68],
+category consistency and boundary displacement.                        IFA [20], SFNet [19], FaPN [69], and Dysample [71] predomi-
+                                                                       nantly concentrate on enhancing upsampling by learning to sample
+Ablation study for kernel sizes of adaptive filters. As shown in
+                                                                       features with potential feature inconsistency. In contrast, FreqFu-
+Table 13, we also investigate the kernel sizes of adaptive low/high-
+                                                                       sion adopts a novel approach. It initially smooths the high-level
+pass filters, i.e., K̄ and K̂ . When K̄ = 3 and K̂ = 3, the proposed
+                                                                       features to reduce overall feature inconsistency, then utilizes local
+FreqFusion improves upon SegNeXt [31] by 0.8 mIoU. Increasing
+                                                                       similarity as guidance, and finally learns to resample the features
+the kernel size of adaptive low-pass filters from K̄ = 3 to K̂ = 5
+                                                                       to replace inconsistent features.
+results in an additional 1.0 mIoU improvement, and performance
+                                                                            While existing kernel-based and sampling-based methods pri-
+remains consistent from K̄ = 5 to K̄ = 7. However, further
+                                                                       marily focus on improving the upsampling process in feature fu-
+increasing the kernel size of adaptive high-pass filters from K̂ = 3
+                                                                       sion, FreqFusion goes a step further by extracting high-frequency
+to K̂ = 5 leads to performance degradation, i.e., from 42.9 to
+                                                                       information from low-level features and incorporating it residually
+42.4. Thus, we set K̄ = 5 and K̂ = 3.
+                                                                       to enhance feature fusion. Furthermore, although previous studies
+Ablation study for offset generator. Here, we further investigate      empirically observe the problems in standard feature fusion and
+the setting of offset groups. Features are divided into different      attempt to address them, they lack clear definitions supported by
+groups along the channel dimension, and different groups of            quantitative measurements. In contrast, we precisely identify and
+offsets are generated, sharing the same sampling set in each group     define the issues of intra-category inconsistency and boundary
+to achieve finer resampling. As presented in Table 14, the results     displacement, measuring them through feature similarity analysis.
+demonstrate that utilizing four offset groups achieves the highest     The proposed FreqFusion effectively tackles these issues with the
+mIoU of 43.5, indicating that this configuration yields the most       aim of achieving simultaneous feature consistency and boundary
+effective refinement of segmentation predictions. Increasing the       sharpness.
+number of offset groups beyond four does not lead to signifi-
+cant improvements and may even result in marginal performance
+degradation.                                                           7    C ONCLUSION
+Ablation study for initial fusion. Despite numerous works ac-          In this paper, we aim to address the critical challenges of
+knowledging the problem of blurred boundaries caused by simple         intra-category inconsistency and boundary displacement in dense
+                                                                                                                                                                                         15
+
+                                 TABLE 12                                                                  ACKNOWLEDGMENTS
+ Ablation study for the final fusion of FreqFusion. Results are reported
+                     on ADE20K [33] validation set.                                                        This work was supported by the National Natural Science Foun-
+                                                                                                           dation of China (62331006, 62171038, 61936011, and 62088101),
+       SegNeXt-T [31]
+                               ALPF            AHPF          Offset     Params     FLOPs
+                                                                                                  mIoU
+                                                                                                           the R&D Program of Beijing Municipal Education Commission
+                              generator       generator     generator    (M)        (G)
+                                                                                                           (KZ202211417048), the Fundamental Research Funds for the
+    Standard feature fusion      ×               ×              ×           4.26    6.59          41.1
+                                 √
+                                                 ×              ×           4.42    6.91     42.0 (+0.9)
+                                                                                                           Central Universities, and JST Moonshot R&D Grant Number
+                                 √               √
+         FreqFusion              √               √              ×
+                                                                √           4.43
+                                                                            4.59
+                                                                                    6.97
+                                                                                    7.14
+                                                                                             42.9 (+1.8)
+                                                                                             43.5 (+2.4)
+                                                                                                           JPMJMS2011, Japan.
+
+
+                              TABLE 13                                                                     R EFERENCES
+    Ablation study for the FreqFusion. Results are reported on
+ADE20K [33] validation set. K̄ , K̂ indicates the kernel size of adaptive                                  [1]    S. Ren, K. He, R. Girshick, and J. Sun, “Faster r-cnn: Towards real-
+                        low/high-pass filters.                                                                    time object detection with region proposal networks,” in Proceedings of
+                                                                                                                  Advances in Neural Information Processing Systems, 2015, pp. 91–99.
+                                                                                                           [2]    J. Long, E. Shelhamer, and T. Darrell, “Fully convolutional networks
+                                                 ALPF                AHPF                                         for semantic segmentation,” in Proceedings of IEEE International
+                SegNeXt-T [31]                                                       mIoU
+                                                generator           generator                                     Conference on Computer Vision, 2015, pp. 3431–3440.
+            Standard feature fusion                  ×                  ×             41.1                 [3]    L.-C. Chen, Y. Zhu, G. Papandreou, F. Schroff, and H. Adam, “Encoder-
+                                                                                                                  decoder with atrous separable convolution for semantic image segmen-
+                                                  K̄ = 3             K̂ = 3        41.9 (+0.8)                    tation,” in Proceedings of European Conference on Computer Vision,
+                   FreqFusion                     K̄ = 5             K̂ = 3        42.9 (+1.8)                    2018, pp. 801–818.
+                                                  K̄ = 7             K̂ = 3        42.9 (+1.8)             [4]    K. He, G. Gkioxari, P. Dollár, and R. Girshick, “Mask r-cnn,” in
+                                                  K̄ = 5             K̂ = 5        42.4 (+1.3)                    Proceedings of IEEE International Conference on Computer Vision,
+                                                                                                                  2017, pp. 2961–2969.
+                                                                                                           [5]    A. Kirillov, K. He, R. Girshick, C. Rother, and P. Dollár, “Panoptic
+                              TABLE 14                                                                            segmentation,” in Proceedings of IEEE Conference on Computer Vision
+Ablation study on the number of offset groups for the offset generator.                                           and Pattern Recognition, 2019, pp. 9404–9413.
+         Results are reported on ADE20K [33] validation set.                                               [6]    H. Rashed, E. Mohamed, G. Sistu, V. R. Kumar, C. Eising, A. El-
+                                                                                                                  Sallab, and S. Yogamani, “Generalized object detection on fisheye
+                 Offset group             1           2             4         8       16
+                                                                                                                  cameras for autonomous driving: Dataset, representations and baseline,”
+                                                                                                                  in Proceedings of IEEE Winter Conference on Applications of Computer
+                      mIoU            43.1           43.2       43.5        43.4     43.3                         Vision, 2021, pp. 2272–2280.
+                                                                                                           [7]    Z. Zhang, S. Fidler, and R. Urtasun, “Instance-level segmentation for
+                                                                                                                  autonomous driving with deep densely connected mrfs,” in Proceedings
+                                  TABLE 15                                                                        of IEEE Conference on Computer Vision and Pattern Recognition, 2016.
+ Ablation study for the initial fusion of FreqFusion. Results are reported                                 [8]    X. Wang, Y. Peng, L. Lu, Z. Lu, M. Bagheri, and R. M. Summers,
+on ADE20K [33] validation set. The generators in the initial fusion share                                         “Chestx-ray8: Hospital-scale chest x-ray database and benchmarks on
+  the same parameters as those in the final fusion, thus the enhanced                                             weakly-supervised classification and localization of common thorax
+              initial fusion introduces no extra parameters.                                                      diseases,” in Proceedings of IEEE Conference on Computer Vision and
+                                                                                                                  Pattern Recognition, 2017, pp. 2097–2106.
+                                                                                                           [9]    T. Falk, D. Mai, R. Bensch, Ö. Çiçek, A. Abdulkadir, Y. Marrakchi,
+                                                       ALPF              AHPF                                     A. Böhm, J. Deubner, Z. Jäckel, K. Seiwald et al., “U-net: deep learning
+                   SegNeXt-T [31]                                                          mIoU
+                                                      generator         generator
+                                                                                                                  for cell counting, detection, and morphometry,” Nature methods, vol. 16,
+                      FreqFusion                            ×                 ×            43.1                   no. 1, pp. 67–70, 2019.
+                                                            √                                              [10]   A. Milioto and C. Stachniss, “Bonnet: An open-source training and
+                  FreqFusion                                √                 ×
+                                                                              √            43.4
+            w/ Enhanced initial fusion                                                     43.5                   deployment framework for semantic segmentation in robotics using
+                                                                                                                  cnns,” in IEEE International Conference on Robotics and Automation.
+                                                                                                                  IEEE, 2019, pp. 7094–7100.
+                                                                                                           [11]   C. Luo, Q. Lin, W. Xie, B. Wu, J. Xie, and L. Shen, “Frequency-driven
+image prediction tasks. By employing feature similarity anal-
+                                                                                                                  imperceptible adversarial attack on semantic similarity,” in Proceedings
+ysis, we quantitatively measured these issues, guiding the de-                                                    of IEEE Conference on Computer Vision and Pattern Recognition, 2022,
+sign of the proposed method, Frequency-aware Feature Fusion                                                       pp. 15 315–15 324.
+(FreqFusion). FreqFusion comprises an Adaptive Low-Pass Filter                                             [12]   K. Simonyan and A. Zisserman, “Very deep convolutional networks
+                                                                                                                  for large-scale image recognition,” in Proceedings of International
+(ALPF) generator, an Offset generator, and an Adaptive High-                                                      Conference on Learning Representations, 2015, pp. 1–14.
+Pass Filter (AHPF) generator. These components effectively tackle                                          [13]   K. He, X. Zhang, S. Ren, and J. Sun, “Deep residual learning for image
+intra-category inconsistency and boundary displacement by adap-                                                   recognition,” in Proceedings of IEEE Conference on Computer Vision
+tively smoothing high-level features, resampling nearby category-                                                 and Pattern Recognition, 2016, pp. 770–778.
+                                                                                                           [14]   Z. Liu, Y. Lin, Y. Cao, H. Hu, Y. Wei, Z. Zhang, S. Lin, and B. Guo,
+consistent features, and enhancing the high frequencies of lower-                                                 “Swin transformer: Hierarchical vision transformer using shifted win-
+level features. Through qualitative and quantitative evaluations, we                                              dows,” in Proceedings of IEEE International Conference on Computer
+have demonstrated the superiority of FreqFusion across various                                                    Vision, 2021, pp. 10 012–10 022.
+                                                                                                           [15]   Z. Zhang, X. Zhang, C. Peng, X. Xue, and J. Sun, “Exfuse: Enhancing
+dense prediction tasks, including semantic segmentation, object
+                                                                                                                  feature fusion for semantic segmentation,” in Proceedings of European
+detection, instance segmentation, and panoptic segmentation.                                                      Conference on Computer Vision, 2018, pp. 269–284.
+    In the future, investigating the computational efficiency and                                          [16]   T.-Y. Lin, P. Dollár, R. Girshick, K. He, B. Hariharan, and S. Belongie,
+real-time applicability of FreqFusion in resource-constrained envi-                                               “Feature pyramid networks for object detection,” in Proceedings of
+                                                                                                                  IEEE Conference on Computer Vision and Pattern Recognition, 2017,
+ronments will be essential for its practical deployment. Moreover,                                                pp. 2117–2125.
+extending FreqFusion to incorporate temporal inputs, such as                                               [17]   T. Xiao, Y. Liu, B. Zhou, Y. Jiang, and J. Sun, “Unified perceptual pars-
+videos, where temporal intra-category consistency and boundary                                                    ing for scene understanding,” in Proceedings of European Conference
+                                                                                                                  on Computer Vision, 2018, pp. 418–434.
+sharpness may be disrupted by motion blur or occlusion, could
+                                                                                                           [18]   A. Kirillov, R. Girshick, K. He, and P. Dollár, “Panoptic feature pyramid
+further enhance its adaptability to diverse visual perception tasks                                               networks,” in Proceedings of IEEE Conference on Computer Vision and
+like object tracking.                                                                                             Pattern Recognition, 2019, pp. 6399–6408.
+                                                                                                                                                                16
+
+[19]   X. Li, J. Zhang, Y. Yang, G. Cheng, K. Yang, Y. Tong, and D. Tao,                  atrous convolution, and fully connected crfs,” IEEE Transactions Pat-
+       “Sfnet: Faster and accurate semantic segmentation via semantic flow,”              tern Analysis and Machine Intelligence, vol. 40, no. 4, pp. 834–848,
+       International Journal of Computer Vision, pp. 1–24, 2023.                          2017.
+[20]   H. Hu, Y. Chen, J. Xu, S. Borse, H. Cai, F. Porikli, and X. Wang, “Learn-   [43]   J. Redmon, S. Divvala, R. Girshick, and A. Farhadi, “You only look
+       ing implicit feature alignment function for semantic segmentation,” in             once: Unified, real-time object detection,” in Proceedings of IEEE
+       Proceedings of European Conference on Computer Vision. Springer,                   Conference on Computer Vision and Pattern Recognition, 2016, pp.
+       2022, pp. 487–505.                                                                 779–788.
+[21]   C. Yu, J. Wang, C. Peng, C. Gao, G. Yu, and N. Sang, “Learning a dis-       [44]   L. Chen, Z. Fang, and Y. Fu, “Consistency-aware map generation at
+       criminative feature network for semantic segmentation,” in Proceedings             multiple zoom levels using aerial image,” IEEE Journal of Selected
+       of the IEEE conference on computer vision and pattern recognition,                 Topics in Applied Earth Observations and Remote Sensing, vol. 15, pp.
+       2018, pp. 1857–1866.                                                               5953–5966, 2022.
+[22]   H. Lu, W. Liu, Z. Ye, H. Fu, Y. Liu, and Z. Cao, “Sapa: Similarity-aware    [45]   Y. Fu, Z. Fang, L. Chen, T. Song, and D. Lin, “Level-aware consistent
+       point affiliation for feature upsampling,” in Proceedings of Advances in           multilevel map translation from satellite imagery,” IEEE Transactions
+       Neural Information Processing Systems, 2022, pp. 1–12.                             on Geoscience and Remote Sensing, vol. 61, pp. 1–14, 2022.
+[23]   H. Lu, W. Liu, H. Fu, and Z. Cao, “Fade: Fusing the assets of decoder       [46]   Y. Fu, Y. Hong, L. Chen, and S. You, “Le-gan: Unsupervised low-
+       and encoder for task-agnostic upsampling,” in Proceedings of European              light image enhancement network using attention module and identity
+       Conference on Computer Vision. Springer, 2022, pp. 231–247.                        invariant loss,” Knowledge-Based Systems, vol. 240, p. 108010, 2022.
+[24]   D. Wu, Z. Guo, A. Li, C. Yu, N. Sang, and C. Gao, “Semantic segmen-         [47]   T. Zhang, Y. Fu, and J. Zhang, “Guided hyperspectral image denoising
+       tation via pixel-to-center similarity calculation,” CAAI Transactions on           with realistic data,” International Journal of Computer Vision, vol. 130,
+       Intelligence Technology, 2023.                                                     no. 11, p. 2885–2901, 2022.
+[25]   S. Chang, P. Wang, H. Luo, F. Wang, and M. Z. Shou, “Revisiting vision      [48]   Y. Fu, T. Zhang, L. Wang, and H. Huang, “Coded hyperspectral
+       transformer from the view of path ensemble,” in Proceedings of IEEE                image reconstruction using deep external and internal learning,” IEEE
+       International Conference on Computer Vision, 2023, pp. 19 889–19 899.              Transactions on Pattern Analysis and Machine Intelligence, vol. 44,
+[26]   X. Zou, F. Xiao, Z. Yu, Y. Li, and Y. J. Lee, “Delving deeper into anti-           no. 7, pp. 3404–3420, 2022.
+       aliasing in convnets,” International Journal of Computer Vision, vol.       [49]   K. Wei, Y. Fu, Y. Zheng, and J. Yang, “Physics-based noise modeling for
+       131, no. 1, pp. 67–81, 2023.                                                       extreme low-light photography,” IEEE Transactions on Pattern Analysis
+[27]   A. V. Oppenheim, Discrete-time signal processing. Pearson Education                and Machine Intelligence, vol. 44, no. 11, pp. 8520–8537, 2022.
+       India, 1999.                                                                [50]   Q. Liu, Y. Jiang, Z. Tan, D. Chen, Y. Fu, Q. Chu, G. Hua, and
+[28]   C. E. Shannon, “Communication in the presence of noise,” Proceedings               N. Yu, “Transformer based pluralistic image completion with reduced
+       of the IRE, vol. 37, no. 1, pp. 10–21, 1949.                                       information loss,” IEEE Transactions on Pattern Analysis and Machine
+[29]   H. Nyquist, “Certain topics in telegraph transmission theory,” Transac-            Intelligence, 2024.
+       tions of the American Institute of Electrical Engineers, vol. 47, no. 2,    [51]   M. Li, Y. Fu, T. Zhang, and G. Wen, “Supervise-assisted self-supervised
+       pp. 617–644, 1928.                                                                 deep-learning method for hyperspectral image restoration,” IEEE Trans-
+[30]   E. Xie, W. Wang, Z. Yu, A. Anandkumar, J. M. Alvarez, and P. Luo,                  actions on Neural Networks and Learning Systems, pp. 1–14, 2024.
+       “Segformer: Simple and efficient design for semantic segmentation
+                                                                                   [52]   T. Zhang, Y. Fu, J. Zhang, and C. Yan, “Deep guided attention network
+       with transformers,” in Proceedings of Advances in Neural Information
+                                                                                          for joint denoising and demosaicing in real image,” Chinese Journal of
+       Processing Systems, vol. 34, 2021, pp. 12 077–12 090.
+                                                                                          Electronics, vol. 33, no. 1, pp. 303–312, 2024.
+[31]   M.-H. Guo, C.-Z. Lu, Q. Hou, Z.-N. Liu, M.-M. Cheng, and S.-m.
+                                                                                   [53]   Z. Lai, Y. Fu, and J. Zhang, “Hyperspectral image super resolution with
+       Hu, “Segnext: Rethinking convolutional attention design for semantic
+                                                                                          real unaligned rgb guidance,” IEEE Transactions on Neural Networks
+       segmentation,” in Proceedings of Advances in Neural Information
+                                                                                          and Learning Systems, pp. 1–13, 2024.
+       Processing Systems, 2022, pp. 1–15.
+[32]   B. Cheng, I. Misra, A. G. Schwing, A. Kirillov, and R. Girdhar,             [54]   Y. Fu, H. Liu, Y. Zou, S. Wang, Z. Li, and D. Zheng, “Category-
+       “Masked-attention mask transformer for universal image segmentation,”              level band learning-based feature extraction for hyperspectral image
+       in Proceedings of IEEE Conference on Computer Vision and Pattern                   classification,” IEEE Transactions on Geoscience and Remote Sensing,
+       Recognition, 2022, pp. 1290–1299.                                                  vol. 62, pp. 1–16, 2024.
+[33]   B. Zhou, H. Zhao, X. Puig, S. Fidler, A. Barriuso, and A. Torralba,         [55]   Z. Liang, S. Wang, T. Zhang, and Y. Fu, “Blind super-resolution of
+       “Scene parsing through ade20k dataset,” in Proceedings of IEEE Con-                single remotely sensed hyperspectral image,” IEEE Transactions on
+       ference on Computer Vision and Pattern Recognition, 2017, pp. 633–                 Geoscience and Remote Sensing, vol. 61, pp. 1–14, 2023.
+       641.                                                                        [56]   Z. Liu, H. Mao, C.-Y. Wu, C. Feichtenhofer, T. Darrell, and S. Xie,
+[34]   T.-Y. Lin, M. Maire, S. Belongie, J. Hays, P. Perona, D. Ramanan,                  “A convnet for the 2020s,” in Proceedings of IEEE Conference on
+       P. Dollár, and C. L. Zitnick, “Microsoft coco: Common objects in                  Computer Vision and Pattern Recognition, 2022, pp. 11 976–11 986.
+       context,” in European conference on computer vision. Springer, 2014,        [57]   G. Lin, A. Milan, C. Shen, and I. Reid, “Refinenet: Multi-path refine-
+       pp. 740–755.                                                                       ment networks for high-resolution semantic segmentation,” in Proceed-
+[35]   Y. Hong, K. Wei, L. Chen, and Y. Fu, “Crafting object detection in very            ings of IEEE International Conference on Computer Vision, 2017, pp.
+       low light,” in Proceedings of the British Machine Vision Conference,               1925–1934.
+       vol. 1, no. 2, 2021, pp. 1–15.                                              [58]   T. Pohlen, A. Hermans, M. Mathias, and B. Leibe, “Full-resolution
+[36]   L. Chen, L. Gu, and Y. Fu, “When semantic segmentation meets                       residual networks for semantic segmentation in street scenes,” in
+       frequency aliasing,” in Proceedings of International Conference on                 Proceedings of IEEE Conference on Computer Vision and Pattern
+       Learning Representations, 2024.                                                    Recognition, 2017, pp. 4151–4160.
+[37]   S. Liu, L. Chen, L. Zhang, J. Hu, and Y. Fu, “A large-scale climate-        [59]   F. Yu, D. Wang, E. Shelhamer, and T. Darrell, “Deep layer aggregation,”
+       aware satellite image dataset for domain adaptive land-cover semantic              in Proceedings of IEEE Conference on Computer Vision and Pattern
+       segmentation,” ISPRS Journal of Photogrammetry and Remote Sensing,                 Recognition, 2018, pp. 2403–2412.
+       vol. 205, pp. 98–114, 2023.                                                 [60]   Y. Pang, Y. Li, J. Shen, and L. Shao, “Towards bridging semantic gap to
+[38]   L. Chen, Y. Fu, K. Wei, D. Zheng, and F. Heide, “Instance segmentation             improve semantic segmentation,” in Proceedings of IEEE International
+       in the dark,” International Journal of Computer Vision, vol. 131, no. 8,           Conference on Computer Vision, 2019, pp. 4230–4239.
+       pp. 2198–2218, 2023.                                                        [61]   M. D. Zeiler and R. Fergus, “Visualizing and understanding convolu-
+[39]   L. Chen, Y. Fu, S. You, and H. Liu, “Efficient hybrid supervision for              tional networks,” in Proceedings of European Conference on Computer
+       instance segmentation in aerial images,” Remote Sensing, vol. 13, no. 2,           Vision. Springer, 2014, pp. 818–833.
+       p. 252, 2021.                                                               [62]   W. Shi, J. Caballero, F. Huszár, J. Totz, A. P. Aitken, R. Bishop,
+[40]   ——, “Hybrid supervised instance segmentation by learning label noise               D. Rueckert, and Z. Wang, “Real-time single image and video super-
+       suppression,” Neurocomputing, vol. 496, pp. 131–146, 2022.                         resolution using an efficient sub-pixel convolutional neural network,”
+[41]   V. Badrinarayanan, A. Kendall, and R. Cipolla, “Segnet: A deep con-                in Proceedings of IEEE Conference on Computer Vision and Pattern
+       volutional encoder-decoder architecture for image segmentation,” IEEE              Recognition, 2016, pp. 1874–1883.
+       Transactions Pattern Analysis and Machine Intelligence, vol. 39, no. 12,    [63]   Z. Tian, T. He, C. Shen, and Y. Yan, “Decoders matter for semantic
+       pp. 2481–2495, 2017.                                                               segmentation: Data-dependent decoding enables flexible feature aggre-
+[42]   L.-C. Chen, G. Papandreou, I. Kokkinos, K. Murphy, and A. L. Yuille,               gation,” in Proceedings of IEEE International Conference on Computer
+       “Deeplab: Semantic image segmentation with deep convolutional nets,                Vision, 2019, pp. 3126–3135.
+                                                                                                                                                               17
+
+[64]   J. Wang, K. Chen, R. Xu, Z. Liu, C. C. Loy, and D. Lin, “Carafe++:          [88]  J. Guibas, M. Mardani, Z. Li, A. Tao, A. Anandkumar, and B. Catan-
+       Unified content-aware reassembly of features,” IEEE Transactions Pat-             zaro, “Adaptive fourier neural operators: Efficient token mixers for
+       tern Analysis and Machine Intelligence, vol. 44, no. 9, pp. 4674–4687,            transformers,” in Proceedings of International Conference on Learning
+       2021.                                                                             Representations, 2022, pp. 1–12.
+[65]   H. Lu, Y. Dai, C. Shen, and S. Xu, “Index networks,” IEEE Transactions      [89] S. Jia, C. Ma, T. Yao, B. Yin, S. Ding, and X. Yang, “Exploring
+       Pattern Analysis and Machine Intelligence, vol. 44, no. 1, pp. 242–255,           frequency adversarial attacks for face forgery detection,” in Proceedings
+       2020.                                                                             of IEEE Conference on Computer Vision and Pattern Recognition, 2022,
+[66]   Y. Dai, H. Lu, and C. Shen, “Learning affinity-aware upsampling for               pp. 4103–4112.
+       deep image matting,” in Proceedings of IEEE Conference on Computer          [90] L. Yang, X. Gu, and J. Sun, “Generalized semantic segmentation by
+       Vision and Pattern Recognition, 2021, pp. 6841–6850.                              self-supervised source domain projection and multi-level contrastive
+[67]   D. Mazzini, “Guided upsampling network for real-time semantic seg-                learning,” arXiv preprint arXiv:2303.01906, 2023.
+       mentation,” in Proceedings of the British Machine Vision Conference,        [91] I. Chung, D. Kim, and N. Kwak, “Maximizing cosine similarity between
+       2018, pp. 1–12.                                                                   spatial features for unsupervised domain adaptation in semantic seg-
+[68]   Z. Huang, Y. Wei, X. Wang, W. Liu, T. S. Huang, and H. Shi, “Alignseg:            mentation,” in Proceedings of IEEE Winter Conference on Applications
+       Feature-aligned segmentation networks,” IEEE Transactions Pattern                 of Computer Vision, 2022, pp. 1351–1360.
+       Analysis and Machine Intelligence, vol. 44, no. 1, pp. 550–557, 2021.       [92] S. Czolbe, P. Pegios, O. Krause, and A. Feragen, “Semantic similarity
+[69]   S. Huang, Z. Lu, R. Cheng, and C. He, “Fapn: Feature-aligned pyramid              metrics for image registration,” Medical Image Analysis, vol. 87, p.
+       network for dense image prediction,” in Proceedings of IEEE Interna-              102830, 2023.
+       tional Conference on Computer Vision, 2021, pp. 864–873.                    [93] E. Shelhamer, J. Long, and T. Darrell, “Fully convolutional networks
+[70]   J. Dai, H. Qi, Y. Xiong, Y. Li, G. Zhang, H. Hu, and Y. Wei,                      for semantic segmentation.” IEEE Transactions Pattern Analysis and
+       “Deformable convolutional networks,” in Proceedings of IEEE Inter-                Machine Intelligence, vol. 39, no. 4, pp. 640–651, 2016.
+       national Conference on Computer Vision, 2017, pp. 764–773.                  [94] J. Wang, K. Chen, R. Xu, Z. Liu, C. C. Loy, and D. Lin, “Carafe:
+[71]   W. Liu, H. Lu, H. Fu, and Z. Cao, “Learning to upsample by learning to            Content-aware reassembly of features,” in Proceedings of IEEE Inter-
+       sample,” in Proceedings of IEEE International Conference on Computer              national Conference on Computer Vision, 2019, pp. 3007–3016.
+       Vision, 2023, pp. 6027–6037.                                                [95] H. Lu, Y. Dai, C. Shen, and S. Xu, “Indices matter: Learning to index for
+[72]   T. Takikawa, D. Acuna, V. Jampani, and S. Fidler, “Gated-scnn: Gated              deep image matting,” in Proceedings of IEEE International Conference
+       shape cnns for semantic segmentation,” in Proceedings of IEEE Inter-              on Computer Vision, 2019, pp. 3266–3275.
+       national Conference on Computer Vision, 2019, pp. 5229–5238.                [96] M. Cordts, M. Omran, S. Ramos, T. Rehfeld, M. Enzweiler, R. Be-
+[73]   X. Zhu, W. Su, L. Lu, B. Li, X. Wang, and J. Dai, “Deformable                     nenson, U. Franke, S. Roth, and B. Schiele, “The cityscapes dataset
+       detr: Deformable transformers for end-to-end object detection,” in                for semantic urban scene understanding,” in Proceedings of IEEE
+       Proceedings of International Conference on Learning Representations,              Conference on Computer Vision and Pattern Recognition, 2016, pp.
+       2021, pp. 1–12.                                                                   3213–3223.
+[74]   G. A. Baxes, Digital image processing: principles and applications.         [97] H. Caesar, J. Uijlings, and V. Ferrari, “Coco-stuff: Thing and stuff
+       John Wiley & Sons, Inc., 1994.                                                    classes in context,” in Proceedings of IEEE Conference on Computer
+                                                                                         Vision and Pattern Recognition, 2018, pp. 1209–1218.
+[75]   I. Pitas, Digital image processing algorithms and applications. John
+                                                                                   [98] B. Cheng, R. Girshick, P. Dollár, A. C. Berg, and A. Kirillov, “Bound-
+       Wiley & Sons, 2000.
+                                                                                         ary iou: Improving object-centric image segmentation evaluation,” in
+[76]   D. Yin, R. Gontijo Lopes, J. Shlens, E. D. Cubuk, and J. Gilmer,
+                                                                                         Proceedings of IEEE Conference on Computer Vision and Pattern
+       “A fourier perspective on model robustness in computer vision,” in
+                                                                                         Recognition, 2021, pp. 15 334–15 342.
+       Proceedings of Advances in Neural Information Processing Systems,
+                                                                                   [99] I. Loshchilov and F. Hutter, “Decoupled weight decay regularization,”
+       vol. 32, 2019.
+                                                                                         arXiv preprint arXiv:1711.05101, 2017.
+[77]   H. Wang, X. Wu, Z. Huang, and E. P. Xing, “High-frequency component
+                                                                                   [100] M. D. Zeiler, D. Krishnan, G. W. Taylor, and R. Fergus, “Deconvo-
+       helps explain the generalization of convolutional neural networks,”
+                                                                                         lutional networks,” in Proceedings of IEEE Conference on Computer
+       in Proceedings of IEEE Conference on Computer Vision and Pattern
+                                                                                         Vision and Pattern Recognition. IEEE, 2010, pp. 2528–2535.
+       Recognition, 2020, pp. 8684–8694.
+                                                                                   [101] K. Chen, J. Wang, J. Pang, Y. Cao, Y. Xiong, X. Li, S. Sun, W. Feng,
+[78]   N. Rahaman, A. Baratin, D. Arpit, F. Draxler, M. Lin, F. Hamprecht,               Z. Liu, J. Xu, Z. Zhang, D. Cheng, C. Zhu, T. Cheng, Q. Zhao, B. Li,
+       Y. Bengio, and A. Courville, “On the spectral bias of neural networks,”           X. Lu, R. Zhu, Y. Wu, J. Dai, J. Wang, J. Shi, W. Ouyang, C. C.
+       in Proceedings of International Conference on Machine Learning, 2019,             Loy, and D. Lin, “MMDetection: Open mmlab detection toolbox and
+       pp. 5301–5310.                                                                    benchmark,” arXiv preprint arXiv:1906.07155, 2019.
+[79]   Z. J. Xu and H. Zhou, “Deep frequency principle towards understanding
+       why deeper learning is faster,” in Proceedings of the AAAI Conference
+       on Artificial Intelligence, vol. 35, no. 12, 2021, pp. 10 541–10 550.
+[80]   R. Zhang, “Making convolutional networks shift-invariant again,” in
+       Proceedings of International Conference on Machine Learning, 2019,
+       pp. 7324–7334.
+[81]   J. Grabinski, S. Jung, J. Keuper, and M. Keuper, “Frequencylowcut
+       pooling-plug and play against catastrophic overfitting,” in Proceedings
+       of European Conference on Computer Vision, 2022, pp. 36–57.
+[82]   Z. Qin, P. Zhang, F. Wu, and X. Li, “Fcanet: Frequency channel
+       attention networks,” in Proceedings of IEEE International Conference
+       on Computer Vision, 2021, pp. 783–792.                                                               Linwei Chen received the B.S. degree in me-
+[83]   S. A. Magid, Y. Zhang, D. Wei, W.-D. Jang, Z. Lin, Y. Fu, and H. Pfister,                            chanical engineering and automation from the
+       “Dynamic high-pass filtering and multi-spectral attention for image                                  China University of Geosciences, Beijing, China,
+       super-resolution,” in Proceedings of IEEE International Conference on                                in 2019, and the M.S. degree in software engi-
+       Computer Vision, 2021, pp. 4288–4297.                                                                neering from the Beijing Institute of Technology,
+[84]   Z. Huang, Z. Zhang, C. Lan, Z.-J. Zha, Y. Lu, and B. Guo, “Adaptive                                  Beijing, China, in 2021. He is currently Eng.D.
+       frequency filters as efficient global token mixers,” in Proceedings of                               at MIIT Key Laboratory of Complex-field Intel-
+       IEEE International Conference on Computer Vision, 2023, pp. 1–11.                                    ligent Sensing, the School of Information and
+[85]   L. Chi, B. Jiang, and Y. Mu, “Fast fourier convolution,” in Proceedings                              Electronics, Beijing Institute of Technology. His
+       of Advances in Neural Information Processing Systems, vol. 33, 2020,                                 research interests include image segmentation,
+       pp. 4479–4488.                                                                                       object detection, and remote sensing.
+[86]   Y. Rao, W. Zhao, Z. Zhu, J. Lu, and J. Zhou, “Global filter networks for
+       image classification,” in Proceedings of Advances in Neural Information
+       Processing Systems, vol. 34, 2021, pp. 980–993.
+[87]   Z. Li, N. Kovachki, K. Azizzadenesheli, B. Liu, K. Bhattacharya,
+       A. Stuart, and A. Anandkumar, “Fourier neural operator for parametric
+       partial differential equations,” in Proceedings of International Confer-
+       ence on Learning Representations, 2021, pp. 1–12.
+                                                                              18
+
+                        Ying Fu received the B.S. degree in Electronic
+                        Engineering from Xidian University in 2009, the
+                        M.S. degree in Automation from Tsinghua Uni-
+                        versity in 2012, and the Ph.D. degree in infor-
+                        mation science and technology from the Univer-
+                        sity of Tokyo in 2015. She is currently a pro-
+                        fessor at the School of Computer Science and
+                        Technology, Beijing Institute of Technology. Her
+                        research interests include physics-based vision,
+                        image and video processing, and computational
+                        photography.
+
+
+
+
+                        Lin Gu completed his Ph.D. studies at the
+                        Australian National University and NICTA (Now
+                        Data61) in 2014. After that, he was associated
+                        with the National Institute of Informatics in Tokyo
+                        and the Bioinformatics Institute, A*STAR, Singa-
+                        pore. Currently, he is now a research scientist at
+                        RIKEN AIP, Japan, and a special researcher at
+                        the University of Tokyo. He is also a project man-
+                        ager for Moonshot R&D and the RIKEN-MOST
+                        program. His research covers a wide range of
+                        topics, encompassing computer vision, medical
+imaging, and AI for science.
+
+
+
+
+                        Chenggang Yan received the B.S. degree in
+                        Control Science and Engineering from Shan-
+                        dong University, Shandong, China, in 2008, and
+                        the Ph.D. degree in Computer Science from the
+                        Chinese Academy of Sciences University, Bei-
+                        jing, China, in 2013. He is currently a professor
+                        in the Department of Automation at Hangzhou
+                        Dianzi University. His research interests include
+                        computational photography, pattern recognition,
+                        and intelligent systems.
+
+
+
+
+                        Tatsuya Harada received the PhD degree in
+                        mechanical engineering from the University of
+                        Tokyo, in 2001. He is currently a professor with
+                        the Research Center for Advanced Science and
+                        Technology, the University of Tokyo, a team
+                        leader with the RIKEN Center for Advanced In-
+                        telligence Project (AIP), and a visiting professor
+                        with the National Institute of Informatics (NII).
+                        His research interests include visual recognition,
+                        machine learning and intelligent robot
+
+
+
+
+                        Gao Huang is an Associate Professor in the
+                        Department of Automation at Tsinghua Univer-
+                        sity. Previously, he served as a Postdoctoral Re-
+                        searcher in the Department of Computer Sci-
+                        ence at Cornell University. He obtained his PhD
+                        degree in Control Science and Engineering from
+                        Tsinghua University in 2015, and his B.Eng de-
+                        gree in Automation from Beihang University in
+                        2009. He also undertook visiting student posi-
+                        tions at Washington University in St. Louis and
+                        Nanyang Technological University in 2013 and
+2014, respectively. His research interests include machine learning and
+computer vision.
+

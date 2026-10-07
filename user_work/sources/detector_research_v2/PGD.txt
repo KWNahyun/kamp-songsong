@@ -1,0 +1,710 @@
+                           This CVPR paper is the Open Access version, provided by the Computer Vision Foundation.
+                                        Except for this watermark, it is identical to the accepted version;
+                                  the final published version of the proceedings is available on IEEE Xplore.
+
+
+
+
+        Feature Information Driven Position Gaussian Distribution Estimation
+                             for Tiny Object Detection
+
+            Jinghao Bian1 Mingtao Feng1,3 * Weisheng Dong1 Fangfang Wu1 Jianqiao Luo2
+                                    Yaonan Wang2 Guangming Shi1
+                                1
+                                  Xidian University, 2 Hunan University
+                3
+                  Jiangxi Communication Terminal Industrial Technology Research Institute
+
+
+                            Abstract
+
+Tiny object detection remains challenging in spite of the
+success of generic detectors. The dramatic performance
+degradation of generic detectors on tiny objects is mainly
+due to the the weak representations of extremely limited
+pixels. To address this issue, we propose a plug-and-play
+architecture to enhance the extinguished regions. We for
+                                                                     Figure 1. (a) Input image; (b) feature map P2 from Detec-
+the first time exploit the regions to be enhanced from the           toRS [31]; (c) enhanced feature; (d) and (e) are proposed infor-
+perspective of pixel-wise amount of information. Specifi-            mation map σ and predicted position distribution map Mpd2 .
+cally, we model the entire image pixels feature information
+by minimizing Information Entropy loss, generating an in-              assessment [19]), it is crucial to bridge the gap between tiny
+formation map to attentively highlight weak activated re-              and general object detection.
+gions in an unsupervised way. To effectively assist the above              Several pioneering efforts have been introduced to ad-
+phase with more attention to tiny objects, we next introduce           dress this challenge. One prominent approach is scale-
+the Position Gaussian Distribution Map, explicitly modeled             aware feature fusion, which constructs hierarchical feature
+using a Gaussian Mixture distribution, where each Gaus-                representations [12, 22, 25, 26, 31, 38, 49]. This method
+sian component’s parameters depend on the position and                 leverages network features at varying depths to detect ob-
+size of object instance labels, serving as supervision for fur-        jects at corresponding scales, and fusion between deep and
+ther feature enhancement. Taking the information map as                shallow features bridges the spatial-semantic gap between
+prior knowledge guidance, we construct a multi-scale po-               lower and higher pyramid levels, enhancing small object de-
+sition gaussian distribution map prediction module, simul-             tection. Another approach emphasizes target regions using
+taneously modulating the information map and distribution              attention mechanisms [23, 29, 50, 52, 55]. Inspired by the
+map to focus on tiny objects during training. Extensive ex-            human visual system [3, 9], attention-based methods filter
+periments on three public tiny object datasets demonstrate             irrelevant information and highlight tiny objects by model-
+the superiority of our method over current state-of-the-art            ing feature map importance weights.
+competitors.                                                               Although existing methods partially mitigate this issue,
+                                                                       they remain ineffective when tiny object pixel counts are
+1. Introduction                                                        extremely limited. We contend that previous approaches
+                                                                       overlook a fundamental challenge: weak tiny object repre-
+Deep learning-based architectures have significantly ad-
+                                                                       sentations of extremely limited pixels. Unlike normal-sized
+vanced general object detection [27, 32, 34]. However,
+                                                                       objects, tiny object representations with limited pixels are
+their performance declines sharply when detecting tiny ob-
+                                                                       consistently diminished through successive neural network
+jects [8]. As defined in the AI-TOD benchmark [44], tiny
+                                                                       downsampling, ultimately resulting in the suppressed acti-
+objects are categorized by pixel count: very tiny (2-8 pix-
+                                                                       vation of features. The information loss caused by down-
+els), tiny (8–16 pixels), and small (16-32 pixels). Given the
+                                                                       sampling is extremely fatal to tiny objects compared to gen-
+prevalence of tiny objects in real-world contexts (e.g., traf-
+                                                                       eral objects, leading to extremely weak and indiscrimina-
+fic monitoring [24], sea rescue [56], and wildlife population
+                                                                       tive representations. As shown in Fig. 1(b), representations
+  * Corresponding author                                               for tiny objects in generic detectors are faint and nearly in-
+
+
+
+                                                               30376
+distinguishable from the background. Consequently, even            network through a label assignment strategy to adjust and
+when tiny object features are enriched through scale-aware         refine the anchors. Specifically, they can be subdivided
+feature fusion, the intrinsic weak representations of tiny         into one-stage methods (such as YOLOV3 [33], SSD [27],
+objects still struggle with accurate detection. Moreover,          RetinaNet [35]) and two-stage methods (such as Faster R-
+attention-based methods, which rely on heuristic attention         CNN [34], Cascade R-CNN [5], Cascade RPN [42]).
+map generation, often fail due to the sparse pixels of tiny ob-    Anchor-free. Anchor-free detectors use the center point or
+jects, allowing the background to dominate in local patches.       key point to predict the target position directly, which effec-
+So the attention map derived from such weak regions be-            tively alleviates the problem of hyper-parameter sensitivity
+comes unreliable, leading to suboptimal detection results.         of predefining anchors. FCOS [40] and FoveaBox [18] pre-
+    Based on the preceding discussion, we argue that en-           dict the bounding box in a central points fashion. Another
+hancing indiscriminative regions suffering from informa-           type of paradigm is to locate objects by key point. The rep-
+tion loss is crucial for detecting tiny objects. To achieve        resentative works are CornerNet [20], Grid R-CNN [28],
+this, we propose a novel plug-and-play framework for fea-          ExtremeNet [57] and RepPoints [51].
+ture enhancement. Inspired by information theory [37],
+                                                                   2.2. Tiny Object Detection
+we first estimate entire image pixel-wise amount of infor-
+                                                                   Sample-oriented strategies. Kisantal et al. [17] over-
+mation unsupervisedly by minimizing Information Entropy
+                                                                   samples images with small objects and augments them by
+loss (which is a reflection of encoding cost of all pixels).
+                                                                   copy-pasting small objects. NWD-RKA [47] replaces the
+The generated information map emphasizes salient regions,
+                                                                   standard label assignment strategy IoU with Normalized
+with salient targets having more amount of information than
+                                                                   Wasserstein Distance and ranking-based assigning strategy.
+smooth background, displaying attentive regions for en-
+                                                                   RFLA [48] measures the similarity between the Gaussian
+hancement. To assist the information map with more at-
+                                                                   receptive filed and ground truth to alleviate the problem of
+tention to tiny objects, we introduce the Position Gaussian
+                                                                   insufficient positive samples for tiny objects.
+Distribution Map, which is modeled via Gaussian Mixture
+                                                                   Scale-aware methods. FPN [25] constructs feature-level
+distribution, with each Gaussian component parameters ad-
+                                                                   pyramid for multi-scale learning, promoting promising
+justing to the position and size of the instance label. The
+                                                                   improvement of tiny objects. BiFPN [38] employs a
+distribution map can capture salient targets, with tiny ob-
+                                                                   weighted bi-directional feature pyramid architecture to fa-
+jects having higher pixel intensities than general objects, in-
+                                                                   cilitate multi-scale fusion. DetectoRS [31] further develops
+creasing more attention to tiny objects for enhancement. We
+                                                                   it by incorporating extra feedback connections and switch-
+incorporate information map prior with multi-scale features
+                                                                   able atrous convolution. Gong et al. [12] introduces fusion
+to predict the distribution map in a supervised manner, si-
+                                                                   factor to control the information flow between two adjacent
+multaneously modulating the information map and distribu-
+                                                                   layers of FPN, easing the burden of learning for tiny objects.
+tion map to focus on tiny objects during training. As shown
+                                                                   Attention-based frameworks. Attention mechanisms are
+in Fig. 1, our information map and predicted distribution
+                                                                   used to filter out unimportant regions and increase attention
+map successfully identify and enhance the key information
+                                                                   to tiny objects. KB-RANN [52] utilizes attention mecha-
+loss regions, making the tiny object representation salient.
+                                                                   nism to refine key features in an iterative way. SCRDet [50]
+Extensive experiments on three datasets validate the superi-
+                                                                   introduces channel attention and pixel attention network to
+ority of our method. Our main contributions are:
+                                                                   jointly explore tiny objects. AFF-SSD [29] designs a dual-
+• We are the first to enhance the weak representations of
+                                                                   path attention module to screen feature information, im-
+   tiny objects from the perspective of pixel-wise amount of
+                                                                   proving the detection performance of one-stage methods.
+   information. The attentive information map is captured
+   by minimizing Information Entropy loss in an unsuper-           Mimic learning algorithms. The core of mimic learn-
+   vised manner.                                                   ing is to use high-quality features of large instances to
+• With the information map as a prior guide, we leverage           boost low-quality representations of tiny objects. Percep-
+   multi-scale features to predict Position Gaussian Distri-       tual GAN [21] and MT-GAN [1] draw inspiration from
+   bution Map, further highlighting tiny objects.                  generative adversarial networks [13] and generate super-
+• The proposed method can be flexibly integrated into any          resolved representations for tiny objects. Another line of
+   FPN-like detectors. Experimental results demonstrate the        efforts [16, 46, 53] aim to narrow the distance between large
+   consistent gain of our plug-and-play module and its supe-       and small instances in feature space with the help of simi-
+   riority over existing state-of-the-art methods.                 larity measurement.
+                                                                       Previous methods often overlook the performance lim-
+2. Related works                                                   itations caused by weak representations suffering from in-
+2.1. General Object Detection                                      formation loss. The recent work, SR-TOD [6], uses a dif-
+Anchor-based. Anchor-based detectors predefine anchors             ference map created by subtracting the restored image from
+covering different scales and aspect ratios and train the          the original to identify regions affected by information loss.
+
+
+
+                                                              30377
+Figure 2. Method overview. GDN represents [2] Generalized Divisive Normalization which is suitable for density modeling, CBAM
+represents Convolutional Block Attention Module [45].
+However, it depends heavily on the quality of the restored       the cross entropy between the actual marginal distribution
+image, and its downsampling process further reduces dif-         m(ŷ) and its approximation pŷ (ŷ) reflects the lower bound
+ference map information. In contrast, supported by infor-        of the rate cost (commonly measured in bits in communica-
+mation entropy theory and distribution map modeling, our         tion systems) for encoding ŷ:
+method directly identifies regions of information loss at the
+feature map level, demonstrating superior performance.               R = Eŷ∼m [− log2 pŷ (ŷ)] = H(m) + DKL (m||pŷ ) (2)
+
+3. Methodology                                                   where H(·) denotes the entropy function, and DKL (·) rep-
+Overview. As illustrated in Fig. 2, given input X, a feature     resents the KL-divergence function. When the modeling
+pyramid is constructed from P2 to P5 . Enhancement is ap-        pŷ (ŷ) perfectly matches the marginal m(ŷ), the encoding
+plied to P2 , which primarily handles tiny objects. First, P2    cost R is minimized, as the mean amount of information is
+is quantized to estimate its information map σ, with salient     reduced to its lowest. In communication systems, to achieve
+objects having more amount of information. Then, P2 to P4        minimum encoding cost for storage and transmission, more
+are used to predict the Position Gaussian Distribution Map       encoding resources are allocated to the salient and infor-
+Mpd2 , guided by prior knowledge σ, simultaneously assist-       mative fragments with more amount of information, while
+ing σ with more attention to tiny objects. After σ and Mpd2      fragments with higher occurrence probabilities incur lower
+enhance the information loss regions of P2 , they will re-       encoding costs due to their less information.
+spectively flow through attention module and finally merge            Given an input image X ∈ RH×W ×3 with the bottom-
+                                                                                          H  W
+             ′                           ′
+to obtain P2 . As a substitute for P2 , P2 will be sent to the   level feature P2 ∈ R 4 × 4 ×C (denoted as y) from the FPN
+detection head for detection task.                               for tiny object detection, pixels containing more amount of
+                                                                 information in y often correspond to salient regions, as the
+3.1. Pixels Feature Information Modeling                         occurrence probability of salient regions is typically lower
+The downsampling process in neural networks results in the       than that of smooth background. Thus, we leverage the
+loss of target information as network depth increases, which     amount of pixels information to identify and enhance these
+is particularly detrimental for tiny objects due to their lim-   salient regions for subsequent detection. By minimizing the
+ited pixel occupancy. Enhancing the information loss re-         overall encoding cost based on a well-estimated distribu-
+gions is therefore essential for improving tiny object detec-    tion, the network adaptively allocates more cost to salient
+tion. To address this, we emphasize salient regions requir-      regions, while smooth background regions incur less cost.
+ing enhancement from a novel perspective of the amount           This overall encoding cost optimization process effectively
+of information. Specifically, for a signal x with probability    mines spatial structures and reduces spatial redundancy.
+p(x), amount of information is defined as follows [41]:               We first estimate the distribution of y. To encode the
+                                                                 feature y with a finite number of encoding bits, the contin-
+                    I(x) = − log2 p(x)                    (1)    uous feature variables are discretized using quantization Q,
+                                                                 resulting in the discrete feature map ŷ. This quantization
+   Assuming the signal feature representation is highly
+                                                                 reduces pixel-wise redundancy to some extent. To make the
+ordered and compact, salient and informative fragments
+                                                                 quantization function differentiable, additive uniform noise
+within the feature typically have lower occurrence prob-
+                                                                 U(− 21 , 12 ) is applied during training [2]:
+abilities. According to Shannon entropy theory [37, 39],
+the amount of a signal feature information is closely linked                                        1 1
+to its distribution. For a stream of discretized elements ŷ,                    ŷ = Q(y) = y + U(− , )                  (3)
+                                                                                                    2 2
+
+
+
+                                                             30378
+   The distribution of ŷ is estimated with a fully factor-
+ized density model, where each pixel element ŷi is inde-
+pendently modeled as a Gaussian distribution with mean µi
+and standard deviation σi :
+                       Y                     1 1
+       pŷ (ŷ|µ, σ) =   (N (µi , σi2 ) ∗ U(− , ))(ŷi ) (4)
+                       i
+                                             2 2
+                                  H    W
+where the mean map µ ∈ R 4 × 4 ×C and scale map σ ∈
+   H   W
+R 4 × 4 ×C are predicted from the bottom-level feature map
+y using a CNN parameters stimation module, as shown
+in Fig. 2. Due to the ability of CNN in local receptive
+field within Gaussian distribution prediction, our pixel-level
+modeling is equipped with local structure information. We
+convolve the Gaussian density with a unit uniform distri-           Figure 3. (a) Gaussian distributions of tiny object and background.
+bution, which has been shown to be effective in matching            (b) Amount of information map & information map σ comparison.
+the estimated distribution with the unknown actual marginal         for enhancement. While the scale map σ is more visually
+distribution [30].                                                  salient, since the amount of information map is the direct
+    After determining the encoding distribution, the likeli-        optimization target (see Fig. 3(b)). Therefore, we treat the
+hood of each element ŷi can be obtained via the binned area        scale map σ as a better representation of the amount of in-
+under the probability density function:                             formation (denoted as information map σ by default in this
+                                                1 1                 paper) and refine the feature map P2 by σ to enhance salient
+ pŷi (ŷi |µi , σi ) = (N (µi , σi2 ) ∗ U(− , ))(ŷi )             regions, as formulated below:
+                                                2 2
+                        Z ŷi + 12
+                                                                                   σ = M ean(σ), y1 = y ⊗ (1 + σ)                  (8)
+                      =            N (y|µi , σi2 ) dy        (5)
+                      ŷi − 12
+                                                                       where M ean denotes the averaging operation along the
+                      ŷi + 12 − µi        ŷi − 12 − µi               channel dimension, and ⊗ represents pixel-wise multipli-
+                 = F(               ) − F(               )
+                           σi                   σi                     cation. Note that 1 + σ is used to preserve useful contextual
+                                                                       information in the feature map P2 , preventing it from being
+where F denotes the cumulative distribution function of a
+                                                                       influenced by values near zero in σ.
+standard normal Gaussian distribution.
+   Finally, the encoding cost of the element ŷi is calculated         3.2. Position Gaussian Distribution Prediction
+by the negative log-likelihood:
+                                                                    Position Gaussian Distribution Map. To effectively make
+                 Rŷi = − log2 pŷi (ŷi |µi , σi )          (6)    the information map pinpoint tiny objects, we introduce
+                                                                    Position Gaussian Distribution Map at the region level.
+   The Information Entropy loss LIE is defined as the sum
+                                                                    Ground truth distribution map for tiny object detection fol-
+of the encoding cost of all elements, which is a reflection of
+                                                                    lows two principles: 1) foreground-background distinction
+mean amount of feature information:
+                               X                                    (foreground has higher values), and 2) differentiation be-
+                      LIE =       Rŷi                     (7)      tween tiny and general objects (tiny objects have relatively
+                                   i                                higher values).
+                                                                       We employ a Gaussian Mixture distribution to model
+   We minimize the Information Entropy loss LIE to adap-
+                                                                    the feature map and emphasize object locations, as shown
+tively capture regions with more amount of information,
+                                                                    in Fig. 4. Given input X with N object instances, we set
+such as tiny objects. As shown in Fig. 3(a), the predicted
+                                                                    the size of the generated ground truth map to match P2 di-
+mean map µ is typically close to ŷ, minimizing the Informa-
+                                                                    mensions ( H      W
+                                                                                 4 × 4 × 1) to reduce computational cost. As-
+tion Entropy loss. For smooth backgrounds, the output like-
+                                                                    suming that an object’s main body is centered in its anno-
+lihood is higher than that for salient object regions, indicat-
+                                                                    tated bounding box [43, 48], each Gaussian component in
+ing that the latter contain more amount of information and
+                                                                    the feature map distribution is defined as a two-dimensional
+incur higher encoding costs. Salient regions output larger
+                                                                    Gaussian distribution with (µbox
+                                                                                                   i   , Σbox
+                                                                                                          i   ), where the bound-
+σ, requiring more bits to encode. In contrast, background
+                                                                    ing box center serves as the mean vector, and the squared
+regions have smaller σ, resulting in fewer encoding bits and
+                                                                    side length forms the covariance matrix:
+less randomness. Thus, the predicted scale map σ is posi-
+                                                                                                         2       
+tively correlated with the amount of information map (cal-                                 xi               wi 0
+                                                                                  µbox =       , Σ box
+                                                                                                        =                     (9)
+culated by Eq. (6)) and highlights potential salient regions                       i       yi      i        0 h2i
+
+
+
+                                                               30379
+             Figure 4. Generation pipeline of Position Gaussian Distribution Map. GT is displayed in gray mode for clarity.
+
+where (xi , yi , wi , hi ) represents the location of the i-th         the distinct semantic and spatial details across FPN levels,
+bounding box in P2 . As shown in the Gaussian Mixture                  we use P2 , P3 and P4 to predict the map. The overall pre-
+distribution map in Fig. 4, regions with dense, large objects          diction network structure is shown in Fig. 2, with further
+exhibit chaotic salient characteristics, while tiny objects dis-       details in the supplementary material. Specifically, incor-
+play significantly higher peak values than general objects,            porating prior amount of information from σ, we add infor-
+introducing noise and increasing the learning burden. To               mation map σ to each feature level as inputs for the pre-
+create a distinct distribution map for easier training, we re-         diction network, where σ is downsampled accordingly. The
+fine the covariance matrix with scaling factors αi based on            inputs are given as inputs = [P4 + 14 σ, P3 + 21 σ, P2 + σ],
+the area of each annotated box. Following the object defi-             with 14 and 12 representing downsampling. A series of con-
+nitions in [44], scaling factors are set to 4, 6, 8, and 10 for        volutional and transposed convolutional layers [54] (except
+very tiny (2–8 pixels), tiny (8–16 pixels), small (16–32 pix-          in the P2 branch) perform feature extraction and learnable
+els), and general objects, respectively, as formulated below:          upsampling, respectively. Notably, we merge features via
+                                    wi 2                           skip connections from deeper side-outputs (pre-Sigmoid) to
+            box       xi      box     ( αi )      0                    shallower layers to aid in locating salient regions and re-
+          µi =             , Σi =                          (10)
+                      yi                 0    ( αhii )2                fining complex prediction maps [14]. Each branch then
+                                                                       predicts the position Gaussian distribution map, yielding
+  The final Gaussian Mixture distribution of the feature
+                                                                       Mpd2 , Mpd3 and Mpd4 . The process is simplified as:
+map P2 is derived by combining each Gaussian component:
+                                                                       [Mpd4 , Mpd3 , Mpd2 ] = ϕ(inputs), where ϕ represents the
+                       1 X
+                           N                                           parameterized multi-scale prediction network.
+             f (p) =         N (p|µbox
+                                   i   , Σbox
+                                          i   )             (11)           We apply deep supervision for the three side-output pre-
+                       N i=1
+                                                                       dictions which are the same size as ground truth position
+where p denotes the pixel position in P2 . To further ac-              Gaussian distribution map:
+centuate the foreground-background contrast, we multiply                                     4
+                                                                                             X
+f (p) by N and post-process the distribution map using a                           Lpred =         M SEweighted (Mpdi , MGT )     (13)
+threshold th (positions exceeding th are increased by 0.5)                                   i=2
+to obtain the final ground truth position Gaussian distribu-               where M SEweighted denotes the weighted Mean Squared
+tion map MGT . This process is simplified as follows:                      Error loss. To address foreground-background imbalance,
+                          1 X                                              we set the weight for object regions exceeding the threshold
+                  th =        N · f (p)                                    th to 10 (and 0.1 for the background) to emphasize positive
+                         |S|
+                               p∈S                                         pixels.
+  MGT = (Sign(N · f (p) − th) + 1) × 0.25 + N · f (p)                         In general, incorporating the information map σ allows
+                                                         (12)              feature information to effectively modulate distribution map
+where S is the set of all pixel positions in the feature map               predictions, while optimizing Lpred aids in generating a
+and Sign is the mathematical Sign function.                                better information map σ that identifies information-rich
+   As shown in Fig. 4, the designed position Gaussian                      tiny object regions.
+distribution map effectively captures image saliency, with                    Similar to information map, Mpd2 is used to enhance tiny
+dense tiny objects assigned relatively higher values. This                 object representations:
+map thus serves as a guide to enhance the representations
+                                                                                             y2 = y ⊗ (1 + Mpd2 )                 (14)
+of tiny objects that are otherwise weakly activated.
+   Prediction. We predict the position Gaussian distribution                   The enhanced features y1 and y2 are fed into the Con-
+map from multi-scale features under supervision, guided by                 volutional Block Attention Module (CBAM) [45] for fur-
+the information map σ derived from the pixels feature in-                  ther attention to important regions, enabling global explo-
+formation modeling module. The prediction process guided                   ration of the features. The two attentive features are fused
+by σ can simultaneously modulate the information map and                   by element-wise addition to form the enhanced feature map
+                                                                             ′    ′
+distribution map to spotlight tiny targets, both providing at-             P2 . P2 , which replaces P2 in the new feature pyramid will
+tention regions for enhancing weak representations. Given                  be sent to the detection head for downstream tasks.
+
+
+
+                                                                   30380
+           Methods                          Venue           AP         AP0.5          AP0.75              APvt             APt           APs
+           Faster R-CNN [34]             TPAMI’2017        23.9            42.2            23.8              0.1            6.5           21.1
+           Cascade R-CNN [5]             CVPR’2018         25.2            42.6            25.9              0.1            7.0           22.5
+           DetectoRS [31]                CVPR’2021         26.3            43.9            26.9              0.1            7.5           23.3
+           NWD-RKA [47]                  ISPRS’2022        27.2            47.7            26.8              4.1           12.3           23.7
+           RFLA [48]                     ECCV’2022         27.2            48.0            26.6              4.5           13.0           23.6
+           CEASC [10]                    CVPR’2023         25.1            42.6            25.7              2.0            8.6           20.7
+           PKS R-CNN [4]                 CVPR’2024         24.3            42.4            24.4              0.1            7.3           22.5
+           Salience DETR [15]            CVPR’2024         28.4            48.7            28.5              5.4           13.7           25.0
+           SR-TOD [6]                    ECCV’2024         27.3            46.9            27.5              2.3           11.5           24.7
+           Faster R-CNN [34] w/ ours           -          26.8+2.9     47.8+5.6       26.6+2.8            2.6+2.5         12.3+5.8      25.2+4.1
+           Cascade R-CNN [5] w/ ours           -          28.1+2.9     48.1+5.5       28.3+2.4            2.9+2.8         12.3+5.3      26.4+3.9
+           DetectoRS [31] w/ ours              -          28.3+2.0     48.5+4.6       28.8+1.9            3.5+3.4         12.6+5.1      26.1+2.8
+           RFLA [48] w/ ours                   -          29.0+1.8     50.7+2.7       29.0+2.4            7.4+2.9         14.9+1.9      26.5+2.9
+
+     Table 1. Experimental results on VisDrone2019. The bottom-right corner of the result represents the gain towards its baseline.
+                                                                           Methods                  AP         AP0.5       AP0.75     APvt         APt        APs
+3.3. Loss Function
+                                                                           Fas.R-CNN [34]          11.7            27.4       8.2       0.0         8.6       23.7
+Without loss of generality, we unify the original detection                Cas.R-CNN [5]           14.0            31.2      10.7       0.1        10.3       26.2
+                                                                           DetectoRS [31]          14.6            31.8      11.5       0.0        11.0       27.4
+network loss as Ldet , comprising both regression and clas-                NWD-RKA [47]            20.5            48.7      13.8       8.1        20.6       25.6
+sification losses. The total loss function is expressed as:                RFLA [48]               21.7            50.5      15.3       8.3        21.8       26.3
+                                                                           CEASC [10]              14.4            33.2      10.2       3.2        15.2       18.5
+              L = Ldet + λ1 LIE + λ2 Lpred                  (15)           PKS R-CNN [4]            9.3            22.1       6.3       0.0         6.6       18.9
+                                                                           Sal. DETR [15]          19.7            48.4      12.7       7.4        19.7       25.9
+where λ1 and λ2 are balancing hyper-parameters.                            SR-TOD [6]              21.9            50.6      15.6       9.6        22.4       26.7
+                                                                           [34] w/ ours           20.6+8.9    49.7+22.3    13.5+5.3   6.6+6.6    22.1+13.5   25.7+2.0
+4. Experiments                                                             [5] w/ ours            22.6+8.6    52.1+20.9    16.4+5.7   8.4+8.3    23.5+13.2   27.6+1.4
+                                                                           [31] w/ ours           24.3+9.7    54.4+22.6    18.3+6.8   8.5+8.5    24.9+13.9   29.8+2.4
+4.1. Evaluation setup                                                      [48] w/ ours           22.6+0.9    52.7+2.2     15.9+0.6   8.2−0.1    22.7+0.9    27.2+0.9
+Datasets. Experiments are conducted on three tiny ob-
+                                                                                          Table 2. Experimental results on AI-TOD.
+ject detection datasets: VisDrone2019 [11], AI-TOD [44],
+and AI-TODv2 [47]. VisDrone2019 consists of 10 cate-                   shown in Tab. 1, leading to several key observations: 1)
+gories and 10,209 high-resolution (2,000 × 1,500) drone im-            Integrating our method into baseline detectors as plug-and-
+ages captured in diverse urban scenes from various angles,             play components consistently improves detection perfor-
+featuring numerous small object instances. AI-TOD con-                 mance, with the most notable gain of 5.8 points in APt for
+tains 28,036 aerial images and 700,621 annotated instances             Faster R-CNN. On the challenging APvt metric, the gain
+across 8 categories, with a mean instance size of 12.8 pixels.         reaches 3.4 points, highlighting our method’s advantage for
+AI-TODv2, a refined version, includes 752,745 instances                tiny objects. 2) When combined with RFLA, our method
+and a reduced mean instance size of 12.7 pixels.                       outperforms all existing approaches on all metrics, achiev-
+Implementation Details. Experiments are implemented in                 ing the highest APvt of 7.4, 2 points higher than the next
+PyTorch using MMDetection [7], with all models trained                 best competitor. 3) Similar to our approach, SR-TOD uses
+on a single NVIDIA RTX 4090 GPU. We follow the ex-                     a difference map for feature enhancement. However, our
+perimental settings of SR-TOD [6]. By default, ResNet50-               method achieves a greater overall improvement, as the dif-
+FPN [25] pretrained on ImageNet [36] is used for feature               ference map only captures partial information loss regions,
+extraction. Models are optimized using the SGD optimizer               proving the superiority of our method in identifying infor-
+with 0.9 momentum, 0.0001 weight decay, and 2 batch size.              mation loss regions. 4) RFLA addresses tiny object detec-
+Training consists of 12 epochs, with learning rate of 0.005            tion by optimizing label assignment, and our results show
+that decays at the 8th and 11th epochs. λ1 and λ2 are set to           that improvements in both label assignment and feature rep-
+0.01 and 1.0, respectively. Ablation experiments and analy-            resentation significantly boost performance, suggesting the
+sis are conducted on VisDrone2019 using DetectoRS [31].                potential of combining these strategies in future research.
+Evaluation Metrics. We follow the AI-TOD bench-                        Comparisons on AI-TOD and AI-TODv2. We also eval-
+mark [44] evaluation metrics, which comprise the Aver-                 uate our method on AI-TOD and AI-TODv2 to assess its
+age Precision (AP ), AP0.5 , AP0.75 , APvt (very tiny), APt            generalization. Results on AI-TOD, shown in Tab. 2, indi-
+(tiny) and APs (small).                                                cate that nearly all models outperform the baseline, with a
+                                                                       maximum gain of 22.6 points. Our method, integrated with
+4.2. Comparison with State-of-the-art Methods
+                                                                       DetectoRS, achieves the best performance on all metrics
+Comparisons on VisDrone2019. We compare our method                     except APvt , where it ranks second. Similarly, as shown
+with state-of-the-art approaches on VisDrone2019, as                   in Tab. 3, results on AI-TODv2 mirror those on AI-TOD,
+
+
+
+                                                                   30381
+ Methods               AP          AP0.5           AP0.75     APvt        APt        APs
+ Cas.R-CNN [5]        14.9           33.4           11.0        0.1       11.0       26.7
+ DetectoRS [31]       16.1           35.5           12.5        0.1       12.6       28.3
+ NWD-RKA [47]         22.2           52.5           15.1        7.8       21.8       28.0
+ RFLA [48]            22.8           53.8           15.4        7.9       22.2       28.8
+ CEASC [10]           17.0           39.5           11.5        3.9       16.1       22.0
+ PKS R-CNN [4]        11.1           25.1            8.5        0.0        7.3       22.1
+ Sal. DETR [15]       20.9           52.6           12.6        8.2       20.4       27.0
+ SR-TOD [6]           22.9           54.0           15.7        7.7       22.9       28.4
+                                                                                               Figure 5. Visualizations of sparse and dense scenes, and columns
+ [5] w/ ours         23.7+8.8     55.3+21.9        16.8+5.8   7.4+7.3   23.6+12.6   29.1+2.4
+ [31] w/ ours        25.5+9.4     58.2+22.7        18.4+5.9   8.6+8.5   25.7+13.1   30.6+2.3   show the likelihood map (corresponding bits per pixel), feature
+ [48] w/ ours        23.9+1.1     55.8+2.0         16.6+1.2   7.3−0.6   23.5+1.3    29.0+0.2   map P2 and normalized feature map ŷ−µ σ
+                                                                                                                                        .
+           Table 3. Experimental results on AI-TODv2.
+                                                                                               formation map σ to guide the prediction of the distribution
+         PFIM      PGDP         AP      AP0.5          APvt     APt     APs                    map through various methods: multiplying input features
+                                                                                               by σ, by (1 + σ), and concatenating input features with σ.
+                                26.3        43.9        0.1      7.5    23.3
+           ✓                    28.2        48.4        3.3     12.2    26.0                   Although multiplying by σ yields the best performance on
+                     ✓          27.6        47.3        3.4     11.2    24.6                   both AP and APs , other metrics show significant declines,
+           ✓         ✓          28.3        48.5        3.5     12.6    26.1                   primarily due to the loss of useful context in regions where
+                Table 4. Effect of our proposed modules.                                       σ is near 0. The concatenation method introduces noise, as
+                                                                                               pyramid features (which capture spatial and semantic infor-
+with our best method significantly outperforming competi-                                      mation) and σ (which represents the amount of information)
+tors across all metrics. These experiments further validate                                    have different meanings. Multiplying by (1 + σ) performs
+the effectiveness of our approach for tiny object detection.                                   similarly to ours, and we adopt element-wise addition for
+                                                                                               its simplicity.
+4.3. Ablation Study                                                                            Different fusion strategies. We explore various fusion
+                                                                                               strategies for two enhanced features, y1 and y2 , including
+Proposed modules. We validate the effectiveness of
+                                                                                               element-wise multiplication and concatenation. As shown
+our two proposed components (Pixels Feature Information
+                                                                                               in Tab. 7, element-wise addition proves to be the most
+Modeling and Position Gaussian Distribution Prediction) by
+                                                                                               effective fusion method, as it complements the features
+progressively applying them to enhance information loss
+                                                                                               and prevents information loss. In contrast, both element-
+regions. As shown in Tab. 4, each component improves
+                                                                                               wise multiplication and concatenation lead to performance
+performance relative to the baseline, with further gains ob-
+                                                                                               degradation. Element-wise multiplication causes nonlinear
+served when both are combined. This demonstrates that the
+                                                                                               changes by magnifying or shrinking feature values, result-
+components complement each other in capturing informa-
+                                                                                               ing in critical information loss. Additionally, since the two
+tion loss regions to enhance feature representation.
+                                                                                               enhanced features are highly similar, concatenation intro-
+Different distribution modeling methods. We inves-                                             duces redundancy and increases network complexity.
+tigate various strategies for modeling the distribution
+map. Specifically, we refine the covariance matrix using                                       4.4. Further Analysis
+fixed scaling factor α=1, in contrast to the instance-size-                                    Analysis on Pixels Feature Information Modeling. We
+dependent scaling factors used in our method. Additionally,                                    analyze the effectiveness of Pixels Feature Information
+we construct a binary mask based on ground truth bound-                                        Modeling module in capturing salient objects with high
+ing box, where background values are 0 and the bounding                                        amount of information. First, we visualize the estimated
+box is 1. We also utilize self-attention to generate a weight                                  information map σ in Fig. 6(a), which clearly captures the
+distribution map. As shown in Tab. 5, all approaches under-                                    target’s spatial structure. The spatial structure of the ob-
+perform compared to our method. The fixed scaling factor                                       jects becomes more prominent due to their higher amount
+results in an inflated peak for tiny targets, increasing the net-                              of information, confirming the effectiveness of using infor-
+work’s learning burden. The binary mask approach is overly                                     mation map σ to enhance the feature. To illustrate how Pix-
+simplistic and introduces irrelevant background noise, lead-                                   els Feature Information Modeling module captures spatial
+ing to suboptimal performance. Weight distribution map                                         structure through different Gaussian distributions, we visu-
+generated from self-attention at limited pixels is suscepti-                                   alize the feature map P2 (denoted as y) and its normalized
+ble to interference from irrelevant background, resulting in                                   version (calculated by ŷ−µσ ) in Fig. 5. Since each element
+performance degradation for tiny objects. In contrast, our                                     of the normalized feature map follows a standard Gaussian
+smooth distribution map effectively highlights salient fea-                                    distribution, the structure appears blurry and disordered, in-
+tures without noise, yielding superior results.                                                dicating that feature redundancy is removed and the spatial
+Different prior guidance. As shown in Tab. 6, we use in-                                       structure is effectively captured by the modeled distribution.
+
+
+
+                                                                                        30382
+Figure 6. Visualization of qualitative results. (a)-(c) are estimated information map, predicted distribution map and final enhanced feature,
+(d)-(f) are the detection results of DetectoRS [31], our method and GT, dotted boxes are drawn for better comparison.
+
+     Settings         AP     AP0.5   APvt   APt    APs     Settings    AP     AP0.5   APvt   APt    APs
+                                                                                                            Settings         AP     AP0.5   APvt   APt    APs
+     fixed α=1        27.9   47.9    3.4    11.8   25.6    ⊗σ          28.3   48.2     2.7   12.2   26.1
+                                                                                                            multiplication   27.5   47.0    2.5    11.4   24.4
+     binary mask      27.9   47.6    3.4    11.8   25.1    ⊗ (1 + σ)   28.1   48.4     3.7   12.5   25.9
+                                                                                                            concat           27.8   47.4    2.7    11.3   24.8
+     self-attention   27.7   47.5    3.0    11.7   25.1    concat      27.9   47.8     2.7   12.2   25.4
+                                                                                                            Ours             28.3   48.5    3.5    12.6   26.1
+     Ours             28.3   48.5    3.5    12.6   26.1    Ours        28.3   48.5     3.5   12.6   26.1
+
+   Table 5. Different distribution modeling               Table 6. Different amount of information         Table 7. Effect of different fusion strate-
+   methods.                                               guidances. Element-wise product ⊗.               gies.
+
+                                                                                      highlight the regions to be enhanced, guiding feature im-
+                                                                                                                                    ′
+                                                                                      provement. As a result, the enhanced feature P2 in Fig. 6(c)
+                                                                                      becomes more distinct. Furthermore, as shown in Fig. 6(d)-
+                                                                                      (f), our method outperforms the baseline generic detector
+                                                                                      by detecting more challenging tiny objects within the dot-
+                                                                                      ted box, demonstrating the effectiveness of our feature en-
+                                                                                      hancement for tiny objects.
+Figure 7. Average BPP (bits per pixel) curves corresponding to
+different dense levels on VisDrone2019 training and validation set.
+                                                                                      5. Conclusion
+                                                                                      This paper introduces a novel approach to enhance weak
+   We adopt the concept of bits per pixel (bpp) from com-                             regions in tiny object detection based on pixel-level fea-
+munication systems [37] to better understand the role of In-                          ture information. We minimize Information Entropy loss in
+formation Entropy loss in the module. Bpp is defined as the                           an unsupervised manner to generate the attentive informa-
+average encoding cost per pixel, i.e., the Information En-                            tion map, where higher values correspond to salient regions
+tropy loss LIE divided by the total number of pixels. As                              with more amount of information. Then, to make the in-
+shown in Fig. 5, the value at tiny objects in the likelihood                          formation map accentuate tiny objects, we predict the Posi-
+map is much lower than the background, indicating higher                              tion Gaussian Distribution Map guided by information map
+encoding cost (see Eq. (6)) and more information. Conse-                              supervisedly. Using these two attentive maps, we enhance
+quently, dense scenes exhibit higher bpp than sparse ones,                            previously indiscriminative tiny object features, and the ex-
+with values of 0.5629 and 0.0811, respectively. We define                             perimental results on three datasets validate our method’s
+dense level based on the number of instances in the image,                            effectiveness.
+increasing one level for every 40 instances. The average bpp
+across each density interval is plotted in Fig. 7, showing an                         6. Acknowledgments
+overall increasing trend, consistent with our analysis. This                          This work was supported in part by Science and Technology
+supports the effectiveness of Information Entropy loss in                             Project of Jiangxi province (20232ACC01007), in part by
+capturing salient objects with high amount of information.                            Ji’an Science and Technology Project (20233TGV06020),
+Analysis on Position Gaussian Distribution Map. We vi-                                in part by the National Natural Science Foundation of
+sualize the predicted distribution map in Fig. 6(b), where                            China under Grant (62373293, 62463020, 62403189), in
+the objects and background are clearly separated, with the                            part by Jiangxi Provincial Natural Science Foundation
+value of tiny objects being notably larger than that of gen-                          (20242BAB20050), and in part by Ji’an Science and Tech-
+eral objects. Both the information map and distribution map                           nology Plan Natural Science Foundation (20244018591).
+
+
+
+                                                                              30383
+References                                                                    Yoshua Bengio. Generative adversarial nets. Advances in
+                                                                              neural information processing systems, 27, 2014. 2
+ [1] Yancheng Bai, Yongqiang Zhang, Mingli Ding, and Bernard             [14] Qibin Hou, Ming-Ming Cheng, Xiaowei Hu, Ali Borji,
+     Ghanem. Sod-mtgan: Small object detection via multi-task                 Zhuowen Tu, and Philip HS Torr. Deeply supervised salient
+     generative adversarial network. In Proceedings of the Eu-                object detection with short connections. In Proceedings of
+     ropean conference on computer vision (ECCV), pages 206–                  the IEEE conference on computer vision and pattern recog-
+     221, 2018. 2                                                             nition, pages 3203–3212, 2017. 5
+ [2] Johannes Ballé, Valero Laparra, and Eero P Simoncelli. Den-        [15] Xiuquan Hou, Meiqin Liu, Senlin Zhang, Ping Wei, and
+     sity modeling of images using a generalized normalization                Badong Chen. Salience detr: Enhancing detection trans-
+     transformation. arXiv preprint arXiv:1511.06281, 2015. 3                 former with hierarchical salience filtering refinement. In Pro-
+ [3] Ali Borji and Laurent Itti. State-of-the-art in visual atten-            ceedings of the IEEE/CVF Conference on Computer Vision
+     tion modeling. IEEE transactions on pattern analysis and                 and Pattern Recognition, pages 17574–17583, 2024. 6, 7
+     machine intelligence, 35(1):185–207, 2012. 1                        [16] Jung Uk Kim, Sungjune Park, and Yong Man Ro. Robust
+ [4] Xinhao Cai, Qiuxia Lai, Yuwei Wang, Wenguan Wang,                        small-scale pedestrian detection with cued recall via mem-
+     Zeren Sun, and Yazhou Yao. Poly kernel inception net-                    ory learning. In Proceedings of the IEEE/CVF international
+     work for remote sensing detection. In Proceedings of the                 conference on computer vision, pages 3050–3059, 2021. 2
+     IEEE/CVF Conference on Computer Vision and Pattern                  [17] Mate Kisantal. Augmentation for small object detection.
+     Recognition, pages 27706–27716, 2024. 6, 7                               arXiv preprint arXiv:1902.07296, 2019. 2
+ [5] Zhaowei Cai and Nuno Vasconcelos. Cascade r-cnn: Delv-              [18] Tao Kong, Fuchun Sun, Huaping Liu, Yuning Jiang, Lei Li,
+     ing into high quality object detection. In Proceedings of the            and Jianbo Shi. Foveabox: Beyound anchor-based object de-
+     IEEE conference on computer vision and pattern recogni-                  tection. IEEE Transactions on Image Processing, 29:7389–
+     tion, pages 6154–6162, 2018. 2, 6, 7                                     7398, 2020. 2
+ [6] Bing Cao, Haiyu Yao, Pengfei Zhu, and Qinghua Hu. Visi-             [19] Satish Kumar, Bowen Zhang, Chandrakanth Gudavalli, Con-
+     ble and clear: Finding tiny objects in difference map. arXiv             nor Levenson, Lacey Hughey, Jared A Stabach, Irene
+     preprint arXiv:2405.11276, 2024. 2, 6, 7                                 Amoke, Gordon Ojwang, Joseph Mukeka, Stephen Mwiu,
+ [7] Kai Chen, Jiaqi Wang, Jiangmiao Pang, Yuhang Cao, Yu                     et al. Wildlifemapper: Aerial image analysis for multi-
+     Xiong, Xiaoxiao Li, Shuyang Sun, Wansen Feng, Ziwei Liu,                 species detection and identification. In Proceedings of
+     Jiarui Xu, et al. Mmdetection: Open mmlab detection tool-                the IEEE/CVF Conference on Computer Vision and Pattern
+     box and benchmark. arXiv preprint arXiv:1906.07155, 2019.                Recognition, pages 12594–12604, 2024. 1
+     6                                                                   [20] Hei Law and Jia Deng. Cornernet: Detecting objects as
+                                                                              paired keypoints. In Proceedings of the European confer-
+ [8] Gong Cheng, Xiang Yuan, Xiwen Yao, Kebing Yan, Qinghua
+                                                                              ence on computer vision (ECCV), pages 734–750, 2018. 2
+     Zeng, Xingxing Xie, and Junwei Han. Towards large-scale
+                                                                         [21] Jianan Li, Xiaodan Liang, Yunchao Wei, Tingfa Xu, Jiashi
+     small object detection: Survey and benchmarks. IEEE Trans-
+                                                                              Feng, and Shuicheng Yan. Perceptual generative adversar-
+     actions on Pattern Analysis and Machine Intelligence, 2023.
+                                                                              ial networks for small object detection. In Proceedings of
+     1
+                                                                              the IEEE conference on computer vision and pattern recog-
+ [9] Alexey Dosovitskiy. An image is worth 16x16 words:
+                                                                              nition, pages 1222–1230, 2017. 2
+     Transformers for image recognition at scale. arXiv preprint
+                                                                         [22] Yanghao Li, Yuntao Chen, Naiyan Wang, and Zhaoxiang
+     arXiv:2010.11929, 2020. 1
+                                                                              Zhang. Scale-aware trident networks for object detection. In
+[10] Bowei Du, Yecheng Huang, Jiaxin Chen, and Di Huang.                      Proceedings of the IEEE/CVF international conference on
+     Adaptive sparse convolutional networks with global context               computer vision, pages 6054–6063, 2019. 1
+     enhancement for faster object detection on drone images. In         [23] Yangyang Li, Qin Huang, Xuan Pei, Yanqiao Chen, Licheng
+     Proceedings of the IEEE/CVF conference on computer vi-                   Jiao, and Ronghua Shang. Cross-layer attention network
+     sion and pattern recognition, pages 13435–13444, 2023. 6,                for small object detection in remote sensing imagery. IEEE
+     7                                                                        Journal of Selected Topics in Applied Earth Observations
+[11] Dawei Du, Pengfei Zhu, Longyin Wen, Xiao Bian, Haibin                    and Remote Sensing, 14:2148–2161, 2020. 1
+     Lin, Qinghua Hu, Tao Peng, Jiayu Zheng, Xinyao Wang, Yue            [24] Cheng-Jian Lin and Jyun-Yu Jhang. Intelligent traffic-
+     Zhang, et al. Visdrone-det2019: The vision meets drone ob-               monitoring system based on yolo and convolutional fuzzy
+     ject detection in image challenge results. In Proceedings of             neural networks. IEEE Access, 10:14120–14133, 2022. 1
+     the IEEE/CVF international conference on computer vision            [25] Tsung-Yi Lin, Piotr Dollár, Ross Girshick, Kaiming He,
+     workshops, pages 0–0, 2019. 6                                            Bharath Hariharan, and Serge Belongie. Feature pyra-
+[12] Yuqi Gong, Xuehui Yu, Yao Ding, Xiaoke Peng, Jian Zhao,                  mid networks for object detection. In Proceedings of the
+     and Zhenjun Han. Effective fusion factor in fpn for tiny                 IEEE conference on computer vision and pattern recogni-
+     object detection. In Proceedings of the IEEE/CVF winter                  tion, pages 2117–2125, 2017. 1, 2, 6
+     conference on applications of computer vision, pages 1160–          [26] Shu Liu, Lu Qi, Haifang Qin, Jianping Shi, and Jiaya Jia.
+     1168, 2021. 1, 2                                                         Path aggregation network for instance segmentation. In Pro-
+[13] Ian Goodfellow, Jean Pouget-Abadie, Mehdi Mirza, Bing                    ceedings of the IEEE conference on computer vision and pat-
+     Xu, David Warde-Farley, Sherjil Ozair, Aaron Courville, and              tern recognition, pages 8759–8768, 2018. 1
+
+
+
+
+                                                                 30384
+[27] Wei Liu, Dragomir Anguelov, Dumitru Erhan, Christian                  work with adaptive convolution. Advances in neural infor-
+     Szegedy, Scott Reed, Cheng-Yang Fu, and Alexander C                   mation processing systems, 32, 2019. 2
+     Berg. Ssd: Single shot multibox detector. In Computer            [43] Jinwang Wang, Wen Yang, Heng-Chao Li, Haijian Zhang,
+     Vision–ECCV 2016: 14th European Conference, Amster-                   and Gui-Song Xia. Learning center probability map for de-
+     dam, The Netherlands, October 11–14, 2016, Proceedings,               tecting objects in aerial images. IEEE Transactions on Geo-
+     Part I 14, pages 21–37. Springer, 2016. 1, 2                          science and Remote Sensing, 59(5):4307–4323, 2020. 4
+[28] Xin Lu, Buyu Li, Yuxin Yue, Quanquan Li, and Junjie Yan.         [44] Jinwang Wang, Wen Yang, Haowen Guo, Ruixiang Zhang,
+     Grid r-cnn. In Proceedings of the IEEE/CVF conference on              and Gui-Song Xia. Tiny object detection in aerial images. In
+     computer vision and pattern recognition, pages 7363–7372,             2020 25th international conference on pattern recognition
+     2019. 2                                                               (ICPR), pages 3791–3798. IEEE, 2021. 1, 5, 6
+[29] Xiaocong Lu, Jian Ji, Zhiqi Xing, and Qiguang Miao. Atten-
+                                                                      [45] Sanghyun Woo, Jongchan Park, Joon-Young Lee, and In So
+     tion and feature fusion ssd for remote sensing object detec-
+                                                                           Kweon. Cbam: Convolutional block attention module. In
+     tion. IEEE Transactions on Instrumentation and Measure-
+                                                                           Proceedings of the European conference on computer vision
+     ment, 70:1–9, 2021. 1, 2
+                                                                           (ECCV), pages 3–19, 2018. 3, 5
+[30] David Minnen, Johannes Ballé, and George D Toderici.
+                                                                      [46] Jialian Wu, Chunluan Zhou, Qian Zhang, Ming Yang, and
+     Joint autoregressive and hierarchical priors for learned im-
+                                                                           Junsong Yuan. Self-mimic learning for small-scale pedes-
+     age compression. Advances in neural information processing
+                                                                           trian detection. In Proceedings of the 28th ACM Interna-
+     systems, 31, 2018. 4
+                                                                           tional Conference on Multimedia, pages 2012–2020, 2020.
+[31] Siyuan Qiao, Liang-Chieh Chen, and Alan Yuille. Detectors:
+                                                                           2
+     Detecting objects with recursive feature pyramid and switch-
+     able atrous convolution. In Proceedings of the IEEE/CVF          [47] Chang Xu, Jinwang Wang, Wen Yang, Huai Yu, Lei Yu, and
+     conference on computer vision and pattern recognition,                Gui-Song Xia. Detecting tiny objects in aerial images: A
+     pages 10213–10224, 2021. 1, 2, 6, 7, 8                                normalized wasserstein distance and a new benchmark. IS-
+                                                                           PRS Journal of Photogrammetry and Remote Sensing, 190:
+[32] J Redmon. You only look once: Unified, real-time object de-
+                                                                           79–93, 2022. 2, 6, 7
+     tection. In Proceedings of the IEEE conference on computer
+     vision and pattern recognition, 2016. 1                          [48] Chang Xu, Jinwang Wang, Wen Yang, Huai Yu, Lei Yu, and
+[33] Joseph Redmon. Yolov3: An incremental improvement.                    Gui-Song Xia. Rfla: Gaussian receptive field based label
+     arXiv preprint arXiv:1804.02767, 2018. 2                              assignment for tiny object detection. In European conference
+                                                                           on computer vision, pages 526–543. Springer, 2022. 2, 4, 6,
+[34] Shaoqing Ren, Kaiming He, Ross Girshick, and Jian Sun.
+                                                                           7
+     Faster r-cnn: Towards real-time object detection with region
+     proposal networks. IEEE transactions on pattern analysis         [49] Chenhongyi Yang, Zehao Huang, and Naiyan Wang. Query-
+     and machine intelligence, 39(6):1137–1149, 2016. 1, 2, 6              det: Cascaded sparse query for accelerating high-resolution
+[35] T-YLPG Ross and GKHP Dollár. Focal loss for dense ob-                small object detection. In Proceedings of the IEEE/CVF
+     ject detection. In proceedings of the IEEE conference on              Conference on computer vision and pattern recognition,
+     computer vision and pattern recognition, pages 2980–2988,             pages 13668–13677, 2022. 1
+     2017. 2                                                          [50] Xue Yang, Jirui Yang, Junchi Yan, Yue Zhang, Tengfei
+[36] Olga Russakovsky, Jia Deng, Hao Su, Jonathan Krause, San-             Zhang, Zhi Guo, Xian Sun, and Kun Fu. Scrdet: Towards
+     jeev Satheesh, Sean Ma, Zhiheng Huang, Andrej Karpathy,               more robust detection for small, cluttered and rotated objects.
+     Aditya Khosla, Michael Bernstein, et al. Imagenet large               In Proceedings of the IEEE/CVF international conference on
+     scale visual recognition challenge. International journal of          computer vision, pages 8232–8241, 2019. 1, 2
+     computer vision, 115:211–252, 2015. 6                            [51] Ze Yang, Shaohui Liu, Han Hu, Liwei Wang, and Stephen
+[37] Claude Elwood Shannon. A mathematical theory of commu-                Lin. Reppoints: Point set representation for object detection.
+     nication. The Bell system technical journal, 27(3):379–423,           In Proceedings of the IEEE/CVF international conference on
+     1948. 2, 3, 8                                                         computer vision, pages 9657–9666, 2019. 2
+[38] Mingxing Tan, Ruoming Pang, and Quoc V Le. Efficientdet:         [52] Kai Yi, Zhiqiang Jian, Shitao Chen, and Nanning Zheng.
+     Scalable and efficient object detection. In Proceedings of            Feature selective small object detection via knowledge-
+     the IEEE/CVF conference on computer vision and pattern                based recurrent attentive neural network. arXiv preprint
+     recognition, pages 10781–10790, 2020. 1, 2                            arXiv:1803.05263, 2018. 1, 2
+[39] MTCAJ Thomas and A Thomas Joy. Elements of informa-              [53] Xiang Yuan, Gong Cheng, Kebing Yan, Qinghua Zeng, and
+     tion theory. Wiley-Interscience, 2006. 3                              Junwei Han. Small object detection via coarse-to-fine pro-
+[40] Zhi Tian, Chunhua Shen, Hao Chen, and Tong He. FCOS:                  posal generation and imitation learning. In Proceedings of
+     Fully convolutional one-stage object detection. In Proc. Int.         the IEEE/CVF international conference on computer vision,
+     Conf. Computer Vision (ICCV), 2019. 2                                 pages 6317–6327, 2023. 2
+[41] Hu Kuo Ting. On the amount of information. Theory of             [54] Matthew D Zeiler, Graham W Taylor, and Rob Fergus.
+     Probability & Its Applications, 7(4):439–447, 1962. 3                 Adaptive deconvolutional networks for mid and high level
+[42] Thang Vu, Hyunjun Jang, Trung X Pham, and Chang Yoo.                  feature learning. In 2011 international conference on com-
+     Cascade rpn: Delving into high-quality region proposal net-           puter vision, pages 2018–2025. IEEE, 2011. 5
+
+
+
+
+                                                                 30385
+[55] Fan Zhang, Licheng Jiao, Lingling Li, Fang Liu, and Xu Liu.
+     Multiresolution attention extractor for small object detection.
+     arXiv preprint arXiv:2006.05941, 2020. 1
+[56] Hangyue Zhao, Hongpu Zhang, and Yanyun Zhao. Yolov7-
+     sea: Object detection of maritime uav images based on im-
+     proved yolov7. In Proceedings of the IEEE/CVF winter con-
+     ference on applications of computer vision, pages 233–238,
+     2023. 1
+[57] Xingyi Zhou, Jiacheng Zhuo, and Philipp Krahenbuhl.
+     Bottom-up object detection by grouping extreme and center
+     points. In Proceedings of the IEEE/CVF conference on com-
+     puter vision and pattern recognition, pages 850–859, 2019.
+     2
+
+
+
+
+                                                                   30386
+

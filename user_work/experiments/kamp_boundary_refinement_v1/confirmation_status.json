@@ -1,0 +1,48 @@
+{
+  "status": "finished",
+  "started": "2026-09-30T21:50:49.978245+00:00",
+  "test_used": false,
+  "jobs": [
+    {
+      "name": "dfine_frozen_BR_seed20260930",
+      "kind": "BR",
+      "seed": 20260930,
+      "status": "trained",
+      "started": "2026-09-30T21:50:49.978489+00:00",
+      "returncode": 0,
+      "epochs": 30,
+      "finished": "2026-09-30T21:52:38.396703+00:00"
+    },
+    {
+      "name": "dfine_frozen_BPS_seed20260930",
+      "kind": "BPS",
+      "seed": 20260930,
+      "status": "trained",
+      "started": "2026-09-30T21:52:38.396943+00:00",
+      "returncode": 0,
+      "epochs": 30,
+      "finished": "2026-09-30T21:54:22.964192+00:00"
+    },
+    {
+      "name": "dfine_frozen_BR_seed20261001",
+      "kind": "BR",
+      "seed": 20261001,
+      "status": "trained",
+      "started": "2026-09-30T21:54:22.964412+00:00",
+      "returncode": 0,
+      "epochs": 30,
+      "finished": "2026-09-30T21:56:08.738074+00:00"
+    },
+    {
+      "name": "dfine_frozen_BPS_seed20261001",
+      "kind": "BPS",
+      "seed": 20261001,
+      "status": "trained",
+      "started": "2026-09-30T21:56:08.738298+00:00",
+      "returncode": 0,
+      "epochs": 30,
+      "finished": "2026-09-30T21:57:51.872157+00:00"
+    }
+  ],
+  "finished": "2026-09-30T21:57:51.872382+00:00"
+}

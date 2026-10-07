@@ -1,0 +1,38 @@
+{
+  "val": {
+    "name": "dfine_M_synth25_seed20260929",
+    "variant": "dfine_M",
+    "seed": 20260929,
+    "split": "val",
+    "AP": 37.29970172141442,
+    "AP50": 95.8079775109928,
+    "AP75": 17.39175426050352,
+    "locked_threshold": 0.1510106772184372,
+    "TP": 140,
+    "FP": 47,
+    "FN": 4,
+    "recall": 0.9722222222222222,
+    "FP_per_image": 0.7121212121212122,
+    "recalibrated_FP6": {
+      "threshold": 0.30666807293891907,
+      "TP": 140,
+      "FP": 6
+    }
+  },
+  "test": {
+    "name": "dfine_M_synth25_seed20260929",
+    "variant": "dfine_M",
+    "seed": 20260929,
+    "split": "test",
+    "AP": 34.19813844296979,
+    "AP50": 90.0153223958431,
+    "AP75": 11.599318000665997,
+    "locked_threshold": 0.1510106772184372,
+    "TP": 194,
+    "FP": 63,
+    "FN": 12,
+    "recall": 0.941747572815534,
+    "FP_per_image": 0.75,
+    "recalibrated_FP6": null
+  }
+}

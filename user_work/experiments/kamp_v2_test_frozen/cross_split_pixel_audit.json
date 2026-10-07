@@ -1,0 +1,5 @@
+{
+  "unique_pixel_arrays": 500,
+  "exact_cross_split_duplicates": [],
+  "near_duplicates_not_excluded_by_this_check": true
+}

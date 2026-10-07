@@ -1,0 +1,31 @@
+{
+  "name": "dfine_mal_UQ_seed20260930",
+  "images": 128,
+  "seconds": 1.3789308071136475,
+  "images_per_second": 92.82547812725474,
+  "peak_vram_gib": 0.7625226974487305,
+  "checkpoint_sha256": "ddbdbc3638e661003b49922832edb84a44c8d0b95e30d33906ff4cae984c6461",
+  "batch": 8,
+  "complete": true,
+  "YOLO_preNMS_saved": false,
+  "DFINE_regular_queries_saved": true,
+  "postprocessing": "score>=0.001, clip original coordinates, NMS0.7",
+  "files": [
+    "batch_00000.npz",
+    "batch_00001.npz",
+    "batch_00002.npz",
+    "batch_00003.npz",
+    "batch_00004.npz",
+    "batch_00005.npz",
+    "batch_00006.npz",
+    "batch_00007.npz",
+    "batch_00008.npz",
+    "batch_00009.npz",
+    "batch_00010.npz",
+    "batch_00011.npz",
+    "batch_00012.npz",
+    "batch_00013.npz",
+    "batch_00014.npz",
+    "batch_00015.npz"
+  ]
+}

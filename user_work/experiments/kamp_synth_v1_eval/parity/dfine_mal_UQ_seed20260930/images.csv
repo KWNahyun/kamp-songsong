@@ -1,0 +1,9 @@
+image_id,split,set,axis,level,pass_,source_image,machine,width,height,n_objects
+002_20200622_203053(2)__erased,val,erased,none,none,,002_20200622_203053(2),M1,352,332,0
+002_20200622_203053(2)__pos_canon_k0.5,val,pos_canon_k0.5,position,canon_k0.5,,002_20200622_203053(2),M1,352,332,3
+002_20200622_203053(2)__pos_canon_k1.0,val,pos_canon_k1.0,position,canon_k1.0,,002_20200622_203053(2),M1,352,332,3
+002_20200622_203053(2)__pos_random_k0.5__p0,val,pos_random_k0.5,position,random_k0.5,0.0,002_20200622_203053(2),M1,352,332,3
+002_20200622_203053(2)__pos_random_k1.0__p0,val,pos_random_k1.0,position,random_k1.0,0.0,002_20200622_203053(2),M1,352,332,3
+002_20200622_203053(2)__pos_random_k0.5__p1,val,pos_random_k0.5,position,random_k0.5,1.0,002_20200622_203053(2),M1,352,332,3
+002_20200622_203053(2)__pos_random_k1.0__p1,val,pos_random_k1.0,position,random_k1.0,1.0,002_20200622_203053(2),M1,352,332,3
+002_20200622_203053(2)__pos_random_k0.5__p2,val,pos_random_k0.5,position,random_k0.5,2.0,002_20200622_203053(2),M1,352,332,3

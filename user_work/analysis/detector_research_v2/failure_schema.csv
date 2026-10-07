@@ -1,0 +1,35 @@
+﻿field,type,definition,caution
+experiment_id,string,실험 구성 ID,E0 등
+seed,integer,학습 seed,같은 seed끼리 paired 비교
+dataset_version,string,고정 manifest 해시,외부/KAMP 구분
+split,enum,train/val/test/calibration,모델 선정과 최종 평가 분리
+image_id,string,고유 영상 ID,
+group_id,string,독립 촬영군/시료 ID,확인 불가면 unknown
+gt_id,string,정답 객체 ID,영상 단위 기록은 비워둠
+record_level,enum,object/image,객체 오류와 제품 판단의 분모 분리
+device_id,string,검증된 장비 metadata,파일명 prefix로 임의 생성 금지
+original_width,integer,원본 폭 px,
+original_height,integer,원본 높이 px,
+input_transform,string,resize/letterbox 배율과 padding,역변환 가능하게 기록
+gt_short_side_px,float,원본 GT 짧은 변,분석 전용; 운영 입력 아님
+gt_aspect_ratio,float,GT 폭/높이,실제 재질/모양 라벨 아님
+gt_contrast,float,bbox/ring median 차이 정규화,GT 기반 분석 전용
+background_complexity,float,주변 ring의 고정된 지표,정의 버전 함께 기록
+gt_count_image,integer,영상 GT 수,미라벨 영상에서 0이라고 가정 금지
+artifact_flag,enum,yes/no/unknown,색상 표시 잔존 등 감사 결과
+candidate_coverage,boolean,전체 encoder 후보의 진단 대응,진단 거리/크기 규칙 고정
+selected_query_coverage,boolean,top-K 선택 후 진단 대응,query ID 및 이동 경로 보존
+best_final_iou,float,일대일 규칙에 따른 최종 IoU,GT matching 버전 기록
+matched_score,float,대응 예측 점수,없는 경우 NA; 0과 구분
+center_error_original_px,float,원본 단위 중심 오차,
+failure_stage,enum,none/candidate/selection/localization/score/postprocess/ambiguous,FN에 한해 사전 정의한 첫 실패 단계 하나; 인과 확정 아님
+matching_rule_version,string,평가 및 진단 대응 규칙,IoU 평가와 느슨한 진단을 구분
+score_threshold,float,고정한 운영 임계값,val/calibration에서만 선정
+max_image_score,float,영상 최고 예측 점수,후보 없음=0; 안전 확률 아님
+quality_signal,float_or_json,추론 가능한 품질 신호,GT 대비 사용 금지
+disagreement_signal,float_or_json,검증된 예측 불일치,entropy를 누락 확률로 해석 금지
+policy_id,string,판정 정책 버전,
+first_action,enum,hold/reinspect/provisional_pass,자동 통과 안전성은 별도 검증
+second_inspection_result,enum,defect/normal/unavailable,실제 2차 검사 결과; 정답으로 대체 금지
+final_action,enum,hold/pass/unresolved,
+review_notes,string,정답 충돌/가시성/대표 사례,

@@ -1,0 +1,24 @@
+{
+  "status": "finished",
+  "started": "2026-09-30T20:50:35.519852+00:00",
+  "test_used": false,
+  "jobs": [
+    {
+      "name": "dfine_frozen_UQ_seed20260929",
+      "mode": "unary",
+      "status": "trained",
+      "started": "2026-09-30T20:50:35.520085+00:00",
+      "returncode": 0,
+      "finished": "2026-09-30T20:52:15.263501+00:00"
+    },
+    {
+      "name": "dfine_frozen_RQS_seed20260929",
+      "mode": "relation",
+      "status": "trained",
+      "started": "2026-09-30T20:52:15.263998+00:00",
+      "returncode": 0,
+      "finished": "2026-09-30T20:53:55.425295+00:00"
+    }
+  ],
+  "finished": "2026-09-30T20:53:55.425763+00:00"
+}

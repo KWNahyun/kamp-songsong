@@ -1,0 +1,8 @@
+{
+  "mal_backward_passed": true,
+  "batch": 8,
+  "loss": 31.53916358947754,
+  "finite_gradient_tensors": 488,
+  "optimizer_step_executed": false,
+  "test_used": false
+}

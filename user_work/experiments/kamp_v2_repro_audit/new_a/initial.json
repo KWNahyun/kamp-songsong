@@ -1,0 +1,10 @@
+{
+  "initial_state": "3b6cac360d218187bd673d757ebd68f0f36d6326f86c9556e141b1c544a67029",
+  "torch_rng": "e2ff13be001f6d528b72de4147cc03c543760da0831d193aca0e80ede70badc6",
+  "cuda_rng": "f64e914db97b2d1f9c4b6852a64cf02113ec6a6f4412dd6072b5a3beb9624cd6",
+  "torch": "2.10.0+cu128",
+  "cuda": "12.8",
+  "deterministic_algorithms": false,
+  "cudnn_deterministic": false,
+  "num_threads": 4
+}

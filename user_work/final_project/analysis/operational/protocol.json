@@ -1,0 +1,23 @@
+{
+  "scope": "validation-only exploratory operational analysis; validation previously used for model selection",
+  "seed": 20260930,
+  "model_changed": false,
+  "test_read": false,
+  "threshold_methods": [
+    "FP/image <=0.1",
+    "pooled recall >=0.95",
+    "pooled recall >=0.98",
+    "minimum calibration-group recall >=0.95"
+  ],
+  "infeasible_fallback": "lowest saved calibration score; flagged infeasible, not certified",
+  "review_margins_original_pixels": [
+    0,
+    1,
+    2,
+    4,
+    8
+  ],
+  "review_coverage": "continuous union intersection area with official GT; 95% and 100% coverage; no one-to-one requirement",
+  "region_threshold": "existing frozen representative threshold",
+  "normal_images_available": false
+}

@@ -1,0 +1,180 @@
+START cx_l1half_seed20260929 train 2720496
+START edge_seed20260929 train 2720804
+START mal_seed20260929 eval 2722931
+END mal_seed20260929 train 0
+Aggregated 1 runs
+END mal_seed20260929 eval 0
+START edge_half_seed20260929 train 2723229
+START cx_l1half_seed20260929 eval 2731242
+END cx_l1half_seed20260929 train 0
+Aggregated 2 runs
+END cx_l1half_seed20260929 eval 0
+START soft05_seed20260929 train 2731520
+START edge_seed20260929 eval 2731940
+END edge_seed20260929 train 0
+Aggregated 3 runs
+END edge_seed20260929 eval 0
+START soft10_seed20260929 train 2732205
+START edge_half_seed20260929 eval 2733879
+END edge_half_seed20260929 train 0
+Aggregated 4 runs
+END edge_half_seed20260929 eval 0
+START soft20_seed20260929 train 2734164
+START soft05_seed20260929 eval 2741962
+END soft05_seed20260929 train 0
+Aggregated 5 runs
+END soft05_seed20260929 eval 0
+START hard10_seed20260929 train 2742255
+START soft10_seed20260929 eval 2742573
+END soft10_seed20260929 train 0
+Aggregated 6 runs
+END soft10_seed20260929 eval 0
+START fgl05_seed20260929 train 2742845
+START soft20_seed20260929 eval 2744657
+END soft20_seed20260929 train 0
+Aggregated 7 runs
+END soft20_seed20260929 eval 0
+START fgl10_seed20260929 train 2744937
+START hard10_seed20260929 eval 2752751
+END hard10_seed20260929 train 0
+Aggregated 8 runs
+END hard10_seed20260929 eval 0
+START jitter10_seed20260929 train 2753044
+START fgl05_seed20260929 eval 2753594
+END fgl05_seed20260929 train 0
+Aggregated 9 runs
+END fgl05_seed20260929 eval 0
+START soft_fgl10_seed20260929 train 2753907
+START fgl10_seed20260929 eval 2755704
+END fgl10_seed20260929 train 0
+Aggregated 10 runs
+END fgl10_seed20260929 eval 0
+START mal_seed20260930 train 2755988
+START jitter10_seed20260929 eval 2763232
+END jitter10_seed20260929 train 0
+Aggregated 11 runs
+END jitter10_seed20260929 eval 0
+START cx_l1half_seed20260930 train 2763508
+START soft_fgl10_seed20260929 eval 2765752
+END soft_fgl10_seed20260929 train 0
+START mal_seed20260930 eval 2765902
+END mal_seed20260930 train 0
+Aggregated 12 runs
+END soft_fgl10_seed20260929 eval 0
+Aggregated 13 runs
+END mal_seed20260930 eval 0
+START edge_seed20260930 train 2766196
+START edge_half_seed20260930 train 2766470
+START cx_l1half_seed20260930 eval 2773388
+END cx_l1half_seed20260930 train 0
+Aggregated 14 runs
+END cx_l1half_seed20260930 eval 0
+START soft05_seed20260930 train 2773671
+START edge_seed20260930 eval 2776582
+END edge_seed20260930 train 0
+Aggregated 15 runs
+END edge_seed20260930 eval 0
+START soft10_seed20260930 train 2776858
+START edge_half_seed20260930 eval 2776975
+END edge_half_seed20260930 train 0
+Aggregated 16 runs
+END edge_half_seed20260930 eval 0
+START soft20_seed20260930 train 2777250
+START soft05_seed20260930 eval 2784063
+END soft05_seed20260930 train 0
+Aggregated 17 runs
+END soft05_seed20260930 eval 0
+START hard10_seed20260930 train 2784342
+START soft10_seed20260930 eval 2787282
+END soft10_seed20260930 train 0
+Aggregated 18 runs
+END soft10_seed20260930 eval 0
+START fgl05_seed20260930 train 2787551
+START soft20_seed20260930 eval 2787623
+END soft20_seed20260930 train 0
+Aggregated 19 runs
+END soft20_seed20260930 eval 0
+START fgl10_seed20260930 train 2787895
+START hard10_seed20260930 eval 2794761
+END hard10_seed20260930 train 0
+Aggregated 20 runs
+END hard10_seed20260930 eval 0
+START jitter10_seed20260930 train 2795039
+START fgl05_seed20260930 eval 2798138
+END fgl05_seed20260930 train 0
+Aggregated 21 runs
+END fgl05_seed20260930 eval 0
+START soft_fgl10_seed20260930 train 2798422
+START fgl10_seed20260930 eval 2798563
+END fgl10_seed20260930 train 0
+Aggregated 22 runs
+END fgl10_seed20260930 eval 0
+START mal_seed20261001 train 2798841
+START jitter10_seed20260930 eval 2805057
+END jitter10_seed20260930 train 0
+Aggregated 23 runs
+END jitter10_seed20260930 eval 0
+START cx_l1half_seed20261001 train 2805324
+START mal_seed20261001 eval 2808588
+END mal_seed20261001 train 0
+Aggregated 24 runs
+END mal_seed20261001 eval 0
+START edge_seed20261001 train 2808869
+START soft_fgl10_seed20260930 eval 2810297
+END soft_fgl10_seed20260930 train 0
+Aggregated 25 runs
+END soft_fgl10_seed20260930 eval 0
+START edge_half_seed20261001 train 2810566
+START cx_l1half_seed20261001 eval 2815283
+END cx_l1half_seed20261001 train 0
+Aggregated 26 runs
+END cx_l1half_seed20261001 eval 0
+START soft05_seed20261001 train 2815560
+START edge_seed20261001 eval 2819244
+END edge_seed20261001 train 0
+Aggregated 27 runs
+END edge_seed20261001 eval 0
+START soft10_seed20261001 train 2819523
+START edge_half_seed20261001 eval 2821092
+END edge_half_seed20261001 train 0
+Aggregated 28 runs
+END edge_half_seed20261001 eval 0
+START soft20_seed20261001 train 2821371
+START soft05_seed20261001 eval 2825889
+END soft05_seed20261001 train 0
+Aggregated 29 runs
+END soft05_seed20261001 eval 0
+START hard10_seed20261001 train 2826173
+START soft10_seed20261001 eval 2829908
+END soft10_seed20261001 train 0
+Aggregated 30 runs
+END soft10_seed20261001 eval 0
+START fgl05_seed20261001 train 2830185
+START soft20_seed20261001 eval 2831682
+END soft20_seed20261001 train 0
+Aggregated 31 runs
+END soft20_seed20261001 eval 0
+START fgl10_seed20261001 train 2831958
+START hard10_seed20261001 eval 2836509
+END hard10_seed20261001 train 0
+Aggregated 32 runs
+END hard10_seed20261001 eval 0
+START jitter10_seed20261001 train 2836791
+START fgl05_seed20261001 eval 2841021
+END fgl05_seed20261001 train 0
+Aggregated 33 runs
+END fgl05_seed20261001 eval 0
+START soft_fgl10_seed20261001 train 2841299
+START fgl10_seed20261001 eval 2842687
+END fgl10_seed20261001 train 0
+Aggregated 34 runs
+END fgl10_seed20261001 eval 0
+START jitter10_seed20261001 eval 2845916
+END jitter10_seed20261001 train 0
+Aggregated 35 runs
+END jitter10_seed20261001 eval 0
+START soft_fgl10_seed20261001 eval 2849092
+END soft_fgl10_seed20261001 train 0
+Aggregated 36 runs
+END soft_fgl10_seed20261001 eval 0
+completed

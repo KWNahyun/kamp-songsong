@@ -1,0 +1,325 @@
+Not init distributed mode.
+cfg: 
+{'_collate_fn': None,
+ '_criterion': None,
+ '_ema': None,
+ '_evaluator': None,
+ '_lr_scheduler': None,
+ '_lr_warmup_scheduler': None,
+ '_model': None,
+ '_optimizer': None,
+ '_postprocessor': None,
+ '_scaler': None,
+ '_train_batch_size': None,
+ '_train_dataloader': None,
+ '_train_dataset': None,
+ '_train_shuffle': None,
+ '_val_batch_size': None,
+ '_val_dataloader': None,
+ '_val_dataset': None,
+ '_val_shuffle': None,
+ '_writer': None,
+ 'batch_size': None,
+ 'checkpoint_freq': 30,
+ 'clip_max_norm': 0.1,
+ 'device': 'cuda:0',
+ 'ema_decay': 0.9999,
+ 'ema_warmups': 2000,
+ 'epochs': 30,
+ 'find_unused_parameters': False,
+ 'last_epoch': -1,
+ 'num_workers': 0,
+ 'output_dir': '/home/viplab/contest/experiments/kamp_ablation_v3/runs/dfine_G03_seed20260930',
+ 'print_freq': 45,
+ 'resume': None,
+ 'seed': 20260930,
+ 'summary_dir': None,
+ 'sync_bn': False,
+ 'task': 'detection',
+ 'tuning': '/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth',
+ 'use_amp': False,
+ 'use_ema': True,
+ 'yaml_cfg': {'DFINE': {'backbone': 'HGNetv2',
+                        'decoder': 'DFINETransformer',
+                        'encoder': 'HybridEncoder'},
+              'DFINECriterion': {'alpha': 0.75,
+                                 'gamma': 2.0,
+                                 'losses': ['vfl', 'boxes', 'local'],
+                                 'matcher': {'alpha': 0.25,
+                                             'gamma': 2.0,
+                                             'type': 'HungarianMatcher',
+                                             'weight_dict': {'cost_bbox': 5,
+                                                             'cost_class': 2,
+                                                             'cost_giou': 2}},
+                                 'reg_max': 32,
+                                 'weight_dict': {'loss_bbox': 5,
+                                                 'loss_ddf': 1.5,
+                                                 'loss_fgl': 0.15,
+                                                 'loss_giou': 2,
+                                                 'loss_vfl': 1}},
+              'DFINEPostProcessor': {'num_top_queries': 300},
+              'DFINETransformer': {'box_noise_scale': 1.0,
+                                   'cross_attn_method': 'default',
+                                   'eval_idx': -1,
+                                   'feat_channels': [256, 256, 256],
+                                   'feat_strides': [8, 16, 32],
+                                   'hidden_dim': 256,
+                                   'label_noise_ratio': 0.5,
+                                   'layer_scale': 1,
+                                   'num_denoising': 100,
+                                   'num_layers': 3,
+                                   'num_levels': 3,
+                                   'num_points': [3, 6, 3],
+                                   'num_queries': 300,
+                                   'query_select_method': 'default',
+                                   'reg_max': 32,
+                                   'reg_scale': 4},
+              'HGNetv2': {'freeze_at': -1,
+                          'freeze_norm': False,
+                          'local_model_dir': 'weight/hgnetv2/',
+                          'name': 'B0',
+                          'pretrained': False,
+                          'return_idx': [1, 2, 3],
+                          'use_lab': True},
+              'HybridEncoder': {'act': 'silu',
+                                'depth_mult': 0.34,
+                                'dim_feedforward': 1024,
+                                'dropout': 0.0,
+                                'enc_act': 'gelu',
+                                'expansion': 0.5,
+                                'feat_strides': [8, 16, 32],
+                                'hidden_dim': 256,
+                                'in_channels': [256, 512, 1024],
+                                'nhead': 8,
+                                'num_encoder_layers': 1,
+                                'use_encoder_idx': [2]},
+              '__include__': ['/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s.yml'],
+              'checkpoint_freq': 30,
+              'clip_max_norm': 0.1,
+              'config': '/home/viplab/contest/experiments/kamp_ablation_v3/configs/dfine_G03_seed20260930.yml',
+              'criterion': 'DFINECriterion',
+              'device': 'cuda:0',
+              'ema': {'decay': 0.9999,
+                      'start': 0,
+                      'type': 'ModelEMA',
+                      'warmups': 100},
+              'epochs': 30,
+              'eval_spatial_size': [640, 640],
+              'evaluator': {'iou_types': ['bbox'], 'type': 'CocoEvaluator'},
+              'exp_name': 'baseline',
+              'find_unused_parameters': False,
+              'lr_scheduler': {'gamma': 0.1,
+                               'milestones': [24],
+                               'type': 'MultiStepLR'},
+              'lr_warmup_scheduler': {'type': 'LinearWarmup',
+                                      'warmup_duration': 45},
+              'model': 'DFINE',
+              'num_classes': 1,
+              'optimizer': {'betas': [0.9, 0.999],
+                            'lr': 0.0002,
+                            'params': [{'lr': 0.0001,
+                                        'params': '^(?=.*backbone)(?!.*norm|bn).*$'},
+                                       {'lr': 0.0001,
+                                        'params': '^(?=.*backbone)(?=.*norm|bn).*$',
+                                        'weight_decay': 0.0},
+                                       {'params': '^(?=.*(?:encoder|decoder))(?=.*(?:norm|bn|bias)).*$',
+                                        'weight_decay': 0.0}],
+                            'type': 'AdamW',
+                            'weight_decay': 0.0001},
+              'output_dir': '/home/viplab/contest/experiments/kamp_ablation_v3/runs/dfine_G03_seed20260930',
+              'postprocessor': 'DFINEPostProcessor',
+              'print_freq': 45,
+              'print_method': 'builtin',
+              'print_rank': 0,
+              'project_name': 'D-FINE',
+              'remap_mscoco_category': False,
+              'scaler': {'enabled': True, 'type': 'GradScaler'},
+              'seed': 20260930,
+              'sync_bn': False,
+              'task': 'detection',
+              'test_only': False,
+              'train_dataloader': {'collate_fn': {'base_size': 640,
+                                                  'base_size_repeat': None,
+                                                  'ema_restart_decay': 0.9999,
+                                                  'stop_epoch': 1000,
+                                                  'type': 'BatchImageCollateFunction'},
+                                   'dataset': {'ann_file': '/home/viplab/contest/data/processed/kamp500_telea_v1_640/annotations/train.json',
+                                               'img_folder': '/home/viplab/contest/data/processed/kamp500_telea_v1_640/images/train',
+                                               'return_masks': False,
+                                               'transforms': {'ops': [{'dtype': 'float32',
+                                                                       'scale': True,
+                                                                       'type': 'ConvertPILImage'},
+                                                                      {'fmt': 'cxcywh',
+                                                                       'normalize': True,
+                                                                       'type': 'ConvertBoxes'}],
+                                                              'policy': {'epoch': 1000,
+                                                                         'name': 'stop_epoch',
+                                                                         'ops': ['RandomPhotometricDistort',
+                                                                                 'RandomZoomOut',
+                                                                                 'RandomIoUCrop']},
+                                                              'type': 'Compose'},
+                                               'type': 'CocoDetection'},
+                                   'drop_last': False,
+                                   'num_workers': 2,
+                                   'shuffle': True,
+                                   'total_batch_size': 8,
+                                   'type': 'DataLoader'},
+              'tuning': '/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth',
+              'use_amp': False,
+              'use_ema': True,
+              'use_focal_loss': True,
+              'use_wandb': False,
+              'val_dataloader': {'collate_fn': {'type': 'BatchImageCollateFunction'},
+                                 'dataset': {'ann_file': '/home/viplab/contest/data/processed/kamp500_telea_v1_640/annotations/val.json',
+                                             'img_folder': '/home/viplab/contest/data/processed/kamp500_telea_v1_640/images/val',
+                                             'return_masks': False,
+                                             'transforms': {'ops': [{'dtype': 'float32',
+                                                                     'scale': True,
+                                                                     'type': 'ConvertPILImage'}],
+                                                            'type': 'Compose'},
+                                             'type': 'CocoDetection'},
+                                 'drop_last': False,
+                                 'num_workers': 2,
+                                 'shuffle': False,
+                                 'total_batch_size': 8,
+                                 'type': 'DataLoader'}}}
+Tuning checkpoint from /home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth
+/home/viplab/contest/models/D-FINE/src/solver/_solver.py:254: UserWarning: Environment variable TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD detected, since the`weights_only` argument was not explicitly passed to `torch.load`, forcing weights_only=False.
+  state = torch.load(path, map_location="cpu")
+Load model.state_dict, {'missed': [], 'unmatched': []}
+Initial lr: [0.0001, 0.0001, 0.0002, 0.0002]
+building train_dataloader with batch_size=8...
+building val_dataloader with batch_size=8...
+
+------------------------------------- Calculate Flops Results -------------------------------------
+Notations:
+number of parameters (Params), number of multiply-accumulate operations(MACs),
+number of floating-point operations (FLOPs), floating-point operations per second (FLOPS),
+fwd FLOPs (model forward propagation FLOPs), bwd FLOPs (model backward propagation FLOPs),
+default model backpropagation takes 2.00 times as much computation as forward propagation.
+
+Total Training Params:                                                  10.18 M 
+fwd MACs:                                                               12.3563 GMACs
+fwd FLOPs:                                                              24.8195 GFLOPS
+fwd+bwd MACs:                                                           37.069 GMACs
+fwd+bwd FLOPs:                                                          74.4584 GFLOPS
+---------------------------------------------------------------------------------------------------
+{'Model FLOPs:24.8195 GFLOPS   MACs:12.3563 GMACs   Params:10176661'}
+------------------------------------------Start training-------------------------------------------
+/home/viplab/contest/models/D-FINE/src/solver/det_engine.py:125: UserWarning: Converting a tensor with requires_grad=True to a scalar may lead to unexpected behavior.
+Consider using tensor.detach() first. (Triggered internally at /pytorch/torch/csrc/autograd/generated/python_variable_methods.cpp:836.)
+  if not math.isfinite(loss_value):
+Epoch: [0/30]  [ 0/45]  eta: 0:00:51  lr: 0.000004  loss: 33.0112 (33.0112)  loss_vfl: 0.0393 (0.0393)  loss_bbox: 1.4188 (1.4188)  loss_giou: 2.7466 (2.7466)  loss_fgl: 0.0970 (0.0970)  loss_vfl_aux_0: 0.0661 (0.0661)  loss_bbox_aux_0: 1.3763 (1.3763)  loss_giou_aux_0: 2.7719 (2.7719)  loss_fgl_aux_0: 0.1057 (0.1057)  loss_ddf_aux_0: 0.0191 (0.0191)  loss_vfl_aux_1: 0.0422 (0.0422)  loss_bbox_aux_1: 1.4483 (1.4483)  loss_giou_aux_1: 2.7495 (2.7495)  loss_fgl_aux_1: 0.0953 (0.0953)  loss_ddf_aux_1: 0.0016 (0.0016)  loss_vfl_pre: 0.0671 (0.0671)  loss_bbox_pre: 1.3825 (1.3825)  loss_giou_pre: 2.7933 (2.7933)  loss_vfl_enc_0: 0.0647 (0.0647)  loss_bbox_enc_0: 1.3601 (1.3601)  loss_giou_enc_0: 2.8214 (2.8214)  loss_vfl_dn_0: 0.3434 (0.3434)  loss_bbox_dn_0: 0.3837 (0.3837)  loss_giou_dn_0: 1.5891 (1.5891)  loss_fgl_dn_0: 0.6163 (0.6163)  loss_ddf_dn_0: 0.1081 (0.1081)  loss_vfl_dn_1: 0.5370 (0.5370)  loss_bbox_dn_1: 0.2458 (0.2458)  loss_giou_dn_1: 1.4237 (1.4237)  loss_fgl_dn_1: 0.7196 (0.7196)  loss_ddf_dn_1: 0.0054 (0.0054)  loss_vfl_dn_2: 0.5355 (0.5355)  loss_bbox_dn_2: 0.2339 (0.2339)  loss_giou_dn_2: 1.4127 (1.4127)  loss_fgl_dn_2: 0.7244 (0.7244)  loss_ddf_dn_2: -0.0000 (0.0000)  loss_vfl_dn_pre: 0.3515 (0.3515)  loss_bbox_dn_pre: 0.3727 (0.3727)  loss_giou_dn_pre: 1.5786 (1.5786)  loss_size: 0.3631 (0.3631)  time: 1.1476  data: 0.2364  max mem: 5074
+Epoch: [0/30]  [44/45]  eta: 0:00:00  lr: 0.000100  loss: 30.9561 (32.4494)  loss_vfl: 0.3011 (0.2017)  loss_bbox: 0.6446 (0.9640)  loss_giou: 2.2949 (2.5838)  loss_fgl: 0.3927 (0.2464)  loss_vfl_aux_0: 0.2554 (0.1896)  loss_bbox_aux_0: 0.7068 (1.0246)  loss_giou_aux_0: 2.4382 (2.6311)  loss_fgl_aux_0: 0.3096 (0.2119)  loss_ddf_aux_0: 0.0979 (0.0583)  loss_vfl_aux_1: 0.3320 (0.2403)  loss_bbox_aux_1: 0.6771 (0.9946)  loss_giou_aux_1: 2.3402 (2.5850)  loss_fgl_aux_1: 0.3812 (0.2399)  loss_ddf_aux_1: 0.0096 (0.0067)  loss_vfl_pre: 0.2576 (0.1898)  loss_bbox_pre: 0.7483 (1.0468)  loss_giou_pre: 2.4132 (2.6188)  loss_vfl_enc_0: 0.0808 (0.0939)  loss_bbox_enc_0: 1.0440 (1.2194)  loss_giou_enc_0: 2.5854 (2.6793)  loss_vfl_dn_0: 1.1777 (0.9585)  loss_bbox_dn_0: 0.0920 (0.1639)  loss_giou_dn_0: 1.0521 (1.1945)  loss_fgl_dn_0: 1.0176 (0.9098)  loss_ddf_dn_0: 0.2910 (0.2087)  loss_vfl_dn_1: 1.4013 (1.1994)  loss_bbox_dn_1: 0.0756 (0.1083)  loss_giou_dn_1: 0.8384 (1.0100)  loss_fgl_dn_1: 1.1096 (0.9890)  loss_ddf_dn_1: 0.0117 (0.0097)  loss_vfl_dn_2: 1.0773 (1.0277)  loss_bbox_dn_2: 0.0734 (0.1053)  loss_giou_dn_2: 0.8207 (0.9921)  loss_fgl_dn_2: 1.1151 (0.9943)  loss_ddf_dn_2: -0.0000 (0.0000)  loss_vfl_dn_pre: 1.1939 (0.9546)  loss_bbox_dn_pre: 0.0912 (0.1645)  loss_giou_dn_pre: 1.0421 (1.1934)  loss_size: 0.1044 (0.2397)  time: 0.2618  data: 0.0121  max mem: 5227
+Epoch: [0/30] Total time: 0:00:12 (0.2735 s / it)
+Averaged stats: lr: 0.000100  loss: 30.9561 (32.4494)  loss_vfl: 0.3011 (0.2017)  loss_bbox: 0.6446 (0.9640)  loss_giou: 2.2949 (2.5838)  loss_fgl: 0.3927 (0.2464)  loss_vfl_aux_0: 0.2554 (0.1896)  loss_bbox_aux_0: 0.7068 (1.0246)  loss_giou_aux_0: 2.4382 (2.6311)  loss_fgl_aux_0: 0.3096 (0.2119)  loss_ddf_aux_0: 0.0979 (0.0583)  loss_vfl_aux_1: 0.3320 (0.2403)  loss_bbox_aux_1: 0.6771 (0.9946)  loss_giou_aux_1: 2.3402 (2.5850)  loss_fgl_aux_1: 0.3812 (0.2399)  loss_ddf_aux_1: 0.0096 (0.0067)  loss_vfl_pre: 0.2576 (0.1898)  loss_bbox_pre: 0.7483 (1.0468)  loss_giou_pre: 2.4132 (2.6188)  loss_vfl_enc_0: 0.0808 (0.0939)  loss_bbox_enc_0: 1.0440 (1.2194)  loss_giou_enc_0: 2.5854 (2.6793)  loss_vfl_dn_0: 1.1777 (0.9585)  loss_bbox_dn_0: 0.0920 (0.1639)  loss_giou_dn_0: 1.0521 (1.1945)  loss_fgl_dn_0: 1.0176 (0.9098)  loss_ddf_dn_0: 0.2910 (0.2087)  loss_vfl_dn_1: 1.4013 (1.1994)  loss_bbox_dn_1: 0.0756 (0.1083)  loss_giou_dn_1: 0.8384 (1.0100)  loss_fgl_dn_1: 1.1096 (0.9890)  loss_ddf_dn_1: 0.0117 (0.0097)  loss_vfl_dn_2: 1.0773 (1.0277)  loss_bbox_dn_2: 0.0734 (0.1053)  loss_giou_dn_2: 0.8207 (0.9921)  loss_fgl_dn_2: 1.1151 (0.9943)  loss_ddf_dn_2: -0.0000 (0.0000)  loss_vfl_dn_pre: 1.1939 (0.9546)  loss_bbox_dn_pre: 0.0912 (0.1645)  loss_giou_dn_pre: 1.0421 (1.1934)  loss_size: 0.1044 (0.2397)
+Test:  [0/8]  eta: 0:00:04    time: 0.5482  data: 0.2414  max mem: 5227
+Test:  [7/8]  eta: 0:00:00    time: 0.1277  data: 0.0420  max mem: 5227
+Test: Total time: 0:00:01 (0.1316 s / it)
+Metrics: {'f1': 0, 'precision': 0, 'recall': 0.0, 'iou': 0.0, 'TPs': 0, 'FPs': 0, 'FNs': 142}
+Averaged stats: 
+Accumulating evaluation results...
+COCOeval_opt.accumulate() finished...
+DONE (t=0.00s).
+IoU metric: bbox
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.003
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.014
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.004
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.010
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.037
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.043
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.043
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.176
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.007
+best_stat: {'epoch': 0, 'coco_eval_bbox': 0.002588955781674496}
+Epoch: [1/30]  [ 0/45]  eta: 0:00:21  lr: 0.000100  loss: 28.3457 (28.3457)  loss_vfl: 0.3527 (0.3527)  loss_bbox: 0.3756 (0.3756)  loss_giou: 1.9315 (1.9315)  loss_fgl: 0.5128 (0.5128)  loss_vfl_aux_0: 0.3151 (0.3151)  loss_bbox_aux_0: 0.4330 (0.4330)  loss_giou_aux_0: 2.1845 (2.1845)  loss_fgl_aux_0: 0.3583 (0.3583)  loss_ddf_aux_0: 0.1516 (0.1516)  loss_vfl_aux_1: 0.4302 (0.4302)  loss_bbox_aux_1: 0.4097 (0.4097)  loss_giou_aux_1: 2.0044 (2.0044)  loss_fgl_aux_1: 0.4792 (0.4792)  loss_ddf_aux_1: 0.0232 (0.0232)  loss_vfl_pre: 0.3772 (0.3772)  loss_bbox_pre: 0.4634 (0.4634)  loss_giou_pre: 2.0873 (2.0873)  loss_vfl_enc_0: 0.0707 (0.0707)  loss_bbox_enc_0: 0.8111 (0.8111)  loss_giou_enc_0: 2.3287 (2.3287)  loss_vfl_dn_0: 1.3477 (1.3477)  loss_bbox_dn_0: 0.0717 (0.0717)  loss_giou_dn_0: 0.8939 (0.8939)  loss_fgl_dn_0: 1.1215 (1.1215)  loss_ddf_dn_0: 0.4183 (0.4183)  loss_vfl_dn_1: 1.0962 (1.0962)  loss_bbox_dn_1: 0.0689 (0.0689)  loss_giou_dn_1: 0.8239 (0.8239)  loss_fgl_dn_1: 1.1677 (1.1677)  loss_ddf_dn_1: 0.0261 (0.0261)  loss_vfl_dn_2: 0.7794 (0.7794)  loss_bbox_dn_2: 0.0650 (0.0650)  loss_giou_dn_2: 0.8103 (0.8103)  loss_fgl_dn_2: 1.1782 (1.1782)  loss_ddf_dn_2: -0.0000 (0.0000)  loss_vfl_dn_pre: 1.3330 (1.3330)  loss_bbox_dn_pre: 0.0725 (0.0725)  loss_giou_dn_pre: 0.8989 (0.8989)  loss_size: 0.0723 (0.0723)  time: 0.4772  data: 0.2377  max mem: 5227
+Epoch: [1/30]  [44/45]  eta: 0:00:00  lr: 0.000100  loss: 26.0280 (27.1933)  loss_vfl: 0.4889 (0.4983)  loss_bbox: 0.2147 (0.3057)  loss_giou: 1.3292 (1.6156)  loss_fgl: 0.7366 (0.6749)  loss_vfl_aux_0: 0.6006 (0.5307)  loss_bbox_aux_0: 0.2639 (0.3701)  loss_giou_aux_0: 1.7979 (1.9087)  loss_fgl_aux_0: 0.5957 (0.5426)  loss_ddf_aux_0: 0.1773 (0.2135)  loss_vfl_aux_1: 0.5358 (0.5182)  loss_bbox_aux_1: 0.2229 (0.3263)  loss_giou_aux_1: 1.4229 (1.6672)  loss_fgl_aux_1: 0.7267 (0.6587)  loss_ddf_aux_1: 0.0265 (0.0309)  loss_vfl_pre: 0.5690 (0.5056)  loss_bbox_pre: 0.2912 (0.3990)  loss_giou_pre: 1.7600 (1.8785)  loss_vfl_enc_0: 0.1525 (0.1348)  loss_bbox_enc_0: 0.5049 (0.6981)  loss_giou_enc_0: 2.4018 (2.3128)  loss_vfl_dn_0: 1.0160 (1.1312)  loss_bbox_dn_0: 0.0661 (0.0711)  loss_giou_dn_0: 0.7499 (0.8038)  loss_fgl_dn_0: 1.2045 (1.1748)  loss_ddf_dn_0: 0.8991 (0.8889)  loss_vfl_dn_1: 0.5620 (0.7171)  loss_bbox_dn_1: 0.0534 (0.0572)  loss_giou_dn_1: 0.6251 (0.6829)  loss_fgl_dn_1: 1.2300 (1.2091)  loss_ddf_dn_1: 0.0626 (0.0614)  loss_vfl_dn_2: 0.5522 (0.5954)  loss_bbox_dn_2: 0.0541 (0.0576)  loss_giou_dn_2: 0.6217 (0.6850)  loss_fgl_dn_2: 1.2369 (1.2181)  loss_ddf_dn_2: -0.0000 (0.0000)  loss_vfl_dn_pre: 1.0163 (1.1323)  loss_bbox_dn_pre: 0.0672 (0.0715)  loss_giou_dn_pre: 0.7484 (0.8030)  loss_size: 0.0220 (0.0427)  time: 0.2383  data: 0.0117  max mem: 5227
+Epoch: [1/30] Total time: 0:00:11 (0.2461 s / it)
+Averaged stats: lr: 0.000100  loss: 26.0280 (27.1933)  loss_vfl: 0.4889 (0.4983)  loss_bbox: 0.2147 (0.3057)  loss_giou: 1.3292 (1.6156)  loss_fgl: 0.7366 (0.6749)  loss_vfl_aux_0: 0.6006 (0.5307)  loss_bbox_aux_0: 0.2639 (0.3701)  loss_giou_aux_0: 1.7979 (1.9087)  loss_fgl_aux_0: 0.5957 (0.5426)  loss_ddf_aux_0: 0.1773 (0.2135)  loss_vfl_aux_1: 0.5358 (0.5182)  loss_bbox_aux_1: 0.2229 (0.3263)  loss_giou_aux_1: 1.4229 (1.6672)  loss_fgl_aux_1: 0.7267 (0.6587)  loss_ddf_aux_1: 0.0265 (0.0309)  loss_vfl_pre: 0.5690 (0.5056)  loss_bbox_pre: 0.2912 (0.3990)  loss_giou_pre: 1.7600 (1.8785)  loss_vfl_enc_0: 0.1525 (0.1348)  loss_bbox_enc_0: 0.5049 (0.6981)  loss_giou_enc_0: 2.4018 (2.3128)  loss_vfl_dn_0: 1.0160 (1.1312)  loss_bbox_dn_0: 0.0661 (0.0711)  loss_giou_dn_0: 0.7499 (0.8038)  loss_fgl_dn_0: 1.2045 (1.1748)  loss_ddf_dn_0: 0.8991 (0.8889)  loss_vfl_dn_1: 0.5620 (0.7171)  loss_bbox_dn_1: 0.0534 (0.0572)  loss_giou_dn_1: 0.6251 (0.6829)  loss_fgl_dn_1: 1.2300 (1.2091)  loss_ddf_dn_1: 0.0626 (0.0614)  loss_vfl_dn_2: 0.5522 (0.5954)  loss_bbox_dn_2: 0.0541 (0.0576)  loss_giou_dn_2: 0.6217 (0.6850)  loss_fgl_dn_2: 1.2369 (1.2181)  loss_ddf_dn_2: -0.0000 (0.0000)  loss_vfl_dn_pre: 1.0163 (1.1323)  loss_bbox_dn_pre: 0.0672 (0.0715)  loss_giou_dn_pre: 0.7484 (0.8030)  loss_size: 0.0220 (0.0427)
+Test:  [0/8]  eta: 0:00:02    time: 0.2932  data: 0.2377  max mem: 5227
+Test:  [7/8]  eta: 0:00:00    time: 0.1207  data: 0.0429  max mem: 5227
+Test: Total time: 0:00:01 (0.1251 s / it)
+Metrics: {'f1': 0.34517766497461927, 'precision': 0.6181818181818182, 'recall': 0.23943661971830985, 'iou': 0.1482865207034386, 'TPs': 34, 'FPs': 21, 'FNs': 108}
+Averaged stats: 
+Accumulating evaluation results...
+COCOeval_opt.accumulate() finished...
+DONE (t=0.00s).
+IoU metric: bbox
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.093
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.272
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.035
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.093
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.080
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.192
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.212
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.212
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.444
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.155
+best_stat: {'epoch': 1, 'coco_eval_bbox': 0.09287341935534711}
+Epoch: [2/30]  [ 0/45]  eta: 0:00:21  lr: 0.000100  loss: 33.1726 (33.1726)  loss_vfl: 0.4635 (0.4635)  loss_bbox: 1.1471 (1.1471)  loss_giou: 2.3532 (2.3532)  loss_fgl: 0.5301 (0.5301)  loss_vfl_aux_0: 0.6380 (0.6380)  loss_bbox_aux_0: 1.2419 (1.2419)  loss_giou_aux_0: 2.4329 (2.4329)  loss_fgl_aux_0: 0.5008 (0.5008)  loss_ddf_aux_0: 0.1064 (0.1064)  loss_vfl_aux_1: 0.5364 (0.5364)  loss_bbox_aux_1: 1.1952 (1.1952)  loss_giou_aux_1: 2.3510 (2.3510)  loss_fgl_aux_1: 0.5288 (0.5288)  loss_ddf_aux_1: 0.0122 (0.0122)  loss_vfl_pre: 0.6329 (0.6329)  loss_bbox_pre: 1.2875 (1.2875)  loss_giou_pre: 2.4213 (2.4213)  loss_vfl_enc_0: 0.1634 (0.1634)  loss_bbox_enc_0: 1.4569 (1.4569)  loss_giou_enc_0: 2.8913 (2.8913)  loss_vfl_dn_0: 0.8167 (0.8167)  loss_bbox_dn_0: 0.0610 (0.0610)  loss_giou_dn_0: 0.7488 (0.7488)  loss_fgl_dn_0: 1.2230 (1.2230)  loss_ddf_dn_0: 0.6266 (0.6266)  loss_vfl_dn_1: 0.5478 (0.5478)  loss_bbox_dn_1: 0.0521 (0.0521)  loss_giou_dn_1: 0.6605 (0.6605)  loss_fgl_dn_1: 1.2446 (1.2446)  loss_ddf_dn_1: 0.0321 (0.0321)  loss_vfl_dn_2: 0.5321 (0.5321)  loss_bbox_dn_2: 0.0526 (0.0526)  loss_giou_dn_2: 0.6663 (0.6663)  loss_fgl_dn_2: 1.2427 (1.2427)  loss_ddf_dn_2: -0.0000 (0.0000)  loss_vfl_dn_pre: 0.8156 (0.8156)  loss_bbox_dn_pre: 0.0618 (0.0618)  loss_giou_dn_pre: 0.7533 (0.7533)  loss_size: 0.1442 (0.1442)  time: 0.4866  data: 0.2457  max mem: 5227
+Epoch: [2/30]  [44/45]  eta: 0:00:00  lr: 0.000100  loss: 25.7026 (27.0979)  loss_vfl: 0.4919 (0.4531)  loss_bbox: 0.3643 (0.5280)  loss_giou: 1.6435 (1.8934)  loss_fgl: 0.6862 (0.6515)  loss_vfl_aux_0: 0.4184 (0.4124)  loss_bbox_aux_0: 0.4069 (0.5709)  loss_giou_aux_0: 1.9960 (2.1344)  loss_fgl_aux_0: 0.6447 (0.5697)  loss_ddf_aux_0: 0.1654 (0.1444)  loss_vfl_aux_1: 0.5086 (0.4692)  loss_bbox_aux_1: 0.3881 (0.5448)  loss_giou_aux_1: 1.7279 (1.9273)  loss_fgl_aux_1: 0.6700 (0.6383)  loss_ddf_aux_1: 0.0199 (0.0178)  loss_vfl_pre: 0.4352 (0.4111)  loss_bbox_pre: 0.4151 (0.5867)  loss_giou_pre: 1.9816 (2.1146)  loss_vfl_enc_0: 0.1608 (0.1514)  loss_bbox_enc_0: 0.6383 (0.8080)  loss_giou_enc_0: 2.7111 (2.7175)  loss_vfl_dn_0: 0.5448 (0.5993)  loss_bbox_dn_0: 0.0607 (0.0619)  loss_giou_dn_0: 0.6928 (0.7156)  loss_fgl_dn_0: 1.2157 (1.2152)  loss_ddf_dn_0: 0.4939 (0.5173)  loss_vfl_dn_1: 0.5106 (0.5243)  loss_bbox_dn_1: 0.0486 (0.0505)  loss_giou_dn_1: 0.5752 (0.6038)  loss_fgl_dn_1: 1.2172 (1.2252)  loss_ddf_dn_1: 0.0230 (0.0311)  loss_vfl_dn_2: 0.4996 (0.5136)  loss_bbox_dn_2: 0.0483 (0.0507)  loss_giou_dn_2: 0.5802 (0.6038)  loss_fgl_dn_2: 1.2216 (1.2271)  loss_ddf_dn_2: -0.0000 (0.0000)  loss_vfl_dn_pre: 0.5417 (0.6006)  loss_bbox_dn_pre: 0.0613 (0.0618)  loss_giou_dn_pre: 0.6884 (0.7123)  loss_size: 0.0203 (0.0392)  time: 0.2390  data: 0.0116  max mem: 5227
+Epoch: [2/30] Total time: 0:00:11 (0.2458 s / it)
+Averaged stats: lr: 0.000100  loss: 25.7026 (27.0979)  loss_vfl: 0.4919 (0.4531)  loss_bbox: 0.3643 (0.5280)  loss_giou: 1.6435 (1.8934)  loss_fgl: 0.6862 (0.6515)  loss_vfl_aux_0: 0.4184 (0.4124)  loss_bbox_aux_0: 0.4069 (0.5709)  loss_giou_aux_0: 1.9960 (2.1344)  loss_fgl_aux_0: 0.6447 (0.5697)  loss_ddf_aux_0: 0.1654 (0.1444)  loss_vfl_aux_1: 0.5086 (0.4692)  loss_bbox_aux_1: 0.3881 (0.5448)  loss_giou_aux_1: 1.7279 (1.9273)  loss_fgl_aux_1: 0.6700 (0.6383)  loss_ddf_aux_1: 0.0199 (0.0178)  loss_vfl_pre: 0.4352 (0.4111)  loss_bbox_pre: 0.4151 (0.5867)  loss_giou_pre: 1.9816 (2.1146)  loss_vfl_enc_0: 0.1608 (0.1514)  loss_bbox_enc_0: 0.6383 (0.8080)  loss_giou_enc_0: 2.7111 (2.7175)  loss_vfl_dn_0: 0.5448 (0.5993)  loss_bbox_dn_0: 0.0607 (0.0619)  loss_giou_dn_0: 0.6928 (0.7156)  loss_fgl_dn_0: 1.2157 (1.2152)  loss_ddf_dn_0: 0.4939 (0.5173)  loss_vfl_dn_1: 0.5106 (0.5243)  loss_bbox_dn_1: 0.0486 (0.0505)  loss_giou_dn_1: 0.5752 (0.6038)  loss_fgl_dn_1: 1.2172 (1.2252)  loss_ddf_dn_1: 0.0230 (0.0311)  loss_vfl_dn_2: 0.4996 (0.5136)  loss_bbox_dn_2: 0.0483 (0.0507)  loss_giou_dn_2: 0.5802 (0.6038)  loss_fgl_dn_2: 1.2216 (1.2271)  loss_ddf_dn_2: -0.0000 (0.0000)  loss_vfl_dn_pre: 0.5417 (0.6006)  loss_bbox_dn_pre: 0.0613 (0.0618)  loss_giou_dn_pre: 0.6884 (0.7123)  loss_size: 0.0203 (0.0392)
+Test:  [0/8]  eta: 0:00:02    time: 0.2945  data: 0.2392  max mem: 5227
+Test:  [7/8]  eta: 0:00:00    time: 0.0960  data: 0.0413  max mem: 5227
+Test: Total time: 0:00:00 (0.1002 s / it)
+Metrics: {'f1': 0.24999999999999997, 'precision': 0.6470588235294118, 'recall': 0.15492957746478872, 'iou': 0.09915670171960608, 'TPs': 22, 'FPs': 12, 'FNs': 120}
+Averaged stats: 
+Accumulating evaluation results...
+COCOeval_opt.accumulate() finished...
+DONE (t=0.00s).
+IoU metric: bbox
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.070
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.206
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.032
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.070
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.062
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.148
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.152
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.152
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.359
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.120
+best_stat: {'epoch': 1, 'coco_eval_bbox': 0.09287341935534711}
+Epoch: [3/30]  [ 0/45]  eta: 0:00:21  lr: 0.000100  loss: 22.9895 (22.9895)  loss_vfl: 0.6010 (0.6010)  loss_bbox: 0.1719 (0.1719)  loss_giou: 1.1262 (1.1262)  loss_fgl: 0.8676 (0.8676)  loss_vfl_aux_0: 0.5134 (0.5134)  loss_bbox_aux_0: 0.2267 (0.2267)  loss_giou_aux_0: 1.6295 (1.6295)  loss_fgl_aux_0: 0.6782 (0.6782)  loss_ddf_aux_0: 0.2153 (0.2153)  loss_vfl_aux_1: 0.5779 (0.5779)  loss_bbox_aux_1: 0.1920 (0.1920)  loss_giou_aux_1: 1.1814 (1.1814)  loss_fgl_aux_1: 0.8638 (0.8638)  loss_ddf_aux_1: 0.0310 (0.0310)  loss_vfl_pre: 0.5069 (0.5069)  loss_bbox_pre: 0.2461 (0.2461)  loss_giou_pre: 1.5888 (1.5888)  loss_vfl_enc_0: 0.2121 (0.2121)  loss_bbox_enc_0: 0.5667 (0.5667)  loss_giou_enc_0: 2.3748 (2.3748)  loss_vfl_dn_0: 0.5556 (0.5556)  loss_bbox_dn_0: 0.0490 (0.0490)  loss_giou_dn_0: 0.6385 (0.6385)  loss_fgl_dn_0: 1.2106 (1.2106)  loss_ddf_dn_0: 0.3450 (0.3450)  loss_vfl_dn_1: 0.4927 (0.4927)  loss_bbox_dn_1: 0.0402 (0.0402)  loss_giou_dn_1: 0.5364 (0.5364)  loss_fgl_dn_1: 1.2069 (1.2069)  loss_ddf_dn_1: 0.0156 (0.0156)  loss_vfl_dn_2: 0.4711 (0.4711)  loss_bbox_dn_2: 0.0403 (0.0403)  loss_giou_dn_2: 0.5369 (0.5369)  loss_fgl_dn_2: 1.2092 (1.2092)  loss_ddf_dn_2: -0.0000 (0.0000)  loss_vfl_dn_pre: 0.5520 (0.5520)  loss_bbox_dn_pre: 0.0505 (0.0505)  loss_giou_dn_pre: 0.6449 (0.6449)  loss_size: 0.0229 (0.0229)  time: 0.4863  data: 0.2503  max mem: 5227
+Traceback (most recent call last):
+  File "/home/viplab/contest/experiments/kamp_ablation_v3/train_dfine.py", line 19, in <module>
+    runpy.run_path(str(ROOT/'models/D-FINE/train.py'),run_name='__main__')
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<frozen runpy>", line 287, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/home/viplab/contest/models/D-FINE/train.py", line 113, in <module>
+    main(args)
+    ~~~~^^^^^^
+  File "/home/viplab/contest/models/D-FINE/train.py", line 75, in main
+    solver.fit()
+    ~~~~~~~~~~^^
+  File "/home/viplab/contest/models/D-FINE/src/solver/det_solver.py", line 76, in fit
+    train_stats = train_one_epoch(
+        self.model,
+    ...<13 lines>...
+        output_dir=self.output_dir,
+    )
+  File "/home/viplab/contest/models/D-FINE/src/solver/det_engine.py", line 103, in train_one_epoch
+    loss_dict = criterion(outputs, targets, **metas)
+  File "/home/viplab/contest/.detector-venv/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1776, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/home/viplab/contest/.detector-venv/lib/python3.13/site-packages/torch/nn/modules/module.py", line 1787, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/viplab/contest/experiments/kamp_ablation_v3/loss_patch.py", line 53, in forward
+    raise FloatingPointError('Nonfinite loss')
+FloatingPointError: Nonfinite loss

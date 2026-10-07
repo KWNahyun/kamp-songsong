@@ -1,0 +1,195 @@
+{
+  "image_files": 3924,
+  "unique_pixels": 2551,
+  "undecodable": 11,
+  "raw_files": 2809,
+  "raw_unique_stems": 2529,
+  "raw_unique_pixels": 2532,
+  "unlabeled_raw_files": 2244,
+  "unlabeled_raw_stems": 2029,
+  "unlabeled_raw_unique_pixels": 2032,
+  "unlabeled_no_color_files": 0,
+  "unlabeled_pixels_matching_labeled": 0,
+  "stem_conflicts": {
+    "002_20200916_122650(1)": 2,
+    "002_20200918_043338(2)": 2,
+    "002_20200922_163053(8)": 2
+  },
+  "yolo_files": 530,
+  "yolo_new_stems": [
+    "001_20200901_003429(1)",
+    "001_20200922_163329(0)",
+    "002_20200714_043029(1)",
+    "002_20200715_042416(9)",
+    "002_20200831_083545(0)",
+    "002_20200831_123134(5)",
+    "002_20200908_043137(8)",
+    "002_20200915_003459(4)",
+    "002_20200917_043110(7)",
+    "002_20200917_202952(6)",
+    "002_20200917_203001(5)",
+    "002_20200922_083747(7)"
+  ],
+  "yolo_aux_differences": [
+    {
+      "path": "4. X-ray 검사장비 AI 데이터셋/dataset/OpenLabeling-master/main/output/YOLO_darknet/001_20200623_003516(8).txt",
+      "stem": "001_20200623_003516(8)",
+      "boxes": 3,
+      "valid": true,
+      "in_main": true,
+      "same_as_main": false,
+      "duplicate_rows": 0
+    },
+    {
+      "path": "4. X-ray 검사장비 AI 데이터셋/dataset/OpenLabeling-master/main/output/YOLO_darknet/001_20200622_203312(6).txt",
+      "stem": "001_20200622_203312(6)",
+      "boxes": 3,
+      "valid": true,
+      "in_main": true,
+      "same_as_main": false,
+      "duplicate_rows": 0
+    },
+    {
+      "path": "4. X-ray 검사장비 AI 데이터셋/dataset/OpenLabeling-master/main/output/YOLO_darknet/001_20200922_163332(2).txt",
+      "stem": "001_20200922_163332(2)",
+      "boxes": 1,
+      "valid": true,
+      "in_main": true,
+      "same_as_main": false,
+      "duplicate_rows": 0
+    },
+    {
+      "path": "4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/labels/001_20200623_003516(8).txt",
+      "stem": "001_20200623_003516(8)",
+      "boxes": 3,
+      "valid": true,
+      "in_main": true,
+      "same_as_main": false,
+      "duplicate_rows": 0
+    },
+    {
+      "path": "4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/labels/001_20200622_203312(6).txt",
+      "stem": "001_20200622_203312(6)",
+      "boxes": 3,
+      "valid": true,
+      "in_main": true,
+      "same_as_main": false,
+      "duplicate_rows": 0
+    },
+    {
+      "path": "4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/labels/001_20200922_163332(2).txt",
+      "stem": "001_20200922_163332(2)",
+      "boxes": 1,
+      "valid": true,
+      "in_main": true,
+      "same_as_main": false,
+      "duplicate_rows": 0
+    }
+  ],
+  "yolo_invalid": [],
+  "xml_files": 833,
+  "xml_in_main": 23,
+  "xml_classes": {
+    "": 810,
+    "Defect": 19,
+    "Defect|SN77128|person": 1,
+    "Defect|SN77128": 1,
+    "person": 1,
+    "donut": 1
+  },
+  "raw_overlap_boxes": 162,
+  "dilated_overlap_boxes": 407,
+  "raw_overlap_max": 0.27941176470588236,
+  "dilated_overlap_max": 0.47058823529411764,
+  "multicolor_inside_boxes": 9,
+  "multicolor_near_boxes": 215,
+  "colors_per_image": {
+    "1": 368,
+    "3": 68,
+    "2": 52,
+    "4": 12
+  },
+  "machines": {
+    "1호기": {
+      "images": 156,
+      "boxes": 404,
+      "dates": 10,
+      "sessions": 156
+    },
+    "2호기": {
+      "images": 177,
+      "boxes": 376,
+      "dates": 10,
+      "sessions": 177
+    },
+    "3호기": {
+      "images": 167,
+      "boxes": 367,
+      "dates": 17,
+      "sessions": 167
+    }
+  },
+  "coverage": {
+    "1호기": {
+      "files": 1031,
+      "stems": 943,
+      "unique_pixels": 943,
+      "with_label_files": 174
+    },
+    "2호기": {
+      "files": 920,
+      "stems": 805,
+      "unique_pixels": 805,
+      "with_label_files": 204
+    },
+    "3호기": {
+      "files": 858,
+      "stems": 784,
+      "unique_pixels": 784,
+      "with_label_files": 187
+    }
+  },
+  "prefix_by_machine": {
+    "001": {
+      "1호기": 0,
+      "2호기": 0,
+      "3호기": 167
+    },
+    "002": {
+      "1호기": 156,
+      "2호기": 177,
+      "3호기": 0
+    }
+  },
+  "dates": 24,
+  "sessions": 488,
+  "top3_date_images": 263,
+  "short_side_at640_min": 6.666666666666667,
+  "short_side_at640_median": 15.421686746987952,
+  "box_count_by_machine": {
+    "1": {
+      "1호기": 32,
+      "2호기": 77,
+      "3호기": 67
+    },
+    "2": {
+      "1호기": 0,
+      "2호기": 1,
+      "3호기": 0
+    },
+    "3": {
+      "1호기": 124,
+      "2호기": 99,
+      "3호기": 100
+    }
+  },
+  "raw_without_any_yolo_files": 2230,
+  "raw_without_any_yolo_stems": 2017,
+  "raw_without_any_yolo_unique_pixels": 2020,
+  "unique_yolo_stems": 512,
+  "auxiliary_only_boxes": 16,
+  "xml_xray_files": 35,
+  "xml_empty_xray": 14,
+  "subset_stems_in_main": 400,
+  "duplicate_label_rows": 0
+}

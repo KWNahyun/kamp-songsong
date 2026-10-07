@@ -1,0 +1,8 @@
+{
+  "adopt_name": "mal_seed20260929",
+  "adopt_pid": 2715971,
+  "previous_scheduler_pid": 2715954,
+  "migrated": 1790927141.2740169,
+  "training_interrupted": false,
+  "supervisor_sha256": "896345d0e396a8f5aeeddd7deee02acf2f80d1145a7460073597a409882e7848"
+}

@@ -1,0 +1,46 @@
+{
+  "date": "2026-09-30",
+  "report": "/home/viplab/contest/아키텍처_가설_재설계_보고서.md",
+  "papers": 14,
+  "sources": [
+    "https://proceedings.iclr.cc/paper_files/paper/2025/hash/6cf58a87e3097e7d1f9be3e8693a93de-Abstract-Conference.html",
+    "https://github.com/Peterande/D-FINE",
+    "https://openaccess.thecvf.com/content/ICCV2025/html/Sun_Uncertainty-Aware_Gradient_Stabilization_for_Small_Object_Detection_ICCV_2025_paper.html",
+    "https://huixinsun.github.io/",
+    "https://arxiv.org/html/2601.00617v1",
+    "https://openaccess.thecvf.com/content/CVPR2025/html/Huang_DEIM_DETR_with_Improved_Matching_for_Fast_Convergence_CVPR_2025_paper.html",
+    "https://arxiv.org/html/2412.04234v3",
+    "https://github.com/Intellindust-AI-Lab/DEIM",
+    "https://openaccess.thecvf.com/content/CVPR2026/html/Kang_PaQ-DETR_Learning_Pattern_and_Quality-Aware_Dynamic_Queries_for_Object_Detection_CVPR_2026_paper.html",
+    "https://arxiv.org/html/2603.06917v1",
+    "https://ieeexplore.ieee.org/abstract/document/11670322/",
+    "https://github.com/gfnanxi/DQSA-DETR",
+    "https://arxiv.org/abs/2509.20787",
+    "https://github.com/Intellindust-AI-Lab/DEIMv2",
+    "https://arxiv.org/abs/2310.08854",
+    "https://github.com/LeapLabTHU/Rank-DETR",
+    "https://openaccess.thecvf.com/content/CVPR2021/papers/Li_Generalized_Focal_Loss_V2_Learning_Reliable_Localization_Quality_Estimation_for_CVPR_2021_paper.pdf",
+    "https://openaccess.thecvf.com/content/WACV2024/html/Popordanoska_Beyond_Classification_Definition_and_Density-Based_Estimation_of_Calibration_in_Object_WACV_2024_paper.html",
+    "https://arxiv.org/abs/2312.06645",
+    "https://proceedings.mlr.press/v266/hulsman25a.html",
+    "https://openaccess.thecvf.com/content/CVPR2021/papers/Zhang_VarifocalNet_An_IoU-Aware_Dense_Object_Detector_CVPR_2021_paper.pdf",
+    "https://github.com/hyz-xmaster/VarifocalNet",
+    "https://openaccess.thecvf.com/content/CVPR2024/html/Gao_EASE-DETR_Easing_the_Competition_among_Object_Queries_CVPR_2024_paper.html",
+    "https://arxiv.org/html/2605.23507v1",
+    "https://github.com/DChoLee/MDS-DETR"
+  ],
+  "training_launched": false,
+  "test_used": false,
+  "code_audit": [
+    "models/D-FINE/src/zoo/dfine/dfine_decoder.py",
+    "models/D-FINE/src/zoo/dfine/dfine_criterion.py",
+    "models/D-FINE/configs/dfine/include/dfine_hgnetv2.yml"
+  ],
+  "limitations": [
+    "UGS full PDF access failed; official abstract verified",
+    "PaQ CVF direct access failed; official indexed page and arXiv full text checked",
+    "DQSA publisher abstract reviewed; full method not verified",
+    "TOLF publisher volume/DOI not cross-checked",
+    "DEIMv2 and MDS treated as preprints"
+  ]
+}

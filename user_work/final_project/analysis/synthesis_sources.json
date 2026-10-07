@@ -1,0 +1,18 @@
+[
+  {
+    "path": "/home/viplab/contest/experiments/kamp_v2_ambiguity_uq/analysis/paired_UQ.csv",
+    "sha256": "b50c9a7a46ac0074659d9694af51589a29826d6404da82def731687c1b210378"
+  },
+  {
+    "path": "/home/viplab/contest/experiments/kamp_v2_reinspection/review_curves.csv",
+    "sha256": "20c412672bec80933003934612772588124192c2be0d02f960b7700bafb8b694"
+  },
+  {
+    "path": "/home/viplab/contest/experiments/kamp_v2_uq/analysis/metrics.csv",
+    "sha256": "61f95427b9c67530f0a49297b6acca25b8d117918f8958c0742b72328b23ad9b"
+  },
+  {
+    "path": "/home/viplab/contest/final_project/reference_results/frozen_test_summary.json",
+    "sha256": "23096c7726cf6a784be16d3a449737d50e4be0c30804d3dae0e79d6d00321ccd"
+  }
+]

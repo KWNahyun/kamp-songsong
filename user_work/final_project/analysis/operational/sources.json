@@ -1,0 +1,14 @@
+[
+  {
+    "path": "/home/viplab/contest/final_project/reference_results/val_annotations.json",
+    "sha256": "427241b2e5d16bcd6c5e66c30339693b3cd8a3c3c638e5e9fd4f497fdf5be0d9"
+  },
+  {
+    "path": "/home/viplab/contest/final_project/reference_results/val_raw_predictions.json",
+    "sha256": "6f446ebbaa46903182d5ad20aa90fa239dce188e7b23291eb29733d296e5e31d"
+  },
+  {
+    "path": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/yolov8s_seed20260930/common_eval/predictions_original.json",
+    "sha256": "16e6cd1c32cad28f08997f7f71706240c79fa48f6f4f5683b43561debf4823e1"
+  }
+]

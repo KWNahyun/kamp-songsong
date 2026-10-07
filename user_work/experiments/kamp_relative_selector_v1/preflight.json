@@ -1,0 +1,20 @@
+{
+  "passed": true,
+  "split": "train",
+  "test_used": false,
+  "batch_shape": [
+    8,
+    3,
+    640,
+    640
+  ],
+  "detector_logits_bitwise_unchanged": true,
+  "detector_boxes_bitwise_unchanged": true,
+  "selector_loss_detached_from_detector": true,
+  "selector_gradient_finite": true,
+  "selector_gradient_nonzero": true,
+  "selector_parameters": 79101,
+  "selector_loss_initial": 0.17186501622200012,
+  "total_loss_initial": 32.091835021972656,
+  "peak_vram_MiB": 5080.20849609375
+}

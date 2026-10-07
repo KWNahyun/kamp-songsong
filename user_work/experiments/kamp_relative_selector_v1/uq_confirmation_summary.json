@@ -1,0 +1,168 @@
+{
+  "split": "validation",
+  "seeds": [
+    20260929,
+    20260930,
+    20261001
+  ],
+  "test_used": false,
+  "detector_bitwise_identical_by_seed": {
+    "20260929": true,
+    "20260930": true,
+    "20261001": true
+  },
+  "selector_checkpoint": "last epoch 30; no validation selection",
+  "fixed_postprocess": {
+    "box_scale": 0.95,
+    "hard_nms_iou": 0.7
+  },
+  "paired_deltas": [
+    {
+      "seed": 20260929,
+      "setting": "raw_scale095",
+      "delta_AP": 0.6090078843211231,
+      "delta_AP50": -0.007441587339471312,
+      "delta_AP75": 1.8211919433943748,
+      "delta_TP_FP6": 0
+    },
+    {
+      "seed": 20260929,
+      "setting": "hard_nms07_scale095",
+      "delta_AP": 1.1544881724883709,
+      "delta_AP50": 0.0,
+      "delta_AP75": 1.6598603457251464,
+      "delta_TP_FP6": 0
+    },
+    {
+      "seed": 20260930,
+      "setting": "raw_scale095",
+      "delta_AP": -0.36557347922541084,
+      "delta_AP50": -0.8206171956247488,
+      "delta_AP75": -0.989422839990997,
+      "delta_TP_FP6": -10
+    },
+    {
+      "seed": 20260930,
+      "setting": "hard_nms07_scale095",
+      "delta_AP": 0.5048628239931148,
+      "delta_AP50": -0.014364589956244345,
+      "delta_AP75": -0.3753182259261614,
+      "delta_TP_FP6": 0
+    },
+    {
+      "seed": 20261001,
+      "setting": "raw_scale095",
+      "delta_AP": 0.285073603637521,
+      "delta_AP50": -0.19158247482694435,
+      "delta_AP75": 0.8242159423691824,
+      "delta_TP_FP6": -5
+    },
+    {
+      "seed": 20261001,
+      "setting": "hard_nms07_scale095",
+      "delta_AP": 0.3291190001805333,
+      "delta_AP50": -0.03076749488236885,
+      "delta_AP75": 0.5230589993733545,
+      "delta_TP_FP6": 0
+    }
+  ],
+  "aggregate_deltas": [
+    {
+      "setting": "raw_scale095",
+      "mean_delta_AP": 0.17616933624441108,
+      "std_delta_AP": 0.49633387264559914,
+      "positive_seeds_AP": 2,
+      "nonnegative_seeds_AP": 2,
+      "mean_delta_AP50": -0.3398804192637215,
+      "std_delta_AP50": 0.42638932059874907,
+      "positive_seeds_AP50": 0,
+      "nonnegative_seeds_AP50": 0,
+      "mean_delta_AP75": 0.55199501525752,
+      "std_delta_AP75": 1.4249445743657014,
+      "positive_seeds_AP75": 2,
+      "nonnegative_seeds_AP75": 2,
+      "mean_delta_TP_FP6": -5.0,
+      "std_delta_TP_FP6": 5.0,
+      "positive_seeds_TP_FP6": 0,
+      "nonnegative_seeds_TP_FP6": 1
+    },
+    {
+      "setting": "hard_nms07_scale095",
+      "mean_delta_AP": 0.662823332220673,
+      "std_delta_AP": 0.43476684472100974,
+      "positive_seeds_AP": 3,
+      "nonnegative_seeds_AP": 3,
+      "mean_delta_AP50": -0.015044028279537732,
+      "std_delta_AP50": 0.015394996351429192,
+      "positive_seeds_AP50": 0,
+      "nonnegative_seeds_AP50": 1,
+      "mean_delta_AP75": 0.6025337063907799,
+      "std_delta_AP75": 1.0199142740538507,
+      "positive_seeds_AP75": 2,
+      "nonnegative_seeds_AP75": 2,
+      "mean_delta_TP_FP6": 0.0,
+      "std_delta_TP_FP6": 0.0,
+      "positive_seeds_TP_FP6": 0,
+      "nonnegative_seeds_TP_FP6": 3
+    }
+  ],
+  "ranking": [
+    {
+      "seed": 20260929,
+      "model": "MAL",
+      "iou75_and_good_leader": 50,
+      "iou75_exists_bad_score_leader": 55,
+      "iou50_but_no_iou75": 36,
+      "near_but_below_iou50": 1,
+      "candidate_score_iou_spearman": 0.42213628812057713
+    },
+    {
+      "seed": 20260929,
+      "model": "Frozen-UQ",
+      "iou75_and_good_leader": 50,
+      "iou75_exists_bad_score_leader": 55,
+      "iou50_but_no_iou75": 36,
+      "near_but_below_iou50": 1,
+      "candidate_score_iou_spearman": 0.6481350751748028
+    },
+    {
+      "seed": 20260930,
+      "model": "MAL",
+      "iou75_and_good_leader": 59,
+      "iou75_exists_bad_score_leader": 50,
+      "iou50_but_no_iou75": 33,
+      "candidate_score_iou_spearman": 0.5715595119602714
+    },
+    {
+      "seed": 20260930,
+      "model": "Frozen-UQ",
+      "iou75_and_good_leader": 59,
+      "iou75_exists_bad_score_leader": 50,
+      "iou50_but_no_iou75": 33,
+      "candidate_score_iou_spearman": 0.6638042965707246
+    },
+    {
+      "seed": 20261001,
+      "model": "MAL",
+      "iou75_and_good_leader": 56,
+      "iou75_exists_bad_score_leader": 34,
+      "iou50_but_no_iou75": 51,
+      "near_but_below_iou50": 1,
+      "candidate_score_iou_spearman": 0.5820526462601952
+    },
+    {
+      "seed": 20261001,
+      "model": "Frozen-UQ",
+      "iou75_and_good_leader": 56,
+      "iou75_exists_bad_score_leader": 34,
+      "iou50_but_no_iou75": 51,
+      "near_but_below_iou50": 1,
+      "candidate_score_iou_spearman": 0.6616735126508956
+    }
+  ],
+  "limitations": [
+    "All selectors use previously validation-selected MAL base checkpoints.",
+    "Only three seeds and one temporary preprocessing version were tested.",
+    "The held-out test split remains untouched."
+  ]
+}

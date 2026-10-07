@@ -1,0 +1,38 @@
+{
+  "version": "v3.1",
+  "test_used": false,
+  "loss": "Huber((pred_wh-gt_wh)/(gt_wh+1e-6)), delta=1; sum dimensions / max(positive matches,1)",
+  "weight": 0.1,
+  "supervision": "final regular decoder O2O; unchanged matching and original regression",
+  "seeds": [
+    20260929,
+    20260930,
+    20261001
+  ],
+  "epochs": 30,
+  "batch": 8,
+  "amp": false,
+  "initialization": "fixed same original initialization",
+  "baseline_reuse": "D-FINE and MAL, original 3 seeds, same training recipe",
+  "stop_policy": "failure blocks remaining seeds of same configuration; no automatic retry",
+  "source_hashes": {
+    "/home/viplab/contest/experiments/kamp_ablation_v31/stable_loss.py": "7db732a5d2cfbc2501b7ea81e2cf2c7c04e256ba2797f67d7516090d0a3db78b",
+    "/home/viplab/contest/experiments/kamp_ablation_v3/loss_patch.py": "ec2fe0e28c529667dd536e50a5f0374f40c4005fcff4f2eed49c58ea02fbeac6",
+    "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s.yml": "82f3601ebfc2f269e5d8756da5dad9ca97e017f00eedee22a1a729b7f7be4d93",
+    "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth": "0ac6124d45341889b9999b2294540cc6105add3679fe6182ea692c9e6917f531"
+  },
+  "execution_source_hashes": {
+    "evaluate_v31.py": "5dafcebe5ab7d74ad780c610e8ac81311457e825b5f58bc4b3a5f39480d80292",
+    "train.py": "6496be12839441fdef475389604a673e1eaa5321266d1969430443a9cb4f05f2",
+    "trace_decoder.py": "34b0e41033b1d885e9e1e069efbf9c609a458e9f5416f1e71bfb2ed2d0927510",
+    "analyze_v31.py": "db6110773f66e7426d419dc2d676660e3fe1db6d813416db9c407d26f710dc75",
+    "preflight.py": "992d19470a4f6e09eef898d1577a9cf0f5b46104c631a9bdc30fc3d7b4a647bb",
+    "run_batch.py": "515ecf285ef572b63ecb7e93b16fe8edd650ef5a51cc6bbcf12a4ba47b16b02d",
+    "stable_loss.py": "7db732a5d2cfbc2501b7ea81e2cf2c7c04e256ba2797f67d7516090d0a3db78b"
+  },
+  "trace_verification": {
+    "checkpoints": 6,
+    "images_each": 64,
+    "max_final_output_difference": 0.0
+  }
+}

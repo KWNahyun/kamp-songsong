@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "mode": "edge",
+  "split": "train",
+  "test_used": false,
+  "batch_shape": [
+    8,
+    3,
+    640,
+    640
+  ],
+  "zero_init_max_box_difference": 5.960464477539063e-08,
+  "base_parameters_trainable": 0,
+  "refiner_parameters": 63015,
+  "positive_queries": 180,
+  "mean_selected_base_iou": 0.7511820793151855,
+  "initial_loss": 0.1686042696237564,
+  "refiner_gradients_finite": true,
+  "refiner_gradient_nonzero": true,
+  "peak_vram_MiB": 776.68212890625
+}

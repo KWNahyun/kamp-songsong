@@ -1,0 +1,17 @@
+{
+  "date": "2026-09-30",
+  "completed_records": 29,
+  "test_used": false,
+  "successful_retries": [
+    "dfine_G01_seed20260930",
+    "dfine_GM01_seed20261001"
+  ],
+  "failed_retry": "dfine_G03_seed20260930",
+  "yolo_effective_distinct_results_per_variant": 1,
+  "warning": "Successful retries do not erase initial failures or establish stable three-seed completion. Summary n counts completed records; YOLO records are identical.",
+  "source_sha256": {
+    "per_run.csv": "26eb8faee004651f609da5a0a1ee9039eb51f196550f733a1eb9dd6324a2de28",
+    "summary.json": "96b02f5ac7df6d9d89d271d4414eca29d0f9e47c2cbdbdaf29831545d8d9eacb",
+    "postprocess.csv": "a389ab1eba3b5265c72a65fbf704f9cf4614294bd923d413ae8e41c70d9a658b"
+  }
+}

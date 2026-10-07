@@ -1,0 +1,4119 @@
+{
+  "url": "https://zenodo.org/api/records/10579608/files/Submission.zip/content",
+  "subset": "Dataset #1/40kV_40W_100ms_10avg",
+  "archive_checksum_not_verified": "partial retrieval; each extracted member verified against ZIP CRC32",
+  "members": [
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/000.tiff",
+      "offset": 491,
+      "compressed": 2252661,
+      "size": 2906560,
+      "crc": 1622477559,
+      "sha256": "79eb66bfc0e7d6acb0f483fd6f37c2312bdb04d3b9edea155d7a488461f48888"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/001.tiff",
+      "offset": 2253294,
+      "compressed": 2291275,
+      "size": 2906560,
+      "crc": 2672981472,
+      "sha256": "524b7067f0fdca3d8e91b5bf3a86c3a2f8e8151215d1972d8b1660cc7393376b"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/002.tiff",
+      "offset": 4544711,
+      "compressed": 2232233,
+      "size": 2906560,
+      "crc": 592430712,
+      "sha256": "c1b7906877a4f77ac4090a9098666525577fd0cdcde6b232dbfd2a5477911cce"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/003.tiff",
+      "offset": 6777086,
+      "compressed": 2284030,
+      "size": 2906560,
+      "crc": 3383314666,
+      "sha256": "195ca35840d8e26466e1f4f631cf1891d438eb69003d9a47c80367924584bbfa"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/004.tiff",
+      "offset": 9061258,
+      "compressed": 2274092,
+      "size": 2906560,
+      "crc": 1932269533,
+      "sha256": "e41b96c4360f1414d33aa4ce9e2ec53e1ae0117fdd5fe07c8d0f1f25fbd313a7"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/005.tiff",
+      "offset": 11335492,
+      "compressed": 2273354,
+      "size": 2906560,
+      "crc": 3634733341,
+      "sha256": "0d085881a0a5fadae7ab02904a7c61df91d53dc0dc4b313be0ad86bea626994b"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/006.tiff",
+      "offset": 13608988,
+      "compressed": 2299354,
+      "size": 2906560,
+      "crc": 3807657698,
+      "sha256": "a4a557c7afa75a7f8271ef80a065d5c432275543094c07cca8b9450b4b30471a"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/007.tiff",
+      "offset": 15908484,
+      "compressed": 2245858,
+      "size": 2906560,
+      "crc": 3859641004,
+      "sha256": "c0e248711470eb8ae72931fc3f2c1a97d3fb2301fd4c23d30c44c24e4a1e375a"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/008.tiff",
+      "offset": 18154484,
+      "compressed": 2261102,
+      "size": 2906560,
+      "crc": 964860414,
+      "sha256": "789dff7c87043aa9296c3baa77366fc5700b16923aa918c926e881c0b0a86866"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/009.tiff",
+      "offset": 20415728,
+      "compressed": 2269787,
+      "size": 2906560,
+      "crc": 3193106075,
+      "sha256": "0334fefcf9cb673d28c14d19fd7f9941671f7f74f237f38d496b4479fce4775d"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/010.tiff",
+      "offset": 22685657,
+      "compressed": 2295587,
+      "size": 2906560,
+      "crc": 2506054440,
+      "sha256": "280862569567df9935ab99658f5a58024484cf838c0ca5a33ee30f164798736e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/011.tiff",
+      "offset": 24981386,
+      "compressed": 2250966,
+      "size": 2906560,
+      "crc": 4130998847,
+      "sha256": "857aafee0c487faa696c9b8e4255c6fad4ab56515545877f26f4fb809e261716"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/012.tiff",
+      "offset": 27232494,
+      "compressed": 2279452,
+      "size": 2906560,
+      "crc": 1660695966,
+      "sha256": "f7d36cb3b587876f51f8fb97162ffaced990937842c8c015ed7ab7dcb6df567b"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/013.tiff",
+      "offset": 29512088,
+      "compressed": 2283447,
+      "size": 2906560,
+      "crc": 2175829796,
+      "sha256": "2db9cb281feeadffa9323bc74df7ef0a592328a14ddb6f49595fe4fd9d481348"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/014.tiff",
+      "offset": 31795677,
+      "compressed": 2255809,
+      "size": 2906560,
+      "crc": 194767911,
+      "sha256": "01ba7acccf784a6fbb1e854c2d527e8ec63b98fd7304a6d9b4b024fa604ea595"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/015.tiff",
+      "offset": 34051628,
+      "compressed": 2279470,
+      "size": 2906560,
+      "crc": 833677319,
+      "sha256": "b5bb9e310da8ff864da11bfd1d7fabb2678e8a0e548845e0bc0b2bfc63c59b4b"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/016.tiff",
+      "offset": 36331240,
+      "compressed": 2197058,
+      "size": 2906560,
+      "crc": 1500002043,
+      "sha256": "61affd666b512b3333d08fbbafd5738c8018edfc3aa2cd2ecc73df166eee1b68"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/017.tiff",
+      "offset": 38528440,
+      "compressed": 2245912,
+      "size": 2906560,
+      "crc": 3060617431,
+      "sha256": "7987792ac0ae13243f6648ce9f3633e9138a9c30468c81d5af2f2c20b82b1fb7"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/018.tiff",
+      "offset": 40774494,
+      "compressed": 2261794,
+      "size": 2906560,
+      "crc": 3342269283,
+      "sha256": "a98bdf564fc437eb43fffa6d0144b109d0a18f2c4be841ff94d364b6423ab949"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/019.tiff",
+      "offset": 43036430,
+      "compressed": 2265819,
+      "size": 2906560,
+      "crc": 2023072851,
+      "sha256": "aeb7777225a60638f90da5a7c5997d49c89e08b6002aa135a57c41b72a6b6c1c"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/020.tiff",
+      "offset": 45302391,
+      "compressed": 2259839,
+      "size": 2906560,
+      "crc": 802178375,
+      "sha256": "f4f1b71d771637f3533767ac5aacf94d0ab0c2478e86e12b1c93bc084745e17f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/021.tiff",
+      "offset": 47562372,
+      "compressed": 2238331,
+      "size": 2906560,
+      "crc": 396749730,
+      "sha256": "cbab12464ee66e5628d99aff90b806289bbbda4db2ab002c7d4a26d582947406"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/022.tiff",
+      "offset": 49800845,
+      "compressed": 2265786,
+      "size": 2906560,
+      "crc": 262976429,
+      "sha256": "ca6b918d8837fc6105b6c4423beadb8330e3fa034d741e4296cbc9ecc10b5666"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/023.tiff",
+      "offset": 52066773,
+      "compressed": 2250906,
+      "size": 2906560,
+      "crc": 775195227,
+      "sha256": "b02b87705ce396f5672b1bcb2faf96889a70229ebbc07b0eabf91cf3222119b4"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/024.tiff",
+      "offset": 54317821,
+      "compressed": 2245671,
+      "size": 2906560,
+      "crc": 3172573168,
+      "sha256": "ee7ed957c28bfd112b3665641c1cfa0cbe0cfec35e076c6e0c8e17040d0a570e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/025.tiff",
+      "offset": 56563634,
+      "compressed": 2247048,
+      "size": 2906560,
+      "crc": 264726131,
+      "sha256": "e5447415f40c6e03a90d83bd40a1a1be18b3c9658a9c84edf19e660dcb953554"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/026.tiff",
+      "offset": 58810824,
+      "compressed": 2276164,
+      "size": 2906560,
+      "crc": 3266136186,
+      "sha256": "da58f1e7b1db9b6811902414e1ea9aebb80f13a311733a15d7ff98f3da554d65"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/027.tiff",
+      "offset": 61087130,
+      "compressed": 2261311,
+      "size": 2906560,
+      "crc": 2674954103,
+      "sha256": "895ecfb7d1b62d0217464515e886ffdd0dc6964f0abd26405ad5005a2741d7aa"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/028.tiff",
+      "offset": 63348583,
+      "compressed": 2283749,
+      "size": 2906560,
+      "crc": 2963053137,
+      "sha256": "0d320814e0e0d5555590db5682ccb6620706814777b56b67fbe7207472496e0c"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/029.tiff",
+      "offset": 65632474,
+      "compressed": 2195632,
+      "size": 2906560,
+      "crc": 2645856427,
+      "sha256": "42d84171887bc9b8e7a9f16aa79838f91179d86a231ca91c457f5097d8ada57b"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/030.tiff",
+      "offset": 67828248,
+      "compressed": 2253839,
+      "size": 2906560,
+      "crc": 2797406155,
+      "sha256": "ca4982f26261c92a78fd853d5d5a969672be13e981776392cee0ef658647c2e5"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/031.tiff",
+      "offset": 70082229,
+      "compressed": 2296038,
+      "size": 2906560,
+      "crc": 3056246180,
+      "sha256": "4fd2ecd9bd628b7f7a9fa9612815aa8696081bbb0be597ba3b447c27b3d17629"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/032.tiff",
+      "offset": 72378409,
+      "compressed": 2317272,
+      "size": 2906560,
+      "crc": 1556361486,
+      "sha256": "d3635e96c65f57ae737f74bcfc4511129cff17c4ddfe58f55c247aa924a6f4c1"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/033.tiff",
+      "offset": 74695823,
+      "compressed": 2250585,
+      "size": 2906560,
+      "crc": 3249145676,
+      "sha256": "4485da90a84081e7b5a2e3433c33edcf13efd2570704a7ae436eb7c2da52538d"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/034.tiff",
+      "offset": 76946550,
+      "compressed": 2281845,
+      "size": 2906560,
+      "crc": 3007581443,
+      "sha256": "c0aa9a79f818cbbba4f8da07f24d6e811c05a74ad4ee2c20b8cb737d0ca28184"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/035.tiff",
+      "offset": 79228537,
+      "compressed": 2317152,
+      "size": 2906560,
+      "crc": 749998794,
+      "sha256": "6256d0645d09c120d90500b5df964bb9f8c57399b91cb1cda889756edf12799c"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/036.tiff",
+      "offset": 81545831,
+      "compressed": 2268438,
+      "size": 2906560,
+      "crc": 4224795410,
+      "sha256": "62d5aad7a99c197ae823d06d8ccbf547d82960e0973f1bb6265876fd63a5c75f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/037.tiff",
+      "offset": 83814411,
+      "compressed": 2218955,
+      "size": 2906560,
+      "crc": 1751416532,
+      "sha256": "7abce7ed649cc955020a1fb39cbe26519c68e0c82521942cdbd148f88c41d0cf"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/038.tiff",
+      "offset": 86033508,
+      "compressed": 2240899,
+      "size": 2906560,
+      "crc": 3374667473,
+      "sha256": "49c4774c3bc0b6e53e60bbeacbf5abc3e7150a7c579e1541be1aa61a365945ba"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/039.tiff",
+      "offset": 88274549,
+      "compressed": 2267170,
+      "size": 2906560,
+      "crc": 2996411429,
+      "sha256": "677ef5f239231685968fc60437e8f9948f4ca9966c1c0541bd80a1081db592b6"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/040.tiff",
+      "offset": 90541861,
+      "compressed": 2215096,
+      "size": 2906560,
+      "crc": 1444569862,
+      "sha256": "11b623dc4d034f80a4edfcef9993ed2304f243cf779dacc4070c6c426a1ecb48"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/041.tiff",
+      "offset": 92757099,
+      "compressed": 2238319,
+      "size": 2906560,
+      "crc": 2793002511,
+      "sha256": "f9700e61c62b67dbf2a930a60c72feb919b21923220204ee606745f84e5bf807"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/042.tiff",
+      "offset": 94995560,
+      "compressed": 2192330,
+      "size": 2906560,
+      "crc": 3551312751,
+      "sha256": "7a0e9b77c7737fd317862fe5c4f7dd332ae501e4fafbd891357bcfc69c8efc0b"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/043.tiff",
+      "offset": 97188032,
+      "compressed": 2321414,
+      "size": 2906560,
+      "crc": 3454475413,
+      "sha256": "e21f58748da83c734779e79c2e077dd45d2e08672cb2442e10cd3df3084184d7"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/044.tiff",
+      "offset": 99509588,
+      "compressed": 2229438,
+      "size": 2906560,
+      "crc": 1484267140,
+      "sha256": "e7a9fa9c8571aaacb4238b2b14afa3c63a130c3dd2b33899a47812dd70ab6e83"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/045.tiff",
+      "offset": 101739168,
+      "compressed": 2274171,
+      "size": 2906560,
+      "crc": 1096384533,
+      "sha256": "ec5a54825cd9b955ef8ea98e221702fb545057419990458f31184c2235eba0e5"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/046.tiff",
+      "offset": 104013481,
+      "compressed": 2237821,
+      "size": 2906560,
+      "crc": 3329911183,
+      "sha256": "e108ead90b53996441cf969dedcf11c5c8286853ffa3c4eb5e071da707fbf6cc"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/047.tiff",
+      "offset": 106251444,
+      "compressed": 2279165,
+      "size": 2906560,
+      "crc": 1113723868,
+      "sha256": "3ddf57af0737e762bbf0e3f7a8c39f3a3d278a9777e104e47be0ddde59bd3b66"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/048.tiff",
+      "offset": 108530751,
+      "compressed": 2271279,
+      "size": 2906560,
+      "crc": 1725657884,
+      "sha256": "7d0cc0fbaff81d2355502c2b67c555532f8e12683edd81c81e5e4ddf3d44d043"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/049.tiff",
+      "offset": 110802172,
+      "compressed": 2286067,
+      "size": 2906560,
+      "crc": 244749350,
+      "sha256": "a2f6134c4bebbdfbf36e3f7dc04a2404de90113e70f15227bd5981a669f5f217"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/050.tiff",
+      "offset": 113088381,
+      "compressed": 2233566,
+      "size": 2906560,
+      "crc": 3461777291,
+      "sha256": "40148f85bb1e52d1079a392c4f978761e54347caa2c7be54b9a65f1ed6f5b7ea"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/051.tiff",
+      "offset": 115322089,
+      "compressed": 2291266,
+      "size": 2906560,
+      "crc": 2930012686,
+      "sha256": "e3e876ed8158fd210411c996529524abec54a788a08d03b622b0b2d88ff67ae6"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone/052.tiff",
+      "offset": 117613497,
+      "compressed": 2223149,
+      "size": 2906560,
+      "crc": 1691238555,
+      "sha256": "bc2a798ae4c6635f4dc7c494e04f44e3a52ce7c2200d7234c09c06bd9aea57bc"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/000.tiff",
+      "offset": 119836911,
+      "compressed": 5155,
+      "size": 1453590,
+      "crc": 2405066788,
+      "sha256": "5f41b3626de1b977c633301df307d14a4ce2dfb8b255b2222c2741ad2163a60a"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/001.tiff",
+      "offset": 119842213,
+      "compressed": 6222,
+      "size": 1453590,
+      "crc": 2786389627,
+      "sha256": "983c6c35edc91e3ba316072d18369ebc1d1335cdc57646fff6d426a25d8fd5de"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/002.tiff",
+      "offset": 119848582,
+      "compressed": 5659,
+      "size": 1453590,
+      "crc": 1791839335,
+      "sha256": "e622c799f4607e53709dd8c6e6aae48357feb4d6a62c05a9b714401527d22dcc"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/003.tiff",
+      "offset": 119854388,
+      "compressed": 6194,
+      "size": 1453590,
+      "crc": 3858442184,
+      "sha256": "24986b5e11a4eb288906f7ad1d32b9b0ba49b5d6137d74e3e71ab658d4e50c96"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/004.tiff",
+      "offset": 119860729,
+      "compressed": 5499,
+      "size": 1453590,
+      "crc": 3636613985,
+      "sha256": "870f41ddfc1b3d726980d4a7c4929d2bd669fc4ba55f624e5a0091af640ee3ff"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/005.tiff",
+      "offset": 119866375,
+      "compressed": 6157,
+      "size": 1453590,
+      "crc": 3304668205,
+      "sha256": "7ad745228ee48dd3cabe2cceb930ea0d5a2c04ac85623336418ca87b6fb9038f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/006.tiff",
+      "offset": 119872679,
+      "compressed": 5747,
+      "size": 1453590,
+      "crc": 804688777,
+      "sha256": "f09624e722288a4437268fc32ab8d5c8017ee704a037707e96956cd6e9051c86"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/007.tiff",
+      "offset": 119878573,
+      "compressed": 4629,
+      "size": 1453590,
+      "crc": 4059065872,
+      "sha256": "552fcdbeb51c3caf18db383e3821537a300f1cb1c51843c3ad882a2b7371268d"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/008.tiff",
+      "offset": 119883349,
+      "compressed": 5432,
+      "size": 1453590,
+      "crc": 3199905231,
+      "sha256": "15d72e2f3c39040ab5839015795c82d18d604ef7100f90bfaff89e6fa507318a"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/009.tiff",
+      "offset": 119888928,
+      "compressed": 5183,
+      "size": 1453590,
+      "crc": 3484653993,
+      "sha256": "b6a5a321db0bd78eb13ee56229acfd2f243c5db365e546bb32a9029130a7774f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/010.tiff",
+      "offset": 119894258,
+      "compressed": 5592,
+      "size": 1453590,
+      "crc": 958883931,
+      "sha256": "9b1fe83475e2e788c17ef5703fb8fa56dd88878ed80ffdce54aae8856b13cd45"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/011.tiff",
+      "offset": 119899997,
+      "compressed": 5933,
+      "size": 1453590,
+      "crc": 1782487982,
+      "sha256": "97cc0f14b770582959a72a8903ab2f5ed45aaa7616dca9d58eb1103c8f1064b4"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/012.tiff",
+      "offset": 119906077,
+      "compressed": 6568,
+      "size": 1453590,
+      "crc": 403231431,
+      "sha256": "2ce6596f0cfe70da142385485c1ce297b4634ddd0fbde8b15a9c64c2785566e5"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/013.tiff",
+      "offset": 119912792,
+      "compressed": 6400,
+      "size": 1453590,
+      "crc": 3154521534,
+      "sha256": "9e7091fc91efbacfc7fd8621c5e1b8b7300e051e51c0781bafd7a4bb25d56ecf"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/014.tiff",
+      "offset": 119919339,
+      "compressed": 5624,
+      "size": 1453590,
+      "crc": 2176984972,
+      "sha256": "92bad89ee2aa6547da2610581bcec8960bbfd2556b0bb99e5fd18fc9aa677e23"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/015.tiff",
+      "offset": 119925110,
+      "compressed": 6253,
+      "size": 1453590,
+      "crc": 2356574830,
+      "sha256": "ff0e534a1eb40b01c87fb34fcd09cced1e9b829e7888fc3c16d7ea77ac38fd0e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/016.tiff",
+      "offset": 119931510,
+      "compressed": 4873,
+      "size": 1453590,
+      "crc": 4075569210,
+      "sha256": "89573d9fe72ee25bd8a2b70e782052491649e8431b9bcc6224c8350c159b57b6"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/017.tiff",
+      "offset": 119936530,
+      "compressed": 6402,
+      "size": 1453590,
+      "crc": 1179715876,
+      "sha256": "079e05518e0262c0f07c179f2b0ff1c98e3e4230c1c0b104c1d9ef4c4d22de86"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/018.tiff",
+      "offset": 119943079,
+      "compressed": 5274,
+      "size": 1453590,
+      "crc": 459350188,
+      "sha256": "4a9e2ded7c01607204e8f717fbf354a11159b83fd6084c1fa448c1c6519ee439"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/019.tiff",
+      "offset": 119948500,
+      "compressed": 5235,
+      "size": 1453590,
+      "crc": 1994691708,
+      "sha256": "3bb0fbc3591308b46e6abc50daf4c19c6f4e6031c8dcc44a5c1ac7d87c1ece98"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/020.tiff",
+      "offset": 119953882,
+      "compressed": 5842,
+      "size": 1453590,
+      "crc": 489809717,
+      "sha256": "e96a6c54214172d7cae14fe86863bb78d9c97723078735b2e155939f4036dbd7"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/021.tiff",
+      "offset": 119959871,
+      "compressed": 5217,
+      "size": 1453590,
+      "crc": 160236180,
+      "sha256": "113baad7e5777be6343c551326a87a329b04109ef6ed343a5c9e404ce340ee90"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/022.tiff",
+      "offset": 119965235,
+      "compressed": 6041,
+      "size": 1453590,
+      "crc": 1859835710,
+      "sha256": "cb718a5c7f479fb6c85547dfb7ab2228f809f88d1df0766bff3e45d84d6a7985"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/023.tiff",
+      "offset": 119971423,
+      "compressed": 5428,
+      "size": 1453590,
+      "crc": 733677976,
+      "sha256": "bf4718ea09ed176a944a12edfcd9e0c35d06efd271ce5129067a0c2188d1b938"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/024.tiff",
+      "offset": 119976998,
+      "compressed": 4932,
+      "size": 1453590,
+      "crc": 2952873804,
+      "sha256": "205c479aaff0c8b7681709bd69e22045ba1a5e992440acad9615ffdfda65b346"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/025.tiff",
+      "offset": 119982077,
+      "compressed": 5642,
+      "size": 1453590,
+      "crc": 1302915241,
+      "sha256": "a619102d4e75e682e8a54c840855c30ad65e560ba2ce4d8a0e3d8cec1cfe1a2d"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/026.tiff",
+      "offset": 119987866,
+      "compressed": 5596,
+      "size": 1453590,
+      "crc": 1497845822,
+      "sha256": "3e6a6d49282106c286e003f8415fd1299d5c8032c75f8087acb01fa571f5cc68"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/027.tiff",
+      "offset": 119993609,
+      "compressed": 4845,
+      "size": 1453590,
+      "crc": 955085560,
+      "sha256": "bc5fa218b2b33640a4018d8e6c33621f31ccd816700f728e203f5e6e5b3bb879"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/028.tiff",
+      "offset": 119998601,
+      "compressed": 5904,
+      "size": 1453590,
+      "crc": 1412213710,
+      "sha256": "76ac1747fa7da8b7412f588f3338d57a328245dcdde21d00cfbcdcef3b7b3f86"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/029.tiff",
+      "offset": 120004652,
+      "compressed": 3877,
+      "size": 1453590,
+      "crc": 3040776277,
+      "sha256": "bdb2c933eb55288a7fd0aee80ba2006dcfd60d27de4e9dfe2dcc1f686db13477"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/030.tiff",
+      "offset": 120008676,
+      "compressed": 4181,
+      "size": 1453590,
+      "crc": 3836624555,
+      "sha256": "2fe6b05a3168747c3c1ffdce12f17b2cacf64c0d08eb59da4cded5a0f1a60394"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/031.tiff",
+      "offset": 120013004,
+      "compressed": 6338,
+      "size": 1453590,
+      "crc": 834645282,
+      "sha256": "2788a5edaeb0951f615bda27f48a5a5e91dff8fa47aaf507768e2b1bb4b5e23d"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/032.tiff",
+      "offset": 120019489,
+      "compressed": 6512,
+      "size": 1453590,
+      "crc": 1483879464,
+      "sha256": "d81effede73cae7a0a0caa6073b766d8a216bf7450841ce21090bf65543e16e3"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/033.tiff",
+      "offset": 120026148,
+      "compressed": 5787,
+      "size": 1453590,
+      "crc": 746919313,
+      "sha256": "d97a6b08184e2bd5d39d7d9cf3a0339ca5b3ec7c9ee69f1fac79655c8792f1f8"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/034.tiff",
+      "offset": 120032082,
+      "compressed": 6527,
+      "size": 1453590,
+      "crc": 1618302778,
+      "sha256": "44329c415e82dd3ba9ac449093e2b84281c67a7a6ba3f609e9a0a5d55c88ec17"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/035.tiff",
+      "offset": 120038756,
+      "compressed": 6204,
+      "size": 1453590,
+      "crc": 3246332365,
+      "sha256": "0ac28b6ce99339c777596b127213c461882c126cdec3aab7f2c65e0da8338493"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/036.tiff",
+      "offset": 120045107,
+      "compressed": 6235,
+      "size": 1453590,
+      "crc": 328273738,
+      "sha256": "5de3efc2c8c3ab434c6efcdfa45b64b94cc581ebe562753436fbb1b0b49ead49"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/037.tiff",
+      "offset": 120051489,
+      "compressed": 6068,
+      "size": 1453590,
+      "crc": 322538063,
+      "sha256": "f78057e3d0ac458578b059eafa3878522427e50ea804ff973a385961eb58a433"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/038.tiff",
+      "offset": 120057704,
+      "compressed": 4614,
+      "size": 1453590,
+      "crc": 1177512915,
+      "sha256": "54120a04f1caa18de3b85313a11130110db5d84b73798c8169aaa7cf272b23b2"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/039.tiff",
+      "offset": 120062465,
+      "compressed": 7030,
+      "size": 1453590,
+      "crc": 1836187784,
+      "sha256": "6936a8917e53772b3f592307eb252079939d6f8ce438e5e6afa7ab303f986207"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/040.tiff",
+      "offset": 120069642,
+      "compressed": 5809,
+      "size": 1453590,
+      "crc": 1405062028,
+      "sha256": "cb4dede4a8a1feaae42aa267a89c3192fe81598302d00abc1f9bb42b68141e6b"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/041.tiff",
+      "offset": 120075598,
+      "compressed": 5541,
+      "size": 1453590,
+      "crc": 705153378,
+      "sha256": "242047d0c4204219f2df4bd3b554b4d57aedf34fc6f3db866f3b3553158673c6"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/042.tiff",
+      "offset": 120081286,
+      "compressed": 3767,
+      "size": 1453590,
+      "crc": 3829308520,
+      "sha256": "c98ac2a124017d04b48a0b7edd5313361ae8ab620b1d9c44b7350a66167fae9c"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/043.tiff",
+      "offset": 120085200,
+      "compressed": 6747,
+      "size": 1453590,
+      "crc": 2412358057,
+      "sha256": "557d929f60b540753b91f909b83269e096e4759aa89abc491397d9545a22f5fd"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/044.tiff",
+      "offset": 120092094,
+      "compressed": 5441,
+      "size": 1453590,
+      "crc": 1003729992,
+      "sha256": "72e01b1a3542c551cac5364e3b8a7c6d41d132c327470c8361ea298133fcab59"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/045.tiff",
+      "offset": 120097682,
+      "compressed": 5987,
+      "size": 1453590,
+      "crc": 2302295520,
+      "sha256": "b5e7b9d4560b50d4658c9968d2bfd25eb82144aec149cb83bfe9f32ffd9cfdb2"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/046.tiff",
+      "offset": 120103816,
+      "compressed": 5707,
+      "size": 1453590,
+      "crc": 2494899750,
+      "sha256": "274545514a93212310443ce27a5901683319b8e72a1b8b0562add4e779565ef6"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/047.tiff",
+      "offset": 120109670,
+      "compressed": 5882,
+      "size": 1453590,
+      "crc": 1797332229,
+      "sha256": "c9eebc94183d3e3aedca4620c22bd451061f0f47da6d73956a6b72d34fa305b2"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/048.tiff",
+      "offset": 120115699,
+      "compressed": 6584,
+      "size": 1453590,
+      "crc": 1610691227,
+      "sha256": "a322448d40ea69bf5b405359737803ed7bf34269bc040d9bc25ee1e0aeef682f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/049.tiff",
+      "offset": 120122430,
+      "compressed": 6592,
+      "size": 1453590,
+      "crc": 3083758309,
+      "sha256": "b97c85277e6b2cdc3a0c581798dba003966895f9809e6dfb09cad1cebd37f87a"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/050.tiff",
+      "offset": 120129169,
+      "compressed": 4814,
+      "size": 1453590,
+      "crc": 931108458,
+      "sha256": "f8ba5158f2daa05c4c4c8953479e55c4ac5cea22e784c1076a296e897b2a5e5f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/051.tiff",
+      "offset": 120134130,
+      "compressed": 6731,
+      "size": 1453590,
+      "crc": 2660980449,
+      "sha256": "aa2956c3ee6df37a76c553cf5ef2860575308983d5d13a714b1e8bc248af43f7"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone_segm/052.tiff",
+      "offset": 120141008,
+      "compressed": 6243,
+      "size": 1453590,
+      "crc": 4015897898,
+      "sha256": "6b4c2653b0e1db703630d1bd8fa0fcc7917b90c832c33326c80be9beb74f168f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/NoBone.csv",
+      "offset": 120147398,
+      "compressed": 333,
+      "size": 1707,
+      "crc": 4228045543,
+      "sha256": "8ce9a793fb00803ae2c511cf07d97cb650840314e1edbec0296ea2388391ad37"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/000.tiff",
+      "offset": 120147987,
+      "compressed": 2246007,
+      "size": 2906560,
+      "crc": 1297319193,
+      "sha256": "a9ee586e283364dee8815ec696620656d3164a361508c4bc3eb03bcb9c66d711"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/001.tiff",
+      "offset": 122394137,
+      "compressed": 2255883,
+      "size": 2906560,
+      "crc": 1031594912,
+      "sha256": "1500547bfe1a28befa631cfa0a3cb616c3d6ab37a54d1d316ec14eb27b170d8b"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/002.tiff",
+      "offset": 124650163,
+      "compressed": 2261798,
+      "size": 2906560,
+      "crc": 3942479093,
+      "sha256": "a9543781ad7994a6fe99fa743684549abf0556ea22ed5656f7babb9d72822f73"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/003.tiff",
+      "offset": 126912104,
+      "compressed": 2265198,
+      "size": 2906560,
+      "crc": 3060811583,
+      "sha256": "4a91aa1c82ba15efccdf60e3477a9d0ff93e76adadc16a3e69115fa61337781f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/004.tiff",
+      "offset": 129177445,
+      "compressed": 2253372,
+      "size": 2906560,
+      "crc": 799510348,
+      "sha256": "fadd189a2397d474ed6d520e755518256e354f64cba92c5f100694e05aab9cab"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/005.tiff",
+      "offset": 131430960,
+      "compressed": 2254307,
+      "size": 2906560,
+      "crc": 4009547596,
+      "sha256": "22a640b09cfcc6a3f428849e1fbfd4574943ffc6a48a0b298ded71f31d01f37e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/006.tiff",
+      "offset": 133685410,
+      "compressed": 2253437,
+      "size": 2906560,
+      "crc": 3510634835,
+      "sha256": "9010e37584656f9f1a4e4c9e9049191b3f9438d7e703fa3814fa459171eb6650"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/007.tiff",
+      "offset": 135938990,
+      "compressed": 2252540,
+      "size": 2906560,
+      "crc": 2211205772,
+      "sha256": "cfb4491d7323b5f08868069408a102dd6184a9d6876de69920bba4f4192e9a6f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/008.tiff",
+      "offset": 138191673,
+      "compressed": 2252179,
+      "size": 2906560,
+      "crc": 2926401585,
+      "sha256": "4445abd5372b7a4903b86adc6c3178270366217ca5063ac55b7a20347b56ce6c"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/009.tiff",
+      "offset": 140443995,
+      "compressed": 2253536,
+      "size": 2906560,
+      "crc": 1429819237,
+      "sha256": "ff6bbcb7270bf0fa4c32ea5340a1d7723ea97b389e6b96dd2034ed23d3177f20"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/010.tiff",
+      "offset": 142697674,
+      "compressed": 2253092,
+      "size": 2906560,
+      "crc": 2691509431,
+      "sha256": "9c00d0325c97fbcb32822c01050ca0418d2408c61d45774e30cc3ae8f4119bf4"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/011.tiff",
+      "offset": 144950909,
+      "compressed": 2253675,
+      "size": 2906560,
+      "crc": 2339088955,
+      "sha256": "44f720eb9a054ca0fba3fd35db21ba6bf24665451d73b3336ab7d4c851a4efcd"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/012.tiff",
+      "offset": 147204727,
+      "compressed": 2253410,
+      "size": 2906560,
+      "crc": 1873385469,
+      "sha256": "31e4eb9e630facfafe431606d200df64d7d9110020bd9fc9d3b800b7fe6e4d51"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/013.tiff",
+      "offset": 149458280,
+      "compressed": 2254608,
+      "size": 2906560,
+      "crc": 454333598,
+      "sha256": "49e3ca14c3d8bbed0b2bf083a3fc0f170e9a996e7481e8a566a50932f80c91f5"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/014.tiff",
+      "offset": 151713031,
+      "compressed": 2254534,
+      "size": 2906560,
+      "crc": 947051999,
+      "sha256": "f78a2b7ed69e1a636205ac599cdfcb6712206073a1e183686df8350b7a022607"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/015.tiff",
+      "offset": 153967708,
+      "compressed": 2254058,
+      "size": 2906560,
+      "crc": 631754703,
+      "sha256": "43ff237a6ea73281232e858b02311c34721b7532be0cc5df8b09a016f5eaad08"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/016.tiff",
+      "offset": 156221909,
+      "compressed": 2254547,
+      "size": 2906560,
+      "crc": 2858640629,
+      "sha256": "6a2df62df3f9a34b9a359ca6f6370bf0a3229902a2f4876a9182b92e3b638f36"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/017.tiff",
+      "offset": 158476599,
+      "compressed": 2255349,
+      "size": 2906560,
+      "crc": 987301402,
+      "sha256": "1148cecf6a8607483abfaa0d7d1b67d092e2ca9ba9d9e7e7ca281c6b6185e7dc"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/018.tiff",
+      "offset": 160732091,
+      "compressed": 2256049,
+      "size": 2906560,
+      "crc": 2806726916,
+      "sha256": "3aee12b856b0605ff672694fcf86219a1278f9998e98e8e0bc3091a05f0e6a08"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/019.tiff",
+      "offset": 162988283,
+      "compressed": 2255859,
+      "size": 2906560,
+      "crc": 3998252333,
+      "sha256": "e433ef8895582e50655f22150785640193f2eec0b01751f6cfbcb0516c5fa5cd"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/020.tiff",
+      "offset": 165244285,
+      "compressed": 2255508,
+      "size": 2906560,
+      "crc": 1794761639,
+      "sha256": "943394f6227616bc032e0315c5c01a168bd49131eae7658b0962c7a6c922dfd7"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/021.tiff",
+      "offset": 167499936,
+      "compressed": 2256859,
+      "size": 2906560,
+      "crc": 1125909652,
+      "sha256": "30cdb00a9c7161ef8d269ed728ef0978ff5afe30342627b73ce4e0124e81ae57"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/022.tiff",
+      "offset": 169756938,
+      "compressed": 2256727,
+      "size": 2906560,
+      "crc": 1335874893,
+      "sha256": "47183bd63365fce36340a35fe3fd219970a1fae06fafe8f930a1410c329a9a12"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/023.tiff",
+      "offset": 172013808,
+      "compressed": 2256156,
+      "size": 2906560,
+      "crc": 2640458914,
+      "sha256": "d93250fba2e74b6e2c84d7905544c5b910346fd1f890757aab455649342ffab8"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/024.tiff",
+      "offset": 174270107,
+      "compressed": 2259513,
+      "size": 2906560,
+      "crc": 306300985,
+      "sha256": "fba26b23c34e4c517b537e7d09c1f928e7e85f9904c0d4efb4736fd11c494793"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/025.tiff",
+      "offset": 176529763,
+      "compressed": 2261207,
+      "size": 2906560,
+      "crc": 3637972500,
+      "sha256": "519da039f4b88e48aac5b18a0d906e6e91f55b89c9a4dfc161d728db4bf9188e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/026.tiff",
+      "offset": 178791113,
+      "compressed": 2267687,
+      "size": 2906560,
+      "crc": 2476508447,
+      "sha256": "52b7157ad579a312b9546e6fe708907b608a4019b676d564f465bb9d78f1902f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/027.tiff",
+      "offset": 181058943,
+      "compressed": 2267047,
+      "size": 2906560,
+      "crc": 3844883523,
+      "sha256": "8fa0a5bb4236a2534c9698c104d23227a82f8f29fcf1d1d40f90570da9a93217"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/028.tiff",
+      "offset": 183326133,
+      "compressed": 2268671,
+      "size": 2906560,
+      "crc": 2808781260,
+      "sha256": "77118b54c837c0a607127980cf44cecad6114bbd1924e7f93bf7f83eecc19246"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/029.tiff",
+      "offset": 185594947,
+      "compressed": 2270067,
+      "size": 2906560,
+      "crc": 2433825563,
+      "sha256": "da8706c9af55340de32b66bcb0cf656e4a7a5d205ee2f12397c6662b662aadc4"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/030.tiff",
+      "offset": 187865157,
+      "compressed": 2283539,
+      "size": 2906560,
+      "crc": 4076682543,
+      "sha256": "c373dd52af12f4728cf12ff7386dfd21a6b360c87b98fdc9d0c00b5c30f2ee97"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/031.tiff",
+      "offset": 190148839,
+      "compressed": 2278677,
+      "size": 2906560,
+      "crc": 2905742650,
+      "sha256": "b271efada4d0bbabad4995c30388a91396dfd9acce90faff85a000877b9320bf"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/032.tiff",
+      "offset": 192427659,
+      "compressed": 2279249,
+      "size": 2906560,
+      "crc": 194263544,
+      "sha256": "1d358be0881e6c02095413d3ef60ff7a86e6ac664e0a51fd3d0a76087c4c99e9"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/033.tiff",
+      "offset": 194707051,
+      "compressed": 2273574,
+      "size": 2906560,
+      "crc": 3428114138,
+      "sha256": "add387ef1c7cef2ab2f73e1d872c15dc403fc8566dc2ee081cc9e6d7fbeb4447"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/034.tiff",
+      "offset": 196980768,
+      "compressed": 2283731,
+      "size": 2906560,
+      "crc": 3154642584,
+      "sha256": "a4e3ebc7a05767e955110d54321a8bf44c1df33c0d589654226c68cbba08104e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/035.tiff",
+      "offset": 199264642,
+      "compressed": 2281114,
+      "size": 2906560,
+      "crc": 778965874,
+      "sha256": "eb10b8584bf92df5de88c156bb01347164004b7fbbff050703e9bcbe742825e3"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/036.tiff",
+      "offset": 201545899,
+      "compressed": 2253557,
+      "size": 2906560,
+      "crc": 293599208,
+      "sha256": "f1a5d06152753e438f8443d4631e0a6658bbe3fd4da83b211213208ea6cc8c5c"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/037.tiff",
+      "offset": 203799599,
+      "compressed": 2277898,
+      "size": 2906560,
+      "crc": 715468782,
+      "sha256": "ffeaafc6e0143457bff6659a098253729e6b3909e99032b36c63f5e7a20caf00"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/038.tiff",
+      "offset": 206077640,
+      "compressed": 2197354,
+      "size": 2906560,
+      "crc": 481289713,
+      "sha256": "0f71d358c00516bd4cf8dc6bf0fe7478cbd8d2d9651f44c1e46aadea2191c5b7"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/039.tiff",
+      "offset": 208275137,
+      "compressed": 2242219,
+      "size": 2906560,
+      "crc": 2403018286,
+      "sha256": "a6e12b4ae5cd1f928b7b0d8a4fe2f365d0ed0fa001d0b42f61a939e637ebf156"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/040.tiff",
+      "offset": 210517499,
+      "compressed": 2258528,
+      "size": 2906560,
+      "crc": 2214828916,
+      "sha256": "5010b9a895630c05bcd82bc94793c652193875c5930373b28c157c62105b51d3"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/041.tiff",
+      "offset": 212776170,
+      "compressed": 2264704,
+      "size": 2906560,
+      "crc": 3407535787,
+      "sha256": "249b8ad43ef7bf3286c4a56c90bd1a5a18039e23be2e462f77b14c11907ea71e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/042.tiff",
+      "offset": 215041017,
+      "compressed": 2256593,
+      "size": 2906560,
+      "crc": 2340251525,
+      "sha256": "d6166ba2e3c4c627aa7f8aeda74db3ea3a22baa57ab2bef7dc08a6cdb98e70cf"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/043.tiff",
+      "offset": 217297753,
+      "compressed": 2240430,
+      "size": 2906560,
+      "crc": 1155582801,
+      "sha256": "b20223fc0bc5475cafc9076445685dc54d6797969f1b57608d325e85d94edddd"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/044.tiff",
+      "offset": 219538326,
+      "compressed": 2267475,
+      "size": 2906560,
+      "crc": 3216613736,
+      "sha256": "a15e38cbed576959e4696a890608595a45d23fb0acd8e837797741c4578f74db"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/045.tiff",
+      "offset": 221805944,
+      "compressed": 2240276,
+      "size": 2906560,
+      "crc": 2901130920,
+      "sha256": "9a8a662c14308f9436b063d2aeedda56d60a6a6f07172320e3bf4e962443f543"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/046.tiff",
+      "offset": 224046363,
+      "compressed": 2240244,
+      "size": 2906560,
+      "crc": 2380777499,
+      "sha256": "cfaf7663eefeb22aad65f363cbe62a53467864e86602581b39d2ab7072833129"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/047.tiff",
+      "offset": 226286750,
+      "compressed": 2244249,
+      "size": 2906560,
+      "crc": 3769489475,
+      "sha256": "bb27adbd22725c701acd9a5ed296a4523969d919f88acaef7730fe4b1423c666"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/048.tiff",
+      "offset": 228531142,
+      "compressed": 2270980,
+      "size": 2906560,
+      "crc": 1361642841,
+      "sha256": "f33235038078866b2a9de5680de7bd4601d78557f8138508752c7e3573c51fe1"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/049.tiff",
+      "offset": 230802265,
+      "compressed": 2283515,
+      "size": 2906560,
+      "crc": 606166852,
+      "sha256": "56190377ffd8ea0b5132910156d56ca6f37910a742cdc6eee8c6e9427dedb9a9"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/050.tiff",
+      "offset": 233085923,
+      "compressed": 2275217,
+      "size": 2906560,
+      "crc": 1976622721,
+      "sha256": "85dd113b85c5612623fa7483ce74cdee078c95f5347ab21f081fecdfbb76f8bb"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/051.tiff",
+      "offset": 235361283,
+      "compressed": 2206307,
+      "size": 2906560,
+      "crc": 1954057090,
+      "sha256": "3d51b1fb3313c3602acedfc79d6c1efcd9c15360808981db0e995385475573dc"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/052.tiff",
+      "offset": 237567733,
+      "compressed": 2254046,
+      "size": 2906560,
+      "crc": 1007562602,
+      "sha256": "67c0522ff5f0d916bf4cb13d760f205fc62f1afe1245e4c5b33c893be671c353"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/053.tiff",
+      "offset": 239821922,
+      "compressed": 2293338,
+      "size": 2906560,
+      "crc": 3694158486,
+      "sha256": "62ce5f1b6875864d2e761ee6ca736f98378f94f0f40c4c4c4b97ad0e47447b0f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/054.tiff",
+      "offset": 242115403,
+      "compressed": 2319938,
+      "size": 2906560,
+      "crc": 1385062245,
+      "sha256": "b175cc9b8a5c0b851df8986350963276be7b9e0bdc3b8cd6a7c9b80f4237f151"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/055.tiff",
+      "offset": 244435484,
+      "compressed": 2251803,
+      "size": 2906560,
+      "crc": 2436879524,
+      "sha256": "fbbc318aeceade96bac23c393c960f1b345ab7c203ac5d268a0145f8201e4f85"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/056.tiff",
+      "offset": 246687430,
+      "compressed": 2271446,
+      "size": 2906560,
+      "crc": 4131106150,
+      "sha256": "2221578f46f4d76b3772cab63b3777e52ed2e3b934ad19711a20a9311e356b99"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/057.tiff",
+      "offset": 248959019,
+      "compressed": 2316647,
+      "size": 2906560,
+      "crc": 1619850216,
+      "sha256": "4753ad2d271fce971e6c8a5d8445c942364cad8573c82e8e61d0907ba6988247"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/058.tiff",
+      "offset": 251275809,
+      "compressed": 2274057,
+      "size": 2906560,
+      "crc": 2102358412,
+      "sha256": "e518fe6797da0e3267bfce3471baca7298cf9735b8268837d48b8d8691375567"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/059.tiff",
+      "offset": 253550009,
+      "compressed": 2216982,
+      "size": 2906560,
+      "crc": 1781397287,
+      "sha256": "87de304d0383f9e58179ff79dabb99ee4e0fd1c5cab7a68f82f20470a5260742"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/060.tiff",
+      "offset": 255767134,
+      "compressed": 2270071,
+      "size": 2906560,
+      "crc": 2362706877,
+      "sha256": "76d8efd0aa0491eaabf82ddab93f017d2213fd5227bb871e4d51bdef7dc49ecb"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/061.tiff",
+      "offset": 258037348,
+      "compressed": 2270255,
+      "size": 2906560,
+      "crc": 2771617946,
+      "sha256": "11a6eff06047fd3e5be4bf6c7233ff8cf0296fd24dc50d68b5e2276199ee7ed7"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/062.tiff",
+      "offset": 260307746,
+      "compressed": 2214693,
+      "size": 2906560,
+      "crc": 1071400451,
+      "sha256": "1cdf68df0fcecb6788c31c994d068cb02f43b2c986bfc886d71b4030942009e1"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/063.tiff",
+      "offset": 262522582,
+      "compressed": 2240364,
+      "size": 2906560,
+      "crc": 3209348488,
+      "sha256": "29beecd06be58b24a66c8aab2a56d73db1c85f14c83c9b57bd2afd3d1e5f8131"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/064.tiff",
+      "offset": 264763089,
+      "compressed": 2190795,
+      "size": 2906560,
+      "crc": 3385904791,
+      "sha256": "495e0d46019811ae2ef599091869539b52414454f052452272488092afc8ae05"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/065.tiff",
+      "offset": 266954027,
+      "compressed": 2321152,
+      "size": 2906560,
+      "crc": 768233298,
+      "sha256": "81013b916caac5d0dd092fc2297f57aeef07bc7c920be8d9c2b3e6c133cf002f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/066.tiff",
+      "offset": 269275322,
+      "compressed": 2231919,
+      "size": 2906560,
+      "crc": 902244583,
+      "sha256": "0833d507a780a4d29338b007cf97973edcd9e5f3924eafce2e28492234e14bfe"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/067.tiff",
+      "offset": 271507384,
+      "compressed": 2275634,
+      "size": 2906560,
+      "crc": 296678820,
+      "sha256": "775893959e40cb3b2fb27b1ef013b015eed6c5fa6ee8ec320b01e1a0f68de783"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/068.tiff",
+      "offset": 273783161,
+      "compressed": 2241835,
+      "size": 2906560,
+      "crc": 1439434293,
+      "sha256": "0382090651fcb2469846ac6a1ab3f20df4a3cba2809fc3082f0f40d6d606c0d1"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/069.tiff",
+      "offset": 276025139,
+      "compressed": 2281105,
+      "size": 2906560,
+      "crc": 74388743,
+      "sha256": "e76d7702f347f148a4b839042110ed37c9951de52562cc39fea44b6eb30321ad"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone/070.tiff",
+      "offset": 278306387,
+      "compressed": 2267916,
+      "size": 2906560,
+      "crc": 3340172238,
+      "sha256": "3f427047596e6afccd1dbf08ae67dc8f65c41fce3daebdae3d787e39c6b7ff0e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/000.tiff",
+      "offset": 280574570,
+      "compressed": 5292,
+      "size": 1453590,
+      "crc": 1716860216,
+      "sha256": "fa833f6bb4af0428d2042106a5db2c0c3221bdb7183aec24bcc680eb531b6b17"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/001.tiff",
+      "offset": 280580010,
+      "compressed": 5524,
+      "size": 1453590,
+      "crc": 3030189055,
+      "sha256": "85dccd63721b3ab621d2e2a1375d2c58fa897c7bb596b99676a5a1e0ef3b17f8"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/002.tiff",
+      "offset": 280585682,
+      "compressed": 5621,
+      "size": 1453590,
+      "crc": 2200950715,
+      "sha256": "225167b77e1dae8a4bc77ac91b9c7667ec6389026682a40f1915ce9df336d08d"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/003.tiff",
+      "offset": 280591451,
+      "compressed": 5842,
+      "size": 1453590,
+      "crc": 33483417,
+      "sha256": "c4de406dd348f23c7bf74ee4b7c127c9b1b8f89986d13e2d303b381ac3730660"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/004.tiff",
+      "offset": 280597441,
+      "compressed": 5273,
+      "size": 1453590,
+      "crc": 4242996449,
+      "sha256": "af958c02321bdceca288a3fb115907600cef920ef975c4aa1c197bc91192631c"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/005.tiff",
+      "offset": 280602862,
+      "compressed": 5235,
+      "size": 1453590,
+      "crc": 4212446491,
+      "sha256": "0470c46fc0f021dd20af8cb8d0ddc248bd07323783470aa686d6e11e2a580de5"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/006.tiff",
+      "offset": 280608245,
+      "compressed": 5401,
+      "size": 1453590,
+      "crc": 2480603738,
+      "sha256": "a4f312390e939c6934ab2064288b60e0916b8fcd97c0ddb20c050ab2179a1076"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/007.tiff",
+      "offset": 280613794,
+      "compressed": 5356,
+      "size": 1453590,
+      "crc": 1533988223,
+      "sha256": "f80c8ee16feda81b5b9d3163b7a8f3dd073f74036ed33553d6726898a8379cfd"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/008.tiff",
+      "offset": 280619298,
+      "compressed": 5299,
+      "size": 1453590,
+      "crc": 3605851995,
+      "sha256": "a18e6a300f282e2d86c2eb8077a5623f632d3495f3e7555c89b3cdfc59282cec"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/009.tiff",
+      "offset": 280624745,
+      "compressed": 5345,
+      "size": 1453590,
+      "crc": 3446815377,
+      "sha256": "0df8cc306115b8827101b09dd6ea626014026f87c2e28f027f971a07d48c449a"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/010.tiff",
+      "offset": 280630238,
+      "compressed": 5449,
+      "size": 1453590,
+      "crc": 290260043,
+      "sha256": "ba021b03b4650cb80fa76e19c8786aa2c332baac39783e9f56fdeac297ded501"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/011.tiff",
+      "offset": 280635835,
+      "compressed": 5466,
+      "size": 1453590,
+      "crc": 2914681882,
+      "sha256": "e7599e905e50b04705adb48c88016c684ee75de1ebecfbb857e77c58f87a5474"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/012.tiff",
+      "offset": 280641449,
+      "compressed": 5650,
+      "size": 1453590,
+      "crc": 533385266,
+      "sha256": "c011b4e3e46bf6f055c3efc6b2c15ba81aa9e0b35c187214eb76c0db2457c34c"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/013.tiff",
+      "offset": 280647247,
+      "compressed": 5603,
+      "size": 1453590,
+      "crc": 1939643033,
+      "sha256": "279a119c3182371fb49686b60993816c446b87d424ed32324eab4baa334e0fd2"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/014.tiff",
+      "offset": 280652998,
+      "compressed": 5642,
+      "size": 1453590,
+      "crc": 495161135,
+      "sha256": "bace21908efdeaf1af0804452bc0f25c4afe80b7ca736cf8635b704f67c71fb7"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/015.tiff",
+      "offset": 280658788,
+      "compressed": 5749,
+      "size": 1453590,
+      "crc": 3476767681,
+      "sha256": "ac5ecedfb5ccb1c65a99ad54b33dedf20dce6dee51cf1c2c54cdcc19fedf8bf6"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/016.tiff",
+      "offset": 280664685,
+      "compressed": 5505,
+      "size": 1453590,
+      "crc": 1444819761,
+      "sha256": "875b66e24e54563f1a920cbd9ce0981ff68d335f9fbd3c1f3612535c370e765e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/017.tiff",
+      "offset": 280670338,
+      "compressed": 5559,
+      "size": 1453590,
+      "crc": 44187394,
+      "sha256": "f5fa19ef1ed5219a56d9b4fc42d74520ae9d8df1387db34a73ba584b149d1290"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/018.tiff",
+      "offset": 280676045,
+      "compressed": 5658,
+      "size": 1453590,
+      "crc": 2974287875,
+      "sha256": "4804ddf02deed1c4875746a302f07c2504ea5b886689fdd2cc31fc596ca5d182"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/019.tiff",
+      "offset": 280681851,
+      "compressed": 5641,
+      "size": 1453590,
+      "crc": 399118431,
+      "sha256": "fa897aaaf118db98391a8005e7ece82ec929b6e17c6328f82068041692c09caa"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/020.tiff",
+      "offset": 280687640,
+      "compressed": 5565,
+      "size": 1453590,
+      "crc": 3052759991,
+      "sha256": "004ca93f3946d1e47eb255e76dd7a36c380931008fe556e819ce2f889266a732"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/021.tiff",
+      "offset": 280693353,
+      "compressed": 5609,
+      "size": 1453590,
+      "crc": 671477641,
+      "sha256": "42a19c7963233a3dc203b1c4ed896860a1025156675f32350583dd098cd2b719"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/022.tiff",
+      "offset": 280699110,
+      "compressed": 5701,
+      "size": 1453590,
+      "crc": 3828308663,
+      "sha256": "e1003e91b46557348b936098fa86f66b7038ef9a2ec560f73d68268d655662e2"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/023.tiff",
+      "offset": 280704959,
+      "compressed": 5747,
+      "size": 1453590,
+      "crc": 1279158623,
+      "sha256": "41d24b505c48bcb342ae3eb9332a3584c8eb1d00eb05d15832ca3a736b59041a"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/024.tiff",
+      "offset": 280710854,
+      "compressed": 5799,
+      "size": 1453590,
+      "crc": 3734771503,
+      "sha256": "864e5d21f6cb31ac478dfc13261026df4da008c22c952df0d490d88aa4a770c5"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/025.tiff",
+      "offset": 280716801,
+      "compressed": 5834,
+      "size": 1453590,
+      "crc": 1355787218,
+      "sha256": "f6d7b539a692033295209ab806976e40662208243906bcb413c49e713501e6bc"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/026.tiff",
+      "offset": 280722783,
+      "compressed": 5882,
+      "size": 1453590,
+      "crc": 3313117331,
+      "sha256": "d3cf9dcc1253d366979eb2ebc7dd6c441e7817fadc83984a104ef0ad1bbd5560"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/027.tiff",
+      "offset": 280728813,
+      "compressed": 5915,
+      "size": 1453590,
+      "crc": 1013481374,
+      "sha256": "54ba44bd1408484937a09535f876a6792fd1f5ed8292958355543725df0d34ab"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/028.tiff",
+      "offset": 280734876,
+      "compressed": 5891,
+      "size": 1453590,
+      "crc": 3983570132,
+      "sha256": "103bd345d146c926232966d2987c6b9ac79e9325d5c28d13ca3e87bdee2dda86"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/029.tiff",
+      "offset": 280740915,
+      "compressed": 6090,
+      "size": 1453590,
+      "crc": 842083870,
+      "sha256": "9795675ab5a44d898a440b2c26c90d8225ad3491523273c9f4cf28ba95c7bf1b"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/030.tiff",
+      "offset": 280747153,
+      "compressed": 6007,
+      "size": 1453590,
+      "crc": 2079979641,
+      "sha256": "7e11dd0f3205e7939ebcde80b008a5ed95afcd22ea86ff77cf723905ba3232c0"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/031.tiff",
+      "offset": 280753308,
+      "compressed": 5997,
+      "size": 1453590,
+      "crc": 1575991555,
+      "sha256": "e45ac79d82d69581009d46c7810ec8fe194a34291b0026189a30e6b37495b39e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/032.tiff",
+      "offset": 280759453,
+      "compressed": 6652,
+      "size": 1453590,
+      "crc": 858526834,
+      "sha256": "067d95ed53a4f6859d4031d6566c15c28b8e97cf6653180f1fa91950dcf0ea23"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/033.tiff",
+      "offset": 280766253,
+      "compressed": 6565,
+      "size": 1453590,
+      "crc": 1717348250,
+      "sha256": "d35334a4ddcf7540926a44a7a11ce402c0343781211931474ab67d0ae515f383"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/034.tiff",
+      "offset": 280772966,
+      "compressed": 6336,
+      "size": 1453590,
+      "crc": 7521041,
+      "sha256": "4f5b9ae48ef8bd57f5210fe57cf503bf180bfca28169e0bcc28b1072bd877fa1"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/035.tiff",
+      "offset": 280779450,
+      "compressed": 6306,
+      "size": 1453590,
+      "crc": 2203186498,
+      "sha256": "f21d3091f7e3c20977657d33eddc586bf93f896f9945e27f9c95b4cc396d1458"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/036.tiff",
+      "offset": 280785904,
+      "compressed": 5747,
+      "size": 1453590,
+      "crc": 3436312323,
+      "sha256": "432bb470ef0badc928dd0639ce83ed9efe2a166c31934d4219545a8c85cd3361"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/037.tiff",
+      "offset": 280791799,
+      "compressed": 6306,
+      "size": 1453590,
+      "crc": 4208281703,
+      "sha256": "ac82ad7bfddc4cb41588c52ec606cae21acead5ccd4b11b453f5dbcdd6550910"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/038.tiff",
+      "offset": 280798253,
+      "compressed": 4866,
+      "size": 1453590,
+      "crc": 79688656,
+      "sha256": "3736feb2f6fc18d23adc6891e8f353653fe1a75e013bc67f172895397a492108"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/039.tiff",
+      "offset": 280803267,
+      "compressed": 6486,
+      "size": 1453590,
+      "crc": 2795967374,
+      "sha256": "0d51bd64ac6d632049e54177a7306c07355296371d2aded43ac4b2b266e6651b"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/040.tiff",
+      "offset": 280809901,
+      "compressed": 5408,
+      "size": 1453590,
+      "crc": 2253939109,
+      "sha256": "c117ae331043b2a6cd9d9adf2849a9aafb82c492028a54585ceef0a2373f88f8"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/041.tiff",
+      "offset": 280815457,
+      "compressed": 5159,
+      "size": 1453590,
+      "crc": 3190791737,
+      "sha256": "6d3507b3c8b50f608fedf7c7fbd85a892afbc7590a2b567bed550bc0235e0ec1"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/042.tiff",
+      "offset": 280820764,
+      "compressed": 5832,
+      "size": 1453590,
+      "crc": 2182865499,
+      "sha256": "feacd42f73be1411ab9bda2e027f88bd621026593f4d45a0420d0d0aba016205"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/043.tiff",
+      "offset": 280826744,
+      "compressed": 5110,
+      "size": 1453590,
+      "crc": 1895114909,
+      "sha256": "9d9863866076a67d11bd159f9cf1589e578feeb57ae8bedd6debff8ee1f3d296"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/044.tiff",
+      "offset": 280832002,
+      "compressed": 6102,
+      "size": 1453590,
+      "crc": 662238390,
+      "sha256": "b45f2f717bb149a61200d1a6d1397ae9d54d1fd28abe61d8112559a8418f9361"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/045.tiff",
+      "offset": 280838252,
+      "compressed": 4917,
+      "size": 1453590,
+      "crc": 2207918312,
+      "sha256": "7a2b0f32587d0a547946b831355500250c56d0e16e1cee35648d0bb33a4f9070"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/046.tiff",
+      "offset": 280843317,
+      "compressed": 5176,
+      "size": 1453590,
+      "crc": 390175450,
+      "sha256": "5a6929a91ad915d5388a42f40770e25c4ff45848195bdfdf0d769d09c576aa68"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/047.tiff",
+      "offset": 280848641,
+      "compressed": 5708,
+      "size": 1453590,
+      "crc": 3222588262,
+      "sha256": "86a6edb80f50a2806da2c79013370701e30d2f477d311527633b7ec2c99939c9"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/048.tiff",
+      "offset": 280854497,
+      "compressed": 5559,
+      "size": 1453590,
+      "crc": 3222808650,
+      "sha256": "5358a49fad482a05c2d82adfa4e4d0059fff9663d214c80165d2d0de5a6e4a59"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/049.tiff",
+      "offset": 280860204,
+      "compressed": 5801,
+      "size": 1453590,
+      "crc": 2058804961,
+      "sha256": "a2b442f70a8d752ad5e705c7ec8ba91eae8de86d23b0382a2c254ce882842cfb"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/050.tiff",
+      "offset": 280866153,
+      "compressed": 5775,
+      "size": 1453590,
+      "crc": 3979858148,
+      "sha256": "c12595ec5c3aa74ecb6a2d0d4c17d2f03c2d4f07ce285441375777680c258f2a"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/051.tiff",
+      "offset": 280872076,
+      "compressed": 4121,
+      "size": 1453590,
+      "crc": 3476906697,
+      "sha256": "49ed9ca793f32323d17e9d9eb4d7dd1c18a9c51ed81c284a8ee7a279b0a4f8da"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/052.tiff",
+      "offset": 280876345,
+      "compressed": 4219,
+      "size": 1453590,
+      "crc": 4010657271,
+      "sha256": "ed12212114e52c85f15af35c9d4ac59c9184fbea77b324ab51237f89ce6a7c2e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/053.tiff",
+      "offset": 280880712,
+      "compressed": 6435,
+      "size": 1453590,
+      "crc": 1377051037,
+      "sha256": "f35cac799f410c2c779c2ee288d5496f802eb6039ab8421188de3738f7e68ed8"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/054.tiff",
+      "offset": 280887295,
+      "compressed": 6839,
+      "size": 1453590,
+      "crc": 3463698176,
+      "sha256": "e65ed0df7dadf824b1dc97a467601706ca362663ff21855bdb0adcb8ebf61ba9"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/055.tiff",
+      "offset": 280894282,
+      "compressed": 5879,
+      "size": 1453590,
+      "crc": 1291074044,
+      "sha256": "5bc61995bc2aba520e0da88b0e15d4bb2be59bc3805cd53a3d0eff8816786213"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/056.tiff",
+      "offset": 280900309,
+      "compressed": 6385,
+      "size": 1453590,
+      "crc": 4274713099,
+      "sha256": "012b770f0af92330bddb5506c39d6e1dfd5d2bc1f89b26d5472978f36d157e09"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/057.tiff",
+      "offset": 280906842,
+      "compressed": 6262,
+      "size": 1453590,
+      "crc": 4060910267,
+      "sha256": "f0737cedd04562a0479cad0e8a4bbab8777323f7859957b875ce6e25a55550ef"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/058.tiff",
+      "offset": 280913252,
+      "compressed": 6248,
+      "size": 1453590,
+      "crc": 1262056737,
+      "sha256": "2196dd9341f6ccc67d455103f8212fc3ad32a4cd442ee716b55864d36b4a1c00"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/059.tiff",
+      "offset": 280919648,
+      "compressed": 6217,
+      "size": 1453590,
+      "crc": 3919282596,
+      "sha256": "f95dc9239caaac949aa134b87f7121ee565f41baf9710f479b0e8e2f02422e0e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/060.tiff",
+      "offset": 280926013,
+      "compressed": 6620,
+      "size": 1453590,
+      "crc": 1085502195,
+      "sha256": "8e337534b1ca6197536c89f092540333700d6b7b278e5782cf2a3922a9b5f3c9"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/061.tiff",
+      "offset": 280932781,
+      "compressed": 7235,
+      "size": 1453590,
+      "crc": 4155405152,
+      "sha256": "b5d2294c03f206aee64134b4b5782e6ec3cd24485ded43ba850f556e228bf770"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/062.tiff",
+      "offset": 280940164,
+      "compressed": 5869,
+      "size": 1453590,
+      "crc": 1863479240,
+      "sha256": "d3aaf9a005f87476c86acd22a7d1efc71aa3ff0df31d3f0126c22ff4b6913c56"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/063.tiff",
+      "offset": 280946181,
+      "compressed": 5684,
+      "size": 1453590,
+      "crc": 2446749281,
+      "sha256": "d13492fd5f99eea3a6d330da642210444113ced0a9d7c9e460ada77465bdf454"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/064.tiff",
+      "offset": 280952013,
+      "compressed": 3768,
+      "size": 1453590,
+      "crc": 1321578380,
+      "sha256": "af5393e6af2e1463db23b879e8dd4c76754a64e3ebe91b67c38005e9e8549dbc"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/065.tiff",
+      "offset": 280955929,
+      "compressed": 6818,
+      "size": 1453590,
+      "crc": 1580290329,
+      "sha256": "1811a69d901b7d7f31aa8d4a49ec95eee7e4a53252faf58f8da84b769202aa22"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/066.tiff",
+      "offset": 280962895,
+      "compressed": 5779,
+      "size": 1453590,
+      "crc": 4028876033,
+      "sha256": "8cd8527005e9bf0336c36b8c519545ccdea8797f0cad3a65e8711b0c60c6af16"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/067.tiff",
+      "offset": 280968822,
+      "compressed": 6129,
+      "size": 1453590,
+      "crc": 4235438327,
+      "sha256": "440205e64f119dc7dab4bf3376fe32e0b2f900f4c7c7304517294a754fe67ef1"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/068.tiff",
+      "offset": 280975099,
+      "compressed": 5878,
+      "size": 1453590,
+      "crc": 259600557,
+      "sha256": "6d9e9215aca9915d70d504bcd8e31da8404152a32cedb78e122259f514e77780"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/069.tiff",
+      "offset": 280981125,
+      "compressed": 6051,
+      "size": 1453590,
+      "crc": 910262541,
+      "sha256": "4a2b56fb823f8d999c78ba012f3ccd28195c91b4b44a7acecd79189ea9c304fb"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone_segm/070.tiff",
+      "offset": 280987324,
+      "compressed": 6718,
+      "size": 1453590,
+      "crc": 3352225137,
+      "sha256": "58a85ce62e59ab02d10d2de03b1176a6539974519524814f83294b838a9248c7"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/train/RibBone.csv",
+      "offset": 280994190,
+      "compressed": 876,
+      "size": 2164,
+      "crc": 4153702466,
+      "sha256": "99389c8990021f08f48d811d22e4ec03abb9d3ee1ef0774af4f62d838e4374ed"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone/053.tiff",
+      "offset": 280995429,
+      "compressed": 2302978,
+      "size": 2906560,
+      "crc": 3853670805,
+      "sha256": "85faa78a511f179591e75e9eac7ba1a96f5664433acd79db9e818505531b6981"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone/054.tiff",
+      "offset": 283298547,
+      "compressed": 2215617,
+      "size": 2906560,
+      "crc": 2289968018,
+      "sha256": "5aa776b1acef48df44c2d92e56262a5816c1e6083e7be187356547ad68c7c9f9"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone/055.tiff",
+      "offset": 285514304,
+      "compressed": 2260933,
+      "size": 2906560,
+      "crc": 1857956787,
+      "sha256": "ebd7516b92ddb044e47f5ddff5313f1cec829c93b2e67f65ffe58f2729717365"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone/056.tiff",
+      "offset": 287775377,
+      "compressed": 2224853,
+      "size": 2906560,
+      "crc": 1777750045,
+      "sha256": "59692c266acb6dd53e8143a8abb58f5ed577c25b2125275942a8eec7896326a4"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone/057.tiff",
+      "offset": 290000370,
+      "compressed": 2269085,
+      "size": 2906560,
+      "crc": 1978582685,
+      "sha256": "2c96257de29a3583492fecab3a1dcd6a22165f6337119f85c7807985011fa606"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone/058.tiff",
+      "offset": 292269595,
+      "compressed": 2201798,
+      "size": 2906560,
+      "crc": 617148117,
+      "sha256": "b7071e949754ac3446c099fd62f52abcfffc76d3795219e524d7d1d2932dee2c"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone/059.tiff",
+      "offset": 294471533,
+      "compressed": 2237863,
+      "size": 2906560,
+      "crc": 3440828279,
+      "sha256": "c2835ddabb5509c0ff04122e42ea8bcb15f87215d6b3258550eaed2c8410cda2"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone/060.tiff",
+      "offset": 296709536,
+      "compressed": 2228189,
+      "size": 2906560,
+      "crc": 481326848,
+      "sha256": "b6c13b017277b8bb9acaa9daf08680ad61173421448f5fe49a63b5b1748e446d"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone/061.tiff",
+      "offset": 298937865,
+      "compressed": 2247573,
+      "size": 2906560,
+      "crc": 1114609860,
+      "sha256": "7413780db03f70b599fe02e58dad4e7e0a389fac763b60ed5db10878c63e1bcd"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone/062.tiff",
+      "offset": 301185578,
+      "compressed": 2224236,
+      "size": 2906560,
+      "crc": 2199692432,
+      "sha256": "ba0b8d8de9ffb1e828589fd7574af783ce7afcca60006996cb245fb1109e1646"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone/063.tiff",
+      "offset": 303409954,
+      "compressed": 2236164,
+      "size": 2906560,
+      "crc": 2418033575,
+      "sha256": "293bfaff26886ec37cff2e617b09978c13edc08a4219f661019b138d65d99c0e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone/064.tiff",
+      "offset": 305646258,
+      "compressed": 2230696,
+      "size": 2906560,
+      "crc": 958409427,
+      "sha256": "0c64a1dd49a84255799c7a9283bf52a819c21a14f64dece08253e13b998bf705"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone/065.tiff",
+      "offset": 307877094,
+      "compressed": 2260274,
+      "size": 2906560,
+      "crc": 1594360348,
+      "sha256": "2ec34643a67031172c9a787c2a931a29e24d56f765988a772d675e2343e35896"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone_segm/053.tiff",
+      "offset": 310137629,
+      "compressed": 6143,
+      "size": 1453590,
+      "crc": 3648588552,
+      "sha256": "9d75d04c94b9a50bba5c5dcb0385f0db64ab756e62812f98f306367850453071"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone_segm/054.tiff",
+      "offset": 310143917,
+      "compressed": 4957,
+      "size": 1453590,
+      "crc": 3981716666,
+      "sha256": "1c0a5134a8c510c7c431d53ff2472d26c654af0bdc53a4243e7d6f1c5d99647b"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone_segm/055.tiff",
+      "offset": 310149019,
+      "compressed": 5893,
+      "size": 1453590,
+      "crc": 4172318030,
+      "sha256": "e268ef7cf3bdabd2b13ac8062b6056bbeb6e56ec88ae5b80b204630d8ef9bd45"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone_segm/056.tiff",
+      "offset": 310155057,
+      "compressed": 5591,
+      "size": 1453590,
+      "crc": 3997088008,
+      "sha256": "66ec610513fdf3fd70386dd230b789dc87928316bd2c0a2c6fc862934edf0838"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone_segm/057.tiff",
+      "offset": 310160793,
+      "compressed": 6446,
+      "size": 1453590,
+      "crc": 3869311692,
+      "sha256": "3d541d43f34790467395e22ad3edce6fb5c6925287a9c2c81d2f2ef4d90c85dd"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone_segm/058.tiff",
+      "offset": 310167384,
+      "compressed": 5648,
+      "size": 1453590,
+      "crc": 4186720974,
+      "sha256": "e5cf09171eddec327267115a923b78a169b2a7e971f272771345ca838613cbf7"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone_segm/059.tiff",
+      "offset": 310173177,
+      "compressed": 5070,
+      "size": 1453590,
+      "crc": 1852117591,
+      "sha256": "03ce8a4de900ce8d17ad626a590992f3b182f0cea93eb14826fa93fdc5352b32"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone_segm/060.tiff",
+      "offset": 310178392,
+      "compressed": 5213,
+      "size": 1453590,
+      "crc": 2246927448,
+      "sha256": "89100cec4c27098e521f87c157340d2554ce14c45ad529af2ce0900247a02394"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone_segm/061.tiff",
+      "offset": 310183750,
+      "compressed": 6046,
+      "size": 1453590,
+      "crc": 1657168866,
+      "sha256": "92161b7dcf97fde12add09206b353cf6e667b1a8410e72d14b9a91254c9cad8a"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone_segm/062.tiff",
+      "offset": 310189941,
+      "compressed": 4658,
+      "size": 1453590,
+      "crc": 576993490,
+      "sha256": "1dcdc78d1d81d9f22bf64ff8fb8f4fed95c2207da7c2ed7f0e9e195364a77282"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone_segm/063.tiff",
+      "offset": 310194744,
+      "compressed": 5291,
+      "size": 1453590,
+      "crc": 1335639342,
+      "sha256": "9cb05c1798f0eb414e110499866557b211da3ca7e84e7071e33bd8aad1c8e9aa"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone_segm/064.tiff",
+      "offset": 310200180,
+      "compressed": 7203,
+      "size": 1453590,
+      "crc": 3826021013,
+      "sha256": "adef3d452fb7f6e63ef501d63e7333bae6973f96299849feb6b40e0725fd8c46"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone_segm/065.tiff",
+      "offset": 310207528,
+      "compressed": 6339,
+      "size": 1453590,
+      "crc": 2482546611,
+      "sha256": "297b6cc4958b75b84e47eefb2b0da0485c753c718518204a9aedc8e577d0b2c0"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/NoBone.csv",
+      "offset": 310214012,
+      "compressed": 152,
+      "size": 477,
+      "crc": 462531740,
+      "sha256": "e677820bebcda3e6a226c4e8b0dd319f05510df5bbb0be31cdcae07959dc2c1d"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone/071.tiff",
+      "offset": 310214416,
+      "compressed": 2283776,
+      "size": 2906560,
+      "crc": 1752851696,
+      "sha256": "b595ad1bfa0cff995563c7ca528ad9e1e62f5aa76cbe90302170b0cc329662de"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone/072.tiff",
+      "offset": 312498333,
+      "compressed": 2231764,
+      "size": 2906560,
+      "crc": 3679307410,
+      "sha256": "a50cb41f17de57ba76cf83ab71b57ef7c7555b5629d45a019ee56276467858f2"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone/073.tiff",
+      "offset": 314730238,
+      "compressed": 2291650,
+      "size": 2906560,
+      "crc": 2204208860,
+      "sha256": "923e8e4ad6d7f3387382cbd309333ae009e39fea7efee729a83ca5b73c0a1175"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone/074.tiff",
+      "offset": 317022029,
+      "compressed": 2221837,
+      "size": 2906560,
+      "crc": 2055385597,
+      "sha256": "930882a7bea70a2fd870055ad8ff6f354ef3bdb52abeba15202ddbe1a456a470"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone/075.tiff",
+      "offset": 319244007,
+      "compressed": 2304016,
+      "size": 2906560,
+      "crc": 885895683,
+      "sha256": "ffe876d925c3c434fe901e9eed6c4b07ca14292e3f608d6b8b34b4bef8d29c1e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone/076.tiff",
+      "offset": 321548164,
+      "compressed": 2216903,
+      "size": 2906560,
+      "crc": 4238734593,
+      "sha256": "5c8be4a553d9911c92783d14318e60d5661347528143b22e2cd7811b5a92a11d"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone/077.tiff",
+      "offset": 323765208,
+      "compressed": 2264914,
+      "size": 2906560,
+      "crc": 2720157029,
+      "sha256": "e76cb29cc4b62ffc93672cccbf7a1b933fd22bd2734779db5768faffdfaac9cf"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone/078.tiff",
+      "offset": 326030263,
+      "compressed": 2224023,
+      "size": 2906560,
+      "crc": 2632429607,
+      "sha256": "e5100181f501c1ca4bb8644f91dbd313dd53f79c9a06ee334c7ad1a43729864e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone/079.tiff",
+      "offset": 328254427,
+      "compressed": 2267052,
+      "size": 2906560,
+      "crc": 1739969462,
+      "sha256": "0361624f71d403956db9a1609ca12746e0c8798264e2619f0b06ae9c3e6020b7"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone/080.tiff",
+      "offset": 330521620,
+      "compressed": 2202308,
+      "size": 2906560,
+      "crc": 117029602,
+      "sha256": "5ffc700cf999feee947da9819edf8a34f3eb09b7f22c8e1ffa64587ac81f38c2"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone/081.tiff",
+      "offset": 332724069,
+      "compressed": 2240431,
+      "size": 2906560,
+      "crc": 2338729522,
+      "sha256": "3741657da0ec23e9695008de371210b72114b719903cc26aac80bb3212d27d76"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone/082.tiff",
+      "offset": 334964641,
+      "compressed": 2225311,
+      "size": 2906560,
+      "crc": 1306843670,
+      "sha256": "e96d394df661bb0ece08b5cb7ac030f1b96edf751a09b705987aa6c4f3548051"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone/083.tiff",
+      "offset": 337190093,
+      "compressed": 2241927,
+      "size": 2906560,
+      "crc": 145572262,
+      "sha256": "3010cc48d8cb7a860bcb254acd5b43dd8784803289acfe2d61b3ae19b3bf3c09"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone/084.tiff",
+      "offset": 339432161,
+      "compressed": 2224154,
+      "size": 2906560,
+      "crc": 3731960807,
+      "sha256": "96d7898075ef8deaa12d8505700bb9390790563fb738cd9fc3b17f00846f0b88"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone/085.tiff",
+      "offset": 341656456,
+      "compressed": 2232954,
+      "size": 2906560,
+      "crc": 1569752047,
+      "sha256": "02d698d4cc4c8578eaf5d79a43c99bd0f5cc640b55918d39f3031da88ab66d38"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone/086.tiff",
+      "offset": 343889551,
+      "compressed": 2231172,
+      "size": 2906560,
+      "crc": 763048158,
+      "sha256": "8be64f6177be90ca285b2b9bd11a0c61000b0c8a209cc3c4768a57c2c3eaa885"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone/087.tiff",
+      "offset": 346120864,
+      "compressed": 2255745,
+      "size": 2906560,
+      "crc": 3708372072,
+      "sha256": "5fe032517d9bfbe1c76be066a82e805d6cf01748d7137401f90075865ec519e2"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone_segm/071.tiff",
+      "offset": 348376872,
+      "compressed": 6551,
+      "size": 1453590,
+      "crc": 1681010371,
+      "sha256": "049d1222d98259ce3dd720bbbb649a3162067dc1bac14e79d4674d4a50063b21"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone_segm/072.tiff",
+      "offset": 348383569,
+      "compressed": 4919,
+      "size": 1453590,
+      "crc": 3802395570,
+      "sha256": "3beeb5daf25694dd040b903844317f82769033c2ed1686a52dde227f67dbfdb2"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone_segm/073.tiff",
+      "offset": 348388634,
+      "compressed": 6862,
+      "size": 1453590,
+      "crc": 2282086614,
+      "sha256": "ed8cf29a501b019166e499eaf9914c712baa60866a001538e0cb3d3c73aa463f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone_segm/074.tiff",
+      "offset": 348395642,
+      "compressed": 6330,
+      "size": 1453590,
+      "crc": 2911636200,
+      "sha256": "be4801561bcec6e951832a12f1a082c619f7653f82ebd02f7c229c0e3cfa4f2b"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone_segm/075.tiff",
+      "offset": 348402118,
+      "compressed": 6542,
+      "size": 1453590,
+      "crc": 1711145010,
+      "sha256": "8a28c10d71bd841cb74343048c0ff0978c51bf2054b79e53a36ff7e819b2c57c"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone_segm/076.tiff",
+      "offset": 348408806,
+      "compressed": 5254,
+      "size": 1453590,
+      "crc": 3297899381,
+      "sha256": "2bc062ac37fcb77ccf4bbfb6086eba1a6663220098b03b364cbd72d770944afb"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone_segm/077.tiff",
+      "offset": 348414206,
+      "compressed": 6051,
+      "size": 1453590,
+      "crc": 2921546231,
+      "sha256": "2dfb7bf3abeb9dbcb3502292220db5700c362ff5dd49cc8dba32f525a0580ab4"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone_segm/078.tiff",
+      "offset": 348420403,
+      "compressed": 5741,
+      "size": 1453590,
+      "crc": 1258444913,
+      "sha256": "e0c23c9a2c6940e8b33e58575390039fd4b252a1d485008c8ca2e7df688275cb"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone_segm/079.tiff",
+      "offset": 348426290,
+      "compressed": 6612,
+      "size": 1453590,
+      "crc": 48337068,
+      "sha256": "4b2c6ea1c284624cd41debfd595bc06b0e60e77aa91b008dbe5c8e6eb04c3d59"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone_segm/080.tiff",
+      "offset": 348433048,
+      "compressed": 5569,
+      "size": 1453590,
+      "crc": 3505861310,
+      "sha256": "c3001bee77e096c110349892858aaa1ac36243b948c3f8c4e03233ebf575a2e1"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone_segm/081.tiff",
+      "offset": 348438763,
+      "compressed": 5251,
+      "size": 1453590,
+      "crc": 3703572339,
+      "sha256": "cccc3c8bbfb78fc35c27541621221a8872bc4f1d01540490c2aa5381ef970f18"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone_segm/082.tiff",
+      "offset": 348444160,
+      "compressed": 5279,
+      "size": 1453590,
+      "crc": 1300972364,
+      "sha256": "4eb50b518336631b26ca5494231738e020a56fe648ed7d7540fa4ce4f845bb2f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone_segm/083.tiff",
+      "offset": 348449585,
+      "compressed": 6082,
+      "size": 1453590,
+      "crc": 2123430012,
+      "sha256": "d77ba599cca6eeef3079525eefc1fc0895bce08f8c8f36de6417cf47b3ecfea3"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone_segm/084.tiff",
+      "offset": 348455813,
+      "compressed": 4748,
+      "size": 1453590,
+      "crc": 2178202528,
+      "sha256": "972a95491975cc93d7006ebfef9aae8ecac5bdf711901488785310469085a20f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone_segm/085.tiff",
+      "offset": 348460707,
+      "compressed": 5578,
+      "size": 1453590,
+      "crc": 2847442969,
+      "sha256": "366e5da09ba011e553cef3522e4fac3de56256131ba46132640181f800da792c"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone_segm/086.tiff",
+      "offset": 348466431,
+      "compressed": 7335,
+      "size": 1453590,
+      "crc": 592078639,
+      "sha256": "475e1851d4922e68ae5a9db98a21c9b31efb08b2137e55c39495bcb4314c118e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone_segm/087.tiff",
+      "offset": 348473912,
+      "compressed": 6288,
+      "size": 1453590,
+      "crc": 1002477754,
+      "sha256": "7050f5725c6603ab5b8cad23dbf5b5f6d32ac16626d467091891e76a714668de"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/val/RibBone.csv",
+      "offset": 348480346,
+      "compressed": 300,
+      "size": 577,
+      "crc": 1735440355,
+      "sha256": "f4758b20ced08d0aa27e51ffb99825c7a92106f794acde6e28588ee91f7b611e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/000.tiff",
+      "offset": 348481009,
+      "compressed": 2262433,
+      "size": 2906560,
+      "crc": 3879400028,
+      "sha256": "74f7e97cd619d05b3731243cfc1e6795f7cd05dfdbfa7f51212d2aaf61755e1f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/001.tiff",
+      "offset": 350743583,
+      "compressed": 2250177,
+      "size": 2906560,
+      "crc": 4015187350,
+      "sha256": "7ab845bdabd6e64c996622370db094b4c969d4e5aa25f9423640098cd8204fef"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/002.tiff",
+      "offset": 352993901,
+      "compressed": 2259064,
+      "size": 2906560,
+      "crc": 498101452,
+      "sha256": "7819e4a3ea7235578b640b84807ef30b96f423a3992b134f48f364bafbec9d8d"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/003.tiff",
+      "offset": 355253106,
+      "compressed": 2269988,
+      "size": 2906560,
+      "crc": 3096369214,
+      "sha256": "27a4d1806c50f78cb95167a489ed4c3316069cdce1e811cfa2bfccd4e98f260d"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/004.tiff",
+      "offset": 357523235,
+      "compressed": 2316886,
+      "size": 2906560,
+      "crc": 2449235539,
+      "sha256": "aa0519b744f7f541e79379b6bc0af81cf3715a97972117c722966cf753f9488e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/005.tiff",
+      "offset": 359840262,
+      "compressed": 2285169,
+      "size": 2906560,
+      "crc": 3175238872,
+      "sha256": "0f448d15abfec955a5599e528fb28ad973510960dd4b59f3fe4b9dc33bf7eba3"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/006.tiff",
+      "offset": 362125572,
+      "compressed": 2259967,
+      "size": 2906560,
+      "crc": 3295576573,
+      "sha256": "3fe200f223788dc50e45434cbfabc907c3cd9612e1ab0c34ba3734f816ea522f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/007.tiff",
+      "offset": 364385680,
+      "compressed": 2203924,
+      "size": 2906560,
+      "crc": 1032691146,
+      "sha256": "36ac947229d66cfd9729707f910ab9b9e32e53121f9b998335e4e33a34da323d"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/008.tiff",
+      "offset": 366589745,
+      "compressed": 2236597,
+      "size": 2906560,
+      "crc": 3564751949,
+      "sha256": "f07867b174f6c7f5c824c90f80f1394281c03b343ebb1090ad6bc932f53396ac"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/009.tiff",
+      "offset": 368826483,
+      "compressed": 2219745,
+      "size": 2906560,
+      "crc": 2629857243,
+      "sha256": "4f450f2ae1d6d928556261b04b1ee52f08ecfc499affe1caf8a87d5520af3127"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/010.tiff",
+      "offset": 371046369,
+      "compressed": 2228089,
+      "size": 2906560,
+      "crc": 3899583895,
+      "sha256": "4167f1c6a85d974f4e1c1b8f741ff2d52086bd7d032220be699ff9669d6b5563"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/011.tiff",
+      "offset": 373274599,
+      "compressed": 2215175,
+      "size": 2906560,
+      "crc": 1509049347,
+      "sha256": "c41278193a255b6a94fd251ed3957f868da7868930e28a6b5020e7af8722d013"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/012.tiff",
+      "offset": 375489915,
+      "compressed": 2280701,
+      "size": 2906560,
+      "crc": 3686804318,
+      "sha256": "fe4fb8975d99e430a9e6bf2f3915e5b2f9d49877bfd0cf4ca9fcc6b6250434dd"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/013.tiff",
+      "offset": 377770757,
+      "compressed": 2250795,
+      "size": 2906560,
+      "crc": 4279202786,
+      "sha256": "fb394303fde233da5783f4960f09bd41717a6f44d7eaa0f419c2c855c56b199d"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/014.tiff",
+      "offset": 380021693,
+      "compressed": 2234853,
+      "size": 2906560,
+      "crc": 111556758,
+      "sha256": "bb58d25bf5eb5c4eee6cc71edbe74cf3d3fe26d94e5373dd8db7fb47898a8165"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/015.tiff",
+      "offset": 382256687,
+      "compressed": 2237002,
+      "size": 2906560,
+      "crc": 1947846089,
+      "sha256": "9c063143fa380ad151aee01ddc1e0f260d9b50ef0101703ec0b942d078471284"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/016.tiff",
+      "offset": 384493830,
+      "compressed": 2301422,
+      "size": 2906560,
+      "crc": 3452735687,
+      "sha256": "beee084431d9a0a6b42f23be528cb041123532db1184ed13f36d6740bb131ab8"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/017.tiff",
+      "offset": 386795393,
+      "compressed": 2217004,
+      "size": 2906560,
+      "crc": 848471736,
+      "sha256": "e4a12b8fec861581b89395965e1a0879611dc391a3694d41412d4b5c094f99f0"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/018.tiff",
+      "offset": 389012538,
+      "compressed": 2212114,
+      "size": 2906560,
+      "crc": 2131731590,
+      "sha256": "2fc333bbe89090df29bf865c202e34d9c3c1717f7041c59891c2de92804be262"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/019.tiff",
+      "offset": 391224793,
+      "compressed": 2273928,
+      "size": 2906560,
+      "crc": 1604751196,
+      "sha256": "6d7962df99c5bf777c808baabbe77bb3d5541ec9938c9593fc135cf9e71b6301"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/020.tiff",
+      "offset": 393498862,
+      "compressed": 2249958,
+      "size": 2906560,
+      "crc": 209933156,
+      "sha256": "c050be973d373e0917ee9dfe3427e0f3dfb1beaef47a04c1d873bc1bf65cd3ab"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/021.tiff",
+      "offset": 395748961,
+      "compressed": 2212900,
+      "size": 2906560,
+      "crc": 2173086297,
+      "sha256": "e97aa4257ac6434116cb773478633405383552eaa51aef3ac3f574d7dcd0f42e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/022.tiff",
+      "offset": 397962002,
+      "compressed": 2276744,
+      "size": 2906560,
+      "crc": 31543928,
+      "sha256": "1c5658d724e107cff70e7cc0dc2b1445d36d9ce8cf22f19316673e4210a23003"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/023.tiff",
+      "offset": 400238887,
+      "compressed": 2296919,
+      "size": 2906560,
+      "crc": 3447610111,
+      "sha256": "d42fb97a1eeb8e2077ae6e5fa6b9df1b91d5ef47c508b9a8a48eb18d8d7c9805"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone/024.tiff",
+      "offset": 402535947,
+      "compressed": 2217060,
+      "size": 2906560,
+      "crc": 3727033112,
+      "sha256": "e134571f95701b11a7a52fd6887e4c5c3efa97e28ada2bea358e54501e554f90"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/000.tiff",
+      "offset": 404753270,
+      "compressed": 5891,
+      "size": 1453590,
+      "crc": 1412689594,
+      "sha256": "98b22f2387573ec66621a231a1a85017d4359e98c10ede8d678e48a4064fb2cd"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/001.tiff",
+      "offset": 404759307,
+      "compressed": 5420,
+      "size": 1453590,
+      "crc": 3586431043,
+      "sha256": "a309fd75376036ecfd4b899c32b9c3a633cabaf1c3634990363f0e9784c57c7d"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/002.tiff",
+      "offset": 404764873,
+      "compressed": 6257,
+      "size": 1453590,
+      "crc": 2771798457,
+      "sha256": "9be2eb361d921b00b8228b27384bac4c1d214779b2c01789a609ffc721bcc61c"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/003.tiff",
+      "offset": 404771276,
+      "compressed": 6590,
+      "size": 1453590,
+      "crc": 3711855433,
+      "sha256": "f211d8c35fa029d0a0ac9f31a11e70aad4a9f49c5cf323b4eaf026451b7a1cdc"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/004.tiff",
+      "offset": 404778012,
+      "compressed": 6649,
+      "size": 1453590,
+      "crc": 2351953046,
+      "sha256": "b4d4a6aea9d0be76569f323f6dbafcc53e621537af2de7f22ae1f0914165a8c9"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/005.tiff",
+      "offset": 404784807,
+      "compressed": 5144,
+      "size": 1453590,
+      "crc": 1099130666,
+      "sha256": "5e531f203ab3f4794fa394d8ec37bcdb449e89bf89358be36fd33eaa826cc723"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/006.tiff",
+      "offset": 404790097,
+      "compressed": 5460,
+      "size": 1453590,
+      "crc": 3389640606,
+      "sha256": "610f6477c59988876a148127ac6f6a552b06ad12d368bf15f96756984beef9bf"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/007.tiff",
+      "offset": 404795703,
+      "compressed": 3291,
+      "size": 1453590,
+      "crc": 3388334090,
+      "sha256": "ecdd31a3bfd12d4d3e99840d124fbbdb18e4165598808d4d39d9c3363f672eff"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/008.tiff",
+      "offset": 404799140,
+      "compressed": 5208,
+      "size": 1453590,
+      "crc": 138871158,
+      "sha256": "bcbc02595d500a4c7caffc037a55e234a21d753d327f9e62fd8ca264e841e037"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/009.tiff",
+      "offset": 404804494,
+      "compressed": 4883,
+      "size": 1453590,
+      "crc": 2008465152,
+      "sha256": "51349178fe0ffb953f25170d2b3afe4101095c3d3e9a8946f6f4eb9626c49ec2"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/010.tiff",
+      "offset": 404809523,
+      "compressed": 4367,
+      "size": 1453590,
+      "crc": 2547328211,
+      "sha256": "b38318d699127df59f32993738c8b5afe3c761e7a15140704b7aa12bfd2dab5a"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/011.tiff",
+      "offset": 404814036,
+      "compressed": 5502,
+      "size": 1453590,
+      "crc": 2244101592,
+      "sha256": "643719e1f795f66c7e28900ba49f664189878087c40a7d723e0b88f705d74f8f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/012.tiff",
+      "offset": 404819684,
+      "compressed": 6144,
+      "size": 1453590,
+      "crc": 1938798045,
+      "sha256": "300dd4076aa23c7743c31b262b7ba06af5c06166501cdf31c6f808389daeff98"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/013.tiff",
+      "offset": 404825974,
+      "compressed": 5544,
+      "size": 1453590,
+      "crc": 887500905,
+      "sha256": "872b6dea01f3aa396cf84b2b191e92a2698739307c72f538c2a45ab38c7e8a49"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/014.tiff",
+      "offset": 404831664,
+      "compressed": 5190,
+      "size": 1453590,
+      "crc": 1651951962,
+      "sha256": "14200b8008f061917127fbd681128cbc02befcce64fd10551878672a137e415d"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/015.tiff",
+      "offset": 404837000,
+      "compressed": 4708,
+      "size": 1453590,
+      "crc": 3149426555,
+      "sha256": "9771d2365c4ff580f42efb2202b8ed7c6bea7d9484f982858a91bf9e06c8080a"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/016.tiff",
+      "offset": 404841854,
+      "compressed": 6862,
+      "size": 1453590,
+      "crc": 4246079125,
+      "sha256": "02f6b7b9ef90dd3295464558fd1f0d58dcdab9e206475d98317067c9743542ce"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/017.tiff",
+      "offset": 404848862,
+      "compressed": 5705,
+      "size": 1453590,
+      "crc": 3532904554,
+      "sha256": "31cb1dbcf4d01e6e1da48ec99fe1342b67425421f6d1a67abdc4e36799942e4a"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/018.tiff",
+      "offset": 404854713,
+      "compressed": 4168,
+      "size": 1453590,
+      "crc": 2728352963,
+      "sha256": "a771bb9cd00ba3761e467805973a879c84bedb7de363bf5a994eace7224b277e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/019.tiff",
+      "offset": 404859027,
+      "compressed": 5461,
+      "size": 1453590,
+      "crc": 52183821,
+      "sha256": "0b352a8be590887588805b6d13f17ecd2f1316f0b76e1a19801c8891475d4346"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/020.tiff",
+      "offset": 404864634,
+      "compressed": 5018,
+      "size": 1453590,
+      "crc": 3792715679,
+      "sha256": "dd477383372427f39ab55cf94ded54e90234ec0162c8ed2fa2fa18ef155872f4"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/021.tiff",
+      "offset": 404869798,
+      "compressed": 4393,
+      "size": 1453590,
+      "crc": 415925346,
+      "sha256": "559b9c9ba65172bb8754fb6b46ccb11bf7dc11bc9c1bb5108540c355dba1dd68"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/022.tiff",
+      "offset": 404874337,
+      "compressed": 4720,
+      "size": 1453590,
+      "crc": 3112427543,
+      "sha256": "d6c8e6e8c79d578aa579b8e19f48410a831de56ec1813a26e46076d941218c2f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/023.tiff",
+      "offset": 404879203,
+      "compressed": 6446,
+      "size": 1453590,
+      "crc": 3988898222,
+      "sha256": "2162afd008a45b2b4eb4c4d93cc827b36db7648ecb436cc6213e09da216f3b4f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone_segm/024.tiff",
+      "offset": 404885795,
+      "compressed": 4487,
+      "size": 1453590,
+      "crc": 1394187095,
+      "sha256": "ef0b13303a4bee8d1774e617c54b41a9ca7526fbf12f89c22ca2b5f2f6ca4051"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/NoBone.csv",
+      "offset": 404890428,
+      "compressed": 210,
+      "size": 864,
+      "crc": 466194904,
+      "sha256": "9857a22bba85b839dfee80f9a7ac3aa30545c5b3aae85fac2601a31ebc0c3195"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/000.tiff",
+      "offset": 404890892,
+      "compressed": 2261540,
+      "size": 2906560,
+      "crc": 4147616327,
+      "sha256": "c8ee3685be8c6d378f03dca12c412f8d499e2073740bf323bfa510c25fc51f5d"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/001.tiff",
+      "offset": 407152574,
+      "compressed": 2255780,
+      "size": 2906560,
+      "crc": 4220877674,
+      "sha256": "3de0e23984d25d59ab2178a9bd8d66bb0345ea5814e38cbfa411c05b7af74128"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/002.tiff",
+      "offset": 409408496,
+      "compressed": 2254107,
+      "size": 2906560,
+      "crc": 4255875735,
+      "sha256": "e113097c4c6fe0b640f0415fed59ed6dd5a3cd796e8b38dee4b3cb64877de3c3"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/003.tiff",
+      "offset": 411662745,
+      "compressed": 2248488,
+      "size": 2906560,
+      "crc": 701751681,
+      "sha256": "8ba01be8236f193a45fb6d719fbb78116de1310b50d2f6303dbab21123a584e2"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/004.tiff",
+      "offset": 413911375,
+      "compressed": 2250275,
+      "size": 2906560,
+      "crc": 2434922299,
+      "sha256": "febd875fd39aececa7a1eacdb04bf5035c7a2dec307a66d4ebd0e54a17425a57"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/005.tiff",
+      "offset": 416161792,
+      "compressed": 2250194,
+      "size": 2906560,
+      "crc": 3673468128,
+      "sha256": "902e734dc5fc78f115bfa2f35fd19831b96645e3b79a67b0189bf917bdc0638e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/006.tiff",
+      "offset": 418412128,
+      "compressed": 2258088,
+      "size": 2906560,
+      "crc": 3252812335,
+      "sha256": "e510ed9f41ea3f3b9ad665715deaae38b00273557900ea3a1b51545f93055a47"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/007.tiff",
+      "offset": 420670358,
+      "compressed": 2254986,
+      "size": 2906560,
+      "crc": 3084233877,
+      "sha256": "e104afc070ce4e0d4b91fb677c725a90f0c6b79242db26e3b50b7c18b08c9dac"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/008.tiff",
+      "offset": 422925486,
+      "compressed": 2255720,
+      "size": 2906560,
+      "crc": 1509989551,
+      "sha256": "c8d315731fb4a7d87abd5b9d12b0c0f0acfb39ca69a73c0999ec3ce338b138fc"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/009.tiff",
+      "offset": 425181348,
+      "compressed": 2271020,
+      "size": 2906560,
+      "crc": 1359838210,
+      "sha256": "83d575ae1fcb7fa13c20166beb6af0f60ad1c22dc8a12b3608463a329fbdb0fe"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/010.tiff",
+      "offset": 427452510,
+      "compressed": 2271474,
+      "size": 2906560,
+      "crc": 1061120008,
+      "sha256": "f5b30671594a2a287a90e38b76f902e9178e608f05262c47f29f366f5c20fa9d"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/011.tiff",
+      "offset": 429724126,
+      "compressed": 2270716,
+      "size": 2906560,
+      "crc": 2896728549,
+      "sha256": "d8c5eb61654e9a0b2941849fe6d7af585c3ca3207e0846961223467f3f7b418b"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/012.tiff",
+      "offset": 431994984,
+      "compressed": 2315330,
+      "size": 2906560,
+      "crc": 2242206153,
+      "sha256": "5f3f8a0b0031acf037a1bf15dc9872e2fd0e2f5046c4f44123b351c763ed214a"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/013.tiff",
+      "offset": 434310456,
+      "compressed": 2315960,
+      "size": 2906560,
+      "crc": 3519928948,
+      "sha256": "fdc1f6080647bc7219ce35e3732446b35f8fccfd161e0d96112c4cda3d55081d"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/014.tiff",
+      "offset": 436626558,
+      "compressed": 2315817,
+      "size": 2906560,
+      "crc": 1206523865,
+      "sha256": "49f6a10d96453baf41b57d0cf9450df1a2515fa262b8e601f68934c38c13790a"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/015.tiff",
+      "offset": 438942517,
+      "compressed": 2288475,
+      "size": 2906560,
+      "crc": 801398615,
+      "sha256": "1c986ccdfbd711912a20afc4863db077e86e2a26ef01baf9c26268b56580c3b8"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/016.tiff",
+      "offset": 441231134,
+      "compressed": 2288675,
+      "size": 2906560,
+      "crc": 699515253,
+      "sha256": "1e06324429ad95666fa3a3a6855a09276060ccaec9a5cb6b0fec8af62ccec4f5"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/017.tiff",
+      "offset": 443519951,
+      "compressed": 2289240,
+      "size": 2906560,
+      "crc": 3445977592,
+      "sha256": "e396d87af1e2750fb40b7a5e282f14090d40f0eb8776eeae55b45720e6f445c0"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/018.tiff",
+      "offset": 445809333,
+      "compressed": 2263247,
+      "size": 2906560,
+      "crc": 528102525,
+      "sha256": "bc88e936fa282d1582456fa4ccc39f8d980220bf7b0703db3e2d948cdbf0ba15"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/019.tiff",
+      "offset": 448072722,
+      "compressed": 2263619,
+      "size": 2906560,
+      "crc": 1613064341,
+      "sha256": "96e9c88d88e34feac69fcfd8c492c7625d44392c7267d6d1cbc443876f43b504"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/020.tiff",
+      "offset": 450336483,
+      "compressed": 2263320,
+      "size": 2906560,
+      "crc": 629866608,
+      "sha256": "bfc68345f2e6f91cd4c85991bcebf0fdb8f0011e9a94d26caf51eaf384819005"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/021.tiff",
+      "offset": 452599945,
+      "compressed": 2204582,
+      "size": 2906560,
+      "crc": 979148942,
+      "sha256": "b62a9f2552f697c81c0dd4a9ffb86957049b5ca0fa9743fc9a73d123e22e4cf5"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/022.tiff",
+      "offset": 454804669,
+      "compressed": 2202788,
+      "size": 2906560,
+      "crc": 3592365309,
+      "sha256": "a5ccd0d0e32730568283ac26950da8add2788fb98d13090be01c66b38a42d124"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/023.tiff",
+      "offset": 457007599,
+      "compressed": 2199393,
+      "size": 2906560,
+      "crc": 1535567661,
+      "sha256": "46613b28643d0a028b6d6431903b16ce601944826c84fe42799eabcb8efad28b"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/024.tiff",
+      "offset": 459207134,
+      "compressed": 2238678,
+      "size": 2906560,
+      "crc": 2536925508,
+      "sha256": "7b18d76a8e5b6b6522a24705fbbb9669c04f5e7706a768823b912e14230ac5fe"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/025.tiff",
+      "offset": 461445954,
+      "compressed": 2239827,
+      "size": 2906560,
+      "crc": 1174886255,
+      "sha256": "2c8527ddcbeafe09f1eda5669a2b3dc27e334c312a6ba18205b837f04afdb332"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/026.tiff",
+      "offset": 463685923,
+      "compressed": 2236985,
+      "size": 2906560,
+      "crc": 3877153046,
+      "sha256": "70ba2e9543d5229ae838ba488e2300d18b67d8a6dc0fd31206c8263b467c692f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/027.tiff",
+      "offset": 465923050,
+      "compressed": 2220929,
+      "size": 2906560,
+      "crc": 2913898512,
+      "sha256": "5388c25639d1b912489d2372f84055635cb8abeca0ca2be429c023dae93c1261"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/028.tiff",
+      "offset": 468144121,
+      "compressed": 2220566,
+      "size": 2906560,
+      "crc": 659280577,
+      "sha256": "5e87246b8e4c187f07f732f302d65550e86e7979219902ad433c36e5d95826aa"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/029.tiff",
+      "offset": 470364829,
+      "compressed": 2219743,
+      "size": 2906560,
+      "crc": 3723287041,
+      "sha256": "aaf83028af7bf651a5e6b92c06a194b531e8e13731da6ba5f2354687d613a70c"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/030.tiff",
+      "offset": 472584714,
+      "compressed": 2226161,
+      "size": 2906560,
+      "crc": 1428928321,
+      "sha256": "41a38cdf654c93124712986c44620f0bb2a5297b1e5904b4266603387ca18f82"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/031.tiff",
+      "offset": 474811017,
+      "compressed": 2220861,
+      "size": 2906560,
+      "crc": 2570606917,
+      "sha256": "e31461b1440ef4949f60148929cfac57e203f90e06fe8036cc14df0c59fbbb63"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/032.tiff",
+      "offset": 477032020,
+      "compressed": 2206651,
+      "size": 2906560,
+      "crc": 3621690663,
+      "sha256": "e321c72d61da4304397c2348e62d693944e2461bd57fcb118f8701693580efab"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/033.tiff",
+      "offset": 479238813,
+      "compressed": 2217021,
+      "size": 2906560,
+      "crc": 4223807578,
+      "sha256": "f08add5f8f0f50e2083d1aee1113e430545e4239ea4ad2cf962addf0d1e159cb"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/034.tiff",
+      "offset": 481455976,
+      "compressed": 2218823,
+      "size": 2906560,
+      "crc": 3484336093,
+      "sha256": "1b00b3f4842dbff9afff30f0d965f01a23b4d4e0ea7f040c0fe938b12522e88a"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/035.tiff",
+      "offset": 483674941,
+      "compressed": 2218221,
+      "size": 2906560,
+      "crc": 1821615358,
+      "sha256": "c3d58ad7b6ecf5169f87d91869a0097f37032abf4560786b5582016858447413"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/036.tiff",
+      "offset": 485893304,
+      "compressed": 2278880,
+      "size": 2906560,
+      "crc": 3645646053,
+      "sha256": "b409c32fcfd1da0c5fac3b7c22766e26c6f2b60e8f4e7761dd1e50acb6738123"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/037.tiff",
+      "offset": 488172326,
+      "compressed": 2277858,
+      "size": 2906560,
+      "crc": 2925713392,
+      "sha256": "d06b3979b4cce222a2a2e0d464474f70456e8f6154871a242fa03ebbdc23a6e9"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/038.tiff",
+      "offset": 490450326,
+      "compressed": 2278460,
+      "size": 2906560,
+      "crc": 1634522201,
+      "sha256": "dbcb21690973814e84485b74c88cada3410da0e06217a67af3675d38632df207"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/039.tiff",
+      "offset": 492728928,
+      "compressed": 2252105,
+      "size": 2906560,
+      "crc": 1412308109,
+      "sha256": "b87650ee54db288ba73ceb0636788253174987105a0c66cf9e1375e91d8009e7"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/040.tiff",
+      "offset": 494981175,
+      "compressed": 2251497,
+      "size": 2906560,
+      "crc": 3719598860,
+      "sha256": "038984c7bd28737d47c096f39cde780737d62480c9291163af99616c1eecb537"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/041.tiff",
+      "offset": 497232814,
+      "compressed": 2250308,
+      "size": 2906560,
+      "crc": 2988182851,
+      "sha256": "4274e67360d8edbcd3485208f9226f31f3413d3e2098294d583f3386e4c37103"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/042.tiff",
+      "offset": 499483264,
+      "compressed": 2235669,
+      "size": 2906560,
+      "crc": 521191103,
+      "sha256": "cbd97c70a5b46a14ad60a87c7b9ab5622e5b846939674aae78e5c3a556265ff1"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/043.tiff",
+      "offset": 501719075,
+      "compressed": 2234667,
+      "size": 2906560,
+      "crc": 1584664406,
+      "sha256": "271e35a31076eb0057dc0519d6e05e54ae76e3bb6e3153c12e86103c7f13e696"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/044.tiff",
+      "offset": 503953884,
+      "compressed": 2236632,
+      "size": 2906560,
+      "crc": 2861331977,
+      "sha256": "070d4f3f6a0b685e723c8b8465ac8457f7a73e162159ead896efae628162a6e3"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/045.tiff",
+      "offset": 506190658,
+      "compressed": 2236667,
+      "size": 2906560,
+      "crc": 2588591343,
+      "sha256": "24a2fd2eae6fbf8c2f35b8321fbd9ed31db7a4e1baf51fa2f8fa3d2fb723a701"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/046.tiff",
+      "offset": 508427467,
+      "compressed": 2238909,
+      "size": 2906560,
+      "crc": 1738033576,
+      "sha256": "0ca40f76f7543f299a3ae0a9618e8a2922b126a6835ffebb9f80a92e5ae19b2b"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/047.tiff",
+      "offset": 510666518,
+      "compressed": 2239891,
+      "size": 2906560,
+      "crc": 3315653271,
+      "sha256": "226b6483563c4636cf2a15bfdf36af979bba86c1013fc38756dc72d336956be8"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/048.tiff",
+      "offset": 512906551,
+      "compressed": 2303492,
+      "size": 2906560,
+      "crc": 1578421312,
+      "sha256": "5c5a81de1fe396798263a3703fff569212387d1247af528d26e727a5bb224001"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/049.tiff",
+      "offset": 515210185,
+      "compressed": 2302366,
+      "size": 2906560,
+      "crc": 1677817398,
+      "sha256": "08a391b1f1bd9aeb7c97a17f5411ecdab9fb545867bdf5813ea5f8129854823d"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/050.tiff",
+      "offset": 517512693,
+      "compressed": 2300706,
+      "size": 2906560,
+      "crc": 1029889496,
+      "sha256": "96584af5937917896ef1dcab6bcf3062fa892a37b2a91a64c33153a914c8fd20"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/051.tiff",
+      "offset": 519813541,
+      "compressed": 2214869,
+      "size": 2906560,
+      "crc": 1823095504,
+      "sha256": "eecae3b27fa78faa7091d2e399aaf7beadd883bb681be688f603b00c6ae25f0b"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/052.tiff",
+      "offset": 522028552,
+      "compressed": 2212573,
+      "size": 2906560,
+      "crc": 3240043204,
+      "sha256": "69c36bc8fa494dfaf1a0a4dfd46f85a47b5da05bbac8cd0c6ebd22acd6269698"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/053.tiff",
+      "offset": 524241267,
+      "compressed": 2212517,
+      "size": 2906560,
+      "crc": 2229671157,
+      "sha256": "32bfac1ade51ad3924db2268f73d93fb2a351bc0d53ff4ac1d266f5858102b42"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/054.tiff",
+      "offset": 526453926,
+      "compressed": 2212542,
+      "size": 2906560,
+      "crc": 1053355785,
+      "sha256": "d24daff10ed22c74ce2b33791e032d70accb53e346db2de5d3f428297b946717"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/055.tiff",
+      "offset": 528666610,
+      "compressed": 2211577,
+      "size": 2906560,
+      "crc": 4087017994,
+      "sha256": "7022e35934647c49dbd543efae83dd2764a528a28a2b7d8b05e92391d8ea9c23"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/056.tiff",
+      "offset": 530878329,
+      "compressed": 2212320,
+      "size": 2906560,
+      "crc": 149280209,
+      "sha256": "729b16516930e8e1392144a55cfd319804520dc138c4d232c28cfd9c8a3a5bf6"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/057.tiff",
+      "offset": 533090791,
+      "compressed": 2274763,
+      "size": 2906560,
+      "crc": 3991078522,
+      "sha256": "4c494b43769f5fa2bbb592892b871ed9f7f190cf2730d78cdd89a622527bb917"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/058.tiff",
+      "offset": 535365696,
+      "compressed": 2272478,
+      "size": 2906560,
+      "crc": 2648654025,
+      "sha256": "e42454067786fe9c2882ee701f7b4ea828f8ad1d94408b28586a2f6e427de0f7"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/059.tiff",
+      "offset": 537638316,
+      "compressed": 2273381,
+      "size": 2906560,
+      "crc": 377935958,
+      "sha256": "144732b1947cdc46318c2b89b9aaa7a1b4dfea96ddf9d1d78be250e9058830da"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/060.tiff",
+      "offset": 539911839,
+      "compressed": 2247000,
+      "size": 2906560,
+      "crc": 356837031,
+      "sha256": "c13d8ef640267d917c4ec50600083cc7c062749c576045ed34caada3134ae6d2"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/061.tiff",
+      "offset": 542158981,
+      "compressed": 2244021,
+      "size": 2906560,
+      "crc": 4286542313,
+      "sha256": "0fe476869cda09dfb2511f664a7add509e31c49f5ac9b4d695e5aa12fcee7d05"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/062.tiff",
+      "offset": 544403144,
+      "compressed": 2242235,
+      "size": 2906560,
+      "crc": 3876871939,
+      "sha256": "2ec6ac58c5d49159f998e4cff744e3a160852974c8dd58bc9e884b20dd980e25"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/063.tiff",
+      "offset": 546645521,
+      "compressed": 2214971,
+      "size": 2906560,
+      "crc": 1946823424,
+      "sha256": "be616afdf0e3efab2b0456e436835250314f7d27b327f7ce735e1738c5e35632"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/064.tiff",
+      "offset": 548860634,
+      "compressed": 2213278,
+      "size": 2906560,
+      "crc": 4252332107,
+      "sha256": "b936519fb383d86aca05176f0c0c56baf047f8f699fbe0f62d66da7d87e47e31"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/065.tiff",
+      "offset": 551074054,
+      "compressed": 2212632,
+      "size": 2906560,
+      "crc": 3379015968,
+      "sha256": "76556ef9f75323165ea80b255b36e30ed817e3ed45312aa394d2e794f64a8167"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/066.tiff",
+      "offset": 553286828,
+      "compressed": 2275603,
+      "size": 2906560,
+      "crc": 2164527431,
+      "sha256": "5fa0714ac07213c582a92be431adde876ef22aef7928ab579d731610c8678c65"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/067.tiff",
+      "offset": 555562573,
+      "compressed": 2270707,
+      "size": 2906560,
+      "crc": 211309638,
+      "sha256": "e6857c04c204ec58c640242d814e82d47a8a971165b07689950ad8cc2a0ade41"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/068.tiff",
+      "offset": 557833422,
+      "compressed": 2265735,
+      "size": 2906560,
+      "crc": 383448271,
+      "sha256": "98607529739305a573a98a20f5e1880bc430778b943389bb67bf64e495dd1cf7"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/069.tiff",
+      "offset": 560099299,
+      "compressed": 2296456,
+      "size": 2906560,
+      "crc": 4210188953,
+      "sha256": "eec6a64ad2be3d8cc93636dc55f7668a0afd43325300ed7292fadff4cf8c065b"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/070.tiff",
+      "offset": 562395897,
+      "compressed": 2296727,
+      "size": 2906560,
+      "crc": 2064587949,
+      "sha256": "a3d38008d6d6714e302bf104cfd275c82bedbc8d293415ddf2ffcdb6a73d3161"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/071.tiff",
+      "offset": 564692766,
+      "compressed": 2298666,
+      "size": 2906560,
+      "crc": 2137526841,
+      "sha256": "04be693a8595a7740f0f8eca9add82760d92bb4d162a3b084a6f22a555ee3f6c"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/072.tiff",
+      "offset": 566991574,
+      "compressed": 2223096,
+      "size": 2906560,
+      "crc": 3224664588,
+      "sha256": "76c8cafa1d1ef10afde8c1e1be2fb723ede09a19bc20c9c90d4d1f0ac55a4f76"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/073.tiff",
+      "offset": 569214812,
+      "compressed": 2224117,
+      "size": 2906560,
+      "crc": 1246194339,
+      "sha256": "e052e41df178e4c276ee9f09c0999bc67e850ef7cb146e32c807ebd694731dd6"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone/074.tiff",
+      "offset": 571439071,
+      "compressed": 2222508,
+      "size": 2906560,
+      "crc": 1669840952,
+      "sha256": "aef75465fe6274a5df9844e67b67f76fbf5270c66d47739d179b49d516f118e1"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/000.tiff",
+      "offset": 573661844,
+      "compressed": 6032,
+      "size": 1453590,
+      "crc": 3062203837,
+      "sha256": "b20b7d4f841553fac1d12bbbd12d4098ff921a858f2aa33e0a7d971b4767afe7"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/001.tiff",
+      "offset": 573668023,
+      "compressed": 5971,
+      "size": 1453590,
+      "crc": 2066479262,
+      "sha256": "d498a1e3067e87b0a207306a106ad5e43cc1c6cc1a8b7201eb1a6b441ff8d49a"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/002.tiff",
+      "offset": 573674141,
+      "compressed": 5904,
+      "size": 1453590,
+      "crc": 1793090731,
+      "sha256": "f8dbd3fca46d2d0703967f79a5d295d09deaf8a94386affb1ee65cd211b51417"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/003.tiff",
+      "offset": 573680192,
+      "compressed": 5400,
+      "size": 1453590,
+      "crc": 1249291621,
+      "sha256": "650c1843130d01b5a3d6cb4c81bece1035270dcedbab48c6fa55696739627f91"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/004.tiff",
+      "offset": 573685739,
+      "compressed": 5523,
+      "size": 1453590,
+      "crc": 329701157,
+      "sha256": "f68e9c1575c44ec3a81bfcabb17675c4c9e4da4919466b91184a7d8433938bf4"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/005.tiff",
+      "offset": 573691409,
+      "compressed": 5518,
+      "size": 1453590,
+      "crc": 1144198131,
+      "sha256": "cf062c58fd893445668d3ba8f5ad2279d18f69fe45402688d252e811dea946b4"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/006.tiff",
+      "offset": 573697074,
+      "compressed": 6339,
+      "size": 1453590,
+      "crc": 4225030773,
+      "sha256": "2513596d67b1636618ec801af6e8fd4884bb8be39c8c48d09710204a903d0ac1"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/007.tiff",
+      "offset": 573703560,
+      "compressed": 6273,
+      "size": 1453590,
+      "crc": 1657619621,
+      "sha256": "6d676b0f05c7d03723965a8c74e36cb8b362d047cfd99366dae798613daad74a"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/008.tiff",
+      "offset": 573709980,
+      "compressed": 6307,
+      "size": 1453590,
+      "crc": 2824627139,
+      "sha256": "d88378b20f63fa4182314c2e635939ae1181240800e224feb781c235949cb3a0"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/009.tiff",
+      "offset": 573716434,
+      "compressed": 6659,
+      "size": 1453590,
+      "crc": 881984867,
+      "sha256": "716ab389b641cd323061ac573b5b20550904998ef1a264fdbfd39d836d1c3c76"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/010.tiff",
+      "offset": 573723240,
+      "compressed": 6553,
+      "size": 1453590,
+      "crc": 647406115,
+      "sha256": "07ed6d37b7f8ed2bff4043ff63d329c18dcb83d5ebd4152e04af57e19da31c15"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/011.tiff",
+      "offset": 573729940,
+      "compressed": 6615,
+      "size": 1453590,
+      "crc": 1130856852,
+      "sha256": "3973e34e51d6d8d3c46d12cbbe6000faa68ee3dbcd29bb5f39e6138787fb8ac9"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/012.tiff",
+      "offset": 573736702,
+      "compressed": 6696,
+      "size": 1453590,
+      "crc": 522351377,
+      "sha256": "7d7eca95b606a0b7da378fa0b2af1ab340f5d10e35c3e41243005d053611e968"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/013.tiff",
+      "offset": 573743545,
+      "compressed": 6761,
+      "size": 1453590,
+      "crc": 3058036651,
+      "sha256": "3629639275ee792295ab80b8e426ccd123ccf5b7df13f939d2bf9498665df685"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/014.tiff",
+      "offset": 573750453,
+      "compressed": 6743,
+      "size": 1453590,
+      "crc": 2904038950,
+      "sha256": "af2fae0742e5ba01eaeff1de782d5763b3dd2f6610236b22bb0faaff6c3e6759"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/015.tiff",
+      "offset": 573757343,
+      "compressed": 5505,
+      "size": 1453590,
+      "crc": 1052628807,
+      "sha256": "ce05d24abac20db5310b1d666f80134f1d827afa4dab87f015498b471530aceb"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/016.tiff",
+      "offset": 573762995,
+      "compressed": 5454,
+      "size": 1453590,
+      "crc": 3127370374,
+      "sha256": "35965ddfb3f443da50ae56dbc45f3b2ad9648be9cb838db2092505d14018b0f5"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/017.tiff",
+      "offset": 573768596,
+      "compressed": 5535,
+      "size": 1453590,
+      "crc": 927956402,
+      "sha256": "791446bbed4bd5e136f68ddebf87eaa36573482b639994a312ef6f17b568feb4"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/018.tiff",
+      "offset": 573774278,
+      "compressed": 5643,
+      "size": 1453590,
+      "crc": 255221648,
+      "sha256": "34798a021b384bb0250dfefcbc10a3a7a253794d39f8a62d1bbf766209f343bb"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/019.tiff",
+      "offset": 573780068,
+      "compressed": 5618,
+      "size": 1453590,
+      "crc": 2642623385,
+      "sha256": "7f0990b2bb77efaf5f0e1d71dfebd26623934ab2979306986790715aafa6d63b"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/020.tiff",
+      "offset": 573785833,
+      "compressed": 5638,
+      "size": 1453590,
+      "crc": 3407089104,
+      "sha256": "5a06ea249808a19701635afb3db3403561ee704690575651a7e86d9c249fce9a"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/021.tiff",
+      "offset": 573791618,
+      "compressed": 3360,
+      "size": 1453590,
+      "crc": 2672532221,
+      "sha256": "474044cf7cd2e373c38579c8124688a07575c107e4b4ca23b016444b16830a7d"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/022.tiff",
+      "offset": 573795125,
+      "compressed": 3349,
+      "size": 1453590,
+      "crc": 1858388297,
+      "sha256": "36cd9f1b6e2650648c8cbec3157f9216fafe5bfae18eff53d85275b7afa7ed28"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/023.tiff",
+      "offset": 573798621,
+      "compressed": 3301,
+      "size": 1453590,
+      "crc": 2614611973,
+      "sha256": "bcdf0c1a703e09113fa29a84fbf6501641e67bf45ab2afdd1a98d49433c4c327"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/024.tiff",
+      "offset": 573802069,
+      "compressed": 5330,
+      "size": 1453590,
+      "crc": 3421126595,
+      "sha256": "f6491d3c0e26d15fd1a2dbe71fb7308f17bca8f04811af6d441776178f1650f7"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/025.tiff",
+      "offset": 573807546,
+      "compressed": 5504,
+      "size": 1453590,
+      "crc": 3394391259,
+      "sha256": "40f1a3b29dbe0e539eca3f2cb9e55c207ea83227985234636ca683b0a54e3142"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/026.tiff",
+      "offset": 573813197,
+      "compressed": 5245,
+      "size": 1453590,
+      "crc": 4016438912,
+      "sha256": "9255b8f5481ec880899f8e6e5487c55cc8b59ea95ec6f2e0b5d286b56037e8be"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/027.tiff",
+      "offset": 573818589,
+      "compressed": 5062,
+      "size": 1453590,
+      "crc": 328662164,
+      "sha256": "a5f47271235fc4d3efff82a55fba8827671475a818db727c768712d626695808"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/028.tiff",
+      "offset": 573823798,
+      "compressed": 4993,
+      "size": 1453590,
+      "crc": 3933811554,
+      "sha256": "2e9c590b02ebf271f5ba2d5637afe8db30ec6aaf8f4885683ab230e079b38334"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/029.tiff",
+      "offset": 573828938,
+      "compressed": 5045,
+      "size": 1453590,
+      "crc": 2955863917,
+      "sha256": "3a97e039b3a38f42ecc5165f7e949b4d94b10ffecbdb4b1ca8ea24e577daadbf"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/030.tiff",
+      "offset": 573834130,
+      "compressed": 4393,
+      "size": 1453590,
+      "crc": 2150143896,
+      "sha256": "f8c9d709dfdbbe6b1aa753b0219d36faed650d711fcf96efef3c91985d4df6b6"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/031.tiff",
+      "offset": 573838670,
+      "compressed": 4492,
+      "size": 1453590,
+      "crc": 1800645027,
+      "sha256": "bbd4b1f50da00aa83125d7f4689c3b73c309b0c801f6ff8b19c5bfa925c17983"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/032.tiff",
+      "offset": 573843309,
+      "compressed": 4206,
+      "size": 1453590,
+      "crc": 1221704856,
+      "sha256": "136e35cf2e1074ca725dd82d6b51054507262e1e33ed789e12744050d5426834"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/033.tiff",
+      "offset": 573847662,
+      "compressed": 5522,
+      "size": 1453590,
+      "crc": 504412508,
+      "sha256": "476926eff5283239d8d4bcf2d31cf9c780283bd96dd737685e93276d2221fd68"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/034.tiff",
+      "offset": 573853331,
+      "compressed": 5481,
+      "size": 1453590,
+      "crc": 2554981198,
+      "sha256": "690006d169521e321c387dcdc10349aa1929d573345fa0b48c206800bf974dc9"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/035.tiff",
+      "offset": 573858959,
+      "compressed": 5523,
+      "size": 1453590,
+      "crc": 1444255846,
+      "sha256": "3a34c056f2dfe06a5000ca36b55b28bca1505408362b118a55930406548add16"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/036.tiff",
+      "offset": 573864629,
+      "compressed": 6317,
+      "size": 1453590,
+      "crc": 2446173363,
+      "sha256": "0fd1c7f64cfa465e192493a362b034972794a527239b5f46ca339120c8781aa6"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/037.tiff",
+      "offset": 573871093,
+      "compressed": 6194,
+      "size": 1453590,
+      "crc": 976041456,
+      "sha256": "7f1e6868747fa3680a92ea37d2117cc2c7a06b3001ad3550f96c74263ba5d3ba"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/038.tiff",
+      "offset": 573877434,
+      "compressed": 6228,
+      "size": 1453590,
+      "crc": 272483813,
+      "sha256": "b8478267edd18eee509217458138c9919477e6c477844c60d10c3a4fb2c68c1f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/039.tiff",
+      "offset": 573883809,
+      "compressed": 5723,
+      "size": 1453590,
+      "crc": 3631225875,
+      "sha256": "2aadd4838527b46de5dcd5bc6ae977b921f399e28de9be5fe418616343451668"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/040.tiff",
+      "offset": 573889679,
+      "compressed": 5660,
+      "size": 1453590,
+      "crc": 179810793,
+      "sha256": "39f4fed70411a919d45590b090e367bdc35966435cd1f8b5d5c20a372f0f2e74"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/041.tiff",
+      "offset": 573895486,
+      "compressed": 5636,
+      "size": 1453590,
+      "crc": 2743280872,
+      "sha256": "07b5b4279f4eabf7d503b1a67e4c0db2bb2dfa078935b702a963e20cd0f77bf5"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/042.tiff",
+      "offset": 573901269,
+      "compressed": 5212,
+      "size": 1453590,
+      "crc": 2513730706,
+      "sha256": "8a14aca9269ab395efe0e1b51bc0ace1a3f04ebb7db0d285711f1b9fa1e2dd4d"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/043.tiff",
+      "offset": 573906628,
+      "compressed": 5282,
+      "size": 1453590,
+      "crc": 164542990,
+      "sha256": "88381e3876989700ad1b2332ba1591b030aa388db99ee37e2d18e3dd3b95b942"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/044.tiff",
+      "offset": 573912057,
+      "compressed": 5162,
+      "size": 1453590,
+      "crc": 3908311230,
+      "sha256": "ca28ec4816071a5a03ebff63298d06d5f578f71036827beee60c3fe7c48d0309"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/045.tiff",
+      "offset": 573917366,
+      "compressed": 4818,
+      "size": 1453590,
+      "crc": 3127596070,
+      "sha256": "fb403d76b85c6574d72f2216c24a586e7343dafd93dc84f4adb81b8e3955a4f6"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/046.tiff",
+      "offset": 573922331,
+      "compressed": 4736,
+      "size": 1453590,
+      "crc": 1663873016,
+      "sha256": "079f7a9444c5a4ffdf297a2ba0c40561beb54ffb20f5933ae7e3a871df474f00"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/047.tiff",
+      "offset": 573927214,
+      "compressed": 4764,
+      "size": 1453590,
+      "crc": 1421104589,
+      "sha256": "46f8a9c9062747bb50a9332e5ffc85e90258103c1baa866e7f9743ecb1b03e3a"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/048.tiff",
+      "offset": 573932125,
+      "compressed": 6938,
+      "size": 1453590,
+      "crc": 3959986237,
+      "sha256": "fdd1fad3488b2e62843de7c8f42ab857c1728c92a788a212fdd929a1ac6d08fc"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/049.tiff",
+      "offset": 573939210,
+      "compressed": 6904,
+      "size": 1453590,
+      "crc": 227408142,
+      "sha256": "ddbbb228406639e756377e6ad196b77702547eb392058f10312e0964f8dbb9b6"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/050.tiff",
+      "offset": 573946261,
+      "compressed": 6833,
+      "size": 1453590,
+      "crc": 655988618,
+      "sha256": "64faa8645ae51f779f1e44483f0267c936a9f6150392997420c7f3f6f37fcc8e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/051.tiff",
+      "offset": 573953241,
+      "compressed": 5825,
+      "size": 1453590,
+      "crc": 627468335,
+      "sha256": "f3178f97006c8ba7aced553cca76d6349b9286ce3334c625417389e6d2fc8b7e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/052.tiff",
+      "offset": 573959213,
+      "compressed": 5783,
+      "size": 1453590,
+      "crc": 3966543189,
+      "sha256": "609bc9d28ed7e0e6637db0c32c53c0532ecacb70905eb52fb5678c59f433291b"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/053.tiff",
+      "offset": 573965143,
+      "compressed": 5800,
+      "size": 1453590,
+      "crc": 1769999650,
+      "sha256": "99368a0aba8e1c5115cfd44242f54870bc95cc966000202f9b49c690fd587dd6"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/054.tiff",
+      "offset": 573971090,
+      "compressed": 4274,
+      "size": 1453590,
+      "crc": 2300992542,
+      "sha256": "54763bb43a02d19817fa500a16394cc73d220fe4e0655cd67c77aacc8d348bf2"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/055.tiff",
+      "offset": 573975511,
+      "compressed": 4260,
+      "size": 1453590,
+      "crc": 975512931,
+      "sha256": "d458eadd2ef688bcef65d92fa530247248ffdbdf10a8900ec60d50e36840a176"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/056.tiff",
+      "offset": 573979918,
+      "compressed": 4240,
+      "size": 1453590,
+      "crc": 2779783499,
+      "sha256": "dadc8d273b42d23e526316df1d08a920e3f5caf06b1db0864c6cb329735040c6"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/057.tiff",
+      "offset": 573984305,
+      "compressed": 5561,
+      "size": 1453590,
+      "crc": 3180916087,
+      "sha256": "1ccc506c223cf95c46b957a680621501377d9165f9534356419aa9924cbde87c"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/058.tiff",
+      "offset": 573990013,
+      "compressed": 5602,
+      "size": 1453590,
+      "crc": 1150666582,
+      "sha256": "ea2b80043d1990a2d7cdebf81e5711554e843aa3b795aa4cffef79dbf3fb675c"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/059.tiff",
+      "offset": 573995762,
+      "compressed": 5722,
+      "size": 1453590,
+      "crc": 1247519002,
+      "sha256": "17c43abee6b0f7467e7fe33b94fb89e2eae61393147855f639258a4c1399584b"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/060.tiff",
+      "offset": 574001631,
+      "compressed": 5024,
+      "size": 1453590,
+      "crc": 1376352493,
+      "sha256": "4a6e06ccd3a4c6440277d105de0b6f70471e6070574b9e19492d5d2b0b2e1b62"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/061.tiff",
+      "offset": 574006802,
+      "compressed": 5062,
+      "size": 1453590,
+      "crc": 224916874,
+      "sha256": "0b0652df98a0083bc4c516b3592058915aad4fe066d76c1b4a1137bd823ecd78"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/062.tiff",
+      "offset": 574012011,
+      "compressed": 5061,
+      "size": 1453590,
+      "crc": 1018023952,
+      "sha256": "ac915593fac564837ce6cfd0a8bc60b7d30640837ec66a6417e82e142bb0f7cf"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/063.tiff",
+      "offset": 574017219,
+      "compressed": 4432,
+      "size": 1453590,
+      "crc": 532384981,
+      "sha256": "720454bcfe2ed5e83d449f233a59d0a18cde651ddaca5d7e3dcadd67d885eb2f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/064.tiff",
+      "offset": 574021798,
+      "compressed": 4408,
+      "size": 1453590,
+      "crc": 2739413273,
+      "sha256": "e92ac65d2049de022afecd6d8302273cd8620f2bd7441c61c71eb9c42c0f815b"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/065.tiff",
+      "offset": 574026353,
+      "compressed": 4338,
+      "size": 1453590,
+      "crc": 3908863970,
+      "sha256": "16f2d1a2b6843a781469f79b7f0c02363b0efc1d326591bcd99457c8fc01a6be"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/066.tiff",
+      "offset": 574030838,
+      "compressed": 4920,
+      "size": 1453590,
+      "crc": 137514966,
+      "sha256": "6cc7080ba4734650770a10a7fd496aa047834f28e76b1b1e3931dfb2ee558db9"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/067.tiff",
+      "offset": 574035905,
+      "compressed": 4826,
+      "size": 1453590,
+      "crc": 3939876394,
+      "sha256": "d2c9b8dfe2f5e93c8e65b326e1670c97953507e1988691b3996c641a324e9024"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/068.tiff",
+      "offset": 574040878,
+      "compressed": 4700,
+      "size": 1453590,
+      "crc": 3851203531,
+      "sha256": "f6c972df2512f19e429b4126f5eb0bf2810fa4d963baf04d38831cab3a9ef0ee"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/069.tiff",
+      "offset": 574045725,
+      "compressed": 6629,
+      "size": 1453590,
+      "crc": 490804596,
+      "sha256": "f649762cb553a09ece867a1271364825c77e345e3420dddde326991181aa118f"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/070.tiff",
+      "offset": 574052501,
+      "compressed": 6643,
+      "size": 1453590,
+      "crc": 4292756233,
+      "sha256": "f6e72468a2cdf00aba9a8234bf400f41726d15d215074ec7f7bfc63043eae26e"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/071.tiff",
+      "offset": 574059291,
+      "compressed": 6643,
+      "size": 1453590,
+      "crc": 3678511243,
+      "sha256": "30bcc96bda2823f1822fd719bbbffc9bf00b42818194978f135592a6ffb89278"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/072.tiff",
+      "offset": 574066081,
+      "compressed": 4755,
+      "size": 1453590,
+      "crc": 158023431,
+      "sha256": "961b19affee52054380bc595db72225876c5528d4eac61e7708607f8f6456800"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/073.tiff",
+      "offset": 574070983,
+      "compressed": 4736,
+      "size": 1453590,
+      "crc": 356983729,
+      "sha256": "cf57bb6a676ea3623e097ad812503075112d50152f0d8da7e8396557871f0b4a"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone_segm/074.tiff",
+      "offset": 574075866,
+      "compressed": 4856,
+      "size": 1453590,
+      "crc": 3722089088,
+      "sha256": "3159c59c99163c5f0e7153c199f945e2fc29be3822989600082f58d99a6cd982"
+    },
+    {
+      "name": "Submission/Dataset #1/40kV_40W_100ms_10avg/test/RibBone.csv",
+      "offset": 574080869,
+      "compressed": 893,
+      "size": 2402,
+      "crc": 455655149,
+      "sha256": "0e78398370156649a2cd26b7c05d3503000f67da0a970a97af6b5b835f81d404"
+    }
+  ]
+}

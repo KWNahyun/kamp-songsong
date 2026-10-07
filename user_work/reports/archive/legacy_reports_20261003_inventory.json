@@ -1,0 +1,114 @@
+[
+  {
+    "original": "/home/viplab/contest/아키텍처_가설_재설계_보고서.md",
+    "archive": "/home/viplab/contest/reports/archive/legacy_reports_20261003/아키텍처_가설_재설계_보고서.md",
+    "original_sha256": "acf685397792c90d3932318457e779ac56e72944d03314052777a86780cd4a42",
+    "archive_sha256": "50dd1b064c3ac34b929d6b8f031fa0f03145d72c4715ee9553fa539c7fecf299",
+    "note": "Historical content preserved; relative Markdown link destinations rebased"
+  },
+  {
+    "original": "/home/viplab/contest/GT_일관성_예측정렬_및_후보선택_진단.md",
+    "archive": "/home/viplab/contest/reports/archive/legacy_reports_20261003/GT_일관성_예측정렬_및_후보선택_진단.md",
+    "original_sha256": "21f708fa537e318fe07ccdcdd1a524bf9f78841f0de2bb0dc461f6e13e4a6a00",
+    "archive_sha256": "dcdbe9899a918927c9399607a549b62dd839ffa996d67d067b0a9d242f7a405a",
+    "note": "Historical content preserved; relative Markdown link destinations rebased"
+  },
+  {
+    "original": "/home/viplab/contest/새_데이터_v2_후보_상대품질_진단.md",
+    "archive": "/home/viplab/contest/reports/archive/legacy_reports_20261003/새_데이터_v2_후보_상대품질_진단.md",
+    "original_sha256": "67c10ae35107b8c57d0bf85c33a6d372ee69908a186edfdbda4a385449f9d5c3",
+    "archive_sha256": "33a42fb4b69255cb64474e91a326b7d9ab42c64f7248d1fde2caaae712125d36",
+    "note": "Historical content preserved; relative Markdown link destinations rebased"
+  },
+  {
+    "original": "/home/viplab/contest/P2_결과_해석과_다음_설계_보고서.md",
+    "archive": "/home/viplab/contest/reports/archive/legacy_reports_20261003/P2_결과_해석과_다음_설계_보고서.md",
+    "original_sha256": "63e619b46c49165cb544bfe9447bfe2824bcf365c3bfb16f112c040d941e6890",
+    "archive_sha256": "0c08d554a4935f62871621a3644e24c16e39738f1452c1270779476e391dc776",
+    "note": "Historical content preserved; relative Markdown link destinations rebased"
+  },
+  {
+    "original": "/home/viplab/contest/Ablation_v3_결과분석_및_다음단계.md",
+    "archive": "/home/viplab/contest/reports/archive/legacy_reports_20261003/Ablation_v3_결과분석_및_다음단계.md",
+    "original_sha256": "edf0a44faa6eea905ad583860b5edd1aaf852d54140af20cb81027195c60c6ea",
+    "archive_sha256": "5845aa1190198fa5795219ab92080527b1a90031e2f1792fa4da2303944f2119",
+    "note": "Historical content preserved; relative Markdown link destinations rebased"
+  },
+  {
+    "original": "/home/viplab/contest/Detector_아키텍처_선행연구_분석_보고서.md",
+    "archive": "/home/viplab/contest/reports/archive/legacy_reports_20261003/Detector_아키텍처_선행연구_분석_보고서.md",
+    "original_sha256": "a936e242178c55b3a1a622391cdd2f2708051ff7fcacb7c139ea8c05c428c7ba",
+    "archive_sha256": "ade3253661ded481c5b63dc0b9717e9ea3b79b285cf9355db85a3206b3b39810",
+    "note": "Historical content preserved; relative Markdown link destinations rebased"
+  },
+  {
+    "original": "/home/viplab/contest/임시_전처리_P2_Ablation_실험_보고서.md",
+    "archive": "/home/viplab/contest/reports/archive/legacy_reports_20261003/임시_전처리_P2_Ablation_실험_보고서.md",
+    "original_sha256": "c7be809cc5dcc89356afeaa535aed9f3cd6e7a2a2a34aa8c8f4a086193159ea9",
+    "archive_sha256": "eff61884679ac1d03ea6d7cee1278fdb8b45921ee4483d137378bce336f99939",
+    "note": "Historical content preserved; relative Markdown link destinations rebased"
+  },
+  {
+    "original": "/home/viplab/contest/새_데이터_v2_기본모델_P2_결과_및_실패분석.md",
+    "archive": "/home/viplab/contest/reports/archive/legacy_reports_20261003/새_데이터_v2_기본모델_P2_결과_및_실패분석.md",
+    "original_sha256": "51de3d802a5e07045edf93ae5027a6eb24b2ad511f7a2e28cbbd77d7d7b4fe78",
+    "archive_sha256": "178ab4bc5a88e23b4eac1b50f0128f5f2f8a12ed5e8a79b786f419a9fc929a6f",
+    "note": "Historical content preserved; relative Markdown link destinations rebased"
+  },
+  {
+    "original": "/home/viplab/contest/후보_선택_진단_보고서.md",
+    "archive": "/home/viplab/contest/reports/archive/legacy_reports_20261003/후보_선택_진단_보고서.md",
+    "original_sha256": "7c3704230610354127c71d738cb00827b882381f63c19762245162f27e076074",
+    "archive_sha256": "519c6c11d9bad5fd49eba2903c576a9908054e384b3ff371c627525618f93d92",
+    "note": "Historical content preserved; relative Markdown link destinations rebased"
+  },
+  {
+    "original": "/home/viplab/contest/Ablation_v31_결과분석_및_다음단계.md",
+    "archive": "/home/viplab/contest/reports/archive/legacy_reports_20261003/Ablation_v31_결과분석_및_다음단계.md",
+    "original_sha256": "44b27b9366c6f4815c8b71efa74d9e0758afbfbbd15d86da27e1bea29ed07510",
+    "archive_sha256": "4345538a2ba83e141f3c7780a1520ff6b6dc757f2397a755c461b78c6af0ab9b",
+    "note": "Historical content preserved; relative Markdown link destinations rebased"
+  },
+  {
+    "original": "/home/viplab/contest/새_데이터_v2_UQ_교차비교_결과.md",
+    "archive": "/home/viplab/contest/reports/archive/legacy_reports_20261003/새_데이터_v2_UQ_교차비교_결과.md",
+    "original_sha256": "f74315989e33eb84945484e7a40d03121ebb8628a0c1e8d1c6c557b63e920182",
+    "archive_sha256": "0824587daae87e303220dcb01a6e2447c31d34b71389632d7f51c86299374888",
+    "note": "Historical content preserved; relative Markdown link destinations rebased"
+  },
+  {
+    "original": "/home/viplab/contest/제공_YOLOv3_코드_검토.md",
+    "archive": "/home/viplab/contest/reports/archive/legacy_reports_20261003/제공_YOLOv3_코드_검토.md",
+    "original_sha256": "86d128952364b508234dd9529a4d2511f75883df942b1ba6f7217a1b3d5c5328",
+    "archive_sha256": "0a25eab833b9184d6db199baa7f2570cffdc7f6772fa880a3ad600063adc49d6",
+    "note": "Historical content preserved; relative Markdown link destinations rebased"
+  },
+  {
+    "original": "/home/viplab/contest/경계_정제_및_쌍_선택_실험_보고서.md",
+    "archive": "/home/viplab/contest/reports/archive/legacy_reports_20261003/경계_정제_및_쌍_선택_실험_보고서.md",
+    "original_sha256": "688acbaeacec534a2c503a708ac03e090bd2eca3cc26d0474a3a0f09dac8a43c",
+    "archive_sha256": "ec7597314e71bc622d05f33e0eb62987cd9b77fa7e12584dd5a9752db5d0dff3",
+    "note": "Historical content preserved; relative Markdown link destinations rebased"
+  },
+  {
+    "original": "/home/viplab/contest/새_데이터_v2_어려운_후보선택_학습결과.md",
+    "archive": "/home/viplab/contest/reports/archive/legacy_reports_20261003/새_데이터_v2_어려운_후보선택_학습결과.md",
+    "original_sha256": "61f79d1788f6669a08e24cd60ca09dd56f89d926e7b3c1c104734eb4fb10ea2c",
+    "archive_sha256": "911ee883f1000e0fa8f938ad0bb014e0d1be1f130f1bbecf33cb0a2abd564200",
+    "note": "Historical content preserved; relative Markdown link destinations rebased"
+  },
+  {
+    "original": "/home/viplab/contest/상대_후보_품질_모듈_실험_보고서.md",
+    "archive": "/home/viplab/contest/reports/archive/legacy_reports_20261003/상대_후보_품질_모듈_실험_보고서.md",
+    "original_sha256": "cda56c3de6e1c49a064fb13d0772245e1d06795097ffce891ac97f1da6b8240f",
+    "archive_sha256": "07fb60f33e210278f922e6835922b529b62cd2c934fde575de8fbd73a88beb3f",
+    "note": "Historical content preserved; relative Markdown link destinations rebased"
+  },
+  {
+    "original": "/home/viplab/contest/새_데이터_v2_MAL_재검증_결과.md",
+    "archive": "/home/viplab/contest/reports/archive/legacy_reports_20261003/새_데이터_v2_MAL_재검증_결과.md",
+    "original_sha256": "f17a0e6b40020c8b7ae3c61e289e31c5c144ad36fc8c6f21e9330d588a4054a5",
+    "archive_sha256": "102f03d3532d03ece329728339349971c9be08f31cb4026667db52838713e703",
+    "note": "Historical content preserved; relative Markdown link destinations rebased"
+  }
+]

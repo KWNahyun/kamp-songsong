@@ -1,0 +1,22 @@
+{
+  "yolov8s": {
+    "delta_recall": -0.29577464788732394,
+    "conditional_date_bootstrap_95_percentile": [
+      -0.5897435897435898,
+      -0.19148936170212766
+    ],
+    "groups": 6,
+    "draws": 10000,
+    "limitation": "Thresholds and checkpoints fixed after val selection; not an unbiased confidence interval; 6 dates only."
+  },
+  "dfine_s": {
+    "delta_recall": 0.07746478873239436,
+    "conditional_date_bootstrap_95_percentile": [
+      0.013422818791946308,
+      0.4827586206896552
+    ],
+    "groups": 6,
+    "draws": 10000,
+    "limitation": "Thresholds and checkpoints fixed after val selection; not an unbiased confidence interval; 6 dates only."
+  }
+}

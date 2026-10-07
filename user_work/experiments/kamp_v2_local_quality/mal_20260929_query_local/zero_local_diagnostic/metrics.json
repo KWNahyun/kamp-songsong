@@ -1,0 +1,12 @@
+{
+  "base": "mal",
+  "seed": 20260929,
+  "mode": "zero_local_diagnostic",
+  "AP": 39.01904785843321,
+  "AP75": 20.049075526790936,
+  "TP_FP6": 141,
+  "old_precise": 57,
+  "new_precise": 57,
+  "improved": 0,
+  "worsened": 0
+}

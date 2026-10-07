@@ -1,0 +1,10 @@
+{
+  "package_copied_to_unrelated_temporary_directory": true,
+  "empty_PYTHONPATH": true,
+  "cwd_outside_project": true,
+  "sample": "001_20200629_082825(1).png",
+  "predictions_exact": true,
+  "original_dataset_read": true,
+  "existing_python_environment_used": true,
+  "new_environment_tested": false
+}

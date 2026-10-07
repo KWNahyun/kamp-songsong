@@ -1,0 +1,8 @@
+{
+  "runs": 9,
+  "test_used": false,
+  "report_update_pending": false,
+  "analysis_complete": true,
+  "automation_deleted": true,
+  "decision": "retain existing baseline; stop ambiguity model search"
+}

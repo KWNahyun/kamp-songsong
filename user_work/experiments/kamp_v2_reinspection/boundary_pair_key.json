@@ -1,0 +1,70 @@
+{
+  "pairs": [
+    {
+      "failure_gt": 110,
+      "success_gt": 106,
+      "center_distance": 8.062257748298656,
+      "time_seconds": 3.0,
+      "group": "M3_20200629"
+    },
+    {
+      "failure_gt": 136,
+      "success_gt": 135,
+      "center_distance": 4.716990566028332,
+      "time_seconds": 4.0,
+      "group": "M3_20200727"
+    },
+    {
+      "failure_gt": 143,
+      "success_gt": 144,
+      "center_distance": 18.069310999592624,
+      "time_seconds": 3.0,
+      "group": "M3_20200922"
+    }
+  ],
+  "key": [
+    {
+      "pair": 1,
+      "side": "A",
+      "gt_id": 106,
+      "status": "all3_success",
+      "stem": "001_20200629_082831(0)"
+    },
+    {
+      "pair": 1,
+      "side": "B",
+      "gt_id": 110,
+      "status": "repeat_failure",
+      "stem": "001_20200629_082834(2)"
+    },
+    {
+      "pair": 2,
+      "side": "A",
+      "gt_id": 136,
+      "status": "repeat_failure",
+      "stem": "001_20200727_204958(2)"
+    },
+    {
+      "pair": 2,
+      "side": "B",
+      "gt_id": 135,
+      "status": "all3_success",
+      "stem": "001_20200727_204954(7)"
+    },
+    {
+      "pair": 3,
+      "side": "A",
+      "gt_id": 143,
+      "status": "repeat_failure",
+      "stem": "001_20200922_163332(2)"
+    },
+    {
+      "pair": 3,
+      "side": "B",
+      "gt_id": 144,
+      "status": "all3_success",
+      "stem": "001_20200922_163335(3)"
+    }
+  ],
+  "scope": "review material only; no independent human adjudication performed"
+}

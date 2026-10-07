@@ -1,0 +1,200 @@
+[
+  {
+    "base": "base",
+    "seed": 20260929,
+    "mode": "quality",
+    "hard_pair_accuracy": 0.6303906644701804,
+    "images_with_hard_pairs": 64,
+    "quality_only_precise": 47,
+    "quality_only_changed": 92,
+    "quality_only_improved": 44,
+    "quality_only_worsened": 48
+  },
+  {
+    "base": "base",
+    "seed": 20260929,
+    "mode": "hard_pair",
+    "hard_pair_accuracy": 0.6417280782483992,
+    "images_with_hard_pairs": 64,
+    "quality_only_precise": 46,
+    "quality_only_changed": 64,
+    "quality_only_improved": 32,
+    "quality_only_worsened": 32
+  },
+  {
+    "base": "base",
+    "seed": 20260929,
+    "mode": "listwise",
+    "hard_pair_accuracy": 0.6221163237012419,
+    "images_with_hard_pairs": 64,
+    "quality_only_precise": 51,
+    "quality_only_changed": 42,
+    "quality_only_improved": 23,
+    "quality_only_worsened": 19
+  },
+  {
+    "base": "base",
+    "seed": 20260930,
+    "mode": "quality",
+    "hard_pair_accuracy": 0.5924791530280046,
+    "images_with_hard_pairs": 64,
+    "quality_only_precise": 55,
+    "quality_only_changed": 101,
+    "quality_only_improved": 51,
+    "quality_only_worsened": 50
+  },
+  {
+    "base": "base",
+    "seed": 20260930,
+    "mode": "hard_pair",
+    "hard_pair_accuracy": 0.602766616774564,
+    "images_with_hard_pairs": 64,
+    "quality_only_precise": 48,
+    "quality_only_changed": 28,
+    "quality_only_improved": 18,
+    "quality_only_worsened": 10
+  },
+  {
+    "base": "base",
+    "seed": 20260930,
+    "mode": "listwise",
+    "hard_pair_accuracy": 0.603802000235102,
+    "images_with_hard_pairs": 64,
+    "quality_only_precise": 49,
+    "quality_only_changed": 68,
+    "quality_only_improved": 39,
+    "quality_only_worsened": 29
+  },
+  {
+    "base": "base",
+    "seed": 20261001,
+    "mode": "quality",
+    "hard_pair_accuracy": 0.6363620360468423,
+    "images_with_hard_pairs": 65,
+    "quality_only_precise": 54,
+    "quality_only_changed": 98,
+    "quality_only_improved": 55,
+    "quality_only_worsened": 43
+  },
+  {
+    "base": "base",
+    "seed": 20261001,
+    "mode": "hard_pair",
+    "hard_pair_accuracy": 0.6566342658651549,
+    "images_with_hard_pairs": 65,
+    "quality_only_precise": 55,
+    "quality_only_changed": 27,
+    "quality_only_improved": 14,
+    "quality_only_worsened": 13
+  },
+  {
+    "base": "base",
+    "seed": 20261001,
+    "mode": "listwise",
+    "hard_pair_accuracy": 0.644963835741079,
+    "images_with_hard_pairs": 65,
+    "quality_only_precise": 56,
+    "quality_only_changed": 44,
+    "quality_only_improved": 23,
+    "quality_only_worsened": 21
+  },
+  {
+    "base": "mal",
+    "seed": 20260929,
+    "mode": "quality",
+    "hard_pair_accuracy": 0.6698878581550587,
+    "images_with_hard_pairs": 64,
+    "quality_only_precise": 53,
+    "quality_only_changed": 58,
+    "quality_only_improved": 20,
+    "quality_only_worsened": 38
+  },
+  {
+    "base": "mal",
+    "seed": 20260929,
+    "mode": "hard_pair",
+    "hard_pair_accuracy": 0.6588919359886721,
+    "images_with_hard_pairs": 64,
+    "quality_only_precise": 55,
+    "quality_only_changed": 50,
+    "quality_only_improved": 21,
+    "quality_only_worsened": 29
+  },
+  {
+    "base": "mal",
+    "seed": 20260929,
+    "mode": "listwise",
+    "hard_pair_accuracy": 0.6726501514855463,
+    "images_with_hard_pairs": 64,
+    "quality_only_precise": 51,
+    "quality_only_changed": 54,
+    "quality_only_improved": 19,
+    "quality_only_worsened": 35
+  },
+  {
+    "base": "mal",
+    "seed": 20260930,
+    "mode": "quality",
+    "hard_pair_accuracy": 0.5919745423503164,
+    "images_with_hard_pairs": 65,
+    "quality_only_precise": 51,
+    "quality_only_changed": 75,
+    "quality_only_improved": 31,
+    "quality_only_worsened": 44
+  },
+  {
+    "base": "mal",
+    "seed": 20260930,
+    "mode": "hard_pair",
+    "hard_pair_accuracy": 0.6117501187356672,
+    "images_with_hard_pairs": 65,
+    "quality_only_precise": 51,
+    "quality_only_changed": 9,
+    "quality_only_improved": 3,
+    "quality_only_worsened": 6
+  },
+  {
+    "base": "mal",
+    "seed": 20260930,
+    "mode": "listwise",
+    "hard_pair_accuracy": 0.5966344315993506,
+    "images_with_hard_pairs": 65,
+    "quality_only_precise": 44,
+    "quality_only_changed": 85,
+    "quality_only_improved": 33,
+    "quality_only_worsened": 52
+  },
+  {
+    "base": "mal",
+    "seed": 20261001,
+    "mode": "quality",
+    "hard_pair_accuracy": 0.6474435852496543,
+    "images_with_hard_pairs": 66,
+    "quality_only_precise": 48,
+    "quality_only_changed": 60,
+    "quality_only_improved": 20,
+    "quality_only_worsened": 40
+  },
+  {
+    "base": "mal",
+    "seed": 20261001,
+    "mode": "hard_pair",
+    "hard_pair_accuracy": 0.6644059827424291,
+    "images_with_hard_pairs": 66,
+    "quality_only_precise": 53,
+    "quality_only_changed": 58,
+    "quality_only_improved": 20,
+    "quality_only_worsened": 38
+  },
+  {
+    "base": "mal",
+    "seed": 20261001,
+    "mode": "listwise",
+    "hard_pair_accuracy": 0.6411669335205623,
+    "images_with_hard_pairs": 66,
+    "quality_only_precise": 49,
+    "quality_only_changed": 78,
+    "quality_only_improved": 21,
+    "quality_only_worsened": 57
+  }
+]

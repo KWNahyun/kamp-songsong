@@ -1,0 +1,15 @@
+{
+  "selected_unique_cases": 6,
+  "val_cases_three_seeds": 432,
+  "local_report_links_checked": 35,
+  "broken_links": [],
+  "test_used": false,
+  "new_training": false,
+  "display_pixel_extent": "[0,width] x [0,height]",
+  "interactive_checked": [
+    "initial image display",
+    "case selector",
+    "full-image view",
+    "GT toggle"
+  ]
+}

@@ -1,0 +1,119 @@
+[
+  {
+    "name": "dfine_G01_v31_seed20260929",
+    "variant": "G01",
+    "seed": 20260929,
+    "status": "pending",
+    "command": [
+      "/home/viplab/contest/.detector-venv/bin/python",
+      "/home/viplab/contest/experiments/kamp_ablation_v31/train.py",
+      "-c",
+      "/home/viplab/contest/experiments/kamp_ablation_v31/configs/dfine_G01_v31_seed20260929.yml",
+      "-t",
+      "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+      "--device",
+      "cuda:0",
+      "--seed",
+      "20260929"
+    ],
+    "loss_version": "relative_huber_v31"
+  },
+  {
+    "name": "dfine_GM01_v31_seed20260929",
+    "variant": "GM01",
+    "seed": 20260929,
+    "status": "pending",
+    "command": [
+      "/home/viplab/contest/.detector-venv/bin/python",
+      "/home/viplab/contest/experiments/kamp_ablation_v31/train.py",
+      "-c",
+      "/home/viplab/contest/experiments/kamp_ablation_v31/configs/dfine_GM01_v31_seed20260929.yml",
+      "-t",
+      "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+      "--device",
+      "cuda:0",
+      "--seed",
+      "20260929",
+      "--mal"
+    ],
+    "loss_version": "relative_huber_v31"
+  },
+  {
+    "name": "dfine_G01_v31_seed20260930",
+    "variant": "G01",
+    "seed": 20260930,
+    "status": "pending",
+    "command": [
+      "/home/viplab/contest/.detector-venv/bin/python",
+      "/home/viplab/contest/experiments/kamp_ablation_v31/train.py",
+      "-c",
+      "/home/viplab/contest/experiments/kamp_ablation_v31/configs/dfine_G01_v31_seed20260930.yml",
+      "-t",
+      "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+      "--device",
+      "cuda:0",
+      "--seed",
+      "20260930"
+    ],
+    "loss_version": "relative_huber_v31"
+  },
+  {
+    "name": "dfine_GM01_v31_seed20260930",
+    "variant": "GM01",
+    "seed": 20260930,
+    "status": "pending",
+    "command": [
+      "/home/viplab/contest/.detector-venv/bin/python",
+      "/home/viplab/contest/experiments/kamp_ablation_v31/train.py",
+      "-c",
+      "/home/viplab/contest/experiments/kamp_ablation_v31/configs/dfine_GM01_v31_seed20260930.yml",
+      "-t",
+      "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+      "--device",
+      "cuda:0",
+      "--seed",
+      "20260930",
+      "--mal"
+    ],
+    "loss_version": "relative_huber_v31"
+  },
+  {
+    "name": "dfine_G01_v31_seed20261001",
+    "variant": "G01",
+    "seed": 20261001,
+    "status": "pending",
+    "command": [
+      "/home/viplab/contest/.detector-venv/bin/python",
+      "/home/viplab/contest/experiments/kamp_ablation_v31/train.py",
+      "-c",
+      "/home/viplab/contest/experiments/kamp_ablation_v31/configs/dfine_G01_v31_seed20261001.yml",
+      "-t",
+      "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+      "--device",
+      "cuda:0",
+      "--seed",
+      "20261001"
+    ],
+    "loss_version": "relative_huber_v31"
+  },
+  {
+    "name": "dfine_GM01_v31_seed20261001",
+    "variant": "GM01",
+    "seed": 20261001,
+    "status": "pending",
+    "command": [
+      "/home/viplab/contest/.detector-venv/bin/python",
+      "/home/viplab/contest/experiments/kamp_ablation_v31/train.py",
+      "-c",
+      "/home/viplab/contest/experiments/kamp_ablation_v31/configs/dfine_GM01_v31_seed20261001.yml",
+      "-t",
+      "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+      "--device",
+      "cuda:0",
+      "--seed",
+      "20261001",
+      "--mal"
+    ],
+    "loss_version": "relative_huber_v31"
+  }
+]

@@ -1,0 +1,195 @@
+{
+  "original": "/home/viplab/contest/제출용_결과보고서_사용자담당.md",
+  "original_sha256": "2c7188caec226b2d418b589635da17e39b16683c5056e5400d72f93e92e06cba",
+  "edited": "/home/viplab/contest/제출용_결과보고서_사용자담당_가독성개선본.md",
+  "original_characters": 30837,
+  "edited_characters": 37020,
+  "new_experiments": false,
+  "source_unchanged": true,
+  "images": [
+    "final_project/figures/figure_01_sampling.png",
+    "final_project/figures/figure_05_ablation.png",
+    "final_project/figures/figure_07_method.png",
+    "final_project/figures/figure_08_ambiguity_control.png",
+    "final_project/figures/figure_04_cases.png",
+    "final_project/figures/figure_02_descriptors.png",
+    "final_project/figures/figure_03_condition_recall.png",
+    "final_project/figures/figure_06_froc.png",
+    "final_project/figures/figure_09_transfer.png",
+    "final_project/figures/figure_10_review.png",
+    "final_project/figures/figure_12_review_regions.png",
+    "final_project/figures/figure_13_review_interface.png",
+    "final_project/figures/figure_11_group_transfer.png"
+  ],
+  "markdown_relative_image_links_valid": true,
+  "browser_images_loaded": [
+    {
+      "src": "final_project/figures/figure_01_sampling.png",
+      "loaded": true
+    },
+    {
+      "src": "final_project/figures/figure_05_ablation.png",
+      "loaded": true
+    },
+    {
+      "src": "final_project/figures/figure_07_method.png",
+      "loaded": true
+    },
+    {
+      "src": "final_project/figures/figure_08_ambiguity_control.png",
+      "loaded": true
+    },
+    {
+      "src": "final_project/figures/figure_04_cases.png",
+      "loaded": true
+    },
+    {
+      "src": "final_project/figures/figure_02_descriptors.png",
+      "loaded": true
+    },
+    {
+      "src": "final_project/figures/figure_03_condition_recall.png",
+      "loaded": true
+    },
+    {
+      "src": "final_project/figures/figure_06_froc.png",
+      "loaded": true
+    },
+    {
+      "src": "final_project/figures/figure_09_transfer.png",
+      "loaded": true
+    },
+    {
+      "src": "final_project/figures/figure_10_review.png",
+      "loaded": true
+    },
+    {
+      "src": "final_project/figures/figure_12_review_regions.png",
+      "loaded": true
+    },
+    {
+      "src": "final_project/figures/figure_13_review_interface.png",
+      "loaded": true
+    },
+    {
+      "src": "final_project/figures/figure_11_group_transfer.png",
+      "loaded": true
+    }
+  ],
+  "browser_errors": [],
+  "chapter_summaries": 6,
+  "tables": 16,
+  "figures": 13,
+  "html_preview": "/home/viplab/contest/제출용_결과보고서_사용자담당_가독성개선본.html",
+  "numeric_tables_checked": 8,
+  "original_still_unchanged": true,
+  "chapter_introductions": 6,
+  "last_revision": {
+    "date": "2026-10-05",
+    "scope": "제출용 소제목을 문장형·질문형에서 짧은 명사형으로 정리",
+    "content": "본문 수치·해석·그림·표는 유지하고 2~8장의 소제목 표현만 명사형으로 다듬었으며 HTML 미리보기를 갱신했다.",
+    "html_synchronized": true,
+    "all_13_images_loaded_in_chrome": true,
+    "sequential_table_and_figure_numbers": true,
+    "original_submission_unchanged": true,
+    "bold_markup_pairs": 0,
+    "original_sha256_verified": true,
+    "image_link_count": 13,
+    "removed_internal_package_and_requirements_sections": true,
+    "validated_table_numbers": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16
+    ],
+    "validated_figure_numbers": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13
+    ],
+    "test": "Chrome confirmed all 13 embedded PNG images load; table and figure numbering is sequential.",
+    "sections_updated": "3–8",
+    "cpaa_first_use_defined": true,
+    "headings_only": true
+  },
+  "edited_sha256": "a7f8e9a13a67c9365f412c6b446c30e5a32982c2612883bd24033171c6e2ccd3",
+  "updated_sections": [
+    "3.1",
+    "3.2",
+    "3.3",
+    "3.4",
+    "4.1",
+    "4.2",
+    "4.3",
+    "4.4",
+    "4.5",
+    "4.6",
+    "5.1",
+    "5.2",
+    "6.1",
+    "6.2",
+    "6.3",
+    "8.1",
+    "8.2",
+    "8.3",
+    "8.4",
+    "8.5",
+    "references",
+    "HTML preview",
+    "Ch3-Ch8 readability revision"
+  ],
+  "figure_assets_updated": [
+    "figure_07_method",
+    "figure_08_ambiguity_control"
+  ],
+  "figures_png_links_valid": true,
+  "figure_07_has_png_pdf_svg": true,
+  "figure_08_has_png_pdf_svg": true,
+  "html_synchronized": true,
+  "figures_png_count": 13,
+  "markdown_figure_paths_exist": 13,
+  "all_13_images_loaded_in_chrome": true,
+  "sequential_table_and_figure_numbers": true,
+  "bold_markup_pairs": 0,
+  "internal_package_references_removed": true,
+  "requirements_mapping_removed": true,
+  "all_linked_images_exist": true,
+  "original_sha256_verified": true,
+  "new_metrics_or_conclusions": false,
+  "image_ordering_ch3_cases_immediately_after_intro": true,
+  "chapter4_onward_interpretations_expanded": true,
+  "references_venues_checked": [
+    "ECCV 2020",
+    "ICLR 2024",
+    "CPPA Symposium 2023",
+    "CVPR 2025",
+    "CVPR 2021",
+    "ICLR 2025",
+    "NeurIPS 2023",
+    "ICCV 2025",
+    "CVPR 2022"
+  ],
+  "updated_markdown_path": "/home/viplab/contest/제출용_결과보고서_사용자담당_가독성개선본.md"
+}

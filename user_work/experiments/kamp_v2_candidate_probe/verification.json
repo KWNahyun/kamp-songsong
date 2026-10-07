@@ -1,0 +1,50 @@
+[
+  {
+    "run": "dfine_base_UQ_seed20260929",
+    "val_identity_max": 0.0,
+    "train_gt": 797,
+    "val_gt": 144,
+    "feature_dim": 283,
+    "test_used": false
+  },
+  {
+    "run": "dfine_base_UQ_seed20260930",
+    "val_identity_max": 0.0,
+    "train_gt": 797,
+    "val_gt": 144,
+    "feature_dim": 283,
+    "test_used": false
+  },
+  {
+    "run": "dfine_base_UQ_seed20261001",
+    "val_identity_max": 0.0,
+    "train_gt": 797,
+    "val_gt": 144,
+    "feature_dim": 283,
+    "test_used": false
+  },
+  {
+    "run": "dfine_mal_UQ_seed20260929",
+    "val_identity_max": 0.0,
+    "train_gt": 797,
+    "val_gt": 144,
+    "feature_dim": 283,
+    "test_used": false
+  },
+  {
+    "run": "dfine_mal_UQ_seed20260930",
+    "val_identity_max": 0.0,
+    "train_gt": 797,
+    "val_gt": 144,
+    "feature_dim": 283,
+    "test_used": false
+  },
+  {
+    "run": "dfine_mal_UQ_seed20261001",
+    "val_identity_max": 0.0,
+    "train_gt": 797,
+    "val_gt": 144,
+    "feature_dim": 283,
+    "test_used": false
+  }
+]

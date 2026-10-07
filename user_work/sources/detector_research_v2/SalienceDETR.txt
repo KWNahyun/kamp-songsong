@@ -1,0 +1,664 @@
+                           This CVPR paper is the Open Access version, provided by the Computer Vision Foundation.
+                                        Except for this watermark, it is identical to the accepted version;
+                                  the final published version of the proceedings is available on IEEE Xplore.
+
+
+
+
+                           Salience DETR: Enhancing Detection Transformer
+                            with Hierarchical Salience Filtering Refinement
+
+                Xiuquan Hou1 , Meiqin Liu1,2, *, Senlin Zhang2 , Ping Wei1 , Badong Chen1
+                1
+             National Key Laboratory of Human-Machine Hybrid Augmented Intelligence,
+            National Engineering Research Center for Visual Information and Applications,
+      and Institute of Artificial Intelligence and Robotics, Xi’an Jiaotong University, Xi’an, China
+               2
+                 College of Electrical Engineering, Zhejiang University, Hangzhou, China
+                    xiuqhou@stu.xjtu.edu.cn, liumeiqin@zju.edu.cn, slzhang@zju.edu.cn,
+                               pingwei@mail.xjtu.edu.cn, chenbd@mail.xjtu.edu.cn
+
+
+
+                                                                           Topk 100 queries               Topk 300 queries            Topk 900 queries
+                           Abstract
+
+   DETR-like methods have significantly increased detec-
+tion performance in an end-to-end manner. The main-
+stream two-stage frameworks of them perform dense self-
+attention and select a fraction of queries for sparse cross-
+attention, which is proven effective for improving perfor-
+mance but also introduces a heavy computational burden
+and high dependence on stable query selection. This paper
+demonstrates that suboptimal two-stage selection strategies
+result in scale bias and redundancy due to the mismatch
+                                                                       Large objects      Small objects   Background query         Symmetrical query
+between selected queries and objects in two-stage initial-               Scale bias for large objects               Redundance in one-to-one match
+
+ization. To address these issues, we propose hierarchical
+                                                                   Figure 1. Visualization of selected queries in two-stage initializa-
+salience filtering refinement, which performs transformer
+                                                                   tion. Queries and object annotations are denoted in points and
+encoding only on filtered discriminative queries, for a bet-       bounding boxes respectively. The selection results illustrate scale
+ter trade-off between computational efficiency and preci-          bias and redundancy despite one-to-one Hungarian matching.
+sion. The filtering process overcomes scale bias through
+a novel scale-independent salience supervision. To com-
+pensate for the semantic misalignment among queries, we            manually-designed components such as non-maximum sup-
+introduce elaborate query refinement modules for stable            pression [3]. With the recent advent of DEtection TRans-
+two-stage initialization. Based on above improvements, the         former (DETR) [3], end-to-end transformer-based detectors
+proposed Salience DETR achieves significant improvements           have shown remarkable performance improvement in the
+of +4.0% AP, +0.2% AP, +4.4% AP on three challenging               COCO challenge [32, 38].
+task-specific detection datasets, as well as 49.2% AP on
+                                                                       Among the large number of variants of DETR, the latest
+COCO 2017 with less FLOPs. The code is available at
+                                                                   high-performance frameworks follow a two-stage pipeline
+https://github.com/xiuqhou/Salience-DETR.
+                                                                   that performs dense self-attention in the encoder and se-
+                                                                   lects sparse queries for cross attention in the decoder [6, 14,
+                                                                   19, 32, 34, 37, 38]. This does improve the detection per-
+1. Introduction                                                    formance but also results in increased computation and the
+Object detection is a fundamental task in computer vi-             requirement for stable two-stage query initialization [35].
+sion with numerous practical applications. Despite the             As shown in Figure 1, we observe that in task-specific de-
+significant advancements made by convolutional detectors           tection scenarios involving weak objects (e.g. small-scale
+[1, 21, 23, 24] in recent decades, they are still limited by       objects affected by scattering and low contrast [11]), ex-
+                                                                   isting two-stage selection results exhibit a significant scale
+  * Corresponding author                                           bias towards large objects and redundancy in background
+
+
+
+                                                               17574
+Table 1. Pre-ablation studies on query number of DINO on MSSD      ment among queries, we propose three elaborate modules to
+                                                                   refine queries from the perspectives of multi-scale features,
+ Two-stage queries   AP     AP50   AP75   APS    APM    APL
+                                                                   foreground-background differences and selection strategies.
+       300           49.0   78.1   49.0   19.6   28.8   43.3       Extensive experiments confirm the superior performance
+       600           49.4   79.3   48.7   18.9   46.5   43.8       and minimal computational cost of Salience DETR.
+       900           51.0   80.0   52.5   20.0   47.4   44.8
+
+                                                                   2. Related Work
+and symmetrical queries. This results in unsatisfactory per-       2.1. End-to-End detection transformer
+formance due to indiscriminative queries. So, what causes
+these issues and how can we mitigate them?                         DETR (DEtection TRansformer) proposed by Carion et al.
+    We attribute these issues to two types of redundancy           [3] treats detection as a set prediction task and supervises
+in the detection transformer: encoding redundancy and              the training with one-to-one matching through the Hun-
+selection redundancy. It is generally agreed that image            garian algorithm. Various works have been exploring the
+foreground contributes more discriminative features for de-        transformer-based detectors by accelerating training con-
+termining object categories and locations than background          vergence and improving detection performance [14, 19, 32,
+[15, 26, 35]. Therefore, performing self-attention on back-        34, 37, 38]. Deformable DETR [37] introduces a frame-
+ground queries may introduce irrelevant and indiscrimina-          work consisting of two-stage pipeline, deformable atten-
+tive information, which leads to the encoding redundancy.          tion, and multi-scale tokens that is instructive for subse-
+Table 1 shows that DETR-like methods can still benefit             quent DETR-like methods. Condition-DETR [22] focuses
+from more two-stage queries, even though the number of             on the extremities of objects through conditional spatial
+them has been much larger than that of actual objects. This        queries to address the slow convergence issue. Since the
+indicates that the queries selected for two-stage initializa-      queries in DETR have no explicit physical meanings, An-
+tion do not exactly match one-to-one with actual objects,          chor DETR [30] reintroduces the concepts of anchor query
+i.e. selection redundancy. These two redundancies result in        to guide the transformer to focus on specific region modes.
+a heavy computational burden as well as indiscriminative           DINO [34] integrates dynamic anchor [19] and contrast
+queries.                                                           denoising training [14] to construct a mainstream detec-
+    Numerous efforts have been made to mitigate redun-             tion framework and realizes the first state-of-the-art perfor-
+dant calculation and select discriminative queries. For            mance among DETR-like methods on COCO. Several re-
+instance, Deformable DETR [37] reduces the complex-                cent works focus on improving performance by incorporat-
+ity from quadratic to linear and explores multi-scale in-          ing training-only designs, such as group queries [6], hybrid
+formation usage through deformable attention with sparse           query matching [12] and IoU aware BCE loss [2], while
+reference points. Sparse DETR [26] and Focus DETR                  leaving the inference process unchanged. Most recently,
+[35] update only foreground queries for encoding efficiency        Co-DETR [38] introduces a versatile label assignment man-
+and achieve comparable precision with much fewer self-             ner that adds parallel auxiliary heads during training and
+attention queries. However, existing query filtering methods       achieves state-of-the-art performance on COCO [16].
+apply coarse-grained filtering directly to all tokens, disre-
+                                                                   2.2. Lightweight Detection Transformer
+garding the multi-scale characteristics where high-level to-
+kens embed more abstract semantics while requiring lower           Despite the promising performance of the transformer, its
+computation compared to low-level tokens [11, 15]. More-           high calculation complexity and memory cost hinder further
+over, scale independence is essential when evaluating query        applications. As a representative of attention lightweight-
+importance for unbiased query selection, while the above           ness, deformable attention [37] attends sparse spatial sam-
+methods select queries based on the foreground confidence,         plings to reduce the computational and memory complex-
+which may favor large-scale objects and result in a semantic       ity. Efficient-DETR [31] optimizes the structure to reduce
+imbalance. Consequently, query filtering becomes ambigu-           encoder and decoder layers while maintaining comparable
+ous and misleading.                                                performance. Recent works focus on reducing the num-
+    To tackle these challenges, this paper proposes a novel        ber of queries participating in self-attention in the encoder.
+detector with hierarchical salience filtering refinement,          In particular, Lite DETR [15] prioritizes high-level feature
+named Salience DETR. We introduce a salience-guided su-            updates to reduce the number of queries. PnP-DETR [29]
+pervision that is scale-independent to overcome the scale          compresses entire feature maps by abstracting them into a
+bias during query filtering. With the proposed supervi-            fine-grained vector and a coarse background vector. Sparse
+sion, a hierarchical query filtering mechanism is proposed         DETR [26] refines only the top-ρ% tokens for all encoder
+to mitigate encoding redundancy by encoding only selected          layers based on DAM results. Focus DETR [35] further
+queries. In order to compensate for the semantic misalign-         introduces the foreground token selector integrated with a
+
+
+
+                                                                17575
+                                       Encoder                                                                            3.3 Query Refinement                                                                                                                                                                                                               Decoder
+                                    Encoder Layer                    Encoder Layer
+
+                                Norm                FFN                                                                                                   Background embedding
+                                                                     Encoder Layer
+                                    Self Attention
+                                                                     Encoder Layer
+                              Background                Salience
+
+
+                                                                     Encoder Layer
+                                                                                                                                                         Cross-level token fusion
+    Level filtering                 Layer filtering
+                                                                     Encoder Layer
+     3.1 Salience                                                                                                                                                Redundancy removal
+     supervision                3.2 Hierarchical Filtering
+
+
+Figure 2. The architecture overview of Salience DETR. We design a hierarchical query filtering for selecting layer-wise and level-wise
+queries (Section 3.2) under salience-guided supervision (Section 3.1) to mitigate the scale bias in Figure 1. The semantic misalignment
+among queries is mitigated by query refinement modules (Section 3.3).
+
+
+                                                                                                       (i,j)
+cascade set to allocate attention to more informative tokens.             confidence θl    of the query is determined according to the
+However, most of the above methods directly integrate spar-               following rules:
+sity designs for all tokens while neglecting their multi-scale
+characteristics.
+                                                                                                    \label {eq:salience confidence} \theta _l^{(i,j)}=\left \{\begin {aligned} \textcolor {red}{d(\boldsymbol c, \mathcal D_{Bbox})}, &~\boldsymbol c\in \mathcal D_{Bbox} \\0~~~~~~~~, &~\boldsymbol c\not \in \mathcal D_{Bbox} \end {aligned} \right .         (1)
+    By contrast, our work performs fine-grained query fil-
+tering in both encoding layers and token levels with scale-
+independent salience supervision and semantic alignment,                  where DBbox = (x, y, w, h) denotes the ground truth boxes.
+to address the encoding and selection redundancy.                         We highlight the difference between our scale-independent
+                                                                          supervision and discrete foreground-background supervi-
+3. Salience DETR                                                          sion in red. The salience confidence is calculated through
+                                                                          the relative distance to object centers:
+As depicted in Figure 2, Salience DETR adopts the high-
+performance two-stage pipeline. The primary architec-
+tural difference between Salience DETR and mainstream                                  d(\boldsymbol c, \mathcal D_{Bbox})=1-\sqrt {2\left (\frac {\Delta x}w\right )^2+2\left (\frac {\Delta y}h\right )^2}                                                                                                                                                      (2)
+two-stage DETR-like methods resides in the transformer
+encoder and query refinement. Given multi-scale fea-                      where ∆x and ∆y denote the distance between queries and
+tures {f l }L
+            l=1 (L = 4) from the backbone, where f l ∈                    the center of the corresponding bounding boxes.
+RC×Hl ×Wl denotes the feature map downsampled at scale                       Figure 3 illustrates the comparison between salience su-
+sl , the encoder only updates queries selected by hierarchi-              pervision and discrete supervision. Rather than indistin-
+cal query filtering (Section 3.2) based on salience-guided                guishable labels [26, 35] that favor large-scale objects (see
+supervision (Section 3.1). The semantic misalignment                      Figure 1), our salience supervision ensures fine-grained
+among queries is mitigated through query refinement mod-                  confidence for objects of different scales, bringing more sta-
+ules(Section 3.3).                                                        ble filtering results.
+
+3.1. Salience-guided supervision                                          3.2. Heirachical query filtering
+
+Query filtering updates the most informative queries to                   Revisting query filtering in Focus DETR. Focus DETR
+achieve comparable performance with less computational                    [35] introduces an extra branch that predicts foreground
+burden, according to the predicted confidence. Drawing in-                confidence with top-down score modulations on multi-scale
+spiration from Focus DETR [35], we provide supervision                    features, as follows:
+for the queries at each level in the multi-scale features. In-                              \boldsymbol s_{l-1} = \mathbf {MLP}_\mathbf F(\boldsymbol f_{l-1}(1+\mathbf {UP}(\alpha _l*\boldsymbol s_l)))                                                                                                                                                         (3)
+stead of discrete labels {0, 1} that only classify foreground
+and background, we construct a scale-independent salience                 where MLP is a global score predictor, UP is bilinear in-
+as supervision targets to overcome the scale bias. In particu-                                  L−1
+                                                                          terpolation, and {αl }l=1   are learnable modulation coeffi-
+                 (i,j)
+lar, each query tl     at position (i, j) in the l-th feature map         cients. Based on this, top ρ% queries with the highest fore-
+corresponds to a coordinate c = (x, y) in the       original im-         ground confidence are gathered for transformer encoding
+age, denoted as ⌊ s2l ⌋ + i · sl , ⌊ s2l ⌋ + j · sl . The salience        and scattered back to update tokens after each encoder layer.
+
+
+
+                                                                     17576
+                                                                                                                                                                                                                                                                                       Upsample                                                       Conv
+                 0.2 0.2 0.2 0.2                                                        1                                                  0.2 0.2 0.2 0.2                                                         1
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Fusion
+          0.2 0.4 0.6 0.7 0.4 0.2                                                                                                   0.2 0.4 0.6 0.7 0.4 0.2                                                                                                                                                                                  Residual
+          0.3 0.7         1 0.9 0.7 0.3                                                                                             0.3 0.7         1 0.9 0.7 0.3
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     RepVGGPluXBlock
+          0.3 0.7 0.9 0.9 0.7 0.3                                                                                                   0.3 0.7 0.9 0.9 0.7 0.3                                                                                                                                                     C                                                                                                                                                    1-α                                                                                                                                                                              +
+          0.2 0.4 0.8 0.7 0.6 0.2                                                                                                   0.2 0.4 0.8 0.7 0.6 0.2                                                                                                                                                                                                                                                       GCNorm                                                                                   FC                        ReLU FC σ
+                 0.2 0.2 0.2 0.2                                                                                                           0.2 0.2 0.2 0.2                                                                                                                                                                                            Main
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                      α +                                                                                                                                 ×                           +
+                                                                                                                                                                                                                                                                                                                                                      Conv                                                        GCNorm                                                                                                  ReLU
+                                                                                        Select top 5 queries                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          ×N
+
+                  1      1      1      1                                                1
+           1      1      1      1      1      1
+                                                                                                                                                                                                                                                                                                                              Figure 4. Cross-level token fusion
+           1      1      1      1      1      1
+           1      1      1      1      1      1
+           1      1      1      1      1      1
+                  1      1      1      1
+                                                                                                                                                                                                                                            respectively.
+                                                                                                                                                                                                                                                Background embedding. Given self-learned row em-
+Figure 3. Qualitative illustration of scale-independent supervision
+(top) and discrete foreground-background supervision (bottom).
+                                                                                                                                                                                                                                            beddings and column embeddings r, c ∈ Rn×m , where n
+With salience reducing from the object center to the border, scale-                                                                                                                                                                         and m denote the number of embeddings and embedding
+independent supervision balances selected queries even for small-                                                                                                                                                                           dimensions respectively, we consider building relative and
+size objects.                                                                                                                                                                                                                               absolute embeddings to refine queries. The former encodes
+                                                                                                                                                                                                                                                      (i,j)
+                                                                                                                                                                                                                                            token f l       with relative indexed elements r (in/Hl ) and
+                                                                                                                                                                                                                                              (jn/Wl )
+                                                                                                                                                                                                                                            c          thorugh interpolation.
+   Hierarchical query filtering. Typically, high-level to-
+kens bring less calculation burden while preserving more                                                                                                                                                                                                                                                                                        \boldsymbol b_l=\mathop {\mathrm {Interp}}\limits _{(n,n)\rightarrow (H_l, W_l)} (\boldsymbol r\otimes \boldsymbol c)                                                                                                                                                                                       (5)
+informative semantics than low-level tokens. Therefore,
+in addition to the traditional layer-wise filtering, a natu-
+ral motivation is to introduce level-wise filtering for han-                                                                                                                                                                                where ⊗ denotes outer product, bl ∈ RC×Hl ×Wl . The latter
+                                                                                                                                                                                                                                                               (i,j)
+dling multi-scale characteristics [35]. We introduce two                                                                                                                                                                                    directly encodes f l     by concatenating r (i) and c(j) .
+sets {vt }Tt=1 and {wl }L
+                        l=1 as the corresponding filtering ra-
+tios, where T and L denote the number of feature levels and                                                                                                                                                                                                                                                                                    \boldsymbol b_l^{(i,j)}=\mathrm {Concat}(\boldsymbol r^{(i)}, \boldsymbol c^{(j)})                                                                                                                                                                                                                           (6)
+encoder layers. For the t-th encoder layer and l-th feature
+                                                                                                                                                                                                                                            Then the embedding is added to unselected queries for re-
+level, only the top vt wl queries are filtered for attention en-
+                                                                                                                                                                                                                                            finement. In our experiments (see Table 8), the absolute
+coding while others are kept unchanged:
+                                                                                                                                                                                                                                            embedding achieves a higher detection performance and we
+                                                                                                                                                                                                                                            choose it as the background embedding of Salience DETR.
+   q_i=\left \{\begin {aligned} \mathrm {Attention}(q_i+pos_i, \boldsymbol q+\boldsymbol {pos}, \boldsymbol q),~\text {if}~q_i\in \Omega _t\\ q_i~~~~~~~~~~~~~~~~~~~~~,~\text {if}~q_i\not \in \Omega _t \end {aligned}\right .    (4)         Cross-level token fusion. Towards the semantic mis-
+                                                                                                                                                                                                                                            alignment of queries at different levels due to the level-
+                                                             PL                                                                                                                                                                             specific filtering ratios, we propose a token fusion module
+                                                                                    H W
+where q = {qi }i=1l=1 l l and pos are queries and the cor-                                                                                                                                                                                  that leverages a path aggregation structure [18] to handle
+responding position encodings, Ωt is the filtered query set                                                                                                                                                                                 cross-level information interaction. In the module, adjacent
+in the t-th encoder layer.                                                                                                                                                                                                                  tokens are fused through a proposed RepVGGPluXBlock,
+    When using deformable attention [37] in the encoder,                                                                                                                                                                                    as shown in Figure 4. For adjacent tokens f l and f h , the
+hierarchical query PL filtering reduces the encoding computa-                                                                                                                                                                               calculation is formulated as:
+tion from P    O(    Pl=1 Hl Wl CT (C + KC + 5K + 3M K))
+to O( 1⩽l⩽L 1⩽t⩽T wl vt Hl Wl C(C + KC + 5K +                                                                                                                                                                                                         \boldsymbol f_I^{(0)}&=\mathbf {Conv}(\mathbf {Concat}(\boldsymbol f_l, \mathbf {UP}(\boldsymbol f_h)))\\ \boldsymbol f_M^{(n)}&=\mathcal R(\alpha \mathbf {GC}(\boldsymbol f_I^{(n)})+(1-\alpha )\mathbf {GC}(\boldsymbol f_I^{(n)}))\\ \boldsymbol f_I^{(n+1)}&=\boldsymbol f_M^{(n)}\otimes (\sigma (\mathbf {FC}(\mathcal R(\mathbf {FC}(\boldsymbol f_M^{(n)})))))+\boldsymbol f_I^{(n)}
+
+3M K)), where M and K denote the number of atten-
+tion head and sampled keys, and the number of queries
+                                2
+becomes only ∥w∥         1 ∥v∗s ∥1                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          (9)
+                       T    ∥s2 ∥1 of the original one, with s =
+[s1 , · · · , sL ] denoting the downsample scales of the multi-                                                                                                                                                                             where GC, FC, Conv, R, σ denote group convolution
+scale features.                                                                                                                                                                                                                             with batch normalization, dense connection, convolution,
+3.3. Query refinement                                                                                                                                                                                                                       ReLU and sigmoid function, respectively. The final refined
+                                                                                                                                                                                                                                                     (N )
+                                                                                                                                                                                                                                            tokens f I in the main branch are added with input tokens
+Due to the differences in the process for selected and un-                                                                                                                                                                                  through a residual branch, as follows.
+selected queries, the hierarchical query filtering may lead
+to semantic misalignment among queries. Therefore, we                                                                                                                                                                                              \boldsymbol f_O=\boldsymbol f_I^{(N)}+\mathbf {Conv}(\mathbf {Concat}(\boldsymbol f_l, \mathbf {UP}(\boldsymbol f_h)))                                                                                                                                                                                                                                                                                  (10)
+propose three refinement modules (i.e., background embed-
+ding, cross-level token fusion, and redundancy removal) to                                                                                                                                                                                  where N denotes the number of RepVGGPluXBlock.
+bridge the gap from the perspectives of multi-scale features,                                                                                                                                                                                  Redundancy removal for two-stage queries. For those
+foreground-background differences and selection strategies,                                                                                                                                                                                 similar objects, especially small-sized objects, the two-
+
+
+
+                                                                                                                                                                                                                                         17577
+stage selection strategy in DETR tends to keep many re-                                                                                                                                                 Implementation Details. The implementation details
+dundant queries due to their poor discrimination. In addi-                                                                                                                                           of Salience DETR align with other DETR-like detectors.
+tion, one-to-one matching only provides regression supervi-                                                                                                                                          We train our model with NVIDIA RTX 3090 GPU (24GB)
+sion on a few positive queries, while massive unsupervised                                                                                                                                           using the AdamW [13] optimizer with a weight decay of
+background queries often distribute uniformly like a grid                                                                                                                                            1 × 10−4 . The initial learning rate is set to 1 × 10−5 for the
+(see Figure 1). Therefore, the transformer decoder suffers                                                                                                                                           backbone and 1 × 10−4 for other parts, which decreases at
+from a poor two-stage initialization. Here we simply re-                                                                                                                                             later stages by 0.1. The batch size per GPU is set to 2. Con-
+move redundancy through non-maximum suppression, and                                                                                                                                                 sidering dataset scales, the training epochs on CSD, ESD,
+we expect end-to-end solutions to be proposed to deal with                                                                                                                                           and MSSD are 60, 60, 120, respectively. For COCO 2017,
+                                                            (i,j)
+the issue. Specifically, we construct a bounding box bl                                                                                                                                              we report the results of 12 epochs. The loss coefficients of
+with a distance from the center to the border set to 1 for each                                                                                                                                      the salience supervision λf is set to 2. Other methods are
+selected queries. Then, NMS [24] is applied to the bound-                                                                                                                                            evaluated on detrex [25] and MMDetection [5] toolbox.
+ing boxes in both image-wise and level-wise manners.
+                                                                                                                                                                                                     4.2. Comparison with State-of-the-art Methods
+                                           Bbox_{l}^{(i,j)}=[i-1,j-1,i+1,j+1]                                                                                                              (11)      Comparison on ESD. Table 3 shows the quantitative com-
+                                                                                                                                                                                                     parison on ESD between our Salience DETR and other de-
+3.4. Optimization                                                                                                                                                                                    tectors [4, 9, 12, 14, 17, 19, 24, 32, 34–37]. It can be seen
+Similar to other DETR-like detectors, our model is trained                                                                                                                                           that Salience DETR outperforms the comparison methods
+with a multi-task loss function, defined as follows:                                                                                                                                                 under most standard metrics. Notably, considering a strict
+                                                                                                                                                                                                     IoU threshold of 75%, Salience DETR suppresses the sec-
+     \mathcal L_{total}&=\lambda _m\mathcal L_m+\lambda _{dn}\mathcal L_{dn}+\lambda _{enc}\mathcal L_{enc}+\lambda _f\mathcal L_f\\ \mathcal L_f&=-\alpha _f(1-p_f)^\gamma \log (p_f)               ond best method with a large margin of 1.8% and becomes
+                                                                                                                                                                                           (13)      the only method with AP75 over 40%.
+                                                                                                                                                                                                         Comparison on CSD. Table 4 shows the results on CSD.
+where Lf denotes the scale-independent supervision loss                                                                                                                                              It is worth noting that CSD is challenging for DETR-like
+function, αf = 0.25 and γ = 2 are focal parameters, and                                                                                                                                              methods since it lacks large-size objects suitable for DETR
+                                   (i,j)                                                                                                                                                             detection. Comprehensively speaking, our Salience DETR
+pf = θ̂θ + (1 − θ̂)(1 − θ), where θl     is our proposed
+                                                                                                                                                                                                     achieves the highest performance considering average pre-
+salience confidence in (1).
+                                                                                                                                                                                                     cision (+0.2%) and average recall (+0.2%) and outperforms
+                                                                                                                                                                                                     the latest DETR-like methods [12, 34, 35].
+4. Experiments and Discussions
+                                                                                                                                                                                                         Comparison on MSSD. The MSSD dataset, collected
+This section demonstrates that Salience DETR achieves                                                                                                                                                from industrial production lines by ourselves, contains mas-
+comparable performance with fewer FLOPs on task-                                                                                                                                                     sive small-sized and weak objects with low contrast and in-
+specific and generic detection tasks through quantitative and                                                                                                                                        distinguishable contours. Therefore, discriminative query
+qualitative analysis, and evaluates the effectiveness of the                                                                                                                                         selection is important for detecting this dataset. As can be
+proposed components through ablation studies.                                                                                                                                                        seen from Table 5, with hierarchical salience filtering re-
+                                                                                                                                                                                                     finement, our Salience DETR achieves a superior AP75 of
+4.1. Experimental Setup                                                                                                                                                                              61.9% with a large margin of 9.4% compared to the sec-
+Dataset and Evaluation Metrics. The evaluation datasets                                                                                                                                              ond best result and improves AP by 4.4%. Moreover, due
+include three task-specific detection datasets (ESD [11],                                                                                                                                            to the salience-guided supervision that is scale-independent,
+CSD [28], our self-built mobile screen surface dataset                                                                                                                                               queries in Salience DETR match small-sized objects better
+(MSSD)), and benchmark COCO 2017 [16]. Details of                                                                                                                                                    and thus our Salience DETR improves APS and ARS by
+them are listed in Table 2. We evaluate performance us-                                                                                                                                              8.7% and 9.1% compared to DINO, respectively.
+
+                                                                                                                                                                                                     4.3. Ablation Studies
+ Table 2. Statistics of the three task-specific evaluation datasets
+                                                                                                                                                                                                     Ablation studies are conducted on CSD [28] using
+Dataset                                   #ann                                   #class                                     #train                                    #test Resolution Obj/img
+                                                                                                                                                                                                     ResNet50 backbone and Table 6 reports the results. As
+  CSD  4983                                                                               3                              373    94 1024×1024                                             10.67       can be seen, by introducing hierarchical query filtering with
+  ESD  6075                                                                               2                              448    49 3620×3700                                             12.22       scale-independent salience supervision, Salience DETR
+ MSSD 93343                                                                                4                              962   106 5120×5120                                            87.40       yields a significant improvement of +1.8 AP. Then the back-
+ COCO 896782                                                                              80                            118287 5000     -                                                 7.27       ground embedding and the redundancy removal steadily in-
+                                                                                                                                                                                                     crease AP from 52.0% to 52.8% while keeping FLOPs at
+ing the standard average precision (AP) and average recall                                                                                                                                           168G with no extra computation. Finally, the 6-th row of
+(AR) metrics [16].                                                                                                                                                                                   Table 6 shows that Salience DETR equipped with the cross-
+
+
+
+                                                                                                                                                                                                  17578
+         Table 3. Quantitative comparison on ESD. The first and second best results are marked in Red and Blue, respectively.
+
+       Methods           Pub’Year       Backbone      Epochs   AP     AP50   AP75    APS    APM     APL    AR     ARS    ARM    ARL
+ Faster RCNN [10, 24] NIPS’2015   ResNet50             60      43.5   84.4    39.6   12.5   44.2    52.5   52.0   13.1   53.2   59.0
+    AutoAssign [36]   Arxiv’2020  ResNet50             60      44.2   86.0    37.5   15.4   44.8    51.8   55.7   24.8   56.2   62.5
+  Cascade RCNN [32] CVPR’2018 ResNet50                 60      44.5   85.8    39.0   14.8   44.6    55.6   54.4   17.3   55.0   62.3
+        HTC [4]       CVPR’2019 ResNet50               60      45.4   87.1    37.3   15.3   45.7    54.7   55.4   26.3   55.7   62.3
+   RetinaNet [17, 27] ICML’2019 EfficientNet           60      43.4   87.2    35.7   13.4   43.2    53.2   53.4   23.8   53.6   63.4
+      YOLOX [9]       Arxiv’2021 CSPDarknet            300     41.6   79.6    36.9   14.9   43.4    50.0   54.3   36.9   54.2   60.8
+   Def-DETR [37]        ICLR’2020       ResNet50       300     42.3   85.8    33.8   15.5   42.4    51.2   53.6   24.2   53.9   61.8
+ DAB-Def-DETR [20]      ICLR’2021       ResNet50        90     39.8   84.6    30.4    7.4   40.0    55.5   52.4    9.4   52.9   66.6
+ DN-Def-DETR [14]       CVPR’2022       ResNet50        60     40.9   86.2    32.9   10.5   40.9    54.2   56.1   18.1   56.5   65.9
+     DINO [34]          ICLR’2022       ResNet50        60     42.5   87.8    34.1   12.3   42.1    57.5   55.0   19.4   54.8   67.2
+  H-Def-DETR [12]       CVPR’2023       ResNet50        60     41.9   87.7    33.3   12.0   41.8    55.3   54.6   28.1   54.0   66.6
+  Focus-DETR [35]       ICCV’2023       ResNet50        60     43.3   88.6    34.3   11.7   43.3    57.5   57.2   21.9   57.0   67.4
+   Salience DETR           ours         ResNet50        60     46.5   88.6    41.4   15.4   46.8    57.7   58.4   34.0   58.2   69.5
+
+         Table 4. Quantitative comparison on CSD. The first and second best results are marked in Red and Blue, respectively.
+
+       Methods           Pub’Year       Backbone      Epochs   AP     AP50   AP75    APS    APM     APL    AR     ARS    ARM    ARL
+ Faster RCNN [10, 24]   NIPS’2015       ResNet50       60      52.4   93.2    51.9   48.5   39.7    70.0   59.9   57.4   44.0   70.0
+   AutoAssign [36]      Arxiv’2020      ResNet50       60      51.1   92.5    49.5   47.2   40.1    60.0   60.1   56.7   58.1   60.0
+  RetinaNet [17, 27]    ICML’2019      EfficientNet    60      50.5   90.4    54.1   44.0   40.9     5.0   59.8   54.3   58.6   20.0
+      YOLOX [9]         Arxiv’2021     CSPDarknet      300     47.5   90.0    42.4   47.0   36.5      0    56.1   56.6   40.6    0
+       TOOD [8]         ICCV’2021       ResNet50       60      52.9   92.9    52.7   47.7   41.8    14.5   60.6   57.0   45.6   60.0
+   Def-DETR [37]        ICLR’2020       ResNet50       300     43.7   86.2    36.6   40.5   34.9    10.0   56.0   55.3   62.1   10.0
+ DAB-Def-DETR [20]      ICLR’2021       ResNet50        90     52.9   91.2    55.0   50.3   39.4      0    62.5   60.6   58.1    0
+ DN-Def-DETR [14]       CVPR’2022       ResNet50        60     49.9   88.0    51.2   47.6   37.7      0    63.7   61.0   76.3    0
+     DINO [34]          ICLR’2022       ResNet50        60     53.0   90.8    55.5   50.9   39.6      0    64.0   63.1   59.1    0
+  H-Def-DETR [12]       CVPR’2023       ResNet50        60     53.0   90.6    55.7   51.2   39.2    6.7    63.2   62.2   45.3   30.0
+  Focus-DETR [35]       ICCV’2023       ResNet50        60     52.3   91.2    55.9   50.3   39.2     0.9   65.3   64.1   71.2   60.0
+   Salience DETR           ours         ResNet50        60     53.2   92.5    55.1   51.0   40.9      0    66.5   65.7   74.3    0
+
+
+level token fusion achieves +0.4 AP. These results demon-             sponding object scales [35], one of our contributions is
+strate the effectiveness of our proposed components.                  introducing a scale-independent supervision that is totally
+                                                                      determined by salience. Table 7 compares the effect of
+   Effect of scale-independent supervision. Unlike as-
+                                                                      them, in which we can see that scale-independent supervi-
+signing queries to feature levels according to their corre-
+
+        Table 5. Quantitative comparison on MSSD. The first and second best results are marked in Red and Blue, respectively.
+
+       Methods           Pub’Year       Backbone      Epochs   AP     AP50   AP75    APS    APM     APL    AR     ARS    ARM    ARL
+ Faster RCNN [10, 24] NIPS’2015   ResNet50             120     44.5   65.3    48.6   18.0   36.7    40.3   51.1   21.3   44.5   46.3
+   AutoAssign [36]    Arxiv’2020  ResNet50             120     38.4   56.2    40.5    6.3   21.6    40.9   45.7    9.9   37.0   46.6
+  Cascade RCNN [32] CVPR’2018 ResNet50                 120     47.5   69.5    52.1   23.5   42.0    42.0   54.1   26.1   51.3   48.3
+      YOLOX [9]       Arxiv’2021 CSPDarknet            500     41.4   67.5    39.2   13.6   35.5    38.7   53.7   21.5   46.8   48.6
+        HTC [4]       CVPR’2019 ResNet50               120     47.5   68.1    52.5   19.9   33.2    41.6   53.7   22.7   49.6   46.0
+   Def-DETR [37]        ICLR’2020       ResNet50       300     33.0   54.3    32.0    9.8   11.1    33.3   39.8   13.6   18.9   38.5
+ DAB-Def-DETR [20]      ICLR’2021       ResNet50       120     33.7   60.0    31.0   15.9   26.7    29.0   46.2   19.9   38.9   39.8
+ DN-Def-DETR [14]       CVPR’2022       ResNet50       120     45.6   74.1    44.9   18.6   31.9    41.0   53.9   21.7   50.1   47.7
+     DINO [34]          ICLR’2022       ResNet50       120     51.0   80.0    52.5   20.0   47.4    44.8   61.3   23.9   60.1   52.4
+  H-Def-DETR [12]       CVPR’2023       ResNet50       120     46.9   76.8    47.1   20.3   45.3    40.7   57.1   25.8   57.5   49.0
+  Focus-DETR [35]       ICCV’2023       ResNet50       120     49.2   79.3    47.9   18.3   40.7    43.5   59.4   22.1   53.3   51.1
+   Salience DETR           ours         ResNet50       120     55.4   78.2    61.9   28.7   47.5    44.5   65.4   33.0   59.8   52.1
+
+
+
+
+                                                                  17579
+Table 6. Ablation results on CSD. HQF: hierarchical query fil-                55                                          95
+tering (Section 3.2), BE: background embedding, RR: redundancy                50                                          90
+removal, CTF: cross-level token fusion                                                                                    85
+
+
+
+
+                                                                   AP@50:95
+                                                                              45                                          80
+
+
+
+
+                                                                                                                  AP@50
+HQF. BE. RR. CTF. AP AP50 AP75 APS APM AR FLOPs                               40                                          75
+  ✗     ✗    ✗    ✗   50.2 89.8    49.4 47.8 37.9 64.1     132                                                            70
+                                                                              35          No redundancy removal
+                                                                                                                          65        No redundancy removal
+  ✓     ✗    ✗    ✗   52.0 89.7    54.2 49.4 39.8 65.6     168                            Redundancy removal                        Redundancy removal
+  ✓     ✓    ✗    ✗   52.0 90.3    49.9 50.3 39.1 64.5     168                30 0   10 20 30 40 50 60                    60 0   10 20 30 40 50 60
+  ✓     ✗    ✓    ✗   52.6 90.8    52.7 50.9 39.2 64.4     168                            Epochs                                      Epochs
+  ✓     ✓    ✓    ✗   52.8 91.0    55.7 51.5 39.3 64.7     168                            Figure 5. Convergence of Salience DETR
+  ✓     ✓    ✓    ✓   53.2 92.5    55.1 51.0 40.9 66.5     201
+
+                                                                              4.4. Scalability of Salience DETR
+sion brings consistent precision improvements (+1.8% AP,                      With designed salience filtering refinement, our Salience
++0.4% AP50 , +1.6% AP75 ) compared to supervision deter-                      DETR can effectively provide well-matched focus for ob-
+mined according to object scales, confirming its effective-                   jects in defect detection tasks. Here we illustrate its great
+ness to address scale bias in query filtering and benefit final               scalability to generic large-scale datasets of COCO 2017.
+performance.                                                                  As shown in Table 9, our Salience DETR achieves better
+                                                                              performance of 49.2% AP compared to other methods with
+Table 7. Quantitative comparison of supervision methods on                    less than 70% FLOPs of DINO [34] under the same setting,
+MSSD. The intervals [[−1, 128], [64, 256], [128, 512], [256, ∞]]              demonstrating its superior trade-off between computational
+are used in overlap limit range, following Focus-DETR.                        complexity and performance.
+       Methods        AP    AP50     AP75    APS    APM    APL                4.5. Visualization
+ Overlap limit [35] 53.2    77.4     60.3    29.0   39.4   43.7               Salience Confidence. Figure 6 visualizes the salience
+ Scale-independent 55.0     77.8     61.9    28.1   40.7   44.1
+                                                                              confidence on MSSD, CSD, and COCO 2017 datasets.
+                                                                              The visualization demonstrates that salience guides defect
+    Effect of background embedding. We analyze the ef-                        regions to achieve high confidence even for those with
+fect of the proposed two variants of background embed-                        small sizes. Additionally, the confidence of large-sized
+dings that compensate for semantic misalignments in query                     objects decreases from the center to the border, benefit-
+filtering. As shown in Table 8, the absolute embedding                        ing fine-grained supervision. Interestingly, the salience la-
+could boost AP slightly better than the relative embedding.                   bels are constructed solely based on bounding box annota-
+This may be because the query filtering is performed on pix-                  tions; however, the predicted confidence can further match
+els and absolute embedding provides direct position infor-                    rough object contours. This suggests the possibility that
+mation and benefits position-related features.                                salience supervision may also benefit pixel-level tasks, such
+                                                                              as instance segmentation. Therefore, transitioning from
+      Table 8. Comparison of embedding strategies on MSSD                     instance-level annotations to pixel-level predictions based
+                                                                              on salience is a promising direction for future research.
+  Embed Strategies     AP    AP50 AP75 APS APM APL
+ Relative embedding 55.0      77.6    62.1   29.4   46.9   44.0
+ Absolute embedding 55.2      77.6    61.3   29.6   51.4   44.1
+
+
+   Effect of redundancy removal. As mentioned in Sec-
+tion 3.3, the redundancy removal is critical to stabilizing
+two-stage initialization. From the evaluation metrics AP
+and AP50 in Figure 5, we can see that the proposed redun-
+dancy removal could speed up convergence with a signif-
+icant margin, especially at early stages. Salience DETR                       Figure 6. Visualization of salience confidence at multi-scale fea-
+with redundancy removal achieves better performances of                       ture maps on MSSD, CSD and COCO.
++0.7% AP and +0.4% AP50 , which is mainly attributed to
+the fact that redundancy removal allows the decoder to fo-                       Detection results. As shown in Figure 7, the detection
+cus on unique and relevant features provided by more dis-                     results of Salience DETR illustrate a strong adaptability to
+criminative queries.                                                          various appearances of objects, including small size (e.g.
+
+
+
+                                                                   17580
+Table 9. Quantitative comparison on COCO val2017. Since the FLOPs may differ according to the calculation script, we reimplement
+DINO and report its FLOPs results using the same script with our Salience DETR.
+
+         Method             Pub’Yead      epochs    backbone        AP ↑     AP50 ↑     AP75 ↑     APS ↑     APM ↑      APL ↑      FLOPs ↓
+ Conditional-DETR [22]      CVPR’21        108        R50           43.0      64.0       45.7       22.7      46.7       61.5         -
+   SAM-DETR [33]            CVPR’22         50        R50           41.8      63.2       43.9       22.1      45.9       60.9         -
+  Anchor-DETR [30]          AAAI’22         50        R50           42.1      63.1       44.9       22.3      46.2       60.0         -
+  Dynamic-DETR [7]          CVPR’21         12        R50           42.9      61.0       46.3       24.6      44.9       54.4         -
+   Sparse-DETR [26]         ICLR’21         50        R50           46.3      66.0       50.1       29.0      49.5       60.8         -
+  Efficient-DETR [31]       Arxiv’21        36        R50           45.1      63.1       49.1       28.3      48.4       59.0         -
+    Def-DETR [37]           ICLR’20         50         R50          46.9      65.6       51.0       29.6       50.1       61.6         -
+  DAB-Def-DETR [19]         ICLR’21         50         R50          46.8      66.0       50.4       29.1       49.8       62.3         -
+  DN-Def-DETR [14]          CVPR’22         50         R50          48.6      67.4       52.7       31.0       52.0       63.7         -
+   Focus-DETR [35]          CVPR’23         12         R50          48.8      66.8       52.8       31.7       52.1       63.0         -
+     H-DETR [12]            CVPR’23         12         R50          48.7      66.4       52.9       31.2       51.5       63.5         -
+      DINO [34]             ICLR’22         12         R50          49.0      66.6       53.5       32.0       52.3       63.0       291G
+    Salience DETR             ours          12         R50          49.2      67.1       53.8       32.7       53.0       63.1       201G
+
+
+pinhole), indiscriminative contours (e.g. tin ash), intra-class                          Table 10. Inference time and memory
+differences (e.g. scratch), and clear objects (e.g. bubble).
+                                                                               Methods       AP(CSD)↑ infer time↓ #parameter↓ memory↓
+Moreover, Salience DETR shows a high level of confidence
+in distinguishing between categories, which enables it to                   H-Def-DETR           53.0      0.0834        44.4M       201MB
+achieve stable detection for confusable objects.                                DINO             53.0      0.0860         46M        207MB
+                                                                            Focus DETR           52.3      0.0822        44.4M       201MB
+                                                                           Salience DETR∗        52.8      0.0769         46M        209MB
+                                                                           Salience DETR         53.2      0.0819        56.1M       249MB
+                                                                           * denotes a faster variant without the cross-level token fusion.
+
+
+                                                                           background embedding and cross-level token fusion, our
+                                                                           model effectively tackles the problem of semantic misalign-
+                                                                           ment among queries at different levels and layers. Further-
+                                                                           more, it leverages an elaborate redundancy removal module
+                                                                           to stabilize two-stage initialization. We demonstrate that
+Figure 7. Visualization of detection results on the MSSD dataset.          Salience DETR achieves state-of-the-art performance on
+                                                                           three task-specific and one generic object detection datasets,
+                                                                           as well as a superior balance between computation and pre-
+4.6. Inference cost
+                                                                           cision. We believe that our work could facilitate future re-
+Table 10 shows that Salience DETR without cross-level to-                  searches on query redundancy in DETR-like methods.
+ken fusion achieves comparable performance with other ap-
+proaches at a lower computational cost. Further, introduc-                 Acknowledgments
+ing the module leads to better performance, with reason-
+able parameter and memory increase. These results show                     This work was supported by the National Key Re-
+that Salience DETR obtains a good trade-off between per-                   search and Development Program of China under Grant
+formance and inference cost.                                               2020AAA0108302, the National Natural Science Founda-
+                                                                           tion of China under Grant 62327808, and the Fundamental
+5. Conclusion                                                              Research Funds for Xi’an Jiaotong University under Grant
+                                                                           xtr072022001.
+The paper develops a transformer-based detection frame-
+work, i.e. Salience DETR, to mitigate the encoding and
+selection redundancies in two-stage DETR-like detectors.                   References
+The key component of Salience DETR, namely hierarchical                     [1] Zhaowei Cai and Nuno Vasconcelos. Cascade r-cnn: Delv-
+salience filtering refinement, selectively encodes a fraction                   ing into high quality object detection. In Proceedings of the
+of discriminative queries under the supervision of scale-                       IEEE Conference on Computer Vision and Pattern Recogni-
+independent salience to overcome scale bias. By conducting                      tion, pages 6154–6162, 2018. 1
+
+
+
+
+                                                                     17581
+ [2] Zhi Cai, Songtao Liu, Guodong Wang, Zheng Ge, Xiangyu                 resentations (ICLR), page 6. San Diego, California;, 2015.
+     Zhang, and Di Huang. Align-detr: Improving detr with sim-             5
+     ple iou-aware bce loss. arXiv preprint arXiv:2304.07527,         [14] Feng Li, Hao Zhang, Shilong Liu, Jian Guo, Lionel M Ni,
+     2023. 2                                                               and Lei Zhang. Dn-detr: Accelerate detr training by intro-
+ [3] Nicolas Carion, Francisco Massa, Gabriel Synnaeve, Nicolas            ducing query denoising. In Proceedings of the IEEE/CVF
+     Usunier, Alexander Kirillov, and Sergey Zagoruyko. End-to-            Conference on Computer Vision and Pattern Recognition,
+     end object detection with transformers. In European Confer-           pages 13619–13627, 2022. 1, 2, 5, 6, 8
+     ence on Computer Vision, pages 213–229. Springer, 2020. 1,       [15] Feng Li, Ailing Zeng, Shilong Liu, Hao Zhang, Hongyang
+     2                                                                     Li, Lei Zhang, and Lionel M Ni. Lite detr: An interleaved
+ [4] Kai Chen, Jiangmiao Pang, Jiaqi Wang, Yu Xiong, Xiaox-                multi-scale encoder for efficient detr. In Proceedings of
+     iao Li, Shuyang Sun, Wansen Feng, Ziwei Liu, Jianping                 the IEEE/CVF Conference on Computer Vision and Pattern
+     Shi, Wanli Ouyang, et al. Hybrid task cascade for instance            Recognition, pages 18558–18567, 2023. 2
+     segmentation. In Proceedings of the IEEE/CVF Conference          [16] Tsung-Yi Lin, Michael Maire, Serge Belongie, James Hays,
+     on Computer Vision and Pattern Recognition, pages 4974–               Pietro Perona, Deva Ramanan, Piotr Dollár, and C Lawrence
+     4983, 2019. 5, 6                                                      Zitnick. Microsoft coco: Common objects in context. In
+ [5] Kai Chen, Jiaqi Wang, Jiangmiao Pang, Yuhang Cao, Yu                  Computer Vision–ECCV 2014: 13th European Conference,
+     Xiong, Xiaoxiao Li, Shuyang Sun, Wansen Feng, Ziwei Liu,              Zurich, Switzerland, September 6-12, 2014, Proceedings,
+     Jiarui Xu, Zheng Zhang, Dazhi Cheng, Chenchen Zhu, Tian-              Part V 13, pages 740–755. Springer, 2014. 2, 5
+     heng Cheng, Qijie Zhao, Buyu Li, Xin Lu, Rui Zhu, Yue Wu,        [17] Tsung-Yi Lin, Priya Goyal, Ross Girshick, Kaiming He, and
+     Jifeng Dai, Jingdong Wang, Jianping Shi, Wanli Ouyang,                Piotr Dollár. Focal loss for dense object detection. In Pro-
+     Chen Change Loy, and Dahua Lin. MMDetection: Open                     ceedings of the IEEE International Conference on Computer
+     mmlab detection toolbox and benchmark. arXiv preprint                 Vision, pages 2980–2988, 2017. 5, 6
+     arXiv:1906.07155, 2019. 5                                        [18] Shu Liu, Lu Qi, Haifang Qin, Jianping Shi, and Jiaya Jia.
+ [6] Qiang Chen, Xiaokang Chen, Jian Wang, Shan Zhang, Kun                 Path aggregation network for instance segmentation. In Pro-
+     Yao, Haocheng Feng, Junyu Han, Errui Ding, Gang Zeng,                 ceedings of the IEEE Conference on Computer Vision and
+     and Jingdong Wang. Group detr: Fast detr training with                Pattern Recognition, pages 8759–8768, 2018. 4
+     group-wise one-to-many assignment. In Proceedings of the         [19] Shilong Liu, Feng Li, Hao Zhang, Xiao Yang, Xianbiao Qi,
+     IEEE/CVF International Conference on Computer Vision,                 Hang Su, Jun Zhu, and Lei Zhang. Dab-detr: Dynamic an-
+     pages 6633–6642, 2023. 1, 2                                           chor boxes are better queries for detr. In International Con-
+ [7] Xiyang Dai, Yinpeng Chen, Jianwei Yang, Pengchuan                     ference on Learning Representations, 2021. 1, 2, 5, 8
+     Zhang, Lu Yuan, and Lei Zhang. Dynamic detr: End-to-             [20] Shilong Liu, Feng Li, Hao Zhang, Xiao Yang, Xianbiao Qi,
+     end object detection with dynamic attention. In Proceedings           Hang Su, Jun Zhu, and Lei Zhang. Dab-detr: Dynamic
+     of the IEEE/CVF International Conference on Computer Vi-              anchor boxes are better queries for detr. arXiv preprint
+     sion, pages 2988–2997, 2021. 8                                        arXiv:2201.12329, 2022. 6
+ [8] Chengjian Feng, Yujie Zhong, Yu Gao, Matthew R Scott, and        [21] Wei Liu, Dragomir Anguelov, Dumitru Erhan, Christian
+     Weilin Huang. Tood: Task-aligned one-stage object detec-              Szegedy, Scott Reed, Cheng-Yang Fu, and Alexander C
+     tion. In 2021 IEEE/CVF International Conference on Com-               Berg. Ssd: Single shot multibox detector. In Computer
+     puter Vision (ICCV), pages 3490–3499. IEEE Computer So-               Vision–ECCV 2016: 14th European Conference, Amster-
+     ciety, 2021. 6                                                        dam, The Netherlands, October 11–14, 2016, Proceedings,
+ [9] Zheng Ge, Songtao Liu, Feng Wang, Zeming Li, and Jian                 Part I 14, pages 21–37. Springer, 2016. 1
+     Sun. Yolox: Exceeding yolo series in 2021. arXiv preprint        [22] Depu Meng, Xiaokang Chen, Zejia Fan, Gang Zeng,
+     arXiv:2107.08430, 2021. 5, 6                                          Houqiang Li, Yuhui Yuan, Lei Sun, and Jingdong Wang.
+[10] Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.                Conditional detr for fast training convergence. In Proceed-
+     Deep residual learning for image recognition. In Proceed-             ings of the IEEE/CVF International Conference on Com-
+     ings of the IEEE Conference on Computer Vision and Pattern            puter Vision, pages 3651–3660, 2021. 2, 8
+     Recognition, pages 770–778, 2016. 6                              [23] Joseph Redmon, Santosh Divvala, Ross Girshick, and Ali
+[11] Xiuquan Hou, Meiqin Liu, Senlin Zhang, Ping Wei, and                  Farhadi. You only look once: Unified, real-time object de-
+     Badong Chen. Canet: Contextual information and spatial                tection. In Proceedings of the IEEE Conference on Computer
+     attention based network for detecting small defects in man-           Vision and Pattern Recognition, pages 779–788, 2016. 1
+     ufacturing industry. Pattern Recognition, 140:109558, 2023.      [24] Shaoqing Ren, Kaiming He, Ross Girshick, and Jian Sun.
+     1, 2, 5                                                               Faster r-cnn: Towards real-time object detection with region
+[12] Ding Jia, Yuhui Yuan, Haodi He, Xiaopei Wu, Haojun Yu,                proposal networks. Advances in Neural Information Pro-
+     Weihong Lin, Lei Sun, Chao Zhang, and Han Hu. Detrs                   cessing Systems, 28, 2015. 1, 5, 6
+     with hybrid matching. In Proceedings of the IEEE/CVF Con-        [25] Tianhe Ren, Shilong Liu, Feng Li, Hao Zhang, Ailing Zeng,
+     ference on Computer Vision and Pattern Recognition, pages             Jie Yang, Xingyu Liao, Ding Jia, Hongyang Li, He Cao,
+     19702–19712, 2023. 2, 5, 6, 8                                         Jianan Wang, Zhaoyang Zeng, Xianbiao Qi, Yuhui Yuan,
+[13] D Kinga, Jimmy Ba Adam, et al. A method for stochastic                Jianwei Yang, and Lei Zhang. detrex: Benchmarking de-
+     optimization. In International Conference on Learning Rep-            tection transformers, 2023. 5
+
+
+
+
+                                                                   17582
+[26] Byungseok Roh, JaeWoong Shin, Wuhyun Shin, and Sae-
+     hoon Kim. Sparse detr: Efficient end-to-end object detec-
+     tion with learnable sparsity. In International Conference on
+     Learning Representations, 2021. 2, 3, 8
+[27] Mingxing Tan and Quoc Le. Efficientnet: Rethinking model
+     scaling for convolutional neural networks. In International
+     Conference on Machine Learning, pages 6105–6114. PMLR,
+     2019. 6
+[28] Qishan Wang, Qing Zhao, Weifeng Ge, Xuan Tong, King-
+     dong Jiang, Chungang Du, and Wenqiang Zhang. Surface
+     defect detection of casting with machined surfaces based on
+     natural artificial defects. Available at SSRN 4352006, 2023.
+     5
+[29] Tao Wang, Li Yuan, Yunpeng Chen, Jiashi Feng, and
+     Shuicheng Yan. Pnp-detr: Towards efficient visual analysis
+     with transformers. In Proceedings of the IEEE/CVF inter-
+     national Conference on Computer Vision, pages 4661–4670,
+     2021. 2
+[30] Yingming Wang, Xiangyu Zhang, Tong Yang, and Jian Sun.
+     Anchor detr: Query design for transformer-based detector.
+     In Proceedings of the AAAI conference on artificial intelli-
+     gence, pages 2567–2575, 2022. 2, 8
+[31] Zhuyu Yao, Jiangbo Ai, Boxun Li, and Chi Zhang. Efficient
+     detr: improving end-to-end object detector with dense prior.
+     arXiv preprint arXiv:2104.01318, 2021. 2, 8
+[32] Mingqiao Ye, Lei Ke, Siyuan Li, Yu-Wing Tai, Chi-Keung
+     Tang, Martin Danelljan, and Fisher Yu. Cascade-detr: Delv-
+     ing into high-quality universal object detection. In Proceed-
+     ings of the IEEE/CVF International Conference on Com-
+     puter Vision, pages 6704–6714, 2023. 1, 2, 5, 6
+[33] Gongjie Zhang, Zhipeng Luo, Yingchen Yu, Kaiwen Cui,
+     and Shijian Lu. Accelerating detr convergence via semantic-
+     aligned matching. In Proceedings of the IEEE/CVF Con-
+     ference on Computer Vision and Pattern Recognition, pages
+     949–958, 2022. 8
+[34] Hao Zhang, Feng Li, Shilong Liu, Lei Zhang, Hang Su, Jun
+     Zhu, Lionel Ni, and Heung-Yeung Shum. Dino: Detr with
+     improved denoising anchor boxes for end-to-end object de-
+     tection. In The Eleventh International Conference on Learn-
+     ing Representations, 2022. 1, 2, 5, 6, 7, 8
+[35] Dehua Zheng, Wenhui Dong, Hailin Hu, Xinghao Chen, and
+     Yunhe Wang. Less is more: Focus attention for efficient detr.
+     In Proceedings of the IEEE/CVF International Conference
+     on Computer Vision, pages 6674–6683, 2023. 1, 2, 3, 4, 5, 6,
+     7, 8
+[36] Benjin Zhu, Jianfeng Wang, Zhengkai Jiang, Fuhang Zong,
+     Songtao Liu, Zeming Li, and Jian Sun. Autoassign: Differ-
+     entiable label assignment for dense object detection. arXiv
+     preprint arXiv:2007.03496, 2020. 6
+[37] Xizhou Zhu, Weijie Su, Lewei Lu, Bin Li, Xiaogang Wang,
+     and Jifeng Dai. Deformable detr: Deformable transformers
+     for end-to-end object detection. In International Conference
+     on Learning Representations, 2020. 1, 2, 4, 5, 6, 8
+[38] Zhuofan Zong, Guanglu Song, and Yu Liu. Detrs with col-
+     laborative hybrid assignments training. In Proceedings of
+     the IEEE/CVF International Conference on Computer Vi-
+     sion, pages 6748–6758, 2023. 1, 2
+
+
+
+
+                                                                     17583
+

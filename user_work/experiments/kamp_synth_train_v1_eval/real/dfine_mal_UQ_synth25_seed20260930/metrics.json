@@ -1,0 +1,38 @@
+{
+  "val": {
+    "name": "dfine_mal_UQ_synth25_seed20260930",
+    "variant": "dfine_mal_UQ",
+    "seed": 20260930,
+    "split": "val",
+    "AP": 38.96932013164386,
+    "AP50": 98.4325304567965,
+    "AP75": 17.901092792815852,
+    "locked_threshold": 0.19337229430675507,
+    "TP": 142,
+    "FP": 8,
+    "FN": 2,
+    "recall": 0.9861111111111112,
+    "FP_per_image": 0.12121212121212122,
+    "recalibrated_FP6": {
+      "threshold": 0.19678963720798492,
+      "TP": 142,
+      "FP": 6
+    }
+  },
+  "test": {
+    "name": "dfine_mal_UQ_synth25_seed20260930",
+    "variant": "dfine_mal_UQ",
+    "seed": 20260930,
+    "split": "test",
+    "AP": 37.59375725019023,
+    "AP50": 92.95245284797915,
+    "AP75": 17.693145309878084,
+    "locked_threshold": 0.19337229430675507,
+    "TP": 196,
+    "FP": 33,
+    "FN": 10,
+    "recall": 0.9514563106796117,
+    "FP_per_image": 0.39285714285714285,
+    "recalibrated_FP6": null
+  }
+}

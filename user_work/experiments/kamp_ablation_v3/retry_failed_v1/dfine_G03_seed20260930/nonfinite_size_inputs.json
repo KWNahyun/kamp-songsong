@@ -1,0 +1,7 @@
+{
+  "call": 221,
+  "min_pred_wh": -0.004882931709289551,
+  "min_target_wh": 0.015614462085068226,
+  "nonpositive_pred_dimensions": 1,
+  "loss": "nan"
+}

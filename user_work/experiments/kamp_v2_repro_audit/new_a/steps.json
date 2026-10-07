@@ -1,0 +1,610 @@
+[
+  {
+    "step": 0,
+    "images_hash": "3aaff938cc084f12f5b9f6f1331e08a40bb440b0824be38854d972a8691edeea",
+    "image_ids": [
+      [
+        181
+      ],
+      [
+        296
+      ],
+      [
+        38
+      ],
+      [
+        121
+      ],
+      [
+        333
+      ],
+      [
+        237
+      ],
+      [
+        109
+      ],
+      [
+        350
+      ]
+    ],
+    "boxes_hash": "a77330d284542ad89dc63e679de883304a19d117bfa95157c9af81d6d500ac07",
+    "rng_cpu": "f12260b23eea2aeb50de5dd65cef12230660b83d0a9e2f478132169489d4a713",
+    "rng_cuda": "f64e914db97b2d1f9c4b6852a64cf02113ec6a6f4412dd6072b5a3beb9624cd6",
+    "outputs_hash": "90184b06c1eb8f49523306bbd4c1b8efcdb10536cdd448cc8105dbad059f3dd9",
+    "losses": {
+      "loss_mal": 0.11079102009534836,
+      "loss_bbox": 1.488656997680664,
+      "loss_giou": 2.5290045738220215,
+      "loss_fgl": 0.11053600162267685,
+      "loss_mal_aux_0": 0.15699009597301483,
+      "loss_bbox_aux_0": 1.4699859619140625,
+      "loss_giou_aux_0": 2.5260307788848877,
+      "loss_fgl_aux_0": 0.12083146721124649,
+      "loss_ddf_aux_0": 0.033677030354738235,
+      "loss_mal_aux_1": 0.10769090056419373,
+      "loss_bbox_aux_1": 1.5360758304595947,
+      "loss_giou_aux_1": 2.5087344646453857,
+      "loss_fgl_aux_1": 0.10917308181524277,
+      "loss_ddf_aux_1": 0.002516968408599496,
+      "loss_mal_pre": 0.1567460298538208,
+      "loss_bbox_pre": 1.4780563116073608,
+      "loss_giou_pre": 2.5503358840942383,
+      "loss_mal_enc_0": 0.12760649621486664,
+      "loss_bbox_enc_0": 1.3730651140213013,
+      "loss_giou_enc_0": 2.6825385093688965,
+      "loss_mal_dn_0": 0.35540610551834106,
+      "loss_bbox_dn_0": 0.4478929042816162,
+      "loss_giou_dn_0": 1.6171494722366333,
+      "loss_fgl_dn_0": 0.5735151767730713,
+      "loss_ddf_dn_0": 0.1362289935350418,
+      "loss_mal_dn_1": 0.6229574084281921,
+      "loss_bbox_dn_1": 0.276161789894104,
+      "loss_giou_dn_1": 1.4066579341888428,
+      "loss_fgl_dn_1": 0.7073891758918762,
+      "loss_ddf_dn_1": 0.006823641248047352,
+      "loss_mal_dn_2": 0.6513524651527405,
+      "loss_bbox_dn_2": 0.26321277022361755,
+      "loss_giou_dn_2": 1.3797491788864136,
+      "loss_fgl_dn_2": 0.7123143672943115,
+      "loss_ddf_dn_2": -0.0,
+      "loss_mal_dn_pre": 0.35401812195777893,
+      "loss_bbox_dn_pre": 0.4448627829551697,
+      "loss_giou_dn_pre": 1.6163891553878784
+    },
+    "gradient_hash": "f578b728cb0995f28ba4669c16d965eb1a752c508af734063d12cbac14e281bd",
+    "updated_weights_hash": "830534cd3cef0c401e1adc34a4ab20fb2e530250bad45be04c67cedd37966a0e"
+  },
+  {
+    "step": 1,
+    "images_hash": "42c3c84ad936233f56f2e1b47bff52bc635ef52d8eae0e4436aeaa51ddc328e6",
+    "image_ids": [
+      [
+        150
+      ],
+      [
+        314
+      ],
+      [
+        271
+      ],
+      [
+        207
+      ],
+      [
+        197
+      ],
+      [
+        62
+      ],
+      [
+        239
+      ],
+      [
+        309
+      ]
+    ],
+    "boxes_hash": "eb148606a83626c2a9c1c674e46912f09c12048406e52b1006c6268eefad512b",
+    "rng_cpu": "f12260b23eea2aeb50de5dd65cef12230660b83d0a9e2f478132169489d4a713",
+    "rng_cuda": "af7ad4c3d48b391054c954aae58b7f7dca65c5e2215a1433dcaaec05d37a2247",
+    "outputs_hash": "57007364b75e199efba32fa44cc1fe3554b7e2ed409e2983e83870f09b6a17a6",
+    "losses": {
+      "loss_mal": 0.08849760890007019,
+      "loss_bbox": 1.525366187095642,
+      "loss_giou": 2.9094488620758057,
+      "loss_fgl": 0.09351277351379395,
+      "loss_mal_aux_0": 0.10055768489837646,
+      "loss_bbox_aux_0": 1.4622502326965332,
+      "loss_giou_aux_0": 2.9849274158477783,
+      "loss_fgl_aux_0": 0.09349353611469269,
+      "loss_ddf_aux_0": 0.027001289650797844,
+      "loss_mal_aux_1": 0.07529423385858536,
+      "loss_bbox_aux_1": 1.5406454801559448,
+      "loss_giou_aux_1": 2.9131064414978027,
+      "loss_fgl_aux_1": 0.09074388444423676,
+      "loss_ddf_aux_1": 0.002178971655666828,
+      "loss_mal_pre": 0.10399197041988373,
+      "loss_bbox_pre": 1.4688771963119507,
+      "loss_giou_pre": 2.9771790504455566,
+      "loss_mal_enc_0": 0.06911373138427734,
+      "loss_bbox_enc_0": 1.4170335531234741,
+      "loss_giou_enc_0": 2.991746664047241,
+      "loss_mal_dn_0": 0.24428822100162506,
+      "loss_bbox_dn_0": 0.37533825635910034,
+      "loss_giou_dn_0": 1.666035532951355,
+      "loss_fgl_dn_0": 0.53597092628479,
+      "loss_ddf_dn_0": 0.1062425896525383,
+      "loss_mal_dn_1": 0.41813620924949646,
+      "loss_bbox_dn_1": 0.2706140875816345,
+      "loss_giou_dn_1": 1.506652593612671,
+      "loss_fgl_dn_1": 0.6375455260276794,
+      "loss_ddf_dn_1": 0.004710840061306953,
+      "loss_mal_dn_2": 0.4290706217288971,
+      "loss_bbox_dn_2": 0.25713014602661133,
+      "loss_giou_dn_2": 1.4848910570144653,
+      "loss_fgl_dn_2": 0.6462486982345581,
+      "loss_ddf_dn_2": -0.0,
+      "loss_mal_dn_pre": 0.24679826200008392,
+      "loss_bbox_dn_pre": 0.368750661611557,
+      "loss_giou_dn_pre": 1.6611616611480713
+    },
+    "gradient_hash": "fb8ac9171a32a5c904c5fd9bd3fd3f610297c4e934993d286921ecc75ee749b4",
+    "updated_weights_hash": "c5f966f4eaa979ef4a8d9124deb9285d3c494543ac903ad8ec92cb849413edec"
+  },
+  {
+    "step": 2,
+    "images_hash": "17b2334fb9bd080f381a86b629d2d9c909c2b493918f266b6ac9e5cb7b542027",
+    "image_ids": [
+      [
+        220
+      ],
+      [
+        241
+      ],
+      [
+        10
+      ],
+      [
+        297
+      ],
+      [
+        87
+      ],
+      [
+        244
+      ],
+      [
+        138
+      ],
+      [
+        24
+      ]
+    ],
+    "boxes_hash": "2879c0d5dadf7ccc691c0d30e05626b4a04a8dbf6dfb373780daff53ac44bdb7",
+    "rng_cpu": "f12260b23eea2aeb50de5dd65cef12230660b83d0a9e2f478132169489d4a713",
+    "rng_cuda": "9f360d07465b1bad66b6605d1edb53b3694b3d104dece4b8b6b6ee306e75a63c",
+    "outputs_hash": "9a05ff590b9d27a51cafe778db9b91e95d3362558f481f9b3b64f48f0aa499ab",
+    "losses": {
+      "loss_mal": 0.15410707890987396,
+      "loss_bbox": 1.7028484344482422,
+      "loss_giou": 2.396077871322632,
+      "loss_fgl": 0.13402310013771057,
+      "loss_mal_aux_0": 0.16577258706092834,
+      "loss_bbox_aux_0": 1.6200942993164062,
+      "loss_giou_aux_0": 2.4407129287719727,
+      "loss_fgl_aux_0": 0.13398684561252594,
+      "loss_ddf_aux_0": 0.020129336044192314,
+      "loss_mal_aux_1": 0.15002568066120148,
+      "loss_bbox_aux_1": 1.7394310235977173,
+      "loss_giou_aux_1": 2.401416540145874,
+      "loss_fgl_aux_1": 0.13011890649795532,
+      "loss_ddf_aux_1": 0.002142490353435278,
+      "loss_mal_pre": 0.16765913367271423,
+      "loss_bbox_pre": 1.607853889465332,
+      "loss_giou_pre": 2.4511029720306396,
+      "loss_mal_enc_0": 0.15209026634693146,
+      "loss_bbox_enc_0": 1.6684987545013428,
+      "loss_giou_enc_0": 2.5080792903900146,
+      "loss_mal_dn_0": 0.3916481137275696,
+      "loss_bbox_dn_0": 0.3300970792770386,
+      "loss_giou_dn_0": 1.5565547943115234,
+      "loss_fgl_dn_0": 0.6086829900741577,
+      "loss_ddf_dn_0": 0.09007743000984192,
+      "loss_mal_dn_1": 0.6887692809104919,
+      "loss_bbox_dn_1": 0.21583259105682373,
+      "loss_giou_dn_1": 1.3457411527633667,
+      "loss_fgl_dn_1": 0.7355148196220398,
+      "loss_ddf_dn_1": 0.005269745830446482,
+      "loss_mal_dn_2": 0.6701343655586243,
+      "loss_bbox_dn_2": 0.2080056369304657,
+      "loss_giou_dn_2": 1.3359853029251099,
+      "loss_fgl_dn_2": 0.7402937412261963,
+      "loss_ddf_dn_2": -0.0,
+      "loss_mal_dn_pre": 0.3951108455657959,
+      "loss_bbox_dn_pre": 0.3251519501209259,
+      "loss_giou_dn_pre": 1.5516793727874756
+    },
+    "gradient_hash": "f779c18f466b1226400e081f0e4b5fad11340ae8078a7683b3b7c4da73b7bbc8",
+    "updated_weights_hash": "d97e25e7f65e3206318a4bcafbcbdc553cf4043570bad8ed8ed952d17f0e3b11"
+  },
+  {
+    "step": 3,
+    "images_hash": "ac891d7228c7267be8439444fcd6f1ece8ebb1f5a38c20cd4b56fb2e66fa0a85",
+    "image_ids": [
+      [
+        298
+      ],
+      [
+        182
+      ],
+      [
+        57
+      ],
+      [
+        176
+      ],
+      [
+        131
+      ],
+      [
+        14
+      ],
+      [
+        162
+      ],
+      [
+        115
+      ]
+    ],
+    "boxes_hash": "8c5f78bfa8ee047dd68c7637fc7c234016489bb1b7d0684a72f7f8786d4caf28",
+    "rng_cpu": "f12260b23eea2aeb50de5dd65cef12230660b83d0a9e2f478132169489d4a713",
+    "rng_cuda": "dc45a06c663956b2a86c119aa4b199dd2f27a19ddb4b8670fd1df0196a21140d",
+    "outputs_hash": "47e9646e371ebc0f09ac3649cccac3cb16b414a58415657fd868b2dd39c1fc90",
+    "losses": {
+      "loss_mal": 0.05707428976893425,
+      "loss_bbox": 1.675611972808838,
+      "loss_giou": 2.2485764026641846,
+      "loss_fgl": 0.12002266198396683,
+      "loss_mal_aux_0": 0.06666947901248932,
+      "loss_bbox_aux_0": 1.646315336227417,
+      "loss_giou_aux_0": 2.267305612564087,
+      "loss_fgl_aux_0": 0.11326941102743149,
+      "loss_ddf_aux_0": 0.01630619540810585,
+      "loss_mal_aux_1": 0.06019103154540062,
+      "loss_bbox_aux_1": 1.706851601600647,
+      "loss_giou_aux_1": 2.238400936126709,
+      "loss_fgl_aux_1": 0.12016256898641586,
+      "loss_ddf_aux_1": 0.0015799409011378884,
+      "loss_mal_pre": 0.06790421903133392,
+      "loss_bbox_pre": 1.6388534307479858,
+      "loss_giou_pre": 2.2618515491485596,
+      "loss_mal_enc_0": 0.06197374686598778,
+      "loss_bbox_enc_0": 1.6193772554397583,
+      "loss_giou_enc_0": 2.3487040996551514,
+      "loss_mal_dn_0": 0.3426903784275055,
+      "loss_bbox_dn_0": 0.3533715605735779,
+      "loss_giou_dn_0": 1.5742155313491821,
+      "loss_fgl_dn_0": 0.587630569934845,
+      "loss_ddf_dn_0": 0.11495169997215271,
+      "loss_mal_dn_1": 0.7079306840896606,
+      "loss_bbox_dn_1": 0.21625421941280365,
+      "loss_giou_dn_1": 1.3224358558654785,
+      "loss_fgl_dn_1": 0.7412844300270081,
+      "loss_ddf_dn_1": 0.00565446587279439,
+      "loss_mal_dn_2": 0.7061551213264465,
+      "loss_bbox_dn_2": 0.21087853610515594,
+      "loss_giou_dn_2": 1.3039488792419434,
+      "loss_fgl_dn_2": 0.7454001307487488,
+      "loss_ddf_dn_2": -0.0,
+      "loss_mal_dn_pre": 0.3457338511943817,
+      "loss_bbox_dn_pre": 0.3479440212249756,
+      "loss_giou_dn_pre": 1.5713260173797607
+    },
+    "gradient_hash": "65f5d07a6f6ecc8d9e7b6fd1253a9261dbe17fd03b41a1134cf463e765d49b70",
+    "updated_weights_hash": "36ef450ffe7090c9bf735d2324bbe82f5c6fad9c8c723874d1c536b7aed6e512"
+  },
+  {
+    "step": 4,
+    "images_hash": "688aa12b42024d6118037eb14a1ceedf90cee772b15e62b81b8a534ee200022e",
+    "image_ids": [
+      [
+        224
+      ],
+      [
+        316
+      ],
+      [
+        79
+      ],
+      [
+        163
+      ],
+      [
+        184
+      ],
+      [
+        156
+      ],
+      [
+        151
+      ],
+      [
+        219
+      ]
+    ],
+    "boxes_hash": "b5a94e0590cf41963c8093456f6232768789e61302a20ef271ef7ab8c16b1a1d",
+    "rng_cpu": "f12260b23eea2aeb50de5dd65cef12230660b83d0a9e2f478132169489d4a713",
+    "rng_cuda": "18fc0fe4a7b87b5c464224625ef4e9fe745ec2695bdd430091b348e983b47252",
+    "outputs_hash": "6215961cd54d865687ee93d710e6faf48e0d3c55faf11400937caa11afca2c10",
+    "losses": {
+      "loss_mal": 0.14964337646961212,
+      "loss_bbox": 1.1739521026611328,
+      "loss_giou": 2.2681124210357666,
+      "loss_fgl": 0.25902941823005676,
+      "loss_mal_aux_0": 0.183431476354599,
+      "loss_bbox_aux_0": 1.1799983978271484,
+      "loss_giou_aux_0": 2.2718923091888428,
+      "loss_fgl_aux_0": 0.26795172691345215,
+      "loss_ddf_aux_0": 0.02274457737803459,
+      "loss_mal_aux_1": 0.14682887494564056,
+      "loss_bbox_aux_1": 1.1839041709899902,
+      "loss_giou_aux_1": 2.2754852771759033,
+      "loss_fgl_aux_1": 0.2533557415008545,
+      "loss_ddf_aux_1": 0.0013410445535555482,
+      "loss_mal_pre": 0.18362422287464142,
+      "loss_bbox_pre": 1.16558039188385,
+      "loss_giou_pre": 2.294173002243042,
+      "loss_mal_enc_0": 0.13713054358959198,
+      "loss_bbox_enc_0": 1.2270067930221558,
+      "loss_giou_enc_0": 2.3078408241271973,
+      "loss_mal_dn_0": 0.3635495901107788,
+      "loss_bbox_dn_0": 0.3919956386089325,
+      "loss_giou_dn_0": 1.543884038925171,
+      "loss_fgl_dn_0": 0.634107232093811,
+      "loss_ddf_dn_0": 0.20481649041175842,
+      "loss_mal_dn_1": 0.7664198875427246,
+      "loss_bbox_dn_1": 0.23059630393981934,
+      "loss_giou_dn_1": 1.2493922710418701,
+      "loss_fgl_dn_1": 0.8063432574272156,
+      "loss_ddf_dn_1": 0.008274082094430923,
+      "loss_mal_dn_2": 0.8097161054611206,
+      "loss_bbox_dn_2": 0.21105703711509705,
+      "loss_giou_dn_2": 1.2050809860229492,
+      "loss_fgl_dn_2": 0.8287699222564697,
+      "loss_ddf_dn_2": -0.0,
+      "loss_mal_dn_pre": 0.367673397064209,
+      "loss_bbox_dn_pre": 0.38598889112472534,
+      "loss_giou_dn_pre": 1.5392581224441528
+    },
+    "gradient_hash": "41015c1a31654897d27e109a2478ac2278b53e451e51f4f42afd3b0a4377b501",
+    "updated_weights_hash": "7a44dd352c18c2fc6cc74af09b642611c978ec5565be76731284c27e1b517a93"
+  },
+  {
+    "step": 5,
+    "images_hash": "f3e440e2332dbbca3ec2129e185d789a41bbf4218d9d93d8c0ff01985ca17039",
+    "image_ids": [
+      [
+        63
+      ],
+      [
+        291
+      ],
+      [
+        192
+      ],
+      [
+        203
+      ],
+      [
+        347
+      ],
+      [
+        37
+      ],
+      [
+        142
+      ],
+      [
+        346
+      ]
+    ],
+    "boxes_hash": "6af2a84bdab16e844f81ffbd304415419554100ceb0952733bf4045cba096af8",
+    "rng_cpu": "f12260b23eea2aeb50de5dd65cef12230660b83d0a9e2f478132169489d4a713",
+    "rng_cuda": "0a2e2585e02368eae24fd34dd92e509f98b317f5adb68d9e988d76f7b1cc3419",
+    "outputs_hash": "1f732a65bbb88d459246bcdfe05a3320d6af40ede1c3cdc86975be77a85dd096",
+    "losses": {
+      "loss_mal": 0.02587706409394741,
+      "loss_bbox": 1.4118002653121948,
+      "loss_giou": 2.6959428787231445,
+      "loss_fgl": 0.06521668285131454,
+      "loss_mal_aux_0": 0.02989884652197361,
+      "loss_bbox_aux_0": 1.4389214515686035,
+      "loss_giou_aux_0": 2.7689297199249268,
+      "loss_fgl_aux_0": 0.056131988763809204,
+      "loss_ddf_aux_0": 0.016033802181482315,
+      "loss_mal_aux_1": 0.023603057488799095,
+      "loss_bbox_aux_1": 1.4256279468536377,
+      "loss_giou_aux_1": 2.7127745151519775,
+      "loss_fgl_aux_1": 0.06054871901869774,
+      "loss_ddf_aux_1": 0.0016344157047569752,
+      "loss_mal_pre": 0.028495272621512413,
+      "loss_bbox_pre": 1.437894344329834,
+      "loss_giou_pre": 2.796818494796753,
+      "loss_mal_enc_0": 0.025321457535028458,
+      "loss_bbox_enc_0": 1.3883497714996338,
+      "loss_giou_enc_0": 2.8977138996124268,
+      "loss_mal_dn_0": 0.403492271900177,
+      "loss_bbox_dn_0": 0.3663761615753174,
+      "loss_giou_dn_0": 1.5273188352584839,
+      "loss_fgl_dn_0": 0.6318781971931458,
+      "loss_ddf_dn_0": 0.12427492439746857,
+      "loss_mal_dn_1": 0.6939335465431213,
+      "loss_bbox_dn_1": 0.20875544846057892,
+      "loss_giou_dn_1": 1.3026999235153198,
+      "loss_fgl_dn_1": 0.7519817352294922,
+      "loss_ddf_dn_1": 0.0055620125494897366,
+      "loss_mal_dn_2": 0.6955848932266235,
+      "loss_bbox_dn_2": 0.19719234108924866,
+      "loss_giou_dn_2": 1.2752877473831177,
+      "loss_fgl_dn_2": 0.767932653427124,
+      "loss_ddf_dn_2": -0.0,
+      "loss_mal_dn_pre": 0.4035116732120514,
+      "loss_bbox_dn_pre": 0.3619251251220703,
+      "loss_giou_dn_pre": 1.5253698825836182
+    },
+    "gradient_hash": "8d8c5c25f1f5d76b09ae550e2cfe2dc911fcbea8750e3a9394d20686015510ff",
+    "updated_weights_hash": "a535219e72a15fb44b44c769780b98c155ca44c8f96b151a5e2d8f3ce3a95c46"
+  },
+  {
+    "step": 6,
+    "images_hash": "23d36e003957f2f309aedef44f6fa5001537bc28892e2f0299872bc1cda618c5",
+    "image_ids": [
+      [
+        93
+      ],
+      [
+        171
+      ],
+      [
+        92
+      ],
+      [
+        248
+      ],
+      [
+        170
+      ],
+      [
+        59
+      ],
+      [
+        148
+      ],
+      [
+        3
+      ]
+    ],
+    "boxes_hash": "59b729bd2f64ac2d1de8a48d9b4237e2dbefb903575804b9c37d39e7a0ca059c",
+    "rng_cpu": "f12260b23eea2aeb50de5dd65cef12230660b83d0a9e2f478132169489d4a713",
+    "rng_cuda": "f61c81f1f45cd5738fc41e9658aaf78d92c33bd62acf80fdb134fb58ea178c7e",
+    "outputs_hash": "38b209974ba6484eea8615072ad8c621dad2ed73a60cb4898ae19a59b1c07400",
+    "losses": {
+      "loss_mal": 0.05643773078918457,
+      "loss_bbox": 1.5406732559204102,
+      "loss_giou": 2.7141265869140625,
+      "loss_fgl": 0.085813008248806,
+      "loss_mal_aux_0": 0.05796300992369652,
+      "loss_bbox_aux_0": 1.5178196430206299,
+      "loss_giou_aux_0": 2.7288851737976074,
+      "loss_fgl_aux_0": 0.08115486055612564,
+      "loss_ddf_aux_0": 0.033190108835697174,
+      "loss_mal_aux_1": 0.05002165213227272,
+      "loss_bbox_aux_1": 1.6041202545166016,
+      "loss_giou_aux_1": 2.7243599891662598,
+      "loss_fgl_aux_1": 0.0795915424823761,
+      "loss_ddf_aux_1": 0.002416752278804779,
+      "loss_mal_pre": 0.05930889770388603,
+      "loss_bbox_pre": 1.5238173007965088,
+      "loss_giou_pre": 2.7621042728424072,
+      "loss_mal_enc_0": 0.07204558700323105,
+      "loss_bbox_enc_0": 1.5269547700881958,
+      "loss_giou_enc_0": 2.78222393989563,
+      "loss_mal_dn_0": 0.4778750538825989,
+      "loss_bbox_dn_0": 0.2946149706840515,
+      "loss_giou_dn_0": 1.4644252061843872,
+      "loss_fgl_dn_0": 0.6913464665412903,
+      "loss_ddf_dn_0": 0.24548278748989105,
+      "loss_mal_dn_1": 0.8708422780036926,
+      "loss_bbox_dn_1": 0.17067267000675201,
+      "loss_giou_dn_1": 1.2285641431808472,
+      "loss_fgl_dn_1": 0.8137902617454529,
+      "loss_ddf_dn_1": 0.008579021319746971,
+      "loss_mal_dn_2": 0.8822514414787292,
+      "loss_bbox_dn_2": 0.1634983867406845,
+      "loss_giou_dn_2": 1.1947535276412964,
+      "loss_fgl_dn_2": 0.8164471387863159,
+      "loss_ddf_dn_2": -0.0,
+      "loss_mal_dn_pre": 0.4693654775619507,
+      "loss_bbox_dn_pre": 0.2955141067504883,
+      "loss_giou_dn_pre": 1.4679380655288696
+    },
+    "gradient_hash": "4a47fa7c6a47a8643dc06e450786462bf2f0df7003efe21d829025beaedaf042",
+    "updated_weights_hash": "191b5a1078c30d226c6257761f247d58ef5c36d9faac2d539d88bfa44387d66b"
+  },
+  {
+    "step": 7,
+    "images_hash": "a426ed8ec57398f34befc0acca2130f9a247567c5ea7c655d7363678fe0a7e82",
+    "image_ids": [
+      [
+        256
+      ],
+      [
+        116
+      ],
+      [
+        143
+      ],
+      [
+        186
+      ],
+      [
+        232
+      ],
+      [
+        339
+      ],
+      [
+        19
+      ],
+      [
+        91
+      ]
+    ],
+    "boxes_hash": "650065a460a7236e75c931a8c2fcfa49f6b695cd98f6a3fbef4e3977c9611033",
+    "rng_cpu": "f12260b23eea2aeb50de5dd65cef12230660b83d0a9e2f478132169489d4a713",
+    "rng_cuda": "34c45b2fcf27eb42534afd7b56b4abbffc77280b3950f58d04c2f589193dfe9b",
+    "outputs_hash": "0d41dcc7dd1ab9229faae420e0e44512f60c4a761d4f8c5b8e17f2e9b2cc9e9b",
+    "losses": {
+      "loss_mal": 0.1264660507440567,
+      "loss_bbox": 1.2863531112670898,
+      "loss_giou": 2.5245680809020996,
+      "loss_fgl": 0.17204949259757996,
+      "loss_mal_aux_0": 0.14669044315814972,
+      "loss_bbox_aux_0": 1.3348920345306396,
+      "loss_giou_aux_0": 2.528826951980591,
+      "loss_fgl_aux_0": 0.1549433171749115,
+      "loss_ddf_aux_0": 0.01893729530274868,
+      "loss_mal_aux_1": 0.11634471267461777,
+      "loss_bbox_aux_1": 1.3005247116088867,
+      "loss_giou_aux_1": 2.5229780673980713,
+      "loss_fgl_aux_1": 0.16537369787693024,
+      "loss_ddf_aux_1": 0.001323292381130159,
+      "loss_mal_pre": 0.14352136850357056,
+      "loss_bbox_pre": 1.3202288150787354,
+      "loss_giou_pre": 2.5293633937835693,
+      "loss_mal_enc_0": 0.09877581149339676,
+      "loss_bbox_enc_0": 1.3948510885238647,
+      "loss_giou_enc_0": 2.631308078765869,
+      "loss_mal_dn_0": 0.625104546546936,
+      "loss_bbox_dn_0": 0.2555857002735138,
+      "loss_giou_dn_0": 1.3729238510131836,
+      "loss_fgl_dn_0": 0.750421941280365,
+      "loss_ddf_dn_0": 0.16861656308174133,
+      "loss_mal_dn_1": 1.0037720203399658,
+      "loss_bbox_dn_1": 0.15337856113910675,
+      "loss_giou_dn_1": 1.1724973917007446,
+      "loss_fgl_dn_1": 0.8563661575317383,
+      "loss_ddf_dn_1": 0.005889051593840122,
+      "loss_mal_dn_2": 0.990247368812561,
+      "loss_bbox_dn_2": 0.14246800541877747,
+      "loss_giou_dn_2": 1.1496537923812866,
+      "loss_fgl_dn_2": 0.8642444610595703,
+      "loss_ddf_dn_2": -0.0,
+      "loss_mal_dn_pre": 0.6231678128242493,
+      "loss_bbox_dn_pre": 0.2575732171535492,
+      "loss_giou_dn_pre": 1.3727492094039917
+    },
+    "gradient_hash": "730731819af16b4332c394e2609d25380209ded299dbb5c1ab34d642ff15a76c",
+    "updated_weights_hash": "a0c49f480323e9b46ed23c76a5855af7b3f41bffcbd85edaa83760f4c65bb1b0"
+  }
+]

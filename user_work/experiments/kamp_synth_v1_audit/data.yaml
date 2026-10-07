@@ -1,0 +1,6 @@
+# ultralytics YOLO 설정. path 를 이 폴더의 절대 경로로 바꾸세요. 합성 test 전용 (학습 금지)
+path: .
+val: images/val
+test: images/test
+names:
+  0: defect

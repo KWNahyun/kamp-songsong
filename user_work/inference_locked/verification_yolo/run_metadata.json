@@ -1,0 +1,13 @@
+{
+  "run": "yolov8s_seed20260929",
+  "checkpoint_sha256": "f37dbb7799c0f784771617c08a1d142ba83685813ea8641c4551f5d81c3c357e",
+  "val_threshold": 0.07941053062677383,
+  "images": 3,
+  "seconds": 0.8767824172973633,
+  "GT_used": false,
+  "preprocessing": "provided marker-removed uint8 grayscale; original-resolution input; 640 central letterbox",
+  "NMS": 0.7,
+  "box_scale": 1,
+  "score_floor": 0.001,
+  "score_is_calibrated_probability": false
+}

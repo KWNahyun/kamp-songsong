@@ -1,0 +1,18 @@
+{
+  "status": "validation-selected exploratory candidate; not baseline default",
+  "model": "dfine_s_p2",
+  "order": [
+    "NMS",
+    "center-preserving size scaling"
+  ],
+  "NMS_IoU": 0.7,
+  "box_scale": 0.95,
+  "requires_GT_at_inference": false,
+  "test_used": false,
+  "AP50_95_val": 0.38781585276985403,
+  "checks": [
+    "input unchanged",
+    "highest score per image unchanged",
+    "independent implementation matches ablation AP"
+  ]
+}

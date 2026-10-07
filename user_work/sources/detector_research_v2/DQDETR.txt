@@ -1,0 +1,831 @@
+DQ-DETR: DETR with Dynamic Query for Tiny
+           Object Detection
+
+    Yi-Xin Huang1⋆ , Hou-I Liu⋆1 , Hong-Han Shuai1 , and Wen-Huang Cheng2
+            1
+                National Yang Ming Chiao Tung University, Hsinchu, Taiwan
+                {svkatie.nctu.ee08, k39967.c, hhshuai}@nycu.edu.tw
+                      2
+                         National Taiwan University, Taipei, Taiwan
+                               wenhuang@csie.ntu.edu.tw
+
+
+        Abstract. Despite previous DETR-like methods having performed suc-
+        cessfully in generic object detection, tiny object detection is still a chal-
+        lenging task for them since the positional information of object queries
+        is not customized for detecting tiny objects, whose scale is extraordi-
+        narily smaller than general objects. Additionally, the fixed number of
+        queries used in DETR-like methods makes them unsuitable for detec-
+        tion if the number of instances is imbalanced between different images.
+        Thus, we present a simple yet effective model, DQ-DETR, consisting of
+        three components: categorical counting module, counting-guided feature
+        enhancement, and dynamic query selection to solve the above-mentioned
+        problems. DQ-DETR uses the prediction and density maps from the cate-
+        gorical counting module to dynamically adjust the number and positional
+        information of object queries. Our model DQ-DETR outperforms previ-
+        ous CNN-based and DETR-like methods, achieving state-of-the-art mAP
+        30.2% on the AI-TOD-V2 dataset, which mostly consists of tiny objects.
+        Our code will be available at https://github.com/Katie0723/DQ-DETR.
+
+        Keywords: Detection Transformer · Query Selection · Tiny Object De-
+        tection
+
+
+1     Introduction
+    Convolutional neural networks (CNNs) excel at processing the RGB semantic
+and spatial texture features. Most object detection methods are primarily based
+on CNNs. For example, Faster R-CNN [16] introduces a region proposal network
+to generate potential object regions. FCOS [19] applies a center prediction branch
+to increase the quality of the bounding boxes.
+    However, CNNs are unsuitable for capturing long-range dependencies in the
+image, restricting the detection performance. Recently, DETR [2] incorporates
+CNN and transformer architecture to establish a new object detection frame-
+work. DETR utilizes the transformer encoder to integrate the partitioned im-
+age patches and passes them with the learnable object queries to the trans-
+former decoder for final detection results. Moreover, a series of DETR-like meth-
+ods [7, 11, 27,30] aim to advance DETR performance and accelerate convergence
+⋆
+    Equal contribution
+2           Y. Huang et al.
+
+speed. For example, Deformable-DETR [30] uses multi-scale feature maps to im-
+prove its ability to detect different sizes of objects. Also, the use of deformable
+attention modules can not only capture more informative and contextually rel-
+evant features but accelerate training convergence as well.
+
+
+Table 1: Comparison of DETR-like models’ query strategies under different situations.
+
+                           Sparse   Dense   Imbalance                           Characteristics
+    Deformable DETR [30]     ✓                          Sparse Queries (K=300) with One-To-One Assignment; Low Recall
+    DDQ-DETR [28]            ✓       ✓                  Dense Distinct Queries (K=900); Low Recall if #Object ≫ #Query
+    DQ-DETR (Ours)           ✓       ✓         ✓           Dynamically adjust the "Number" and "Position" of Queries
+
+
+
+
+    In this work, we argue that the previous DETR-like methods are inappropri-
+ate in aerial image datasets, which only contain tiny objects and have an imbal-
+ance of instances between different images. In the previous DETR-like methods,
+the object queries used in the transformer decoder do not consider the number
+and position of instances in the image. Generally, they apply a fixed number
+K of object queries, where K represents the maximum number of the detec-
+tion objects, e.g., K=100, 300 in DETR and Deformable-DETR, respectively.
+DETR [2] and Deformable-DETR [30] apply a fixed number of sparse queries,
+suffering from a low recall rate. To address the problem, DDQ [28] selects dense
+distinct queries, K=900, with a class-agnostic NMS based on a hand-designed
+IoU threshold. Though DDQ applies dense queries for detection, the number of
+queries is still limited.
+    However, aerial datasets often exhibit imbalances in the distribution of in-
+stances across different images. A fixed number of queries can lead to poor de-
+tection accuracy when the number of objects varies drastically between images.
+For example, in the AI-TOD-V2 dataset [24], some images have more than 1500
+objects, but others have less than 10 objects. Under the situation that the num-
+ber of objects in images is more than DETR’s query number K, a low recall rate
+is an expected issue. Using smaller K restricts the recall of the objects in dense
+images, leaving many instances undetected (FN). Conversely, using a large K in
+the sparse images not only introduces many underlying false positive samples
+(FP) but also causes a waste of computing resources since the computing com-
+plexity in the decoder’s self-attention layers grows quadratic with the number of
+queries K.
+    Furthermore, in the previous DETR-like methods, the object queries do not
+consider the position of instances in the image. The position of object queries
+is a set of learned embeddings, which are irrelevant to the current image and
+do not have explicit physical meaning to tell where the queries are focusing on.
+The static positions of object queries are unsuitable for aerial image datasets,
+where the distribution of instances varies extremely in different images, i.e., some
+images contain dense objects concentrated in specific areas, while some only have
+a few objects scattered throughout the images.
+         DQ-DETR: DETR with Dynamic Query for Tiny Object Detection               3
+
+    Stemming from the above-mentioned weakness, we propose a novel DETR-
+like method named DQ-DETR, which mainly focuses on dynamically adapting
+the numbers of queries and enhancing the position of queries to locate the tiny
+objects precisely. In this study, we propose a dynamic query selection module
+for adaptively choosing different numbers of object queries in DETR’s decoder
+stage, resulting in fewer FP in sparse images and fewer FN in dense images.
+Moreover, we generate the density maps and estimate the number of instances
+in an image by the categorical counting module. The number of object queries
+is adjusted based on the predicted counting number. In addition, we aggregate
+the density maps with the visual feature from the transformer encoder to rein-
+force the foreground features, enhancing the spatial information for tiny objects.
+The strengthened visual feature will be further used to improve the positional
+information of object queries. As such, we can simultaneously handle the images
+with few and crowded tiny objects by dynamically adjusting the number and
+position of object queries used in the decoder.
+    Our contributions are summarized as follows:
+
+ 1. We point out the crucial limitation of previous DETR-like methods that
+    make them unsuitable for aerial image datasets.
+ 2. Experimental result shows that our proposed DQ-DETR significantly sur-
+    passes the state-of-the-art method by 16.6%, 20.5% in terms of AP, APvt on
+    the AI-TOD-V2 dataset.
+ 3. We design a simple yet accurate categorical counting module to guide the
+    number of object queries effectively. In addition, we enhance the trans-
+    former’s visual feature with a density map to improve the positional in-
+    formation of object queries.
+
+
+2   Related work
+
+Tiny Object Detection. Detecting small objects is challenging due to their
+lack of pixels. Early works apply data augmentation to oversample the instance
+of tiny objects. For example, [6], copy-paste small objects into the same im-
+age. [31] proposes a K sub-policies that automatically transform features from
+the instance level. In addition, several approaches, such as [20, 24–26], indicate
+that traditional Intersection over Union (IoU) metrics are ill-suited for tiny ob-
+jects. When the object size difference is significant, IoU becomes highly sensitive.
+To design the appropriate metrics for the tiny object, DotD [26] considers the
+object’s absolute and relative size to formulate a new loss function. [20, 25, 26]
+design a new label assignment based on Gaussian distribution, which alleviates
+the sensitivity of the object size. However, these methods heavily rely on the
+predefined threshold, which is unstable for a different dataset.
+
+
+DETR-like Methods. DETR [2] proposes an end-to-end object detection
+framework based on the transformer, where the transformer encoder extracts
+instance-level features from an image, and the transformer decoder uses a set of
+4      Y. Huang et al.
+
+learnable queries to probe and pool features from images. While DETR achieves
+comparable results with the previous classical CNN-based detectors [16, 19], it
+suffers severely from the problem of slow training convergence, needing 500
+epochs of training to perform well. Many follow-up works have attempted to
+address the slow training convergence of DETR from different perspectives.
+    Some argue that DETR’s slow convergence stems from the instability of
+Hungarian matching and the cross-attention mechanism in the transformer de-
+coder. [18] proposes an encoder-only DETR, discarding the transformer decoder.
+Dynamic DETR [3] designs an ROI-based dynamic attention mechanism in the
+decoder that can focus on regions of interest from a coarse-to-fine manner.
+Deformable-DETR [30] proposes an attention module that only attends to a
+few sampling points around a reference point. DN-DETR [7] introduces denois-
+ing training to reduce the difficulty of bipartite graph matching.
+    Another series of works makes improvements in decoder object queries. Since
+the object queries are just a set of learnable embedding in DETR, [11, 13, 22]
+imputes the slow convergence of DETR to the implicit physical explanation of
+object queries. Conditional DETR [13] decouples the decoder’s cross-attention
+formulation and generates conditional queries based on reference coordinates.
+DAB-DETR [11] formulates the positional information of object queries as 4-
+D anchor boxes (x, y, w, h) that are used to provide ROI (Region of Interest)
+information for probing and pooling features. Although DETR-like methods have
+improved the formulation of queries, they are constrained in their ability to
+handle tiny objects and datasets with widely varying numbers of objects. The
+object queries in these methods are learned from the training data and the
+number of queries remains the same across different input images.
+    Our proposed DQ-DETR stands out as the first DETR-like model specifically
+designed to detect tiny objects and dynamically adjust the number of queries to
+enhance precision in imbalanced datasets.
+
+
+3     Method
+
+3.1   Overview
+
+    The overall structure of DQ-DETR is shown in Fig. 1. As a DETR-like
+method, DQ-DETR is an end-to-end detector that contains a CNN backbone,
+a deformable encoder and decoder [30], and several prediction heads. We fur-
+ther implement a new categorical counting module, a counting-guided feature
+enhancement module, and dynamic query selection based on DETR’s architec-
+ture. Given an input image, we first extract multi-scale features with a CNN
+backbone and feed them into the transformer encoder to attain visual features.
+Afterward, our categorical counting module determines how many object queries
+are used in the transformer decoder, as shown in Fig. 1(a). Besides, we propose
+a novel counting-guided feature enhancement module, as illustrated in Fig. 1(b),
+to strengthen the encoder’s visual features with spatial information of tiny ob-
+jects. Last, the object queries are refined with additional information about the
+                      DQ-DETR: DETR with Dynamic Query for Tiny Object Detection                                                                                                                     5
+
+                                                                                                                      (a) Categorical Counting Module
+                                                Density Extractor                                       Cls. Head
+                                                                                                                            Classification
+                                                                                                                                                 #Queries
+                                                                                       Density                                 scores
+                                S4                                                      Map                                                       K = 300
+
+
+
+
+                                                                dilated conv
+
+
+
+
+                                                                                                       Avg Pooling
+                                                                                                                                  0.1
+
+
+
+
+                                                 1x1 conv
+                           S3
+                          S2                                                                                                                      K = 500
+
+
+
+
+                                                                               ReLU
+                                                                                                                                  0.6
+
+
+
+
+                                                                                                                     FFN
+                        S1                                                                                                                                                e. g., K=1500
+                                                                                                                                  0.2             K = 900
+        Backbone                                                                                                                  0.1             K = 1500
+                       Unflatten                                                                                                                                                  Prediction Head
+
+    P4
+   P3
+ P2                                    ...
+P1                                                                                                                                                                                             ...
+                                       ...        Spatial                               Channel
+                                                                                                                                                                      Qcontent
+
+
+
+
+                                                                                                                                                                FFN
+                                                                                                                                           ...
+                                                                                                                                                                                               ...
+                                                 Attention                              Attention                     Enhanced                   Select
+            Flatten            Deformable                                                                                        Flatten
+                                                                                                                       Feature                   Top-K                              Deformable
+
+
+
+
+                                                                                                                                                          ...
+                                Encoder
+                                                                                      Channel Weight                                                                                 Decoder
+                                       ...     Spatial weight
+                                                                                                                                                                                               ...
+                                       ...
+
+
+
+
+                                                                                                                                                                FFN
+                                                            X                               X                                                                         Qposition                ...
+
+
+
+   Positional
+  Embedding                                  (b) Counting-Guided Feature Enhancement                                                (c) Dynamic Query Selection                           Key & Value
+
+
+
+
+Fig. 1: Overall architecture of our method. (a) Categorical Counting Module, which
+classifies the number of instances in images into 4 levels. (b) Counting-Guided Feature
+Enhancement, which refines the encoder’s visual feature with a density map. (c) Dy-
+namic Query Selection, which dynamically adjusts the number of queries and enhances
+the content and position of queries.
+
+
+
+location and size of tiny objects through dynamic query selection, as shown in
+Fig. 1(c). The following section will describe the proposed Categorical Counting
+Module, Counting-Guided Feature Enhancement, and Dynamic Query Selection.
+
+
+3.2          Unflattening of Encoder’s Feature Map
+
+   Following DETR’s pipeline, we use multi-scale feature maps Pi ∈ {1, 2, . . . , l}
+extracted from different stages of the backbone as the input of the transformer
+encoder. To form the input sequence of the transformer encoder, we flatten
+each layer of multi-scale feature maps Pi from Rd×hi ×wi to Rd×hi wi and then
+concatenate them together. The higher resolution feature contains more spatial
+details, which is beneficial to object counting and detecting tiny objects.
+   In our proposed categorical counting module, we apply dilated convolution
+operations on the transformer encoder features. Hence, we unflatten the en-
+coder’s multi-scale visual features by reshaping its spatial dimension, resulting
+in 2-D feature maps Si ∈ Rd×hi ×wi . We denote the reconstructed encoder’s
+multi-scale visual features as EMSV features for brevity.
+
+
+3.3          Categorical Counting Module
+
+   The categorical counting module aims to estimate the number of objects in
+the images. It consists of a density extractor and a classification head.
+
+
+Density Extractor. We take the largest feature map S1 of the EMSV features
+and generate the density map Fc through the density extractor. The input feature
+6       Y. Huang et al.
+
+map S1 is sent into a series of dilated convolution layers to acquire a density map
+Fc , which contains counting-related information. Specifically, dilated convolution
+layers enlarge the receptive field and capture rich long-range dependency for tiny
+objects.
+
+
+Counting Number Classification.             Lastly, we estimate the counting num-
+ber N , i.e., the number of instances per image, by a classification head and cat-
+egorize them into four levels, which are N ≤ 10, 10 < N ≤ 100, 100 < N ≤ 500,
+and N > 500. The classification head consists of two linear layers. Further, the
+numbers 10, 100, and 500 are selected based on the AI-TOD-V2 dataset’s charac-
+teristics, i.e., the mean and standard deviation of the number of instances N per
+image. Notably, we do not use the regression head as in the traditional crowd-
+counting methods, which regresses the counting number to a specific number.
+We attribute the reason to the drastic difference in the number of instances in
+each image, where N ranges from 1 to 2267 in different images of AI-TOD-V2.
+It is difficult to regress an accurate number, hurting the detection performance.
+
+
+3.4   Counting-Guided Feature Enhancement Module (CGFE)
+
+     The EMSV feature is refined using the density map from the categorical
+counting module through the proposed Counting-Guided Feature Enhancement
+Module (CGFE) to improve the spatial information of tiny objects. The refined
+features are then used to enhance the position information of queries.
+    This module comprises spatial cross-attention and channel attention opera-
+tions [23].
+
+
+Spatial cross-attention map. To utilize the abundant spatial information
+in the density map Fc , a 2-D cross-spatial attention is calculated. We employ a
+1 × 1 convolution layers to down-sample the density map Fc , creating multi-scale
+counting feature maps Fc,i ∈ {1, 2, . . . , l} to in line with the shape of each layer
+of encoder’s multi-scale feature maps Si ∈ {1, 2, . . . , l}. Subsequently, we first
+apply average pooling (AvgP.) and max pooling (MaxP.) on each layer of multi-
+scale counting features Fc,i ∈ Rb×256×h×w along the channel axis. Then, the two
+pooling features Rb×1×h×w are concatenated and sent into a 7x7 convolution
+layer followed by a sigmoid function to produce spatial attention map Ws ∈
+Rb×1×h×w . We formulate this process in Eq. 1.
+    Since the density maps Fc contain the location and density information about
+the object, the spatial attention maps generated by them can focus on the im-
+portant region, i.e., foreground objects, and enhance the EMSV feature with
+abundant spatial information.
+
+
+                  \begin {aligned} {W}_{s, i} = \sigma (\underset {7 \times 7}{Conv}(Concat\begin {bmatrix} AvgP.(\underset {1 \times 1}{Conv}({F}_{c, i})) \\ MaxP.(\underset {1 \times 1}{Conv}({F}_{c, i})) \end {bmatrix} )) \end {aligned} \label {eq:sp_map} .    (1)
+             DQ-DETR: DETR with Dynamic Query for Tiny Object Detection                                                                                                                       7
+
+   The generated spatial attention map Ws,i multiplies with EMSV feature Si
+element-wisely and further obtains the spatial-intensified features Ei , as shown
+in Eq. 2.
+                                 \begin {aligned} {E}_{i} = W_{s, i} \otimes S_{i}, \end {aligned} \label {eq:ei}  (2)
+
+Channel attention map. After the spatial cross-attention, we further apply
+1-D channel attention to the spatial-intensified features Ei , exploiting the inter-
+channel relationship of features. Specifically, we first apply average pooling and
+max pooling on each layer of Ei ∈ Rb×256×h×w along the spatial dimension.
+Next, the two pooling features Rb×256×1×1 are sent into a shared MLP and
+merged together with element-wise addition to create channel attention map
+Wc,i . Finally, the channel attention map Wc,i ∈ Rb×256×1×1 is multiplied with
+original Ei ∈ Rb×256×h×w and further get the counting-guided intensified feature
+maps Ft . The formulas are defined in Eq. 3 and Eq. 4:
+                       \begin {aligned} {W}_{c, i} = \sigma (MLP(AvgP.({E}_{i})) + MLP(MaxP.({E}_{i}))), \end {aligned} \label {eq:wci}                                                      (3)
+
+                                                                           \begin {aligned} {F}_{t, i} = W_{c, i} \otimes E_{i}. \end {aligned} \label {eq:fti}                              (4)
+
+3.5     Dynamic Query Selection
+Number of queries. In dynamic query selection, we first use the classification
+result from the categorical counting module to determine the number of queries
+K used in the transformer decoder. The four classification classes in the cate-
+gorical counting module correspond to four distinct numbers of queries, which
+are K = 300, 500, 900, and 1500, i.e., if the image is classified as N ≤ 10, we
+use K = 300 queries in the subsequent detection task, and so forth.
+
+Enhancement of queries. For query formulation, we follow the idea of DAB-
+DETR [11], where the queries are composed of content and positional informa-
+tion. The content of queries is a high-dimension vector, while the position of
+queries is formulated as a 4-D anchor box (x, y, w, h) to accelerate training
+convergence.
+    Further, we use the intensified multi-scale feature maps Ft from the previous
+CGFE module to improve the content Qcontent and position Qposition of queries.
+Each layer of Ft is firstly flattened into pixel level and concatenated together,
+forming Ff lat ∈ Rb×256×hw . The top-K features will be selected as priors to
+enhance decoder queries, where K is the number of queries used in the trans-
+former decoder stage. The selection is based on the classification score. We feed
+Ff lat into an FFN for the object classification task and generate the classifica-
+tion score ∈ Rb×m×hw , where m is the number of object classes in the dataset.
+Consequently, we generate the content and position of queries using the selected
+top-K features Fselect .
+                                                  \begin {aligned} & Score = FFN({F}_{flat}), \\ & {F}_{select} = topK_{Score}({F}_{flat}). \\ \end {aligned} \label {eq:dynamic_select1} 
+                                                                                                                                                                                             (5)
+8           Y. Huang et al.
+
+     The content of queries is generated by a linear transform of the selected
+features Fselect . As for the position of queries, we use an FFN to predict bias
+bˆi = (∆bix , ∆biy , ∆biw , ∆bih ) to refine the original anchor boxes. Let (x, y)i
+index a selected feature from multi-level features Ft ∈ {1, 2, . . . , l} at posi-
+tion (x, y). The selected feature has its original anchor box (xi , yi , wi , hi ) as
+                                                                                     2
+the position prior of queries, where (xi , yi ) are normalized coordinates ∈ [0, 1]
+and (wi , hi ) are setting related to the scale of feature Ft . The predicted bias
+bˆi = (∆bix , ∆biy , ∆biw , ∆bih ) are then added to original anchor box to refine the
+position of object queries.
+
+                                                    \begin {aligned} & Q_{content} = Linear({F}_{select}), \\ & Q_{position, bias} = FFN({F}_{select}). \\ \end {aligned} \label {eq:dynamic_select2} 
+                                                                                                                                                                                                         (6)
+
+    Since the features Fselect are selected from Ft , which is generated from the
+previous CGFE module, they contain abundant scale and location information
+of tiny objects. Hence, the enhanced content and position of object queries are
+tailored based on each image’s density (crowded or sparse), facilitating easier
+localization of tiny objects in the transformer decoder.
+
+3.6      Overall Objective
+Hungarian Loss Based on DETR [2], we use a Hungarian algorithm to find an
+optimal bipartite matching between ground truth and prediction and optimize
+losses. The Hungarian loss consists of L1 loss and GIoU loss [17] for bounding
+box regression and focal loss [9] with α = 0.25, γ = 2 for classification task,
+which can be denoted as Eq. 7. Follow the settings of DAB-DETR [11], we use
+λ1 = 5, λ2 = 2, λ3 = 1 in our implementation.
+
+                                \begin {aligned} L_{hungarian} = {\lambda }_{1}L_{1} + {\lambda }_{2}L_{GIoU} + {\lambda }_{3}L_{focal}. \end {aligned} \label {eq:hugarian}                             (7)
+
+    In addition, we use the cross-entropy loss in the categorical counting module
+to supervise the classification task. Further, the Hungarian loss is also applied
+as the auxiliary loss for each decoder stage. The overall loss can be denoted as
+Eq. 8.
+                       \begin {aligned} L_{total} = L_{hungarian} + L_{aux} + L_{counting}. \end {aligned} \label {eq:loss}  (8)
+
+
+4      Experiments
+4.1      Dataset
+    To demonstrate the effectiveness of our model, we conduct experiments on
+the aerial dataset AI-TOD-V2 [24], which mostly consists of tiny objects.
+AI-TOD-V2. This dataset includes 28,036 aerial images with 752,745 anno-
+tated object instances. There are 11,214 images for the train set, 2,804 for the
+validation set, and 14,018 for the test set. The average object size in AI-TOD-V2
+is only 12.7 pixels, with 86% of objects in the dataset smaller than 16 pixels, and
+             DQ-DETR: DETR with Dynamic Query for Tiny Object Detection                         9
+
+even the largest object is no bigger than 64 pixels. Also, the number of objects
+in an image can vary enormously from 1 to 2667, where the average number of
+objects per image is 24.64, with a standard deviation of 63.94.
+Evaluation Metric. We use the AP (Average Precision) metric with a max
+detection number of 1500 to evaluate the performance of our proposed method.
+Specifically, AP means the average value from AP50 to AP95 , with IoU interval
+of 0.05. Moreover, APvt , APt , APs , and APm are for very tiny, tiny, small, and
+medium scale evaluation in AI-TOD [21].
+
+
+
+4.2   Implementation Details
+
+
+    Based on the DETR-like structure, we use a 6-layer transformer encoder, a
+6-layer transformer decoder with 256 as the hidden dimension, and a ResNet50
+as our CNN backbone. Furthermore, we train our model with Adam optimizer
+using NVIDIA 3090 GPUs. The batch size is set to 1 due to memory constraints.
+The same random crop and scale augmentation strategies are applied following
+DETR [2]. In addition, to minimize errors that propagate from the categori-
+cal counting module to dynamic query selection, we apply a two-stage training
+scheme. We first train the categorical counting module to achieve more stable
+results for the number of queries in the transformer decoder. After stabilizing
+the counting result, we add the counting-guided feature enhancement module
+into training to refine the encoder’s visual features with density maps.
+
+
+Table 2: Experiments on AI-TOD-V2. All models are trained on the trainval split
+and evaluated on the test split. * denotes a re-implementation of the results.
+
+ Method                    Backbone         AP        AP50   AP75   APvt   APt    APs    APm
+                                          CNN-based models
+ YOLOv3 [15]              Darknet53         4.1       14.6   0.9    1.1    4.8    7.7    8.0
+ RetinaNet [9]           ResNet50-FPN       8.9       24.2   4.6    2.7    8.4    13.1   20.2
+ Faster-RCNN [16]        ResNet50-FPN      12.8       29.9   9.4    0.0    9.2    24.6   37.0
+ Cascade R-CNN [1]       ResNet50-FPN      15.1       34.2   11.2   0.1    11.5   26.7   38.5
+ DetectoRS [14]          ResNet50-FPN      16.1       35.5   12.5   0.1    12.6   28.3   40.0
+ DotD [26]               ResNet50-FPN      20.4       51.4   12.3   8.5    21.1   24.6   30.4
+ NWD-RKA [24]            ResNet50-FPN      24.7       57.4   17.1   9.7    24.2   29.8   39.3
+ RFLA [25]               ResNet50-FPN      25.7       58.9   18.8   9.2    25.5   30.2   40.2
+                                          DETR-like models
+ DETR-DC5* [2]             ResNet50        10.4       32.5   3.9    3.6    9.3    13.2   24.6
+ Deformable-DETR* [30]     ResNet50        18.9       50.0   10.5   6.5    17.6   25.3   34.4
+ DAB-DETR* [11]            ResNet50        22.4       55.6   14.3   9.0    21.7   28.3   38.7
+ DINO-DETR* [27]           ResNet50        25.9       61.3   17.5   12.7   25.3   32.0   39.7
+ DQ-DETR (Ours)            ResNet50     30.2 (+4.3)   68.6   22.3   15.3   30.5   36.5   44.6
+10        Y. Huang et al.
+
+4.3     Main Results on AI-TOD-V2
+    Table 2 shows our main results on the AI-TOD-V2 test split. We compare
+the performances of our DQ-DETR with strong baselines, including both CNN-
+based and DETR-like methods. All CNN-based methods except YOLOv3 use
+ResNet50 with feature pyramid network (FPN) [8]. Moreover, since there is
+no previous research of DETR-like models on tiny object detection, our DQ-
+DETR is the first DETR-like model that focuses on detecting tiny objects. We
+re-implement a series of DETR-like models on AI-TOD-V2, and all DETR-like
+methods except DETR use 5-scale feature maps with deformable attention [30].
+For 5-scale feature maps, features are extracted from stages 1, 2, 3, and 4 of the
+backbone, and add the extra feature by down-sampling the output of stage 4.
+    The results are summarized in Table 2, our proposed DQ-DETR achieves
+the best result 30.2 AP compared with other state-of-the-art methods, includ-
+ing CNN-based and DETR-like methods. Also, DQ-DETR surpasses the baseline
+by 20.5%, 20.6%, 14.1%, and 12.3% in terms of APvt , APt , APs , APm . The per-
+formance gain is greater on APvt , and APt , and our DQ-DETR outperforms the
+advanced series of DETR-like models on AI-TOD-V2. We credit the performance
+gains for the following reasons: (1) DQ-DETR fuses the transformer visual fea-
+tures with a density map from the categorical counting module to improve the
+positional information of object queries, which makes the queries more suitable
+for localizing tiny objects. (2) Our dynamic query selection adaptively chooses
+an adequate number of object queries used for the detection task and can handle
+the images with either few or crowded objects.
+
+
+Table 3: Experiments on VisDrone. All models are trained on the train split and
+evaluated on the val split. * denotes a re-implementation of the results.
+
+      Model                                AP           AP50           AP75
+      Faster R-CNN [16]                    21.4         40.7           19.9
+      Cascade R-CNN [1]                    22.6         38.8           23.2
+      Yolov5 [5]                           24.1         44.1           22.3
+      CEASC [4]                            28.7         50.7           24.7
+      SDP [12]                             30.2         52.5           28.4
+      DNTR [10]                            34.4         57.9           35.3
+      DINO-DETR* [27]                      35.8         58.3           36.8
+      DQ-DETR (Ours)                      37.0          60.9           37.9
+
+
+
+4.4     Results on VisDrone
+    Besides AI-TOD-V2, we also conduct experiments on the VisDrone [29]
+dataset to demonstrate the effectiveness of our model DQ-DETR.
+VisDrone. This dataset includes 14,018 drone-shot images, with 6,471 images
+for the train set, 548 for the validation set, and 3,190 for the test set. There are
+            DQ-DETR: DETR with Dynamic Query for Tiny Object Detection                11
+
+10 categories, and the image resolution is 2000 × 1500 pixels. Also, the images
+are diverse in a wide range of aspects, including objects (pedestrians, vehicles, bi-
+cycles, etc.) and density (sparse and crowded scenes), where the average number
+of objects per image is 40.7 with a standard deviation of 46.41.
+    Table 3 shows our results on the VisDrone val split. We compare the perfor-
+mances of our DQ-DETR with other methods. Our proposed DQ-DETR achieves
+the best result 37.0 AP compared with other state-of-the-art methods, includ-
+ing CNN-based and DETR-like methods. Also, DQ-DETR surpasses the baseline
+DINO-DETR by 1.2, 2.6, and 1.1 in terms of AP, AP50 , AP75 .
+
+
+4.5   Results on COCO
+
+    We compare our method, DQ-DETR, with the previous state-of-the-art on
+the COCO dataset. DQ-DETR yielded slightly lower performance, with an AP
+of 50.2 compared to 51.3. We believe several factors contributed to these results.
+Firstly, our experiments were constrained by limited GPU resources, which may
+have impacted our ability to optimize the training process. Secondly, our method
+is specifically designed for tiny object detection in scenarios where the number of
+objects varies significantly across images. This specialized focus may not be fully
+leveraged in the COCO dataset, which is a general object detection task with
+a nearly balanced number of objects per image. Therefore, while our method
+shows potential, it may not perform as expected on general datasets like COCO
+due to various factors.
+
+
+Table 4: Experiments on COCO. All models are trained on the train split and
+evaluated on the val split.
+
+ Method                 Epochs      AP     AP50      AP75     APS     APM     APL
+ Faster R-CNN [16]        109      42.0     62.1     45.5     26.6    45.5     53.4
+ DETR [2]                 500      43.3     63.1     45.9     22.5    47.3     61.1
+ Deformable DETR [30]     50       46.2     65.2     50.0     28.8    49.2     61.7
+ DN-DETR [7]              50       46.3     66.4     49.7     26.7    50.0     64.4
+ DINO-DETR [27]           24       51.3     69.1     56.0     34.5    54.2     65.8
+ DQ-DETR                  24       50.2     67.1     55.0     31.9    53.2     64.7
+
+
+
+
+4.6   Ablation Study
+
+    Categorical counting module, counting-guided feature enhancement, and dy-
+namic query selection are the newly proposed contributions. We conduct a series
+of ablation studies to verify the effectiveness of each component proposed in this
+paper. DINO-DETR is chosen as the comparing DETR-like baseline.
+12         Y. Huang et al.
+
+Main ablation experiment.            Table 5 shows the performance of our con-
+tributions separately on AI-TOD-V2. The results demonstrate that each com-
+ponent in DQ-DETR contributes to performance improvement. We attain an
+improved +2.2 AP over the baseline with the categorical counting module and
+dynamic query selection. Furthermore, with feature enhancement refining the en-
+coder’s feature, it gains an extra improvement of +4.3, +2.6, +5.2 on AP, APvt ,
+and APt over the baseline. Besides, the experiment with the counting module
+and feature enhancement together but without dynamic query selection further
+shows that introducing an additional counting-guided feature-enhancing task
+improves performance, even when query numbers remain static. Consequently,
+we prove the power of each component in DQ-DETR on AI-TOD-V2.
+
+
+        Table 5: Overall ablation for our architecture on AI-TOD-V2 test split.
+
+ Categorical Counting (CC)   Dynamic Query Selection (DQS)   Feature Enhancement (FE)   AP     APvt   APt    APs    APm
+                                                                                        25.9   12.7   25.3   32.0   39.7
+            ✓                             ✓                                             28.1   12.3   27.8   34.6   44.1
+            ✓                                                           ✓               29.1   14.4   29.3   35.2   44.1
+            ✓                             ✓                             ✓               30.2   15.3   30.5   36.5   44.6
+
+
+
+
+Ablation of DQ-DETR with different number of instances in images.
+We explore our DQ-DETR’s performance under different numbers of instances
+in an image. We classify the AI-TOD-V2 dataset into 4 levels based on the
+number of instances N in the image as in the categorical counting module,
+i.e., N ≤ 10, 10 < N ≤ 100, 100 < N ≤ 500, and 500 < N . Our proposed
+DQ-DETR’s performance is analyzed under these four situations. The results
+are shown in Table 6 compared with DINO-DETR as the baseline. Our DQ-
+DETR dynamically adjusts the number of object queries based on the number
+of instances in the image, while DINO-DETR always uses 900 queries in all
+situations.
+     We can observe that in the situations of N ≤ 10, and 10 < N ≤ 100, our
+DQ-DETR uses fewer numbers of queries and outperforms the baseline by 16%,
+and 16.4% in terms of AP. The performances in terms of APvt , APt surpass the
+baseline by 19.8%, and 20.8% as well. Moreover, it is noteworthy that DINO-
+DETR performs poorly when N > 500. Under these circumstances, there might
+be over 900 instances in some of the images, which is beyond the detection
+capability of DINO-DETR. In dense images, the detection limitation of DINO-
+DETR with only 900 queries, leads to many objects undetected (FN), resulting
+in a lower AP. Our DQ-DETR dynamically selects more queries for dense images,
+remarkably surpassing the baseline by 42.1% in terms of APvt .
+Ablation of Categorical Counting Module.                Table 7 demonstrates the
+accuracy of the classification task in our categorical counting module. The per-
+formance is analyzed under four situations, where N is the number of instances
+per image. The total classification accuracy is about 94.6%, which means our
+categorical counting module can accurately estimate the number of objects N in
+           DQ-DETR: DETR with Dynamic Query for Tiny Object Detection                                   13
+
+Table 6: Evaluation results with different numbers of instances in the im-
+ages. N indicates the number of instances in the image. We separate the AI-TOD-V2
+dataset into 4 classes based on N. All models are trained on the AI-TOD-V2 trainval
+split and evaluated on test split.
+
+  Model            #objects in image   #Query     AP     AP50   AP75   APvt   APt    APs     APm
+                   N ≤ 10                900     22.5    53.1   14.8   10.6   24.5   25.7        34.9
+                   10 < N ≤ 100          900     24.4    58.8   15.9   13.0   22.9   31.5        37.3
+  DINO-DETR [27]   100 < N ≤ 500         900     31.6    67.3   26.9   10.1   25.4   39.6        38.2
+                   500 < N               900     13.5    27.9   7.3    5.7    6.4    34.7        32.4
+                   Overall               900     25.9    61.3   17.5   12.7   25.3   32.0        39.7
+                   N ≤ 10                300     26.1    60.4   19.7   12.7   29.6   28.5        40.8
+                   10 < N ≤ 100          500     28.4    65.9   20.1   15.2   27.8   34.7        41.8
+  DQ-DETR (Ours)   100 < N ≤ 500         900     33.7    69.9   30.4   11.1   30.4   42.0        41.6
+                   500 < N              1500     14.7    35.6   7.5    8.1    7.8    37.5        40.4
+                   Overall             Dynamic   30.2    68.6   22.3   15.3   30.5   36.5        44.6
+
+
+
+
+the images. Furthermore, we can find that our categorical counting module has
+a poor classification performance with only 56.6% accuracy in the N > 500 sit-
+uation since the number of training images is much fewer in this situation. Also,
+we observe that there are at most 2267 instances per image in the AI-TOD-V2
+dataset. However, the long-tailed distribution of the training samples restricts
+us from classifying the number of instances N in more detail. We have no choice
+but to categorize the images with 500 < N ≤ 2267 into the same class.
+    As for the detection accuracy, our DQ-DETR outperforms the baseline under
+all situations. The performances surpass the baseline by 16% and 16.4% in terms
+of AP for N ≤ 10, 10 < N ≤ 100. Nevertheless, our DQ-DETR performs slightly
+better than the baseline in the scenario with N > 500. This phenomenon is due
+to the poor classification accuracy for N > 500. The incorrect prediction from
+the categorical counting module directly affects the number of object queries
+used for detection, where the inappropriate number of queries might harm the
+detection performance.
+
+
+Table 7: The classification accuracy of our categorical counting module and detection
+accuracy of DQ-DETR with different numbers of instances in the images. DINO-DETR
+is compared as the baseline.
+
+  #Objects in image      Accuracy(%)      AP (DQ-DETR)           AP (Baseline)       #Sample
+  N ≤ 10                      97.7             26.1 (+3.6)             22.5             8674
+  10 < N ≤ 100                90.5             28.4 (+4.0)             24.4             4393
+  100 < N ≤ 500               86.5             33.7 (+2.1)             31.6             905
+  500 < N                     56.5             14.7 (+1.2)             13.5                 46
+  Total                       94.6                30.2                 25.9            14018
+14      Y. Huang et al.
+
+Table 8: Ablation of using regression or classification in categorical counting module.
+
+                 Method           AP     APvt    APt    APs    APm
+                 Baseline         25.9   12.7    25.3   32.0    39.7
+                 Regression       14.9    5.2    16.3   19.9    14.3
+                 Classification   30.2   15.3    30.5   36.5    44.6
+
+
+
+    Table 8 compares our DQ-DETR’s performance of using classification or
+regression in the categorical counting module. The traditional crowd-counting
+methods usually regress the predicted counting number to a specific value. How-
+ever, in our study, we use a classification head instead. This experiment demon-
+strates our DQ-DETR performance with these two methods. For the classifi-
+cation task, we classify the images into 4 classes and apply different numbers
+of queries in the transformer decoder, as we mentioned in the previous section.
+For the regression task, we regress an integer directly to predict the number of
+objects in the image and select the object queries corresponding to the predicted
+result.
+    The results demonstrate that using regression as a counting method performs
+extremely poorly. We impute the drastic performance drop for the following
+reasons: (1) It is challenging to regress an accurate number since the number
+of instances per image may vary significantly from 1 to 2267 in the AI-TOD-
+V2 dataset. (2) Unstable regression results significantly affect the number of
+queries used in the transformer decoder, making it difficult for the DETR model
+to converge. Owing to the above reasons, we believe that classifying how many
+objects exist in the image into different levels is a simpler way in contrast to
+regression. Thus, classification instead of regression is preferred as a method in
+our proposed categorical counting module.
+
+
+5    Conclusion
+
+    In this paper, we analyze that the fixed number and position of queries in
+previous DETR-like methods are unsuitable for detecting tiny objects in aerial
+datasets and propose a new end-to-end transformer detector DQ-DETR with
+a categorical counting module, counting-guided feature enhancement, and dy-
+namic query selection. Our DQ-DETR dynamically adjusts the number of object
+queries used for detection to solve the imbalance of instances between different
+aerial images. Also, we improve the positional information of queries, making it
+easier for the decoder to localize the tiny object. DQ-DETR is the first DETR-
+like model focusing on tiny object detection and achieves 30.2% AP, which is the
+state-of-the-art of AI-TOD-V2. The result shows that our proposed DQ-DETR
+improves the performance of detecting tiny objects, outperforming all previous
+CNN-based detectors and DETR-like methods on the AI-TOD-V2 dataset with
+ResNet50 as the backbone.
+          DQ-DETR: DETR with Dynamic Query for Tiny Object Detection                  15
+
+Acknowledgment
+
+This work is partially supported by the National Science and Technology Coun-
+cil, Taiwan under Grants NSTC-112-2221-E-A49-059-MY3, NSTC-112-2221-E-
+A49-094-MY3, NSTC-112-2628-E-002-033-MY4 and NSTC-112-2634-F-002-002-
+MBK, and was financially supported in part by the Center of Data Intelligence:
+Technologies, Applications, and Systems, National Taiwan University (Grants:
+113L900901/113L900902/113L900903), from the Featured Areas Research Cen-
+ter Program within the framework of the Higher Education Sprout Project by
+the Ministry of Education, Taiwan.
+
+
+References
+ 1. Cai, Z., Vasconcelos, N.: Cascade r-cnn: Delving into high quality object detection.
+    In: CVPR (2018)
+ 2. Carion, N., Massa, F., Synnaeve, G., Usunier, N., Kirillov, A., Zagoruyko, S.: End-
+    to-end object detection with transformers. In: ECCV (2020)
+ 3. Dai, X., Chen, Y., Yang, J., Zhang, P., Yuan, L., Zhang, L.: Dynamic detr: End-
+    to-end object detection with dynamic attention. In: ICCV (2021)
+ 4. Du, B., Huang, Y., Chen, J., Huang, D.: Adaptive sparse convolutional networks
+    with global context enhancement for faster object detection on drone images. In:
+    CVPR (2023)
+ 5. Jocher, G.: Yolov5 by ultralytics. https://github.com/ultralytics/yolov5
+    (2023), accessed: 2024-07-08
+ 6. Kisantal, M., Wojna, Z., Murawski, J., Naruniec, J., Cho, K.: Augmentation for
+    small object detection. arXiv preprint arXiv:1902.07296 (2019)
+ 7. Li, F., Zhang, H., Liu, S., Guo, J., Ni, L.M., Zhang, L.: Dn-detr: Accelerate detr
+    training by introducing query denoising. In: CVPR (2022)
+ 8. Lin, T.Y., Dollár, P., Girshick, R.B., He, K., Hariharan, B., Belongie, S.J.: Feature
+    pyramid networks for object detection. In: CVPR (2017)
+ 9. Lin, T.Y., Goyal, P., Girshick, R., He, K., Dollar, P.: Focal loss for dense object
+    detection. TPAMI 42(2), 318–327 (2020)
+10. Liu, H.I., Tseng, Y.W., Chang, K.C., Wang, P.J., Shuai, H.H., Cheng, W.H.: A
+    denoising fpn with transformer r-cnn for tiny object detection. TGRS 62, 1–15
+    (2024)
+11. Liu, S., Li, F., Zhang, H., Yang, X., Qi, X., Su, H., Zhu, J., Zhang, L.: DAB-DETR:
+    Dynamic anchor boxes are better queries for DETR. In: ICLR (2022)
+12. Ma, Y., Chai, L., Jin, L.: Scale decoupled pyramid for object detection in aerial
+    images. TGRS 61, 1–14 (2023)
+13. Meng, D., Chen, X., Fan, Z., Zeng, G., Li, H., Yuan, Y., Sun, L., Wang, J.: Con-
+    ditional detr for fast training convergence. In: ICCV (2021)
+14. Qiao, S., Chen, L.C., Yuille, A.: Detectors: Detecting objects with recursive feature
+    pyramid and switchable atrous convolution. In: CVPR (2021)
+15. Redmon, J., Farhadi, A.: Yolov3: An incremental improvement. arXiv preprint
+    arXiv:1804.02767 (2018)
+16. Ren, S., He, K., Girshick, R., Sun, J.: Faster r-cnn: Towards real-time object de-
+    tection with region proposal networks. Advances in neural information processing
+    systems 28 (2015)
+16      Y. Huang et al.
+
+17. Rezatofighi, S.H., Tsoi, N., Gwak, J., Sadeghian, A., Reid, I.D., Savarese, S.: Gen-
+    eralized intersection over union: A metric and a loss for bounding box regression.
+    In: CVPR (2019)
+18. Sun, Z., Cao, S., Yang, Y., Kitani, K.M.: Rethinking transformer-based set predic-
+    tion for object detection. In: ICCV (2021)
+19. Tian, Z., Shen, C., Chen, H., He, T.: Fcos: Fully convolutional one-stage object
+    detection. In: ICCV (2019)
+20. Wang, J., Xu, C., Yang, W., Yu, L.: A normalized gaussian wasserstein distance
+    for tiny object detection. arXiv preprint arXiv:2110.13389 (2021)
+21. Wang, J., Yang, W., Guo, H., Zhang, R., Xia, G.S.: Tiny object detection in aerial
+    images. In: ICPR (2021)
+22. Wang, Y., Zhang, X., Yang, T., Sun, J.: Anchor detr: Query design for transformer-
+    based detector. In: AAAI (2022)
+23. Woo, S., Park, J., Lee, J.Y., Kweon, I.S.: Cbam: Convolutional block attention
+    module. In: ECCV (2018)
+24. Xu, C., Wang, J., Yang, W., Yu, H., Yu, L., Xia, G.S.: Detecting tiny objects in
+    aerial images: A normalized wasserstein distance and a new benchmark. ISPRS
+    190, 79–93 (2022)
+25. Xu, C., Wang, J., Yang, W., Yu, H., Yu, L., Xia, G.S.: Rfla: Gaussian receptive
+    field based label assignment for tiny object detection. In: ECCV (2022)
+26. Xu, C., Wang, J., Yang, W., Yu, L.: Dot distance for tiny object detection in aerial
+    images. In: CVPRW (2021)
+27. Zhang, H., Li, F., Liu, S., Zhang, L., Su, H., Zhu, J., Ni, L.M., Shum, H.Y.: Dino:
+    Detr with improved denoising anchor boxes for end-to-end object detection. In:
+    ICLR (2023)
+28. Zhang, S., Wang, X., Wang, J., Pang, J., Lyu, C., Zhang, W., Luo, P., Chen, K.:
+    Dense distinct query for end-to-end object detection. In: CVPR (2023)
+29. Zhu, P., Wen, L., Du, D., Bian, X., Fan, H., Hu, Q., Ling, H.: Detection and
+    tracking meet drones challenge. TPAMI 44(11), 7380–7399 (2021)
+30. Zhu, X., Su, W., Lu, L., Li, B., Wang, X., Dai, J.: Deformable detr: Deformable
+    transformers for end-to-end object detection. In: ICLR (2021)
+31. Zoph, B., Cubuk, E.D., Ghiasi, G., Lin, T.Y., Shlens, J., Le, Q.V.: Learning data
+    augmentation strategies for object detection. In: ECCV (2020)
+

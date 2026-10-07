@@ -1,0 +1,94 @@
+{
+  "model": "dfine_RQS_seed20260929",
+  "split": "val",
+  "images": 64,
+  "objects": 142,
+  "AP50_95": 0.3821632408143736,
+  "AP50": 0.9394296476348675,
+  "AP75": 0.17293927921298094,
+  "AR100": 0.6408450704225352,
+  "operating_points": {
+    "0.1": {
+      "threshold": 0.6206334829330444,
+      "TP": 118,
+      "FP": 6,
+      "recall": 0.8309859154929577,
+      "FP_per_image": 0.09375,
+      "size_bins": {
+        "lt8": {
+          "GT": 17,
+          "TP": 12,
+          "FN": 5,
+          "recall": 0.7058823529411765
+        },
+        "8to12": {
+          "GT": 104,
+          "TP": 92,
+          "FN": 12,
+          "recall": 0.8846153846153846
+        },
+        "12to16": {
+          "GT": 20,
+          "TP": 14,
+          "FN": 6,
+          "recall": 0.7
+        },
+        "ge16": {
+          "GT": 1,
+          "TP": 0,
+          "FN": 1,
+          "recall": 0.0
+        }
+      },
+      "all_objects_image_recall": 0.671875
+    },
+    "0.5": {
+      "threshold": 0.4994277358055115,
+      "TP": 138,
+      "FP": 32,
+      "recall": 0.971830985915493,
+      "FP_per_image": 0.5,
+      "size_bins": {
+        "lt8": {
+          "GT": 17,
+          "TP": 14,
+          "FN": 3,
+          "recall": 0.8235294117647058
+        },
+        "8to12": {
+          "GT": 104,
+          "TP": 104,
+          "FN": 0,
+          "recall": 1.0
+        },
+        "12to16": {
+          "GT": 20,
+          "TP": 20,
+          "FN": 0,
+          "recall": 1.0
+        },
+        "ge16": {
+          "GT": 1,
+          "TP": 0,
+          "FN": 1,
+          "recall": 0.0
+        }
+      },
+      "all_objects_image_recall": 0.9375
+    }
+  },
+  "settings": {
+    "score_floor": 0.001,
+    "prediction_cap": 300,
+    "COCO_maxDets": [
+      1,
+      10,
+      100
+    ],
+    "IoU_operating_points": 0.5,
+    "yolo_NMS_IoU": 0.7,
+    "dfine_NMS": false
+  },
+  "caution": "single seed 30-epoch pilot; val-selected checkpoint and thresholds; not held-out test or safety estimate; preprocessing artifacts may remain",
+  "evaluation_wall_seconds": 3.2137951850891113
+}

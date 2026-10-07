@@ -1,0 +1,56 @@
+<div id="kamp-box-compare">
+  <h3>최종 선택과 정답 참조 후보</h3>
+  <div class="viz-controls">
+    <label class="form-label">사례 <select class="form-select" id="kb-case"></select></label>
+    <label class="form-label">보기 <select class="form-select" id="kb-view"><option value="crop">이물 주변 확대</option><option value="full">전체 영상</option></select></label>
+  </div>
+  <div class="viz-row">
+    <label class="form-check"><input class="form-check-input" id="kb-gt" type="checkbox" checked><span class="form-check-label">공식 TXT · 점선</span></label>
+    <label class="form-check"><input class="form-check-input" id="kb-box" type="checkbox" checked><span class="form-check-label">예측 박스 · 실선</span></label>
+  </div>
+  <div class="kb-panels">
+    <section><h3 id="kb-left-title">현재 최종 출력</h3><svg id="kb-left" role="img" aria-label="현재 최종 예측과 공식 TXT 박스"></svg><div id="kb-left-values" class="text-small tabular-nums"></div></section>
+    <section><h3 id="kb-right-title">정답 참조 후보로 교체</h3><svg id="kb-right" role="img" aria-label="공식 TXT 기준 best IoU 후보를 고른 진단용 시각화"></svg><div id="kb-right-values" class="text-small tabular-nums"></div></section>
+  </div>
+  <div id="kb-detail" class="text-small" aria-live="polite"></div>
+  <div class="text-small">MAL+UQ · seed 20260929 · NMS 0.7 · threshold 0.1564 · 정답 참조 선택은 실제 모델 결과가 아님</div>
+</div>
+<style>
+#kamp-box-compare .kb-panels {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+#kamp-box-compare svg {display:block;width:100%;aspect-ratio:1;overflow:hidden}
+#kamp-box-compare section {min-width:0}
+#kamp-box-compare h3 {font-weight:500}
+#kamp-box-compare image {image-rendering:pixelated}
+#kamp-box-compare .kb-gt {stroke:var(--green);fill:none;stroke-width:2;stroke-dasharray:7 4;vector-effect:non-scaling-stroke}
+#kamp-box-compare .kb-current {stroke:var(--orange);fill:none;stroke-width:2;vector-effect:non-scaling-stroke}
+#kamp-box-compare .kb-oracle {stroke:var(--blue);fill:none;stroke-width:2;vector-effect:non-scaling-stroke}
+@media(max-width:520px){#kamp-box-compare .kb-panels {grid-template-columns:1fr}}
+</style>
+<script>
+(() => {
+ const root=document.getElementById('kamp-box-compare');
+ const data=__DATA__;
+ const pick=root.querySelector('#kb-case'),view=root.querySelector('#kb-view'),gtToggle=root.querySelector('#kb-gt'),boxToggle=root.querySelector('#kb-box');
+ const ns='http://www.w3.org/2000/svg';
+ data.forEach((d,i)=>{const o=document.createElement('option');o.value=i;o.textContent=`${d.machine} · GT ${d.gt_id} · ${d.category}`;pick.appendChild(o)});
+ function node(tag,attrs){const el=document.createElementNS(ns,tag);Object.entries(attrs).forEach(([k,v])=>el.setAttribute(k,v));return el}
+ function rect(svg,b,cls){svg.appendChild(node('rect',{x:b[0],y:b[1],width:b[2],height:b[3],class:cls}))}
+ function draw(){
+  const d=data[Number(pick.value)],full=view.value==='full',g=d.gt,side=Math.max(26,g[2]+10,g[3]+10),vb=full?[0,0,d.width,d.height]:[g[0]+g[2]/2-side/2,g[1]+g[3]/2-side/2,side,side];
+  ['left','right'].forEach(which=>{
+   const svg=root.querySelector('#kb-'+which);svg.replaceChildren();svg.setAttribute('viewBox',vb.join(' '));
+   svg.appendChild(node('image',{href:d.image,x:0,y:0,width:d.width,height:d.height}));
+   if(gtToggle.checked)rect(svg,g,'kb-gt');
+   if(boxToggle.checked){
+    if(full)d.final.forEach(p=>{if(which==='right'&&d.current&&p.source_index===d.current.source_index)return;rect(svg,p.bbox,'kb-current')});
+    if(which==='left'&&!full&&d.current)rect(svg,d.current.bbox,'kb-current');
+    if(which==='right')rect(svg,d.oracle.bbox,'kb-oracle');
+   }
+  });
+  root.querySelector('#kb-left-values').textContent=d.current?`IoU ${d.current_iou.toFixed(3)} · score ${d.current_score.toFixed(3)} · ${d.current.bbox[2].toFixed(2)} × ${d.current.bbox[3].toFixed(2)} px`:'近傍 출력 없음';
+  root.querySelector('#kb-right-values').textContent=`IoU ${d.oracle_iou.toFixed(3)} · score ${d.oracle_score.toFixed(3)} · ${d.oracle.bbox[2].toFixed(2)} × ${d.oracle.bbox[3].toFixed(2)} px`;
+  root.querySelector('#kb-detail').textContent=`GT ${d.gt_id} · ΔIoU +${d.iou_gain.toFixed(3)} · 후보 탈락: ${d.oracle_status} · 최근접 확대, 밝기 변경 없음`;
+ }
+ [pick,view,gtToggle,boxToggle].forEach(el=>el.addEventListener('change',draw));draw();
+})();
+</script>

@@ -1,0 +1,33 @@
+building train_dataloader with batch_size=8...
+{"epoch": 0, "train_selector_quality": 0.10341319915923206, "lr": 0.0002, "elapsed_seconds": 6.44240140914917}
+{"epoch": 1, "train_selector_quality": 0.023611274124546486, "lr": 0.0002, "elapsed_seconds": 12.407782316207886}
+{"epoch": 2, "train_selector_quality": 0.0055142721552825106, "lr": 0.0002, "elapsed_seconds": 18.288799285888672}
+{"epoch": 3, "train_selector_quality": 0.003364187183747576, "lr": 0.0002, "elapsed_seconds": 24.353923559188843}
+{"epoch": 4, "train_selector_quality": 0.002632825820579786, "lr": 0.0002, "elapsed_seconds": 30.339646577835083}
+{"epoch": 5, "train_selector_quality": 0.002290008198046549, "lr": 0.0002, "elapsed_seconds": 36.405275106430054}
+{"epoch": 6, "train_selector_quality": 0.0020484151503875514, "lr": 0.0002, "elapsed_seconds": 42.454689264297485}
+{"epoch": 7, "train_selector_quality": 0.001927289045521651, "lr": 0.0002, "elapsed_seconds": 48.494051456451416}
+{"epoch": 8, "train_selector_quality": 0.0018270287255290896, "lr": 0.0002, "elapsed_seconds": 54.4856390953064}
+{"epoch": 9, "train_selector_quality": 0.0017989227013789457, "lr": 0.0002, "elapsed_seconds": 60.552162170410156}
+{"epoch": 10, "train_selector_quality": 0.0017614478763954883, "lr": 0.0002, "elapsed_seconds": 66.61196708679199}
+{"epoch": 11, "train_selector_quality": 0.0016633441370107573, "lr": 0.0002, "elapsed_seconds": 72.68390083312988}
+{"epoch": 12, "train_selector_quality": 0.001625415898161009, "lr": 0.0002, "elapsed_seconds": 78.78841614723206}
+{"epoch": 13, "train_selector_quality": 0.0015705463169565933, "lr": 0.0002, "elapsed_seconds": 84.81701993942261}
+{"epoch": 14, "train_selector_quality": 0.0015598077919672835, "lr": 0.0002, "elapsed_seconds": 90.93165802955627}
+{"epoch": 15, "train_selector_quality": 0.0015083940591218627, "lr": 0.0002, "elapsed_seconds": 96.93062710762024}
+{"epoch": 16, "train_selector_quality": 0.0015277358986416154, "lr": 0.0002, "elapsed_seconds": 102.94382953643799}
+{"epoch": 17, "train_selector_quality": 0.0015283213274828581, "lr": 0.0002, "elapsed_seconds": 109.01944065093994}
+{"epoch": 18, "train_selector_quality": 0.0015435762351526964, "lr": 0.0002, "elapsed_seconds": 115.09670996665955}
+{"epoch": 19, "train_selector_quality": 0.001522226641430858, "lr": 0.0002, "elapsed_seconds": 121.16299510002136}
+{"epoch": 20, "train_selector_quality": 0.0015035176620585844, "lr": 0.0002, "elapsed_seconds": 127.24142241477966}
+{"epoch": 21, "train_selector_quality": 0.0014231306678001683, "lr": 0.0002, "elapsed_seconds": 133.3052270412445}
+{"epoch": 22, "train_selector_quality": 0.0014199906859589232, "lr": 0.0002, "elapsed_seconds": 139.37132811546326}
+{"epoch": 23, "train_selector_quality": 0.0013871896874413571, "lr": 0.0002, "elapsed_seconds": 145.46515536308289}
+{"epoch": 24, "train_selector_quality": 0.0013501831788082861, "lr": 2e-05, "elapsed_seconds": 151.45036435127258}
+{"epoch": 25, "train_selector_quality": 0.0013372691173572093, "lr": 2e-05, "elapsed_seconds": 157.50536942481995}
+{"epoch": 26, "train_selector_quality": 0.001332596763280559, "lr": 2e-05, "elapsed_seconds": 163.594575881958}
+{"epoch": 27, "train_selector_quality": 0.0013288754377175462, "lr": 2e-05, "elapsed_seconds": 169.74662351608276}
+{"epoch": 28, "train_selector_quality": 0.001335130758393048, "lr": 2e-05, "elapsed_seconds": 175.84154534339905}
+{"epoch": 29, "train_selector_quality": 0.0013237599249061366, "lr": 2e-05, "elapsed_seconds": 181.06706476211548}
+FROZEN_DETECTOR_IDENTITY_PASSED
+{"name": "dfine_soft10_UQ_seed20260930", "variant": "soft10", "seed": 20260930, "AP": 38.63494826587826, "AP50": 99.0339522711536, "AP75": 16.062699947998183, "raw_AP": 39.22303189752238, "raw_AP75": 18.148685722687315, "threshold": 0.25127002596855164, "TP": 142, "FP": 6, "recall": 0.9861111111111112, "FP_per_image": 0.09090909090909091, "conditions": {"M1": {"GT": 56, "TP": 56}, "M2": {"GT": 42, "TP": 42}, "M3": {"GT": 46, "TP": 44}}, "precise_candidate": 107, "precise_leader": 48, "precise_after_nms": 82, "checkpoint_sha256": "3205bd932ed66760469e21e3dcb3fca0dfc0ebf2c2a30556fe59f3ad1861b395", "epoch": null, "split": "val", "test_used": false, "UQ": true, "NMS": 0.7, "box_scale": 1, "operating_point": "validation-selected FP <= 6 over 66 images; not fixed operational deployment threshold"}

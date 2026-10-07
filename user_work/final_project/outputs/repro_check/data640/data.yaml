@@ -1,0 +1,5 @@
+names:
+  0: defect
+path: /home/viplab/contest/final_project/outputs/repro_check/data640
+train: images/train
+val: images/val

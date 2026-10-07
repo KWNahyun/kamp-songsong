@@ -1,0 +1,33 @@
+{
+  "dfine": {
+    "pretrained_tensors": 785,
+    "identical_shared_tensors": 777,
+    "expanded_attention_tensors": [
+      "decoder.decoder.layers.0.cross_attn.sampling_offsets.weight",
+      "decoder.decoder.layers.0.cross_attn.sampling_offsets.bias",
+      "decoder.decoder.layers.0.cross_attn.attention_weights.weight",
+      "decoder.decoder.layers.0.cross_attn.attention_weights.bias",
+      "decoder.decoder.layers.1.cross_attn.sampling_offsets.weight",
+      "decoder.decoder.layers.1.cross_attn.sampling_offsets.bias",
+      "decoder.decoder.layers.1.cross_attn.attention_weights.weight",
+      "decoder.decoder.layers.1.cross_attn.attention_weights.bias",
+      "decoder.decoder.layers.2.cross_attn.sampling_offsets.weight",
+      "decoder.decoder.layers.2.cross_attn.sampling_offsets.bias",
+      "decoder.decoder.layers.2.cross_attn.attention_weights.weight",
+      "decoder.decoder.layers.2.cross_attn.attention_weights.bias"
+    ],
+    "parameters_base": 10220441,
+    "parameters_p2": 11014769
+  },
+  "yolo": {
+    "identical_shared_tensors": 355,
+    "strides": [
+      8.0,
+      16.0,
+      32.0,
+      4.0
+    ],
+    "parameters_base": 11135987,
+    "parameters_p2": 11473204
+  }
+}

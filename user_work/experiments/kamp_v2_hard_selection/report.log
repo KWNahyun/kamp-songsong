@@ -1,0 +1,59 @@
+# 새 데이터 v2 어려운 후보 선택 학습 결과
+
+작성: 2026-10-02. 기본/MAL × 3 seed × 3 감독 목적 = 18 실행 완료. Train350·val66, test 미사용.
+
+## 실험 설계
+
+기존 UQ를 출발점으로 박스와 특징을 고정하고 같은 62,007-parameter head를 15 epoch 추가 학습했다. 기존 quality 목적만 계속 학습한 대조군과 hard-pair/listwise 목적을 비교하여 추가 학습 자체의 효과를 분리한다. 세 목적의 head 초기값·학습순서·epoch·optimizer가 같다. 마지막 epoch만 평가하며 validation으로 설정을 고르지 않았다.
+
+Hard-pair는 같은 GT에 대응하고 두 IoU≥.5, 차이≥.05인 후보 쌍의 우열을 학습한다. Listwise는 예측 박스 IoU≥.7의 greedy 클러스터에서 softmax(IoU/.1)를 목표로 순위를 학습한다. 클러스터는 GT 없이 생성되며 GT는 train 감독에만 쓰인다. 품질 loss에 각 보조 loss의 .1배를 더한다.
+
+추론은 기존과 같은 단일 후보별 quality head와 sqrt(base score×quality)다. 따라서 이는 새로운 관계망 아키텍처가 아니라 학습 목적의 통제 실험이다. 모든 bbox는 저장된 동일 좌표다.
+
+## 공통 평가
+
+원본 좌표 COCO 평가, NMS .7, scale1.0. 기존 base score≥.001 고정 후보 집합을 사용한다. 앞선 UQ 실험에서는 이 support 제한의 AP 영향이 없음을 확인했다. 아래는 세 seed 평균이며 정밀 대표는 GT에 인접한 후보 중 최고점수 후보의 IoU≥.75 개수다. 이 대표 지표는 사후 진단이며 GT를 추론에 사용하지 않는다.
+
+| 부모 | 추가 학습 | AP | AP75 | TP, FP≤6 | 정밀 대표 |
+|---|---|---:|---:|---:|---:|
+| base | 이전 UQ | 38.85 | 17.11 | 140.33 | — |
+| base | quality | 38.83 | 17.12 | 140.33 | 51.67 |
+| base | hard_pair | 38.87 | 17.20 | 140.33 | 52.00 |
+| base | listwise | 38.69 | 16.90 | 140.33 | 51.67 |
+| mal | 이전 UQ | 39.38 | 19.05 | 141.67 | — |
+| mal | quality | 39.35 | 18.81 | 141.67 | 53.33 |
+| mal | hard_pair | 39.31 | 18.90 | 141.67 | 53.33 |
+| mal | listwise | 39.38 | 19.00 | 141.67 | 53.33 |
+
+## 추가 학습 대조군 대비 seed별 차이
+
+| 부모 | 목적 | seed | ΔAP | ΔAP75 | ΔTP(FP≤6) | Δ정밀 대표 |
+|---|---|---|---:|---:|---:|---:|
+| base | hard_pair | 20260929 | +0.52 | +0.30 | +0 | +1 |
+| base | listwise | 20260929 | -0.00 | -0.53 | +0 | +0 |
+| base | hard_pair | 20260930 | -0.39 | -0.70 | +0 | +0 |
+| base | listwise | 20260930 | -0.07 | +0.35 | +0 | +0 |
+| base | hard_pair | 20261001 | +0.01 | +0.66 | +0 | +0 |
+| base | listwise | 20261001 | -0.32 | -0.47 | +0 | +0 |
+| mal | hard_pair | 20260929 | +0.12 | +0.67 | +0 | +0 |
+| mal | listwise | 20260929 | -0.08 | +0.03 | +0 | +0 |
+| mal | hard_pair | 20260930 | +0.03 | +0.21 | +0 | +0 |
+| mal | listwise | 20260930 | +0.25 | +0.77 | +0 | +0 |
+| mal | hard_pair | 20261001 | -0.29 | -0.61 | +0 | +0 |
+| mal | listwise | 20261001 | -0.07 | -0.23 | +0 | +0 |
+
+## 검증과 해석 범위
+
+- 초기 head 출력과 기존 UQ 출력 일치를 확인했다. 모든 학습 step에서 loss/gradient가 유한했다. detector는 호출하거나 수정하지 않고 앞선 검증된 특징·좌표 cache만 사용했다.
+- 18개 실행 모두 15 epoch를 완료했다. 각 목적의 head parameter 수 및 초기 상태가 같다.
+- GT는 train target과 사후 지표에만 사용했다. 실제 점수·NMS는 GT를 읽지 않는다.
+- 세 seed는 같은 데이터 분할이며, validation은 이미 checkpoint 선택과 반복 분석에 사용됐다. 독립 최종 성능이나 통계적 유의성을 주장하지 않는다.
+- 이번에 고정한 보조 loss .1은 목적 간 gradient scale을 맞춘 값이 아니다. 따라서 결과는 이 구현·계수에 대한 증거이며 모든 pair/listwise 방식에 대한 반증은 아니다.
+- FP≤6은 validation 객체 수준 운영점이며 정상 제품 자동 통과 안전율이 아니다.
+
+## 자료
+
+- [실행 설정](experiments/kamp_v2_hard_selection/README.md)
+- [전체 수치](experiments/kamp_v2_hard_selection/results.json)
+- [학습 로그](experiments/kamp_v2_hard_selection/run.log)
+- [완료 기록](experiments/kamp_v2_hard_selection/completion.json)

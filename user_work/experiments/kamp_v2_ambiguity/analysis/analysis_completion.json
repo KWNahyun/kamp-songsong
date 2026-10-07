@@ -1,0 +1,10 @@
+{
+  "completed": true,
+  "time_KST": "2026-10-02T21:51:41.883227",
+  "runs_analyzed": 36,
+  "canonical_report": "/home/viplab/contest/\ud504\ub85c\uc81d\ud2b8_\uc9c4\ud589\uacfc\uc815_\ud1b5\ud569\ubcf4\uace0\uc11c.md",
+  "automation": "ablation",
+  "automation_status": "PAUSED",
+  "new_training_started": false,
+  "test_used": false
+}

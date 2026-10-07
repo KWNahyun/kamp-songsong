@@ -1,0 +1,114 @@
+Evaluate annotation type *bbox*
+COCOeval_opt.evaluate() finished...
+DONE (t=0.05s).
+Accumulating evaluation results...
+COCOeval_opt.accumulate() finished...
+DONE (t=0.00s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.368
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.942
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.131
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.368
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.208
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.494
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.598
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.598
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50      | area=   all | maxDets=100 ] = 1.000
+ Average Recall     (AR) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.641
+{
+  "model": "dfine_C0_seed20260929",
+  "split": "val",
+  "images": 64,
+  "objects": 142,
+  "AP50_95": 0.3684151222235848,
+  "AP50": 0.9415864936194036,
+  "AP75": 0.13062980420462897,
+  "AR100": 0.597887323943662,
+  "operating_points": {
+    "0.1": {
+      "threshold": 0.7129400372505188,
+      "TP": 114,
+      "FP": 6,
+      "recall": 0.8028169014084507,
+      "FP_per_image": 0.09375,
+      "size_bins": {
+        "lt8": {
+          "GT": 17,
+          "TP": 12,
+          "FN": 5,
+          "recall": 0.7058823529411765
+        },
+        "8to12": {
+          "GT": 104,
+          "TP": 87,
+          "FN": 17,
+          "recall": 0.8365384615384616
+        },
+        "12to16": {
+          "GT": 20,
+          "TP": 15,
+          "FN": 5,
+          "recall": 0.75
+        },
+        "ge16": {
+          "GT": 1,
+          "TP": 0,
+          "FN": 1,
+          "recall": 0.0
+        }
+      },
+      "all_objects_image_recall": 0.640625
+    },
+    "0.5": {
+      "threshold": 0.512693464756012,
+      "TP": 136,
+      "FP": 32,
+      "recall": 0.9577464788732394,
+      "FP_per_image": 0.5,
+      "size_bins": {
+        "lt8": {
+          "GT": 17,
+          "TP": 13,
+          "FN": 4,
+          "recall": 0.7647058823529411
+        },
+        "8to12": {
+          "GT": 104,
+          "TP": 103,
+          "FN": 1,
+          "recall": 0.9903846153846154
+        },
+        "12to16": {
+          "GT": 20,
+          "TP": 20,
+          "FN": 0,
+          "recall": 1.0
+        },
+        "ge16": {
+          "GT": 1,
+          "TP": 0,
+          "FN": 1,
+          "recall": 0.0
+        }
+      },
+      "all_objects_image_recall": 0.9375
+    }
+  },
+  "settings": {
+    "score_floor": 0.001,
+    "prediction_cap": 300,
+    "COCO_maxDets": [
+      1,
+      10,
+      100
+    ],
+    "IoU_operating_points": 0.5,
+    "yolo_NMS_IoU": 0.7,
+    "dfine_NMS": false
+  },
+  "caution": "single seed 30-epoch pilot; val-selected checkpoint and thresholds; not held-out test or safety estimate; preprocessing artifacts may remain",
+  "evaluation_wall_seconds": 5.242558479309082
+}

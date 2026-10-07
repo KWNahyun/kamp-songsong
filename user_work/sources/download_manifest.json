@@ -1,0 +1,29 @@
+[
+  {
+    "file": "sources/task_statement.hwpx",
+    "fileSeq": "8075",
+    "bytes": 77132,
+    "sha256": "cfea6f3cf97c990d1dce2f7f7515c26976bcbfaf331f8fbd5d961f0e0322bb62",
+    "source_page": "https://www.kamp-ai.kr/contestNoticeDetail?CPT_NOTICE_SEQ=28",
+    "download_endpoint": "https://www.kamp-ai.kr/cptFileDownload",
+    "method": "POST"
+  },
+  {
+    "file": "sources/report_template.hwpx",
+    "fileSeq": "8076",
+    "bytes": 87294,
+    "sha256": "9a781cc1963000193199efd88ad92ac72eed875438b4e2727422aa01b12adedb",
+    "source_page": "https://www.kamp-ai.kr/contestNoticeDetail?CPT_NOTICE_SEQ=28",
+    "download_endpoint": "https://www.kamp-ai.kr/cptFileDownload",
+    "method": "POST"
+  },
+  {
+    "file": "data/04_xray_original.zip",
+    "fileSeq": "8080",
+    "bytes": 1808830681,
+    "sha256": "cd2142ea7727cb2a1757c6efc23d29f246469e37f8bca575f5818eafbe28b10e",
+    "source_page": "https://www.kamp-ai.kr/contestNoticeDetail?CPT_NOTICE_SEQ=28",
+    "download_endpoint": "https://www.kamp-ai.kr/cptFileDownload",
+    "method": "POST"
+  }
+]

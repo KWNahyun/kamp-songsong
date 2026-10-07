@@ -1,0 +1,13 @@
+{
+  "run": "dfine_frozen_UQ_seed20260929",
+  "mode": "unary",
+  "seed": 20260929,
+  "epochs": 30,
+  "base_checkpoint": "/home/viplab/contest/experiments/kamp_ablation_v3/runs/dfine_M_seed20260929/best_stg1.pth",
+  "base_frozen": true,
+  "selector_parameters": 62007,
+  "train_images": 358,
+  "validation_used_for_training_or_selection": false,
+  "test_used": false,
+  "wall_seconds": 95.27277874946594
+}

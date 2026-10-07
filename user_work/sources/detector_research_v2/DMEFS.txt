@@ -1,0 +1,616 @@
+                            This ICCV paper is the Open Access version, provided by the Computer Vision Foundation.
+                                          Except for this watermark, it is identical to the accepted version;
+                                    the final published version of the proceedings is available on IEEE Xplore.
+
+
+
+
+                    DM-EFS: Dynamically Multiplexed Expanded Features Set
+                     Form for Robust and Efficient Small Object Detection
+
+                                                     Aashish Sharma
+                                          KLASS Engineering and Solutions, Singapore
+                                                    sharma.aashish@klasses.com.sg
+
+
+
+                              Abstract
+
+In this paper, we address the problem of small object detec-
+tion (SOD) by introducing our novel approach - Dynami-
+cally Multiplexed Expanded Features Set (DM-EFS) form.
+Detecting small objects is challenging as they usually suffer
+from inadequate feature representation. Hence, to address
+this, we propose the Expanded Features Set (EFS) form - a                                 (a) CFINet [44]                  (b) QueryDet [41]
+simple yet effective idea to improve the feature representa-
+tion of small objects by utilizing the untapped higher res-
+olution features from the shallower layers of the backbone
+module. We observe that the EFS form improves the SOD
+performance. However, due to processing of additional fea-
+tures, it has a higher computational cost which reduces in-
+ference efficiency. Hence, to address this, we propose Dy-
+namic Feature Multiplexing (DFM) - a novel design that                                  (c) YOLOv7 (Base)                (d) DM-EFS (Ours)
+optimizes the usage of the EFS form during inference by dy-                       Figure 1. For the example shown from the VisDrone [46] dataset,
+namically multiplexing it to create our aforementioned DM-                        compared to SOD baselines CFINet [44] and QueryDet [41], and
+EFS form. Since our DM-EFS form is a multiplexed (or sub-                         YOLOv7 [35] base model, our DM-EFS detects small objects
+sampled) optimal version of the EFS form, it improves the                         more robustly and accurately. Green and red boxes are ground-
+SOD performance like the EFS form but with a lower com-                           truths and predictions respectively, shown without class labels on
+putational cost. Extensive experiments confirm the efficacy                       original resolution image. Please zoom-in for better visualization.
+of our DM-EFS approach. Integrated with YOLOv7 base
+model, our DM-EFS achieves state-of-the art results on di-                        can be observed from the results shown in Figs. 1a and 1b,
+verse SOD datasets outperforming the base model and SOD                           where for a 640×640 image from the VisDrone [46] dataset,
+baselines, with on-par or even better inference efficiency.                       recent SOD methods, CFINet [44] and QueryDet [41], have
+                                                                                  inaccuracies in detecting small objects robustly.
+                                                                                     Detecting small objects is challenging given their in-
+1. Introduction                                                                   adequate feature representation in limited resolution im-
+                                                                                  ages [6]. To address this, existing SOD methods have pro-
+Object detection is an imperative vision task and there are
+                                                                                  posed various techniques such as feature imitation [39, 44]
+numerous methods [21, 22, 28, 35, 38] that have achieved
+                                                                                  which aims to enrich features of small objects by learning to
+significant performance. Despite this, when used for small
+                                                                                  mimic the features of large objects, feature up-sampling [9,
+object detection (SOD), e.g., for objects of size ≤ 20px,
+                                                                                  26] or GAN-based super-resolution [1, 2, 25] to generate
+these methods do not work well. While there are several
+                                                                                  high-resolution features for small objects. While GAN-
+methods [13, 23, 40, 41, 44] specifically designed to ad-
+                                                                                  based methods are known to create spurious artefacts that
+dress the SOD problem, it remains far from solved espe-
+                                                                                  can adversely impact detection [6, 29, 30], feature imitation
+cially when working with limited resolution images1 . This
+                                                                                  methods, including the recent CFINet [44], work on hand-
+   1 In this paper, we assume we only have limited resolution images which        crafted feature imitation designs which can be susceptible
+we define as images with ≤ 640×640 spatial resolution.                            to errors or training instabilities. Also, while using high
+
+
+
+                                                                             24569
+Figure 2. (a) Different from the base (or original) form, in the proposed EFS form, the untapped higher resolution features from the
+backbone’s shallower layers are also utilized which expands the features set in the backbone module (and, subsequently, in the neck and
+head modules); (b), (c) AP50 and fps comparisons between the base and the EFS form of YOLOv7 base model on SOD datasets.
+
+resolution images could address the inadequate feature rep-           by its predicted min and max object sizes. This makes our
+resentation of small objects [23, 41], it is computationally          DM-EFS form provide an improved SOD performance like
+expensive and often impractical in real scenarios. Hence, to          the EFS form but with a lower computational cost. Fig. 1d
+address these issues, we propose our novel approach termed            shows that our DM-EFS approach used with YOLOv7 [35]
+DM-EFS form which integrates our two main ideas: (1) Dy-              base model2 generates more robust and accurate SOD re-
+namic Feature Multiplexing (DFM), and the (2) Expanded                sults compared to the base model shown in Fig. 1c as well
+Features Set (EFS) form. We describe the EFS form first               as other recent SOD baselines shown in Figs. 1a and 1b. In
+followed by our novel DFM design.                                     sum, in this paper, our main contributions are:
+    In our investigations, we observe a simple yet effective          1. We propose DM-EFS form - our novel approach for ro-
+way to improve the feature representation of small objects               bust and efficient small object detection (SOD).
+for limited resolution images; and, that is to utilize the un-        2. Our DM-EFS approach integrates our two ideas: (1) Ex-
+tapped higher resolution features from the shallower layers              panded Features Set (EFS) form - a simple yet effec-
+of the backbone module. This extension of features in the                tive way to improve the SOD performance by utilizing
+backbone − and, subsequently in the neck and head mod-                   the untapped higher resolution features from the back-
+ules − is what we collectively refer to as the EFS form.                 bone’s shallower layers; (2) Dynamic Feature Multiplex-
+Please refer to Fig. 2a that illustrates the proposed EFS form           ing (DFM) - our novel design to dynamically multiplex
+and the base (or original) form of a general detection model.            the EFS form to create our DM-EFS form. Our DM-EFS
+Tested on VisDrone [46] and SODA-D [6] SOD datasets                      form is a multiplexed (or subsampled) optimal version
+with YOLOv7 [35] as the base model, SOD results mea-                     of the EFS form that provides a similarly improved SOD
+sured by AP50 metric show significant improvements with                  performance but with a lower computational cost.
+the EFS form as shown in Fig. 2b. However, due to the in-             3. Our experiments show that our DM-EFS combined with
+creased features processing in the EFS form, it also has a               YOLOv7 base model achieves state-of-the-art results on
+higher computational cost which reduces the inference fps                diverse SOD datasets while keeping inference efficiency.
+efficiency as shown in Fig. 2c; and, to address this issue, we
+propose our novel DFM design.                                         2. Related Works
+    The core idea behind our DFM is to utilize the EFS
+form optimally during inference. This is carried out by               Object detection is a widely researched area. Existing meth-
+dynamically multiplexing the EFS form to obtain the DM-               ods for general detection are primarily either anchor-free
+EFS form with the help of feature multiplexers and their              or anchor-based designs. The anchor-free designs include
+guiding control module. Hence, our control module is the              FSAF [45], FCOS [34], and GFL [19]. The anchor-based
+module essentially responsible for obtaining the DM-EFS               designs are either multi-stage such as Fast-RCNN [10],
+form. During training, our control module learns (1) a size-          Faster-RCNN [28], FPN [21], and Cascade-RCNN [3]; or
+features codebook where each entry of the codebook indi-              single-stage such as SSD [24, 43], RetinaNet [22], and vari-
+cates the smallest subsample of the EFS form that can be              ants of YOLO [27] series such as YOLOv7 [35].
+used to reliably detect an object of a given size; and (2)               Despite the advancements in general detection, small ob-
+min and max object sizes present in an image. Then dur-               ject detection (SOD) remains a challenging and relatively
+ing inference, using the learnt size-features codebook, our           unsolved research area. Earlier SOD works are developed
+control module guides the feature multiplexers to create the          on techniques such as over-sampling and data augmenta-
+DM-EFS form, which is basically the smallest subsample of                 2 Note, while we use YOLOv7 base model owing to its general robust-
+the EFS form that can be used to reliably detect the entire           ness, as shown in our experiments later, our proposed DM-EFS approach
+range of objects in an input image, the range being defined           is generalizable and also works well with other base models.
+
+
+
+
+                                                                24570
+Figure 3. Our proposed DM-EFS approach combined with a base detection model. Apart from the original modules, backbone ΦB , neck
+ΦN , and head ΦH , we have a control module ΦC , and feature multiplexers ΨN and ΨH in the neck and head modules respectively to facilitate
+our DFM design. Multiplexers ΨN and ΨH are controlled using respective gating signals CN and CH , which are generated by ΦC using a
+learnt size-features codebook Ω ≡ Ω(fHk , s) and predicted min and max objects sizes smin and smax .
+
+tion [16, 47], feature up-sampling [4, 9, 17, 26, 31, 36],                ules from the base model - backbone (ΦB ), neck (ΦN ), and
+scale-invariant subspace [15], multi-scale learning [21, 24,              head (ΦH ). To incorporate our DFM design, we add a con-
+32], and GAN-based feature super resolution [2, 18].                      trol module (ΦC ) and two feature multiplexers (ΨN , ΨH ),
+    Among the more recent SOD methods, RFLA [40] pro-                     one each inside the neck and head modules respectively.
+poses to use Gaussian-based label assignments for small
+                                                                          3.1. Method Preliminaries: EFS and DFM
+objects to improve SOD performance. QueryDet [41] pro-
+poses a cascaded design to propagate and refine sparse lo-              From the input image I, the backbone module ΦB extracts
+cations of small objects from low-resolution features to                a set features FB = {fBk̄ , · · · , fB2 , fB1 }, where fBk represents
+high-resolution features. ESOD [23] proposes to re-use the              features with index k present in FB . k ∈ [1, k̄] where k̄
+backbone module for feature-level seeking of small objects              is the max number of features3 in FB . Note, the resolu-
+through patch-slicing, additionally including a sparse de-              tion of features fBk is higher than that of the fBk−1 features.
+tection head to reduce the computational costs. While both              Inside the neck module ΦN , the features set FB is first pro-
+QueryDet [41] and ESOD [23] obtain good results, they re-               cessed in a ‘bottom-up’ manner to generate the features set
+quire very high resolution input images. In contrast, our               F′N = {fN′k̄ , · · · , fN′2 , fN′1 }, which is passed through the neck
+work aims to address the SOD problem for limited resolu-                multiplexer ΨN to obtain the features set FN = ΨN [F′N ] =
+tion input images. CFINet [44] utilizes a feature imitation             {fNk̄ , · · · , fN2 , fN1 } by the following multiplexing rule:
+branch trained with contrastive loss to enrich the feature
+representation of small objects. In contrast, our DM-EFS
+                                                                                               \label {eq:neck_mux} f^k_\text {N}=\begin {cases} f'^k_\text {N}, &\text { if } c^k_\text {N}=1. \\ \phantom {z}\emptyset , &\text { otherwise, } \end {cases}    (1)
+approach improves the feature representation of small ob-
+jects without any additional components prone to errors or
+training difficulties; and, this is done by simply utilizing the        where ckN ∈ CN ; CN = {ck̄N , · · · , c2N , c1N } are the gating sig-
+untapped higher-resolution features from the shallower lay-             nals guiding the neck multiplexer ΨN , and ∅ is empty value.
+ers of the backbone module, which we refer to as the EFS                    Moving forward, in a similar manner, the features set FN
+form. The EFS form is supplemented with our novel DFM                   is first processed in a ‘top-down’ manner to generate the
+design, which provides both SOD robustness and inference                features set F′H = {fH′k̄ , · · · , fH′2 , fH′1 } for the head module
+efficiency to our DM-EFS approach.                                      ΦH . This is passed through the head multiplexer ΨH to ob-
+                                                                        tain the features set FH = ΨH [F′H ] = {fHk̄ , · · · , fH2 , fH1 } ac-
+3. Our Method: DM-EFS                                                       3 As also illustrated in Fig. 2a, compared to the base (or original) form,
+
+                                                                        the EFS form uses additional features in FB , For e.g., if the base form uses
+Our proposed DM-EFS approach combined with a base de-                   k̄ = 3 features in FB , the EFS form uses k̄ ≥ 4 features in FB . This also
+tection model is shown in Fig. 3. We have the original mod-             holds true for the DM-EFS form described later.
+
+
+
+
+                                                                  24571
+cording to a similar multiplexing rule described in Eq. 1 but               Algorithm 1 Learning Size-Features Codebook Ω
+customized for the head module. Also similarly, we have                      1: Set parameters {k̄, s̄, τ } (default values: {4, 640, 0.5})
+the gating signals CH = {ck̄H , · · · , c2H , c1H } guiding the head         2: for each epoch e ∈ [1, ē] (ē is max epochs) do
+multiplexer ΨH . Finally, the features set FH is processed by                3:   for each training image I with n̄ objects do
+the head module ΦH to generate the detection output O.                       4:      for each object n ∈ [1, n̄], features fHk , k ∈ [1, k̄] do
+ • In the EFS form (DFM disabled), gating signals CN and                     5:         Get the object true size ŝn and true bbox t̂n
+   CH are all set to 1, i.e., ckN = ckH = 1, ∀k, which means                 6:         Compute the predicted bbox tk,n using fHk
+   FN =F′N and FH =F′H . In other words, all features in FN                  7:      end for
+   and FH are used during inference creating high compu-                     8:      Compute the image vote matrix ωI with Eq. (2).
+   tational costs.                                                           9:   end for
+ • In the DM-EFS form (DFM enabled), gating signals CN                      10:   Compute the epoch vote matrix ωe with Eq. (3).
+   and CH are dynamically generated by control module                       11:   if training convergence or e ≥ ē then
+   ΦC . This leads to dynamic selection of features in FN and               12:      Assign epoch vote matrix ωe to final vote matrix ω̂
+   FH during inference creating low computational costs.                    13:      break (exit training)
+                                                                            14:   end if
+3.2. Obtaining DM-EFS Form                                                  15: end for
+With our DFM enabled, as mentioned, our control module                      16: Obtain size-features codebook Ω from ω̂ with Eq. (4)
+assists in the dynamic selection of features in the features                17: Post-process Ω by interpolation to fill missing s entries
+sets FN and FH by dynamically generating the gating signals
+CN and CH respectively. But how is the dynamic selection
+of features decided?                                                        (t̂nx , t̂ny ), t̂nw , and t̂nh represent the box’s center x, y positions,
+    The answer to the this question lies in the fact that dif-              width, and height respectively. Following [37], we define
+ferent features have different resolutions, which means that                the true size of the object n as ŝn = ⌊(t̂nh · t̂nw )0.5 ⌋ ≤ s̄ where
+some features could be more suitable to detect objects of                   ⌊·⌋ is the ‘floor’ function.
+certain sizes than other features. For e.g., the highest reso-                    To learn Ω ≡ Ω(fHk , s) during training, all the gating
+lution features, fNk̄ and fHk̄ , could be more suitable for small           signals CN and CH are set to 1. Then, each features fHk is
+size objects than the lowest resolution features, fN1 and fH1 .             processed with the head ΦH to obtain the bounding box pre-
+This means that to detect an object of a given size, we need                diction tk,n , and this is carried out for all the features in FH
+not use all features in FN and FH . Instead, we can identify                and for all the objects, i.e. ∀k ∈ [1, k̄] and ∀n ∈ [1, n̄]. Then,
+and use the smallest subsets of features in FN and FH − or                  iterating over all the values of size s ∈ (1, s̄], the image vote
+the smallest subsample of the EFS form − that can reliably                  matrix ωI ≡ ωI (fHk , s) is computed for the image I by:
+detect that given size object.
+    Also from our design in Fig. 3, we can see that features                       \label {eq:image_mat} \omega _\text {I}(f^k_\text {H}, s) = \begin {cases} 1, &\text {if } (s=\hat {s}^n) \land (\text {IoU}(t^{k, n}, \hat {t}^n)\!\!\ge \tau ).\\ 0, &\text {otherwise, } \end {cases} \vspace {-0.05in}        (2)
+subsets in FN can be selected based on which features sub-
+sets are needed in FH . For e.g., we only select {fNk̄ } if
+                                                                           where IoU(tk,n , t̂n ) is the IoU between the predicted and
+{fHk̄ } is needed; we only select {fNk̄ , fNk̄−1 } if {fHk̄−1 } or         true bounding boxes, tk,n and t̂n ; τ is the IoU threshold for
+{fHk̄ , fHk̄−1 } is needed; and, so on. Hence, the entire task can         a reliable prediction (which we set as 0.5, same as used in
+be simplified to only identifying the smallest reliable subset             standard AP metric). At the end of a training epoch e ≥ 1,
+of features in FH for each object size. Now, given that the                the epoch vote matrix ω e ≡ ω e (fHk , s) is obtained by accu-
+smallest subset of any non-empty set contains only one item                mulating the votes gathered from all the image vote matri-
+sampled from that set, this task can be further simplified to              ces obtained for all the training images by (with ω 0 = 0):
+only identifying the one most reliable features in FH (e.g.,
+fH1 or fH2 . . . or fHk̄ ) for each object size. This is carried out                                                            \label {eq:epoch_mat} \omega ^e(f^k_\text {H}, s) = \omega ^{e-1}(f^k_\text {H}, s) + \sum _\text {I}(\omega _\text {I}(f^k_\text {H}, s)). \vspace {-0.05in}                        (3)
+by learning a Size-Features Codebook Ω, described next.
+                                                                                  The entire process is repeated until convergence4 to ob-
+3.2.1. Learning Size-Features Codebook                                         tain the final vote matrix ω̂ ≡ ω̂(fHk , s), from which the
+Our method (specifically, the control module ΦC ) learns the                   size-features codebook Ω ≡ Ω(fHk , s) is computed by:
+size-features codebook Ω ≡ Ω(fHk , s) by itself during train-
+ing without any human-crafting. s ∈ (1, s̄] represents object                                       \label {eq:comp_dists} \Omega (f^k_\text {H}, s) = \begin {cases} 1, &\text { if } k = \argmax _{k} \left (\hat {\omega }(f^k_\text {H}, s)\right ).\\ 0, &\text { otherwise}, \end {cases} \vspace {-0.05in}    (4)
+size, where s̄ is max possible object size defined by user.
+   Let the input image I contain a total of n̄ objects and for                    4 Note, the training images undergo data augmentations such as resiz-
+object n ∈ [1, n̄], its detection true bounding box be repre-                  ing, cropping, etc., with training epoch progression which improves the
+sented by t̂n . We further have t̂n = [t̂nx , t̂ny , t̂nw , t̂nh ] where       coverage of object size s to learn the size-features codebook.
+
+
+
+
+                                                                       24572
+                                                                                                                                                                                                            the most reliable features in FH for the min and max ob-
+                                                                                                                                                                                                            ject sizes are obtained by kmin = argmaxk (Ω(·, smin )) and
+                                                                                                                                                                                                            kmax = argmaxk (Ω(·, smax )) respectively. The gating sig-
+                                                                                                                                                                                                            nals CN and CH jointly catering to the min and max object
+                                                                                                                                                                                                            sizes are then generated by:
+
+Figure 4. Size-Features Codebook Ω ≡ Ω(fHk , s) (with k̄ = 4)                                                                                                                                                    \label {eq:dfm_infer} \begin {split} c^k_\text {H} &= 1 \text { if } (k=k_\text {min} \lor k=k_\text {max}) \text { else } 0 \phantom {zz}\forall k \in [1, \bar {k}],\\ c^k_\text {N} &= 1 \text { if } (k\ge k_\text {max} \land c^{k_\text {max}}_\text {H}=1) \text { else } 0 \phantom {zz}\forall k \in [1, \bar {k}],\\ \end {split} 
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                (6)
+learnt for the VisDrone [46] dataset. For ease in visualization, we
+show 1 and 0 with yellow and blue colors respectively.
+                                                                                                                                                                                                           which gives the smallest subsets of features in FN and FH -
+i.e., each column entry Ω(·, s) in the size-features code-                                                                                                                                                 or the smallest subsample of the EFS form - that can reliably
+book Ω is a one-hot entry indicating the most (voted) re-                                                                                                                                                  detect the entire range of objects in the given image, and this
+liable features in FH for each object size s. Any missing                                                                                                                                                  is essentially our proposed DM-EFS form approach.
+entries for s (e.g., an object size that never occurred during
+the entire training) are completed with post-processing us-                                                                                                                                                4. Experiments
+ing nearest neighbour interpolation. The entire size-features
+codebook learning process is summarized in Algorithm 1.                                                                                                                                                    We implement our DM-EFS using mmdetection [5]
+Fig. 4 shows an example of a codebook learnt for the Vis-                                                                                                                                                  toolbox. Unless specified, we use YOLOv7 [35] as our base
+Drone [46] dataset, which clearly show how objects of dif-                                                                                                                                                 model. The image resolution during training and testing is
+ferent sizes prefer features of different resolutions. For e.g.,                                                                                                                                           kept to 640×640, and the max possible object size s̄ is set to
+for small size objects with s < 40, the highest resolution                                                                                                                                                 640. The max number of features k̄ is set to 4 which offers
+features fHk̄ are preferred, while for large size objects with                                                                                                                                             a good balance between computational efficiency and SOD
+s > 200, the lowest resolution features fH1 are preferred.                                                                                                                                                 performance. For min-max object sizes prediction loss Lszp
+                                                                                                                                                                                                           in Eq. 5, hyper-parameter λszp is set to 0.04 by default.
+3.2.2. Learning Min-Max Object Sizes
+In addition to learning the size-features codebook, our                                                                                                                                                    4.1. Datasets and Baselines
+method also trains the control module ΦC to predict the min                                                                                                                                                SODA-D [6] is a recent large-scale SOD dataset consisting
+and max object sizes present in an image, represented by                                                                                                                                                   of driving scenarios. It has 12383 training, 5017 validation,
+smin and smax respectively. For this, we cast them as single-                                                                                                                                              and 7428 test images with nine classes: ‘people’, ‘rider’,
+label multi-class classification5 problems and predict them                                                                                                                                                ‘bicycle’, ‘motor’, ‘vehicle’, ‘traffic-light’, ‘traffic-camera’,
+with a two-branch classification network in ΦC using the                                                                                                                                                   and ‘warning-cone’. The objects are further divided into
+backbone features FB , as shown in Fig. 3.                                                                                                                                                                 extremely Small (eS), relatively Small (rS), generally Small
+   Given the image I with n̄ objects, the true min and max                                                                                                                                                 (gS), and Normal (N) categories.
+object sizes, ŝmin and ŝmax , are obtained by taking min and                                                                                                                                             VisDrone [46] is another popular SOD dataset containing
+max values of the true object sizes {ŝ1 , ŝ2 , . . . , ŝn̄ }. Given                                                                                                                                     drone imagery. It has 6471 training and 548 validation im-
+both ŝmin and ŝmax are in (1, s̄], we define (1, s̄] as the classi-                                                                                                                                      ages (test set is not publicly available) with ten classes sim-
+fication label space and use the following classification loss:                                                                                                                                            ilar to that of the SODA-D dataset above.
+                                                                                                                                                                                                           DarkFace [42] is a low-light face detection dataset with
+         \label {eq:szp_loss} \mathcal {L}_\text {szp} = \lambda _\text {szp}\big [\text {FL}(s_\text {min}, \hat {s}_\text {min}) + \big [\text {FL}(s_\text {max}, \hat {s}_\text {max})\big ],    (5)   tiny faces predominantly (average face size of the dataset is
+                                                                                                                                                                                                           11.08px for 640×640 images, as shown in supplementary),
+where λszp is a hyper-parameter controlling the min-max
+                                                                                                                                                                                                           which makes it a good candidate for diverse SOD condi-
+object size prediction loss Lszp , and FL is the focal loss [22].
+                                                                                                                                                                                                           tions. It has 5400 training and 600 validation/test images.
+The loss term Lszp is combined with other standard detec-
+tion losses [35] for predicting the object bounding box, class                                                                                                                                             4.1.1. Existing Baselines
+label, and objectness; and, the combined loss is used to train                                                                                                                                             For comparisons on the SODA-D and VisDrone datasets,
+the model in an end-to-end manner.                                                                                                                                                                         we pick recent SOD methods such as ESOD [23],
+3.2.3. Inference: DM-EFS Form                                                                                                                                                                              CFINet [44], UFPMP-Det [13], QueryDet [41], and
+                                                                                                                                                                                                           RFLA [40]; as well as some classical methods such as
+During inference, the gating signals CN and CH are dynam-                                                                                                                                                  Sparse-RCNN [33], RetinaNet [22], and Faster-RCNN [28]
+ically generated for each input image by ΦC . First, the min                                                                                                                                               (all based on ResNet50 [12]). For the DarkFace dataset,
+and max object sizes, smin and smax , are predicted. Then,                                                                                                                                                 we pick recent SOD methods ESOD [23] and CFINet [44],
+using the learnt size-features codebook Ω, the indices of                                                                                                                                                  and recent low-light detection methods, T2T [7], FeatEn-
+  5 We also experiment with an alternate design for predicting the min and                                                                                                                                 hancer [11] and MAET [8]. However, results from T2T [7]
+max object sizes based on regression. See the supplementary for details.                                                                                                                                   could not be obtained due to unavailability of its code.
+
+
+
+                                                                                                                                                                                                       24573
+            Method             Venue         AP↑        AP50 ↑         AP75 ↑       APeS ↑      APrS ↑       APgS ↑     APN ↑
+       Faster-RCNN [28]      NIPS’15        20.41       44.02          16.61        00.20       13.44        30.52      41.70
+         RetinaNet [22]      ICCV’17        16.10       38.81          11.32        02.50       09.11        24.16      39.97
+       Sparse-RCNN [33]      CVPR’21        20.80       46.01          16.33        06.80       16.42        26.83      37.40
+          RFLA [40]          ECCV’22        22.75       49.93          18.44        07.36       19.06        30.07      40.09
+         QueryDet [41]       CVPR’22        24.46       50.08          19.11        07.49       19.95        30.38      40.02
+          CFINet [44]        ICCV’23        24.51       51.90          19.60        08.20       20.30        30.92      40.11
+          ESOD [23]           TIP’24        27.04       55.35          24.11        09.66       23.02        34.07      43.81
+        YOLOv7 (Base)        CVPR’23        30.52       62.20          30.50        14.51       29.32        40.04      49.40
+        DM-EFS (Ours)            –          34.91       64.47          32.49        17.30       31.22        41.34      49.31
+
+        Table 1. SOD performance comparisons between different methods on the SODA-D test set with 640×640 input images.
+
+
+                                                                                  Method             Venue      AP↑    AP50 ↑ AP75 ↑
+                                                                             Faster-RCNN [28]     NIPS’15      13.24   23.41    13.51
+                                                                               RetinaNet [22]     ICCV’17      08.70   15.51    08.90
+                                                                             Sparse-RCNN [33]     CVPR’21      06.85   12.90    06.11
+                                                                                RFLA [40]         ECCV’22      14.01   25.12    13.33
+                                                                              UFPMP-Det [13]      AAAI’22      15.44   28.19    14.20
+                                                                               QueryDet [41]      CVPR’22      14.27   26.66    13.64
+                                                                                CFINet [44]       ICCV’23      14.60   27.80    14.01
+                                                                                ESOD [23]          TIP’24      23.61   41.89    23.38
+Figure 5. Our results on the SODA-D [6] dataset. Green and red                YOLOv7 (Base)       CVPR’23      27.60   47.81    27.30
+boxes are ground-truths and predictions respectively shown with-              DM-EFS (Ours)           –        29.71   51.80    29.30
+out class labels, and ‘ignore’ regions are masked out.
+                                                                        Table 2. Comparisons for SOD performance on the VisDrone val-
+                                                                        idation set with 640×640 input images.
+    For all datasets, we also compare our results with
+YOLOv7 [35] as it is the base model for our DM-EFS ap-
+                                                                        However, in APN , our results are on-par with YOLOv7. See
+proach. All methods (including ours) for all datasets are
+                                                                        Fig. 5 for an example of our results on the SODA-D dataset,
+trained and tested on 640×640 input images. For the Dark-
+                                                                        demonstrating our robustness in detecting small objects.
+Face dataset, we follow the training scheme proposed in
+                                                                           For the VisDrone dataset, Table 2 shows the performance
+MAET [8] that involves a pre-training step on synthetic
+                                                                        comparisons. We can again observe the better SOD perfor-
+low-light COCO dataset (see the supplementary for details).
+                                                                        mance of our DM-EFS achieving an AP of 29.71%. Com-
+4.2. Comparisons with Existing Baselines                                pared to the YOLOv7 base model and sota SOD meth-
+                                                                        ods ESOD and CFINet, our results in AP are +2.11%,
+4.2.1. SODA-D and VisDrone Datasets
+                                                                        +6.10%, and +15.11% better respectively. Fig. 6 (bottom-
+For the SODA-D dataset, following [6], we compute COCO                  row) shows an example for the VisDrone dataset confirming
+format [20] AP metric for all its object categories with IoU            the better SOD performance of our DM-EFS (see the sup-
+thresholds varying from 0.5 to 0.95 in intervals of 0.05. We            plementary for additional results and comparisons).
+also compute AP50 and AP75 which are AP metrics with IoU                   We also perform inference speed comparisons. For this,
+thresholds 0.5 and 0.75 respectively. For VisDrone dataset,             we compute fps for each dataset on a single V100 GPU for
+we compute AP, AP50 , and AP75 metrics.                                 all the methods. The results are shown in Table 3. We
+   Table 1 shows the SOD performance comparisons for the                can observe that our DM-EFS has on-par or even better
+SODA-D dataset. From the results, we can see that: (1) our              fps numbers than the baselines. For e.g., on the SODA-D
+DM-EFS obtains an AP of 34.91% outperforming all the                    dataset, our DM-EFS scores 38.89 fps which is compara-
+baselines with significant margins. For e.g., compared to               ble to YOLOv7 base model’s 40.91 fps but better than both
+our base model, YOLOv7, and state-of-the-art (sota) SOD                 ESOD’s 30.23 fps and CFINet’s 28.41 fps (while outper-
+methods ESOD and CFINet, our results in AP are +4.39%,                  forming all of them in SOD AP results).
++7.87%, and +10.40% better respectively; (2) our DM-
+EFS is particularly more effective in detecting small ob-                  4.2.2. DarkFace Dataset
+jects. For e.g., in APeS and APrS , our results compared                   Table 4 shows the performance comparisons on the Dark-
+to YOLOv7 are +2.79% and +1.90% better respectively.                       Face dataset using AP and AP50 metrics, and inference
+
+
+
+                                                                   24574
+             DM-EFS (Ours)                              YOLOv7 (Base)                                 CFINet [44]
+Figure 6. Results on the DarkFace (top row) and VisDrone (bottom row) datasets. We can see that our DM-EFS outperforms both the
+YOLOv7 base model and recent SOD method CFINet. Note, green and red boxes are ground-truths and predictions respectively. The
+results are for 640×640 images but are shown on original images without class labels for ease in visualization.
+
+
+                          SODA-D              VisDrone                      Method           Venue      AP↑    AP50 ↑   fps↑
+       Method
+                        AP↑    fps↑         AP↑     fps↑
+                                                                           MAET [8]         ICCV’21    22.12   55.80    31.12
+  Faster-RCNN [28]      20.41    37.89     13.24     37.01              FeatEnhancer [11]   ICCV’23    23.11   57.10      -
+    RetinaNet [22]      16.10    20.04     08.70     19.59                 CFINet [44]      ICCV’23    23.29   57.55    29.36
+  Sparse-RCNN [33]      20.80    25.73     06.85     25.71                 ESOD [23]         TIP’24    25.38   59.81    34.44
+    QueryDet [41]       24.46    12.51     14.27     11.19               YOLOv7 (Base)      CVPR’23    28.91   64.31    41.84
+     CFINet [44]        24.51    28.41     14.60     27.94              DM-EFS (Ours)           –      29.30   69.30    41.32
+     ESOD [23]          27.04    30.23     23.61     30.05
+   YOLOv7 (Base)        30.52    40.91     27.60     39.71          Table 4. Comparisons on the DarkFace validation set with
+                                                                    640×640 input images. ‘-’ means results not available.
+   DM-EFS (Ours)        34.91    38.89     29.71     38.24
+
+Table 3. Inference fps comparisons between different methods.       the existing sota SOD methods on multiple SOD datasets.
+All numbers are reported for 640×640 input images.                  However, these existing sota SOD methods themselves
+                                                                    could use different base models, for e.g., ESOD [23] uses
+speed comparisons in terms of fps.                                  YOLOv5 [14] base model by default, etc.
+   From the results, we can again observe the better perfor-           Hence, to ensure a fair comparison and truly validate the
+mance of our DM-EFS. Compared to YOLOv7 base model,                 better performance of our DM-EFS over the baselines, it’s
+our DM-EFS is +0.39% and +4.99% better in AP and AP50               important that the baselines and our DM-EFS use the same
+respectively, while being on-par in fps. Compared to sota           base model. However, since it’s intractable to modify all the
+SOD methods, ESOD and CFINet, and sota low-light de-                existing sota SOD methods to use the same base model, we
+tector FeatEnhancer, our DM-EFS is +3.92%, +6.01%, and              pick the most recent SOD method, ESOD [23], and com-
++6.19% better in AP respectively, while also getting a bet-         pare it with our DM-EFS using the same base model. The
+ter inference fps. Fig. 6 (top-row) shows an example for            performance comparisons done on the VisDrone dataset are
+the DarkFace dataset that again highlights our better SOD           shown in Table 5 across different base models. From the re-
+performance (see the supplementary for additional results).         sults, we can observe that: (1) our DM-EFS has generaliza-
+                                                                    tion capabilities and it also works well with other base mod-
+4.3. Comparisons across Base Models                                 els; and (2) even using the same base model, our DM-EFS
+In the performance comparisons above, we observe that               shows better results than the sota SOD method ESOD [23]
+our DM-EFS using YOLOv7 [35] base model outperforms                 validating our method’s superior SOD performance.
+
+
+
+                                                                24575
+      Base             Method          AP↑       AP50 ↑     fps↑
+                    ESOD [23]          08.91     16.31     20.12
+ RetinaNet [22]
+                  DM-EFS (Ours)        09.11     17.49     19.89
+                    ESOD [23]          23.61     41.89     30.05
+ YOLOv5 [14]
+                  DM-EFS (Ours)        25.14     43.40     29.65
+                    ESOD [23]          27.16     47.90     38.20
+ YOLOv7 [35]
+                  DM-EFS (Ours)        29.71     51.80     38.24
+                                                                           Figure 7. Our DM-EFS performance with variation in λszp .
+Table 5. Comparisons across different base models on the Vis-
+Drone dataset with 640×640 input images.
+                                                                        separate codebook is learnt (e.g., see Fig. 4), we test the im-
+                                                                        pact on our method’s performance when a codebook learned
+         Method          EFS     DFM        AP50 ↑       fps↑
+                                                                        for one dataset is used to infer on another dataset. For this,
+    YOLOv7 (Base)         ✗        ✗        47.81       39.71           we pick VisDrone and DarkFace datasets as they contain
+                          ✓        ✗        52.01       32.14           different object classes and image conditions.
+     DM-EFS (Ours)
+                          ✓        ✓        51.80       38.24              The results are in Table 7 which show that our perfor-
+                                                                        mance remains relatively stable on a dataset even when the
+    Table 6. Effectiveness of EFS and DFM in our DM-EFS.
+                                                                        codebook learnt from a different dataset is used. This obser-
+                                                                        vation is actually intuitive since the proposed size-features
+     Dataset      Codebook (Ω)      AP↑        AP50 ↑     fps↑
+                                                                        codebook encodes a relationship between features and ob-
+                     ΩVisDrone      29.71      51.80     38.24          ject sizes (and, not object classes or image conditions).
+    VisDrone
+                     ΩDarkFace      29.13      51.17     37.10
+                     ΩDarkFace      29.30      69.30     41.32          4.4.3. Variation of hyper-parameter λszp
+    DarkFace
+                     ΩVisDrone      28.95      69.01     40.09          We study the performance of our DM-EFS with hyper-
+                                                                        parameter λszp that controls the min-max object sizes pre-
+Table 7. Interchanging size-features codebooks between the Vis-         diction loss Lszp described in Eq. (5).
+Drone (ΩVisDrone ) and DarkFace (ΩDarkFace ) datasets.
+                                                                           The results are shown in Fig. 7. When λszp ≤ 0.02, loss
+                                                                        Lszp is small, and we observe low AP50 and fps results. This
+4.4. Ablation Experiments                                               can be attributed to improper learning of min-max object
+We perform ablation experiments to study how different                  sizes which adversely affects our performance, since when
+components in our DM-EFS affect its performance. We use                 λszp is increased, both AP50 and fps results improve. How-
+VisDrone validation set for the experiments in this section.            ever, when λszp ≥ 0.06, loss Lszp is large, which reduces the
+                                                                        impact of other detection losses in the overall training loss.
+4.4.1. Effectiveness of EFS and DFM                                     This also adversely affects our performance as we observe
+Our DM-EFS approach integrates our two main proposals:                  reduction in AP50 results while getting no improvement in
+EFS and DFM. While the effectiveness of the EFS form is                 fps. Hence, a moderate value of λszp = 0.04 is suitable.
+also discussed earlier (in Fig. 2), we now study it together
+with our DFM design using YOLOv7 base model. The re-                    5. Conclusion
+sults are shown in Table 6.
+   From the results, we can observe that it is the EFS form             In this paper, we proposed our novel approach termed
+that provides our DM-EFS its improved SOD performance                   DM-EFS to address the problem of small object detection
+over the base model. For e.g., the EFS form scores 52.01%               (SOD). It is developed on our two ideas, the EFS form and
+AP50 compared to the base model’s 47.81% AP50 , an im-                  our DFM design. The EFS form utilizes untapped higher
+provement of +4.2%. However, the EFS form also has a                    resolution features from the shallower layers of the back-
+reduced inference speed of 32.14 fps from the base model’s              bone module, which improves the SOD performance. How-
+39.71 fps (i.e., −7.57 fps lower). This problem is addressed            ever, it also creates higher computational costs. This is re-
+with the addition of our DFM design which provides our                  solved with our novel DFM design that performs feature
+DM-EFS an inference speed of 38.24 fps (now only −1.47                  multiplexing to convert the EFS form into its optimal coun-
+fps lower than the base) while providing an improved SOD                terpart called the DM-EFS form (which gives our approach
+performance of 51.80% AP50 similar to the EFS form.                     its name). Extensive experiments on multiple SOD datasets
+                                                                        confirmed the superiority of our DM-EFS to obtain robust
+4.4.2. Size-Features Codebook Interchangeability                        SOD results while keeping inference efficiency. Our future
+Our DM-EFS learns a size-features codebook Ω (Sec. 3.2.1)               work will include bringing further optimizations using more
+to incorporate our DFM design. While for each dataset a                 efficient network designs to further improve our efficiency.
+
+
+
+                                                                   24576
+Acknowledgment                                                           [10] Ross Girshick. Fast r-cnn. In Proceedings of the IEEE inter-
+                                                                              national conference on computer vision, pages 1440–1448,
+This research project is generously supported by KLASS                        2015. 2
+Engineering and Solutions, Singapore. Also, heartfelt grat-              [11] Khurram Azeem Hashmi, Goutham Kallempudi, Didier
+itude and thanks to Yow Min Ho, Allen Hum, Terence Goh,                       Stricker, and Muhammad Zeshan Afzal. Featenhancer: En-
+Hui Ning Joo, and Chen Kim Heng for all the useful discus-                    hancing hierarchical features for object detection and beyond
+sions and support provided during the project.                                under low-light vision. In Proceedings of the IEEE/CVF
+                                                                              International Conference on Computer Vision, pages 6725–
+References                                                                    6735, 2023. 5, 7
+                                                                         [12] Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
+ [1] Yancheng Bai, Yongqiang Zhang, Mingli Ding, and Bernard                  Deep residual learning for image recognition. In Proceed-
+     Ghanem. Finding tiny faces in the wild with generative ad-               ings of the IEEE conference on computer vision and pattern
+     versarial network. In Proceedings of the IEEE conference on              recognition, pages 770–778, 2016. 5
+     computer vision and pattern recognition, pages 21–30, 2018.
+                                                                         [13] Yecheng Huang, Jiaxin Chen, Di Huang, and NA NA.
+     1
+                                                                              Ufpmp-det: Toward accurate and efficient object detection
+ [2] Yancheng Bai, Yongqiang Zhang, Mingli Ding, and Bernard                  on drone imagery. In Proceedings of the AAAI conference on
+     Ghanem. Sod-mtgan: Small object detection via multi-task                 artificial intelligence, pages 1026–1033, 2022. 1, 5, 6
+     generative adversarial network. In Proceedings of the Euro-
+                                                                         [14] Glenn Jocher. Ultralytics yolov5, 2020. 7, 8
+     pean Conference on Computer Vision (ECCV), pages 206–
+     221, 2018. 1, 3                                                     [15] Yonghyun Kim, Bong-Nam Kang, and Daijin Kim. San:
+                                                                              Learning relationship between convolutional features for
+ [3] Zhaowei Cai and Nuno Vasconcelos. Cascade r-cnn: Delv-
+                                                                              multi-scale object detection. In Proceedings of the Euro-
+     ing into high quality object detection. In Proceedings of the
+                                                                              pean Conference on Computer Vision (ECCV), pages 316–
+     IEEE conference on computer vision and pattern recogni-
+                                                                              331, 2018. 3
+     tion, pages 6154–6162, 2018. 2
+                                                                         [16] Mate Kisantal, Zbigniew Wojna, Jakub Murawski, Jacek
+ [4] Zhaowei Cai, Quanfu Fan, Rogerio S Feris, and Nuno Vas-
+                                                                              Naruniec, and Kyunghyun Cho. Augmentation for small ob-
+     concelos. A unified multi-scale deep convolutional neural
+                                                                              ject detection. arXiv preprint arXiv:1902.07296, 2019. 3
+     network for fast object detection. In Computer Vision–ECCV
+     2016: 14th European Conference, Amsterdam, The Nether-              [17] Tao Kong, Anbang Yao, Yurong Chen, and Fuchun Sun.
+     lands, October 11–14, 2016, Proceedings, Part IV 14, pages               Hypernet: Towards accurate region proposal generation and
+     354–370. Springer, 2016. 3                                               joint object detection. In Proceedings of the IEEE conference
+ [5] Kai Chen, Jiaqi Wang, Jiangmiao Pang, Yuhang Cao, Yu                     on computer vision and pattern recognition, pages 845–853,
+     Xiong, Xiaoxiao Li, Shuyang Sun, Wansen Feng, Ziwei Liu,                 2016. 3
+     Jiarui Xu, Zheng Zhang, Dazhi Cheng, Chenchen Zhu, Tian-            [18] Jianan Li, Xiaodan Liang, Yunchao Wei, Tingfa Xu, Jiashi
+     heng Cheng, Qijie Zhao, Buyu Li, Xin Lu, Rui Zhu, Yue Wu,                Feng, and Shuicheng Yan. Perceptual generative adversar-
+     Jifeng Dai, Jingdong Wang, Jianping Shi, Wanli Ouyang,                   ial networks for small object detection. In Proceedings of
+     Chen Change Loy, and Dahua Lin. MMDetection: Open                        the IEEE conference on computer vision and pattern recog-
+     mmlab detection toolbox and benchmark. arXiv preprint                    nition, pages 1222–1230, 2017. 3
+     arXiv:1906.07155, 2019. 5                                           [19] Xiang Li, Wenhai Wang, Lijun Wu, Shuo Chen, Xiaolin Hu,
+ [6] Gong Cheng, Xiang Yuan, Xiwen Yao, Kebing Yan, Qinghua                   Jun Li, Jinhui Tang, and Jian Yang. Generalized focal loss:
+     Zeng, Xingxing Xie, and Junwei Han. Towards large-scale                  Learning qualified and distributed bounding boxes for dense
+     small object detection: Survey and benchmarks. IEEE Trans-               object detection. Advances in Neural Information Processing
+     actions on Pattern Analysis and Machine Intelligence, 2023.              Systems, 33:21002–21012, 2020. 2
+     1, 2, 5, 6                                                          [20] Tsung-Yi Lin, Michael Maire, Serge Belongie, James Hays,
+ [7] Xiaohan Cui, Long Ma, Tengyu Ma, Jinyuan Liu, Xin Fan,                   Pietro Perona, Deva Ramanan, Piotr Dollár, and C Lawrence
+     and Risheng Liu. Trash to treasure: Low-light object de-                 Zitnick. Microsoft coco: Common objects in context. In
+     tection via decomposition-and-aggregation. In Proceedings                Computer Vision–ECCV 2014: 13th European Conference,
+     of the AAAI Conference on Artificial Intelligence, number 2,             Zurich, Switzerland, September 6-12, 2014, Proceedings,
+     pages 1417–1425, 2024. 5                                                 Part V 13, pages 740–755. Springer, 2014. 6
+ [8] Ziteng Cui, Guo-Jun Qi, Lin Gu, Shaodi You, Zenghui                 [21] Tsung-Yi Lin, Piotr Dollár, Ross Girshick, Kaiming He,
+     Zhang, and Tatsuya Harada. Multitask aet with orthogonal                 Bharath Hariharan, and Serge Belongie. Feature pyra-
+     tangent regularity for dark object detection. In Proceedings             mid networks for object detection. In Proceedings of the
+     of the IEEE/CVF International Conference on Computer Vi-                 IEEE conference on computer vision and pattern recogni-
+     sion, pages 2553–2562, 2021. 5, 6, 7                                     tion, pages 2117–2125, 2017. 1, 2, 3
+ [9] Chunfang Deng, Mengmeng Wang, Liang Liu, Yong Liu,                  [22] Tsung-Yi Lin, Priya Goyal, Ross Girshick, Kaiming He, and
+     and Yunliang Jiang. Extended feature pyramid network for                 Piotr Dollár. Focal loss for dense object detection. In Pro-
+     small object detection. IEEE Transactions on Multimedia,                 ceedings of the IEEE international conference on computer
+     24:1968–1979, 2021. 1, 3                                                 vision, pages 2980–2988, 2017. 1, 2, 5, 6, 7, 8
+
+
+
+
+                                                                 24577
+[23] Kai Liu, Zhihang Fu, Sheng Jin, Ze Chen, Fan Zhou,                   and Pattern Recognition, pages 7464–7475, 2023. 1, 2, 5, 6,
+     Rongxin Jiang, Yaowu Chen, and Jieping Ye. Esod: Effi-               7, 8
+     cient small object detection on high-resolution images. IEEE    [36] Jingdong Wang, Ke Sun, Tianheng Cheng, Borui Jiang,
+     Transactions on Image Processing, 2024. 1, 2, 3, 5, 6, 7, 8          Chaorui Deng, Yang Zhao, Dong Liu, Yadong Mu, Mingkui
+[24] Wei Liu, Dragomir Anguelov, Dumitru Erhan, Christian                 Tan, Xinggang Wang, et al. Deep high-resolution repre-
+     Szegedy, Scott Reed, Cheng-Yang Fu, and Alexander C                  sentation learning for visual recognition. IEEE transactions
+     Berg. Ssd: Single shot multibox detector. In Computer                on pattern analysis and machine intelligence, 43(10):3349–
+     Vision–ECCV 2016: 14th European Conference, Amster-                  3364, 2020. 3
+     dam, The Netherlands, October 11–14, 2016, Proceedings,         [37] Jinwang Wang, Chang Xu, Wen Yang, and Lei Yu. A normal-
+     Part I 14, pages 21–37. Springer, 2016. 2, 3                         ized gaussian wasserstein distance for tiny object detection.
+[25] Junhyug Noh, Wonho Bae, Wonhee Lee, Jinhwan Seo, and                 arXiv preprint arXiv:2110.13389, 2021. 4
+     Gunhee Kim. Better to follow, follow to be better: Towards      [38] Xinjiang Wang, Shilong Zhang, Zhuoran Yu, Litong Feng,
+     precise supervision of feature super-resolution for small ob-        and Wayne Zhang. Scale-equalizing pyramid convolution
+     ject detection. In Proceedings of the IEEE/CVF international         for object detection. In Proceedings of the IEEE/CVF Con-
+     conference on computer vision, pages 9725–9734, 2019. 1              ference on Computer Vision and Pattern Recognition, pages
+[26] Xingjia Pan, Fan Tang, Weiming Dong, Yang Gu, Zhichao                13359–13368, 2020. 1
+     Song, Yiping Meng, Pengfei Xu, Oliver Deussen, and              [39] Jialian Wu, Chunluan Zhou, Qian Zhang, Ming Yang, and
+     Changsheng Xu. Self-supervised feature augmentation for              Junsong Yuan. Self-mimic learning for small-scale pedes-
+     large image object detection. IEEE Transactions on Image             trian detection. In Proceedings of the 28th ACM Interna-
+     Processing, 29:6745–6758, 2020. 1, 3                                 tional Conference on Multimedia, pages 2012–2020, 2020.
+[27] Joseph Redmon and Ali Farhadi. Yolo9000: better, faster,             1
+     stronger. In Proceedings of the IEEE conference on computer
+                                                                     [40] Chang Xu, Jinwang Wang, Wen Yang, Huai Yu, Lei Yu, and
+     vision and pattern recognition, pages 7263–7271, 2017. 2
+                                                                          Gui-Song Xia. Rfla: Gaussian receptive field based label
+[28] Shaoqing Ren, Kaiming He, Ross Girshick, and Jian Sun.
+                                                                          assignment for tiny object detection. In European conference
+     Faster r-cnn: Towards real-time object detection with region
+                                                                          on computer vision, pages 526–543. Springer, 2022. 1, 3, 5,
+     proposal networks. Advances in neural information process-
+                                                                          6
+     ing systems, 28, 2015. 1, 2, 5, 6, 7
+                                                                     [41] Chenhongyi Yang, Zehao Huang, Naiyan Wang, and N.A
+[29] Aashish Sharma and Robby T Tan. Nighttime visibility en-
+                                                                          N.A. Querydet: Cascaded sparse query for accelerating
+     hancement by increasing the dynamic range and suppression
+                                                                          high-resolution small object detection. In Proceedings of
+     of light effects. In Proceedings of the IEEE/CVF Conference
+                                                                          the IEEE/CVF Conference on computer vision and pattern
+     on Computer Vision and Pattern Recognition, pages 11977–
+                                                                          recognition, pages 13668–13677, 2022. 1, 2, 3, 5, 6, 7
+     11986, 2021. 1
+                                                                     [42] Wenhan Yang, Ye Yuan, Wenqi Ren, Jiaying Liu, Walter J.
+[30] A. Sharma, L. F. Cheong, L. Heng, and R. T. Tan. Nighttime
+                                                                          Scheirer, Zhangyang Wang, and et al. Advancing image
+     stereo depth estimation using joint translation-stereo learn-
+                                                                          understanding in poor visibility environments: A collective
+     ing: Light effects and uninformative regions. In 2020 In-
+                                                                          benchmark study. IEEE Transactions on Image Processing,
+     ternational Conference on 3D Vision (3DV), pages 23–31,
+                                                                          29:5737–5752, 2020. 5
+     2020. 1
+[31] Abhinav Shrivastava, Rahul Sukthankar, Jitendra Malik, and      [43] Ze Yang, Yali Wang, Xianyu Chen, Jianzhuang Liu, and Yu
+     Abhinav Gupta. Beyond skip connections: Top-down modu-               Qiao. Context-transformer: Tackling object confusion for
+     lation for object detection. arXiv preprint arXiv:1612.06851,        few-shot detection. In Proceedings of the AAAI Conference
+     2016. 3                                                              on Artificial Intelligence, pages 12653–12660, 2020. 2
+[32] Bharat Singh, Mahyar Najibi, and Larry S Davis. Sniper: Ef-     [44] Xiang Yuan, Gong Cheng, Kebing Yan, Qinghua Zeng, and
+     ficient multi-scale training. Advances in neural information         Junwei Han. Small object detection via coarse-to-fine pro-
+     processing systems, 31, 2018. 3                                      posal generation and imitation learning. In Proceedings of
+[33] Peize Sun, Rufeng Zhang, Yi Jiang, Tao Kong, Chen-                   the IEEE/CVF international conference on computer vision,
+     feng Xu, Wei Zhan, Masayoshi Tomizuka, Lei Li, Zehuan                pages 6317–6327, 2023. 1, 3, 5, 6, 7
+     Yuan, Changhu Wang, et al. Sparse r-cnn: End-to-end ob-         [45] Chenchen Zhu, Yihui He, and Marios Savvides. Feature se-
+     ject detection with learnable proposals. In Proceedings of           lective anchor-free module for single-shot object detection.
+     the IEEE/CVF conference on computer vision and pattern               In Proceedings of the IEEE/CVF conference on computer vi-
+     recognition, pages 14454–14463, 2021. 5, 6, 7                        sion and pattern recognition, pages 840–849, 2019. 2
+[34] Zhi Tian, Chunhua Shen, Hao Chen, and Tong He. Fcos: A          [46] Pengfei Zhu, Longyin Wen, Dawei Du, Xiao Bian, Heng
+     simple and strong anchor-free object detector. IEEE trans-           Fan, Qinghua Hu, and Haibin Ling. Detection and tracking
+     actions on pattern analysis and machine intelligence, 44(4):         meet drones challenge. IEEE Transactions on Pattern Anal-
+     1922–1933, 2020. 2                                                   ysis and Machine Intelligence, 44(11):7380–7399, 2021. 1,
+[35] Chien-Yao Wang, Alexey Bochkovskiy, Hong-Yuan Mark                   2, 5
+     Liao, and NA NA. Yolov7: Trainable bag-of-freebies sets         [47] Barret Zoph, Ekin D Cubuk, Golnaz Ghiasi, Tsung-Yi Lin,
+     new state-of-the-art for real-time object detectors. In Pro-         Jonathon Shlens, and Quoc V Le. Learning data augmen-
+     ceedings of the IEEE/CVF Conference on Computer Vision               tation strategies for object detection. In Computer Vision–
+
+
+
+
+                                                                 24578
+ECCV 2020: 16th European Conference, Glasgow, UK, Au-
+gust 23–28, 2020, Proceedings, Part XXVII 16, pages 566–
+583. Springer, 2020. 3
+
+
+
+
+                                                       24579
+

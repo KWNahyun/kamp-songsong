@@ -1,0 +1,386 @@
+{
+  "started_at": "2026-10-07T08:18:10+0900",
+  "max_parallel": 3,
+  "jobs": {
+    "dfine_s_synth25_seed20260929": {
+      "status": "complete",
+      "family": "dfine",
+      "seed": 20260929,
+      "pid": 29918,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/train_dfine.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_s_synth25_seed20260929.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/runs/dfine_s_seed20260929/best_stg1.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260929"
+      ],
+      "log": "/home/viplab/contest/experiments/kamp_synth_train_v1/logs/dfine_s_synth25_seed20260929.log",
+      "return_code": 0,
+      "wall_seconds": 440.04335856437683
+    },
+    "dfine_s_p2_synth25_seed20260929": {
+      "status": "complete",
+      "family": "dfine",
+      "seed": 20260929,
+      "pid": 29919,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/train_dfine.py",
+        "--p2",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_s_p2_synth25_seed20260929.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/runs/dfine_s_p2_seed20260929/best_stg1.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260929"
+      ],
+      "log": "/home/viplab/contest/experiments/kamp_synth_train_v1/logs/dfine_s_p2_synth25_seed20260929.log",
+      "return_code": 0,
+      "wall_seconds": 452.0455539226532
+    },
+    "dfine_M_synth25_seed20260929": {
+      "status": "complete",
+      "family": "dfine",
+      "seed": 20260929,
+      "pid": 29920,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/train_dfine.py",
+        "--mal",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_M_synth25_seed20260929.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_v2_mal/runs/dfine_M_seed20260929/best_stg1.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260929"
+      ],
+      "log": "/home/viplab/contest/experiments/kamp_synth_train_v1/logs/dfine_M_synth25_seed20260929.log",
+      "return_code": 0,
+      "wall_seconds": 446.0373697280884
+    },
+    "yolov8s_synth25_seed20260929": {
+      "status": "complete",
+      "family": "yolo",
+      "seed": 20260929,
+      "pid": 30872,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/train_yolo.py",
+        "--checkpoint",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/runs/yolov8s_seed20260929/weights/best.pt",
+        "--seed",
+        "20260929",
+        "--name",
+        "yolov8s_synth25_seed20260929"
+      ],
+      "log": "/home/viplab/contest/experiments/kamp_synth_train_v1/logs/yolov8s_synth25_seed20260929.log",
+      "return_code": 0,
+      "wall_seconds": 186.01272130012512
+    },
+    "yolov8s_p2_synth25_seed20260929": {
+      "status": "complete",
+      "family": "yolo",
+      "seed": 20260929,
+      "pid": 30931,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/train_yolo.py",
+        "--checkpoint",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/runs/yolov8s_p2_seed20260929/weights/best.pt",
+        "--seed",
+        "20260929",
+        "--name",
+        "yolov8s_p2_synth25_seed20260929"
+      ],
+      "log": "/home/viplab/contest/experiments/kamp_synth_train_v1/logs/yolov8s_p2_synth25_seed20260929.log",
+      "return_code": 0,
+      "wall_seconds": 200.0134882926941
+    },
+    "dfine_mal_UQ_synth25_seed20260929": {
+      "status": "complete",
+      "family": "uq",
+      "seed": 20260929,
+      "pid": 30973,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/train_uq.py",
+        "--config",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_M_synth25_seed20260929.yml",
+        "--detector-checkpoint",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/dfine_M_synth25_seed20260929/best_stg1.pth",
+        "--uq-checkpoint",
+        "/home/viplab/contest/experiments/kamp_v2_uq/runs_frozen/dfine_mal_UQ_seed20260929/last.pth",
+        "--output",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/dfine_mal_UQ_synth25_seed20260929",
+        "--seed",
+        "20260929"
+      ],
+      "log": "/home/viplab/contest/experiments/kamp_synth_train_v1/logs/dfine_mal_UQ_synth25_seed20260929.log",
+      "return_code": 0,
+      "wall_seconds": 102.0054223537445
+    },
+    "dfine_s_synth25_seed20260930": {
+      "status": "complete",
+      "family": "dfine",
+      "seed": 20260930,
+      "pid": 31212,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/train_dfine.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_s_synth25_seed20260930.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/runs/dfine_s_seed20260930/best_stg1.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260930"
+      ],
+      "log": "/home/viplab/contest/experiments/kamp_synth_train_v1/logs/dfine_s_synth25_seed20260930.log",
+      "return_code": 0,
+      "wall_seconds": 452.0359630584717
+    },
+    "dfine_s_p2_synth25_seed20260930": {
+      "status": "complete",
+      "family": "dfine",
+      "seed": 20260930,
+      "pid": 31348,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/train_dfine.py",
+        "--p2",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_s_p2_synth25_seed20260930.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/runs/dfine_s_p2_seed20260930/best_stg1.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260930"
+      ],
+      "log": "/home/viplab/contest/experiments/kamp_synth_train_v1/logs/dfine_s_p2_synth25_seed20260930.log",
+      "return_code": 0,
+      "wall_seconds": 464.0370216369629
+    },
+    "dfine_M_synth25_seed20260930": {
+      "status": "complete",
+      "family": "dfine",
+      "seed": 20260930,
+      "pid": 31459,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/train_dfine.py",
+        "--mal",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_M_synth25_seed20260930.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_v2_mal/runs/dfine_M_seed20260930/best_stg1.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260930"
+      ],
+      "log": "/home/viplab/contest/experiments/kamp_synth_train_v1/logs/dfine_M_synth25_seed20260930.log",
+      "return_code": 0,
+      "wall_seconds": 464.0369973182678
+    },
+    "yolov8s_synth25_seed20260930": {
+      "status": "complete",
+      "family": "yolo",
+      "seed": 20260930,
+      "pid": 32064,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/train_yolo.py",
+        "--checkpoint",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/runs/yolov8s_seed20260930/weights/best.pt",
+        "--seed",
+        "20260930",
+        "--name",
+        "yolov8s_synth25_seed20260930"
+      ],
+      "log": "/home/viplab/contest/experiments/kamp_synth_train_v1/logs/yolov8s_synth25_seed20260930.log",
+      "return_code": 0,
+      "wall_seconds": 152.0100817680359
+    },
+    "yolov8s_p2_synth25_seed20260930": {
+      "status": "complete",
+      "family": "yolo",
+      "seed": 20260930,
+      "pid": 32178,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/train_yolo.py",
+        "--checkpoint",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/runs/yolov8s_p2_seed20260930/weights/best.pt",
+        "--seed",
+        "20260930",
+        "--name",
+        "yolov8s_p2_synth25_seed20260930"
+      ],
+      "log": "/home/viplab/contest/experiments/kamp_synth_train_v1/logs/yolov8s_p2_synth25_seed20260930.log",
+      "return_code": 0,
+      "wall_seconds": 188.0123851299286
+    },
+    "dfine_mal_UQ_synth25_seed20260930": {
+      "status": "complete",
+      "family": "uq",
+      "seed": 20260930,
+      "pid": 32216,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/train_uq.py",
+        "--config",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_M_synth25_seed20260930.yml",
+        "--detector-checkpoint",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/dfine_M_synth25_seed20260930/best_stg1.pth",
+        "--uq-checkpoint",
+        "/home/viplab/contest/experiments/kamp_v2_uq/runs_frozen/dfine_mal_UQ_seed20260930/last.pth",
+        "--output",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/dfine_mal_UQ_synth25_seed20260930",
+        "--seed",
+        "20260930"
+      ],
+      "log": "/home/viplab/contest/experiments/kamp_synth_train_v1/logs/dfine_mal_UQ_synth25_seed20260930.log",
+      "return_code": 0,
+      "wall_seconds": 92.00579166412354
+    },
+    "dfine_s_synth25_seed20261001": {
+      "status": "complete",
+      "family": "dfine",
+      "seed": 20261001,
+      "pid": 32402,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/train_dfine.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_s_synth25_seed20261001.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/runs/dfine_s_seed20261001/best_stg1.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20261001"
+      ],
+      "log": "/home/viplab/contest/experiments/kamp_synth_train_v1/logs/dfine_s_synth25_seed20261001.log",
+      "return_code": 0,
+      "wall_seconds": 458.03480648994446
+    },
+    "dfine_s_p2_synth25_seed20261001": {
+      "status": "complete",
+      "family": "dfine",
+      "seed": 20261001,
+      "pid": 32526,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/train_dfine.py",
+        "--p2",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_s_p2_synth25_seed20261001.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/runs/dfine_s_p2_seed20261001/best_stg1.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20261001"
+      ],
+      "log": "/home/viplab/contest/experiments/kamp_synth_train_v1/logs/dfine_s_p2_synth25_seed20261001.log",
+      "return_code": 0,
+      "wall_seconds": 476.0371813774109
+    },
+    "dfine_M_synth25_seed20261001": {
+      "status": "complete",
+      "family": "dfine",
+      "seed": 20261001,
+      "pid": 32696,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/train_dfine.py",
+        "--mal",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_M_synth25_seed20261001.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_v2_mal/runs/dfine_M_seed20261001/best_stg1.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20261001"
+      ],
+      "log": "/home/viplab/contest/experiments/kamp_synth_train_v1/logs/dfine_M_synth25_seed20261001.log",
+      "return_code": 0,
+      "wall_seconds": 484.0382227897644
+    },
+    "yolov8s_synth25_seed20261001": {
+      "status": "complete",
+      "family": "yolo",
+      "seed": 20261001,
+      "pid": 33257,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/train_yolo.py",
+        "--checkpoint",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/runs/yolov8s_seed20261001/weights/best.pt",
+        "--seed",
+        "20261001",
+        "--name",
+        "yolov8s_synth25_seed20261001"
+      ],
+      "log": "/home/viplab/contest/experiments/kamp_synth_train_v1/logs/yolov8s_synth25_seed20261001.log",
+      "return_code": 0,
+      "wall_seconds": 154.0121464729309
+    },
+    "yolov8s_p2_synth25_seed20261001": {
+      "status": "complete",
+      "family": "yolo",
+      "seed": 20261001,
+      "pid": 33360,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/train_yolo.py",
+        "--checkpoint",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/runs/yolov8s_p2_seed20261001/weights/best.pt",
+        "--seed",
+        "20261001",
+        "--name",
+        "yolov8s_p2_synth25_seed20261001"
+      ],
+      "log": "/home/viplab/contest/experiments/kamp_synth_train_v1/logs/yolov8s_p2_synth25_seed20261001.log",
+      "return_code": 0,
+      "wall_seconds": 170.01147198677063
+    },
+    "dfine_mal_UQ_synth25_seed20261001": {
+      "status": "complete",
+      "family": "uq",
+      "seed": 20261001,
+      "pid": 33442,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/train_uq.py",
+        "--config",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_M_synth25_seed20261001.yml",
+        "--detector-checkpoint",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/dfine_M_synth25_seed20261001/best_stg1.pth",
+        "--uq-checkpoint",
+        "/home/viplab/contest/experiments/kamp_v2_uq/runs_frozen/dfine_mal_UQ_seed20261001/last.pth",
+        "--output",
+        "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/dfine_mal_UQ_synth25_seed20261001",
+        "--seed",
+        "20261001"
+      ],
+      "log": "/home/viplab/contest/experiments/kamp_synth_train_v1/logs/dfine_mal_UQ_synth25_seed20261001.log",
+      "return_code": 0,
+      "wall_seconds": 78.00455856323242
+    }
+  },
+  "finished_at": "2026-10-07T08:49:10+0900",
+  "complete": true
+}

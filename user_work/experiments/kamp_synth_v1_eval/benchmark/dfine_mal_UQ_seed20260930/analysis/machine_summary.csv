@@ -1,0 +1,2 @@
+split,machine,images,unmatched,alarm_images,objects,found,mean_score,mean_quality,mean_max_iou,detection_rate,unmatched_per_image,alarm_rate
+val,M1,128,355,128,378,252,0.34734327491698047,0.4366986299222204,0.5568707458063541,0.6666666666666666,2.7734375,1.0

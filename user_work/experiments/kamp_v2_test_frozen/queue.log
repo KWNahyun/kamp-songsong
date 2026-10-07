@@ -1,0 +1,19 @@
+Prepared test only:84 images,206 GT; source files unchanged
+DONE yolov8s_seed20260929 6.7
+DONE yolov8s_p2_seed20260929 11.0
+DONE dfine_s_seed20260929 22.4
+DONE dfine_s_p2_seed20260929 33.0
+DONE dfine_M_seed20260929 43.8
+DONE dfine_mal_UQ_seed20260929 54.2
+DONE yolov8s_seed20260930 58.3
+DONE yolov8s_p2_seed20260930 62.7
+DONE dfine_s_seed20260930 72.5
+DONE dfine_s_p2_seed20260930 82.9
+DONE dfine_M_seed20260930 93.4
+DONE dfine_mal_UQ_seed20260930 103.1
+DONE yolov8s_seed20261001 107.5
+DONE yolov8s_p2_seed20261001 111.8
+DONE dfine_s_seed20261001 122.1
+DONE dfine_s_p2_seed20261001 131.8
+DONE dfine_M_seed20261001 142.6
+DONE dfine_mal_UQ_seed20261001 153.0

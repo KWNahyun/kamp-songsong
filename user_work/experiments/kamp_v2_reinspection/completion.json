@@ -1,0 +1,10 @@
+{
+  "completed": true,
+  "test_used": false,
+  "new_training": false,
+  "checkpoints": 15,
+  "validation_images": 66,
+  "normal_images_available": false,
+  "policy_validated": false,
+  "report": "/home/viplab/contest/\ud504\ub85c\uc81d\ud2b8_\uc9c4\ud589\uacfc\uc815_\ud1b5\ud569\ubcf4\uace0\uc11c.md"
+}

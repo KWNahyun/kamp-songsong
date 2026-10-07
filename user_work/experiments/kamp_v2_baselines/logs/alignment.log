@@ -1,0 +1,25 @@
+{
+  "test_used": false,
+  "image_pairs": 323,
+  "accepted_pairs": 87,
+  "accepted_groups": 15,
+  "matched_GT_pairs": 153,
+  "registration": "raw grayscale, chroma pixels dilated 3px excluded, translation ECC, NCC>=.97, cycle<=.5px, shift<=8px; GT used only after registration for matching within 3px",
+  "pair_statistics": {
+    "GT_IoU": {
+      "median": 0.6503524496802966,
+      "p90": 0.7915350385638508
+    },
+    "center_distance": {
+      "median": 1.4207661572372934,
+      "p90": 2.4629657604747672
+    },
+    "max_edge_difference": {
+      "median": 2.196714386343956,
+      "p90": 3.3429667234420837
+    }
+  },
+  "GT_pairs_iou_below075": 125,
+  "GT_pairs_iou_below05": 6,
+  "all12_leaders_below075": 48
+}

@@ -1,0 +1,11 @@
+{
+  "date": "2026-10-04",
+  "original_unchanged": true,
+  "figures": 13,
+  "chapter4_before_characters": 6926,
+  "chapter4_after_characters": 4631,
+  "new_experiment": false,
+  "chapter8_added": true,
+  "numeric_tables_preserved": true,
+  "definition_expanded": "IoU>=0.75 definition added to narrative table; no result changed"
+}

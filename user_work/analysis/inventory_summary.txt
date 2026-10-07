@@ -1,0 +1,128 @@
+ALL FILES 5354 BY EXTENSION Counter({'.bmp': 2824, '.jpg': 1110, '.xml': 833, '.txt': 536, '.py': 18, '.pyc': 7, '': 6, '.sh': 4, '.ipynb': 2, '.jpgpes': 2, '.shapes': 2, '.md': 1, '.ini': 1, '.jpgnb': 1, '.jpges': 1, '.names': 1, '.png': 1, '.jpga': 1, '.cfg': 1, '.data': 1, '.pt': 1})
+15 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/OpenLabeling-master/main/input
+833 .xml 4. X-ray 검사장비 AI 데이터셋/dataset/OpenLabeling-master/main/output/PASCAL_VOC
+15 .txt 4. X-ray 검사장비 AI 데이터셋/dataset/OpenLabeling-master/main/output/YOLO_darknet
+14 .jpg 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3
+15 .jpg 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/result
+15 .jpg 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/images
+15 .txt 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/labels
+12 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200723_NgImage
+12 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200907_NgImage
+10 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200728_NgImage
+42 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200915_NgImage
+42 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200905_NgImage
+30 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200707_NgImage
+42 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200917_NgImage
+30 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200708_NgImage
+12 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200814_NgImage
+12 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200908_NgImage
+30 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200912_NgImage
+24 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200921_NgImage
+10 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200722_NgImage
+36 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200630_NgImage
+12 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200721_NgImage
+12 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200819_NgImage
+24 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200902_NgImage
+12 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200906_NgImage
+42 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200623_NgImage
+112 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200727_NgImage
+36 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200701_NgImage
+24 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200914_NgImage
+37 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200901_NgImage
+36 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200918_NgImage
+12 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200702_NgImage
+18 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200625_NgImage
+36 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200916_NgImage
+12 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200904_NgImage
+30 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200922_NgImage
+36 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200624_NgImage
+18 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200715_NgImage
+60 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200714_NgImage
+24 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200713_NgImage
+24 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200706_NgImage
+24 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/1호기(2020.09.22)/SN77128_20200629_NgImage
+10 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200728_NgImage
+10 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200722_NgImage
+12 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200702_NgImage
+24 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200901_NgImage
+30 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200916_NgImage
+12 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200814_NgImage
+60 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200714_NgImage
+24 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200713_NgImage
+30 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200707_NgImage
+42 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200623_NgImage
+24 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200921_NgImage
+42 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200624_NgImage
+42 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200905_NgImage
+36 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200701_NgImage
+12 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200908_NgImage
+30 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200912_NgImage
+30 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200922_NgImage
+25 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200629_NgImage
+12 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200907_NgImage
+38 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200630_NgImage
+18 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200715_NgImage
+18 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200625_NgImage
+24 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200706_NgImage
+30 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200917_NgImage
+42 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200915_NgImage
+29 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200708_NgImage
+36 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200918_NgImage
+10 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200723_NgImage
+12 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200819_NgImage
+24 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/3호기(2020.09.22)/SN12053_20200914_NgImage
+36 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200918_NgImage
+24 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200914_NgImage
+12 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200907_NgImage
+18 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200715_NgImage
+10 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200819_NgImage
+24 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200708_NgImage
+24 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200629_NgImage
+12 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200814_NgImage
+60 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200701_NgImage
+37 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200916_NgImage
+12 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200702_NgImage
+12 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200906_NgImage
+30 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200922_NgImage
+43 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200915_NgImage
+10 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200728_NgImage
+42 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200624_NgImage
+36 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200630_NgImage
+42 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200905_NgImage
+24 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200921_NgImage
+30 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200707_NgImage
+42 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200714_NgImage
+10 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200722_NgImage
+24 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200713_NgImage
+42 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200623_NgImage
+42 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200917_NgImage
+24 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200902_NgImage
+38 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200901_NgImage
+12 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200908_NgImage
+10 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200723_NgImage
+24 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200706_NgImage
+30 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200912_NgImage
+12 .bmp 4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/X선이물검출기(06.23_09.22)/2호기(2020.09.22)/SN77127_20200625_NgImage
+200 .jpg 4. X-ray 검사장비 AI 데이터셋/dataset/라벨링 6종 세트/images 200
+15 .jpg 4. X-ray 검사장비 AI 데이터셋/dataset/라벨링 6종 세트/images 15
+50 .jpg 4. X-ray 검사장비 AI 데이터셋/dataset/라벨링 6종 세트/images 50
+300 .jpg 4. X-ray 검사장비 AI 데이터셋/dataset/라벨링 6종 세트/images 300
+500 .txt 4. X-ray 검사장비 AI 데이터셋/dataset/라벨링 6종 세트/labels
+100 .jpg 4. X-ray 검사장비 AI 데이터셋/dataset/라벨링 6종 세트/images 100
+400 .jpg 4. X-ray 검사장비 AI 데이터셋/dataset/라벨링 6종 세트/images 400
+
+CONFIG/DOC FILES
+4. X-ray 검사장비 AI 데이터셋/dataset/yolov3_20201200.ipynb 63160
+4. X-ray 검사장비 AI 데이터셋/dataset/OpenLabeling-master/README.md 5783
+4. X-ray 검사장비 AI 데이터셋/dataset/OpenLabeling-master/main/class_list.txt 6
+Defect
+4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/classes.names 6
+defect
+4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/yolov3_20201200.ipynb 59959
+4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/custom.data 111
+classes= 1
+train=C:/test1/yolov3/train.txt
+valid=C:/test1/yolov3/test.txt
+names=C:/test1/yolov3/classes.names
+
+

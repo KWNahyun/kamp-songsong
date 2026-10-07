@@ -1,0 +1,4 @@
+﻿model,iou75_and_good_leader,iou75_exists_bad_score_leader,iou50_but_no_iou75,near_but_below_iou50,candidate_score_iou_spearman
+MAL,50,55,36,1,0.42213628812057713
+Frozen-UQ,50,55,36,1,0.6481350751748028
+Frozen-RQS,50,55,36,1,0.6535039794910059

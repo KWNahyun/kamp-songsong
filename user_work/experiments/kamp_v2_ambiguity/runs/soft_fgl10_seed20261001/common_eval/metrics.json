@@ -1,0 +1,40 @@
+{
+  "name": "soft_fgl10_seed20261001",
+  "variant": "soft_fgl10",
+  "seed": 20261001,
+  "AP": 37.42607339381805,
+  "AP50": 96.04197599247104,
+  "AP75": 16.12185449792015,
+  "raw_AP": 38.05894937945238,
+  "raw_AP75": 17.558733557242835,
+  "threshold": 0.18264512717723846,
+  "TP": 141,
+  "FP": 6,
+  "recall": 0.9791666666666666,
+  "FP_per_image": 0.09090909090909091,
+  "conditions": {
+    "M1": {
+      "GT": 56,
+      "TP": 56
+    },
+    "M2": {
+      "GT": 42,
+      "TP": 41
+    },
+    "M3": {
+      "GT": 46,
+      "TP": 44
+    }
+  },
+  "precise_candidate": 108,
+  "precise_leader": 53,
+  "precise_after_nms": 76,
+  "checkpoint_sha256": "b2c949cfbf2d04ba18b21b467b66c864236bd8877261b30b4d97f3bdbd6bc281",
+  "epoch": 4,
+  "split": "val",
+  "test_used": false,
+  "UQ": false,
+  "NMS": 0.7,
+  "box_scale": 1,
+  "operating_point": "validation-selected FP <= 6 over 66 images; not fixed operational deployment threshold"
+}

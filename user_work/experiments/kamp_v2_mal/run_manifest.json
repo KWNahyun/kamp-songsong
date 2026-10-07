@@ -1,0 +1,73 @@
+{
+  "jobs": [
+    {
+      "name": "dfine_M_seed20260929",
+      "family": "dfine",
+      "seed": 20260929,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/train_dfine.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_v2_mal/configs/dfine_M_seed20260929.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260929",
+        "--mal"
+      ],
+      "status": "pending"
+    },
+    {
+      "name": "dfine_M_seed20260930",
+      "family": "dfine",
+      "seed": 20260930,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/train_dfine.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_v2_mal/configs/dfine_M_seed20260930.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260930",
+        "--mal"
+      ],
+      "status": "pending"
+    },
+    {
+      "name": "dfine_M_seed20261001",
+      "family": "dfine",
+      "seed": 20261001,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/train_dfine.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_v2_mal/configs/dfine_M_seed20261001.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20261001",
+        "--mal"
+      ],
+      "status": "pending"
+    }
+  ],
+  "sha256": {
+    "/home/viplab/contest/experiments/kamp_v2_mal/configs/dfine_M_seed20260930.yml": "6f68b611b701f707f64a1a64a41400f5c7b55d2656142c9088bc0311f2a0cfde",
+    "/home/viplab/contest/experiments/kamp_v2_mal/configs/dfine_M_seed20260929.yml": "df086a6df60e68e0f4978ec90bf492b53fef0ed046b0bde75d4b261e1aeee549",
+    "/home/viplab/contest/experiments/kamp_v2_mal/configs/dfine_M_seed20261001.yml": "29e864d8f82f90312d5458459505f557eeb8e8dd4a275bfe9124eb2f4abcf020",
+    "/home/viplab/contest/experiments/kamp_v2_mal/run_queue.py": "851d604a0abef41e94eb1dd7f3796c0efbd8c1dd3cd251e0288bc25fbb79e08b",
+    "/home/viplab/contest/experiments/kamp_ablation_v3/loss_patch.py": "ec2fe0e28c529667dd536e50a5f0374f40c4005fcff4f2eed49c58ea02fbeac6",
+    "/home/viplab/contest/experiments/kamp_ablation_v3/train_dfine.py": "e0ee836de4c66eb8e4b0dd98f4d23d27682d1bfff2f62755b585ccc42ed12672",
+    "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth": "0ac6124d45341889b9999b2294540cc6105add3679fe6182ea692c9e6917f531"
+  },
+  "epochs": 30,
+  "test_used": false,
+  "purpose": "MAL vs new-v2 baseline, same settings and COCO initialization; no size loss or UQ"
+}

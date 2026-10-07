@@ -1,0 +1,223 @@
+{
+  "jobs": [
+    {
+      "name": "yolov8s_seed20260929",
+      "family": "yolo",
+      "seed": 20260929,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/train_yolo.py",
+        "--seed",
+        "20260929",
+        "--name",
+        "yolov8s_seed20260929"
+      ],
+      "status": "pending"
+    },
+    {
+      "name": "yolov8s_p2_seed20260929",
+      "family": "yolo",
+      "seed": 20260929,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/train_yolo.py",
+        "--seed",
+        "20260929",
+        "--name",
+        "yolov8s_p2_seed20260929",
+        "--p2"
+      ],
+      "status": "pending"
+    },
+    {
+      "name": "dfine_s_seed20260929",
+      "family": "dfine",
+      "seed": 20260929,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/train_dfine.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_seed20260929.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260929"
+      ],
+      "status": "pending"
+    },
+    {
+      "name": "dfine_s_p2_seed20260929",
+      "family": "dfine",
+      "seed": 20260929,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/train_dfine.py",
+        "--p2",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_p2_seed20260929.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_p2_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260929"
+      ],
+      "status": "pending"
+    },
+    {
+      "name": "yolov8s_seed20260930",
+      "family": "yolo",
+      "seed": 20260930,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/train_yolo.py",
+        "--seed",
+        "20260930",
+        "--name",
+        "yolov8s_seed20260930"
+      ],
+      "status": "pending"
+    },
+    {
+      "name": "yolov8s_p2_seed20260930",
+      "family": "yolo",
+      "seed": 20260930,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/train_yolo.py",
+        "--seed",
+        "20260930",
+        "--name",
+        "yolov8s_p2_seed20260930",
+        "--p2"
+      ],
+      "status": "pending"
+    },
+    {
+      "name": "dfine_s_seed20260930",
+      "family": "dfine",
+      "seed": 20260930,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/train_dfine.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_seed20260930.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260930"
+      ],
+      "status": "pending"
+    },
+    {
+      "name": "dfine_s_p2_seed20260930",
+      "family": "dfine",
+      "seed": 20260930,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/train_dfine.py",
+        "--p2",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_p2_seed20260930.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_p2_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260930"
+      ],
+      "status": "pending"
+    },
+    {
+      "name": "yolov8s_seed20261001",
+      "family": "yolo",
+      "seed": 20261001,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/train_yolo.py",
+        "--seed",
+        "20261001",
+        "--name",
+        "yolov8s_seed20261001"
+      ],
+      "status": "pending"
+    },
+    {
+      "name": "yolov8s_p2_seed20261001",
+      "family": "yolo",
+      "seed": 20261001,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/train_yolo.py",
+        "--seed",
+        "20261001",
+        "--name",
+        "yolov8s_p2_seed20261001",
+        "--p2"
+      ],
+      "status": "pending"
+    },
+    {
+      "name": "dfine_s_seed20261001",
+      "family": "dfine",
+      "seed": 20261001,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/train_dfine.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_seed20261001.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20261001"
+      ],
+      "status": "pending"
+    },
+    {
+      "name": "dfine_s_p2_seed20261001",
+      "family": "dfine",
+      "seed": 20261001,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/train_dfine.py",
+        "--p2",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_p2_seed20261001.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_p2_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20261001"
+      ],
+      "status": "pending"
+    }
+  ],
+  "sha256": {
+    "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_p2_seed20260930.yml": "8fce601ab1c8b1b8e5f20c1f01d4d0c0b41e4eb1f6ac60adb7bc29a63353c5f8",
+    "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_seed20261001.yml": "7a1bb7aef03804d9a6c809bbdb1c04ab9600db421adf725f19daeac2340d618d",
+    "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_seed20260930.yml": "f8af9d56ec59f911586217bac76fe24bfa7a7e2382b7673bf28dc731af5d3d25",
+    "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_seed20260929.yml": "b95a63667692049b78022aba269f7b3e69e74ee152c217d74e0a5a647c259596",
+    "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_p2_seed20261001.yml": "0bbe598097206f4c80921b1c21ea16226d333afe0834644c2d71993d9b8bffca",
+    "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_p2_seed20260929.yml": "ca80881f54e2b181848fe5d77fb318fa403366b0984993434650de7e9f816113",
+    "/home/viplab/contest/experiments/kamp_v2_baselines/train_yolo.py": "14832f2b25d69a0b6af0c99d7c49882369a38b4808855a3a42a3c8585bc5aa44",
+    "/home/viplab/contest/experiments/kamp_v2_baselines/run_queue.py": "851d604a0abef41e94eb1dd7f3796c0efbd8c1dd3cd251e0288bc25fbb79e08b",
+    "/home/viplab/contest/experiments/kamp_v2_baselines/data640/data.yaml": "b04f49ef891c82f828a3702f3ac4c6236dafaed0f2d94dc774f346e2a63d2ea2",
+    "/home/viplab/contest/kamp_xray_v2/split_manifest.csv": "9322321b2bd390edea87b678a75670d2be739db34d5bcfde2dd5ab0ef57c6b40",
+    "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_p2_init.pth": "96d1c0c8f3f4e7d4d491fb510091f53fd322b8f4bd120aea640e1153b2f87879",
+    "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth": "0ac6124d45341889b9999b2294540cc6105add3679fe6182ea692c9e6917f531",
+    "/home/viplab/contest/experiments/kamp_pilot_v1/yolov8s_init.pt": "726b5397abf3fed6c2f6e254efb53acf4df70bb507c7a7d84908583dbfa9b4ad",
+    "/home/viplab/contest/experiments/kamp_pilot_v1/yolov8s_p2_init.pt": "d2392cc27752dbfd849a6de580f1894701b331786de8504ebabef09a5fe0a704"
+  },
+  "epochs": 30,
+  "input": 640,
+  "batch": 8,
+  "test_used": false,
+  "initialization": "existing COCO-derived init, no KAMP-trained weights"
+}

@@ -1,0 +1,12 @@
+{
+  "images": 66,
+  "predictions": 13256,
+  "all_boxes_scores_exactly_equal": true,
+  "AP": 39.27580797691046,
+  "AP75": 19.660061547449224,
+  "TP": 142,
+  "FP": 6,
+  "GT_read_by_predict": false,
+  "category_mapping_1_to_0_checked_via_equal_metrics": true,
+  "test_reinference": false
+}

@@ -1,0 +1,34 @@
+{
+  "version": "review-study-v1",
+  "images": 66,
+  "conditions": [
+    "raw",
+    "boxes",
+    "regions"
+  ],
+  "cases_per_condition_per_arm": 22,
+  "arms": [
+    "A",
+    "B",
+    "C"
+  ],
+  "assignment": "fixed balanced Latin rotation across reviewers; one exposure per image per participant",
+  "review_margin_px": 2,
+  "threshold": 0.19337229430675507,
+  "no_GT_in_reviewer_html": true,
+  "primary_endpoints": [
+    "click inside official GT box with one-to-one matching",
+    "unmatched clicks",
+    "active display seconds"
+  ],
+  "not_measured": [
+    "normal specificity",
+    "physical defect boundary",
+    "industrial worker safety"
+  ],
+  "prior_exposure_recorded": true,
+  "all_positive_dataset": true,
+  "similar_capture_dependence": true,
+  "human_results_available": false,
+  "preview_not_valid_for_analysis": true
+}

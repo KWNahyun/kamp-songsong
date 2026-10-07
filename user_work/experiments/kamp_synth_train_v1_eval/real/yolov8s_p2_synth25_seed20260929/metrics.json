@@ -1,0 +1,38 @@
+{
+  "val": {
+    "name": "yolov8s_p2_synth25_seed20260929",
+    "variant": "yolov8s_p2",
+    "seed": 20260929,
+    "split": "val",
+    "AP": 38.75845873549764,
+    "AP50": 95.12398247248771,
+    "AP75": 15.99076959199406,
+    "locked_threshold": 0.1685377061367035,
+    "TP": 139,
+    "FP": 10,
+    "FN": 5,
+    "recall": 0.9652777777777778,
+    "FP_per_image": 0.15151515151515152,
+    "recalibrated_FP6": {
+      "threshold": 0.45566099882125854,
+      "TP": 139,
+      "FP": 6
+    }
+  },
+  "test": {
+    "name": "yolov8s_p2_synth25_seed20260929",
+    "variant": "yolov8s_p2",
+    "seed": 20260929,
+    "split": "test",
+    "AP": 32.26020792741581,
+    "AP50": 88.84577026458605,
+    "AP75": 12.440060921934872,
+    "locked_threshold": 0.1685377061367035,
+    "TP": 192,
+    "FP": 15,
+    "FN": 14,
+    "recall": 0.9320388349514563,
+    "FP_per_image": 0.17857142857142858,
+    "recalibrated_FP6": null
+  }
+}

@@ -1,0 +1,4 @@
+participant,arm,previous_exposure,case_id,group,condition,GT,TP_click,unmatched_clicks,FN_click,active_seconds,unmarked
+SOFTWARE_TEST,0,True,case_001,M1_20200622,raw,3,1,1,2,1,False
+SOFTWARE_TEST,0,True,case_002,M1_20200622,boxes,3,1,1,2,1,False
+SOFTWARE_TEST,0,True,case_003,M1_20200622,regions,3,1,1,2,1,False

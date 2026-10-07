@@ -1,0 +1,11 @@
+{
+  "complete": true,
+  "training_runs": 3,
+  "baseline_runs": 3,
+  "validation_images": 66,
+  "validation_GT": 144,
+  "traced_checkpoints": 3,
+  "test_used": false,
+  "UQ_started": false,
+  "report": "/home/viplab/contest/\uc0c8_\ub370\uc774\ud130_v2_MAL_\uc7ac\uac80\uc99d_\uacb0\uacfc.md"
+}

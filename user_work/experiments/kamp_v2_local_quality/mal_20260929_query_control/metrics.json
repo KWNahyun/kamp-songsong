@@ -1,0 +1,15 @@
+{
+  "base": "mal",
+  "seed": 20260929,
+  "mode": "query_control",
+  "AP": 38.91662164212667,
+  "AP75": 19.7809920593798,
+  "TP_FP6": 141,
+  "old_precise": 57,
+  "new_precise": 57,
+  "improved": 0,
+  "worsened": 0,
+  "trainable_parameters": 78779,
+  "base_unchanged": true,
+  "seconds": 4.817131280899048
+}

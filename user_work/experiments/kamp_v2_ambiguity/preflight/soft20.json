@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "variant": "soft20",
+  "steps": [
+    {
+      "step": 0,
+      "loss": 31.846817016601562,
+      "grad_norm": 154.0985107421875,
+      "mal": 0.11459428817033768,
+      "bbox": 1.511591911315918,
+      "fgl": 0.1956382393836975
+    },
+    {
+      "step": 1,
+      "loss": 28.99066734313965,
+      "grad_norm": 169.54823303222656,
+      "mal": 0.29436343908309937,
+      "bbox": 0.8573042750358582,
+      "fgl": 0.39040935039520264
+    }
+  ],
+  "zero_target_loss_diff": 0.0,
+  "zero_target_gradient_max_diff": 5.960464477539063e-08,
+  "peak_vram_MiB": 5094.0810546875,
+  "GT_unchanged": true,
+  "matching_unchanged_on_fixed_outputs": true,
+  "regular_aux_DN_verified": true,
+  "test_used": false,
+  "smoke_weights_discarded": true
+}

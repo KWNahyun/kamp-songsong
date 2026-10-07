@@ -1,0 +1,117 @@
+{
+  "split": "validation",
+  "seed": 20260929,
+  "test_used": false,
+  "base_detector": "MAL seed20260929 best_stg1 EMA",
+  "base_frozen": true,
+  "selector_checkpoint": "last epoch 30; validation not used for selector training or selection",
+  "fixed_postprocess": {
+    "box_scale": 0.95,
+    "hard_nms_iou": 0.7
+  },
+  "detector_identity": {
+    "Frozen-UQ": {
+      "compared_detector_tensors": 794,
+      "unequal_detector_tensors": 0,
+      "bitwise_identical_to_control": true
+    },
+    "Frozen-RQS": {
+      "compared_detector_tensors": 794,
+      "unequal_detector_tensors": 0,
+      "bitwise_identical_to_control": true
+    }
+  },
+  "metrics": [
+    {
+      "model": "MAL",
+      "setting": "raw_scale095",
+      "AP": 40.234511506340695,
+      "AP50": 98.86992277045236,
+      "AP75": 19.183850197966727,
+      "TP_FP6": 141,
+      "FP": 6,
+      "threshold_FP6": 0.26093727350234985
+    },
+    {
+      "model": "MAL",
+      "setting": "hard_nms07_scale095",
+      "AP": 39.45611366291327,
+      "AP50": 98.94714823595038,
+      "AP75": 17.72739112694691,
+      "TP_FP6": 141,
+      "FP": 6,
+      "threshold_FP6": 0.08665746450424194
+    },
+    {
+      "model": "Frozen-UQ",
+      "setting": "raw_scale095",
+      "AP": 40.84351939066182,
+      "AP50": 98.86248118311289,
+      "AP75": 21.005042141361102,
+      "TP_FP6": 141,
+      "FP": 6,
+      "threshold_FP6": 0.4419602155685425
+    },
+    {
+      "model": "Frozen-UQ",
+      "setting": "hard_nms07_scale095",
+      "AP": 40.61060183540164,
+      "AP50": 98.94714823595038,
+      "AP75": 19.387251472672055,
+      "TP_FP6": 141,
+      "FP": 6,
+      "threshold_FP6": 0.20290295779705048
+    },
+    {
+      "model": "Frozen-RQS",
+      "setting": "raw_scale095",
+      "AP": 40.233934328657625,
+      "AP50": 98.52424996194199,
+      "AP75": 19.86152835779041,
+      "TP_FP6": 141,
+      "FP": 6,
+      "threshold_FP6": 0.4540855884552002
+    },
+    {
+      "model": "Frozen-RQS",
+      "setting": "hard_nms07_scale095",
+      "AP": 40.20487788144066,
+      "AP50": 98.98898340538281,
+      "AP75": 18.317644212721966,
+      "TP_FP6": 141,
+      "FP": 6,
+      "threshold_FP6": 0.20259989798069
+    }
+  ],
+  "candidate_ranking": [
+    {
+      "model": "MAL",
+      "iou75_and_good_leader": 50,
+      "iou75_exists_bad_score_leader": 55,
+      "iou50_but_no_iou75": 36,
+      "near_but_below_iou50": 1,
+      "candidate_score_iou_spearman": 0.42213628812057713
+    },
+    {
+      "model": "Frozen-UQ",
+      "iou75_and_good_leader": 50,
+      "iou75_exists_bad_score_leader": 55,
+      "iou50_but_no_iou75": 36,
+      "near_but_below_iou50": 1,
+      "candidate_score_iou_spearman": 0.6481350751748028
+    },
+    {
+      "model": "Frozen-RQS",
+      "iou75_and_good_leader": 50,
+      "iou75_exists_bad_score_leader": 55,
+      "iou50_but_no_iou75": 36,
+      "near_but_below_iou50": 1,
+      "candidate_score_iou_spearman": 0.6535039794910059
+    }
+  ],
+  "limitations": [
+    "Single frozen detector seed.",
+    "The frozen MAL base checkpoint was previously selected on validation.",
+    "Telea preprocessing is temporary."
+  ]
+}

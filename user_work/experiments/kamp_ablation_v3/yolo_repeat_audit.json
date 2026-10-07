@@ -1,0 +1,28 @@
+{
+  "yolov8s": {
+    "paths": [
+      "/home/viplab/contest/experiments/kamp_pilot_v1/yolov8s",
+      "/home/viplab/contest/experiments/kamp_ablation_v3/runs/yolov8s_seed20260930",
+      "/home/viplab/contest/experiments/kamp_ablation_v3/runs/yolov8s_seed20261001"
+    ],
+    "prediction_hashes": [
+      "490cd0f149b787db1844e06b937c006ec8c257eb51928ce73351d1057f212d49",
+      "490cd0f149b787db1844e06b937c006ec8c257eb51928ce73351d1057f212d49",
+      "490cd0f149b787db1844e06b937c006ec8c257eb51928ce73351d1057f212d49"
+    ],
+    "identical": true
+  },
+  "yolov8s_p2": {
+    "paths": [
+      "/home/viplab/contest/experiments/kamp_pilot_v1/yolov8s_p2",
+      "/home/viplab/contest/experiments/kamp_ablation_v3/runs/yolov8s_p2_seed20260930",
+      "/home/viplab/contest/experiments/kamp_ablation_v3/runs/yolov8s_p2_seed20261001"
+    ],
+    "prediction_hashes": [
+      "b995d60f38979e4f034affcc907e345a3515e375ae4417b783c7b23a5740f3c2",
+      "b995d60f38979e4f034affcc907e345a3515e375ae4417b783c7b23a5740f3c2",
+      "b995d60f38979e4f034affcc907e345a3515e375ae4417b783c7b23a5740f3c2"
+    ],
+    "identical": true
+  }
+}

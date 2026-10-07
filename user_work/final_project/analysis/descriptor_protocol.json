@@ -1,0 +1,37 @@
+{
+  "train_quantile_cutpoints": {
+    "x": [
+      0.5625000000000001,
+      0.6059027777777778
+    ],
+    "y": [
+      0.4552398784326495,
+      0.5315948478599081
+    ],
+    "border": [
+      0.3614457831325301,
+      0.4034090909090909
+    ],
+    "aspect": [
+      0.9,
+      1.076923076923077
+    ],
+    "contrast": [
+      0.7540562039745496,
+      1.1514621797177917
+    ],
+    "background_std": [
+      9.684513454661507,
+      11.392235973586086
+    ]
+  },
+  "contrast": "abs(mean_inside_GT - mean_surrounding_ring)/(std_surrounding_ring+1 DN); all GT excluded from ring",
+  "background": "std_surrounding_ring in 8bit gray DN; texture/noise proxy, not pure structural complexity",
+  "ring_margin": "max(3, round(max(box_width,box_height)/2)) pixels",
+  "posthoc_only": true,
+  "test_read": false,
+  "split_counts": {
+    "train": 797,
+    "val": 144
+  }
+}

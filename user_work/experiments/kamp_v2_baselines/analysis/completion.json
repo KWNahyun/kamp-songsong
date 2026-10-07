@@ -1,0 +1,9 @@
+{
+  "complete": true,
+  "training_runs": 12,
+  "validation_images": 66,
+  "validation_GT": 144,
+  "traced_checkpoints": 6,
+  "test_used": false,
+  "report": "/home/viplab/contest/\uc0c8_\ub370\uc774\ud130_v2_\uae30\ubcf8\ubaa8\ub378_P2_\uacb0\uacfc_\ubc0f_\uc2e4\ud328\ubd84\uc11d.md"
+}

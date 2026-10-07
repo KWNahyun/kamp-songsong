@@ -1,0 +1,13 @@
+{
+  "name": "dfine_s_p2_seed20260929",
+  "variant": "dfine_s_p2",
+  "seed": 20260929,
+  "config": "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_p2_seed20260929.yml",
+  "path": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/dfine_s_p2_seed20260929",
+  "images_verified": 66,
+  "max_final_output_difference": 0.0,
+  "eval_mode_preserved": true,
+  "encoder_all_is_counterfactual": true,
+  "per_gt_coverage_not_one_to_one_recall": true,
+  "test_used": false
+}

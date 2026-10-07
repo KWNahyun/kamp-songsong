@@ -1,0 +1,9 @@
+﻿experiment_id,base,P2_H,fusion_F,aux_G,inference_gate,control,comparison,hypothesis,status,dataset_manifest_sha256,preprocessing_version,seed,input_size,weights,training_recipe,AP50,AP75,AP50_95,recall_at_FP_per_image_0_1,recall_at_FP_per_image_0_5,all_objects_image_recall,defect_image_alarm_recall,candidate_miss_count,selection_miss_count,localization_miss_count,score_miss_count,latency_ms,peak_memory_MB,notes
+E0,D-FINE-S,0,0,0,0,baseline,,기준 모델의 실패 단계와 조건 분포,not_run,,,,,,,,,,,,,,,,,,,,
+E1,D-FINE-S,1,0,0,0,,E0,P2가 작은 이물의 후보 누락을 줄이는가,not_run,,,,,,,,,,,,,,,,,,,,
+E2,D-FINE-S,1,1,0,0,,E1,특징 융합 변경이 후보/위치/FP를 개선하는가,not_run,,,,,,,,,,,,,,,,,,,,
+E3,D-FINE-S,1,0,1,0,,E1,학습 전용 위치 보조 감독이 유효한가,not_run,,,,,,,,,,,,,,,,,,,,
+E4,D-FINE-S,1,1,1,0,,E2;E3;E1,F와 G의 개별 효과와 상호작용,not_run,,,,,,,,,,,,,,,,,,,,
+E5,D-FINE-S,1,0,0,0,parameter_compute_matched_conv,E2;E1,FreqFusion 효과가 단순 용량 증가 이상인가,not_run,,,,,,,,,,,,,,,,,,,,
+E6a,D-FINE-S,1,0,1,1,optional,E3;E6b,예측 지도 보강과 보조 감독의 효과,not_run,,,,,,,,,,,,,,,,,,,,
+E6b,D-FINE-S,1,0,0,1,optional_same_head_without_aux_loss,E6a;E1,동일 추론 head에서 보조 loss 효과,not_run,,,,,,,,,,,,,,,,,,,,

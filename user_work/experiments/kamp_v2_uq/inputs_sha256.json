@@ -1,0 +1,14 @@
+{
+  "/home/viplab/contest/experiments/kamp_v2_uq/train.py": "aa2c080cd815c7bf2d6a7b7ea6b154eefdd972874f2f2e7c7599a4a00ad7885a",
+  "/home/viplab/contest/experiments/kamp_v2_uq/selector_patch.py": "39959e07c333ba1b6ba312243482ea273dcfec13acc1e0dd621fc59ebc0dc808",
+  "/home/viplab/contest/experiments/kamp_v2_uq/evaluate.py": "3f3e0230927c84fd9a5ff6032292203b625318f6bba258680b44e95b783e4f80",
+  "/home/viplab/contest/experiments/kamp_v2_uq/run_queue.py": "53ce23d74e01e03b40628f72b71c057d1dfec1b4f852c440b6ba9c7377f7feb6",
+  "/home/viplab/contest/experiments/kamp_v2_uq/watch.py": "5d49ce9249b82e57c6764522d1397a22f7cb654b22b958cfe4acc449732c5358",
+  "/home/viplab/contest/experiments/kamp_v2_uq/configs/dfine_UQ_seed20260929.yml": "b95a63667692049b78022aba269f7b3e69e74ee152c217d74e0a5a647c259596",
+  "/home/viplab/contest/experiments/kamp_v2_baselines/runs/dfine_s_seed20260929/best_stg1.pth": "ddb0f38d5629a0c0cd11eb61509e2c24a2d652502932ba434532627f4336e309",
+  "/home/viplab/contest/experiments/kamp_v2_baselines/runs/dfine_s_seed20260930/best_stg1.pth": "634df32977736e49679f909ced9d8c85ccc68195436818cbcab7e86a912818ef",
+  "/home/viplab/contest/experiments/kamp_v2_baselines/runs/dfine_s_seed20261001/best_stg1.pth": "304e9caca21be38f90e181a974ecfa58f5e8dfef9578b30953b3a2118fd53e6b",
+  "/home/viplab/contest/experiments/kamp_v2_mal/runs/dfine_M_seed20260929/best_stg1.pth": "ebfdc60289b583f8d65091fded84653b0c1dec53e38b118aa8bf2597720d0166",
+  "/home/viplab/contest/experiments/kamp_v2_mal/runs/dfine_M_seed20260930/best_stg1.pth": "cba0969607e8893e415b1853e544821cd62935530068d4936a2c5b1a859fdd97",
+  "/home/viplab/contest/experiments/kamp_v2_mal/runs/dfine_M_seed20261001/best_stg1.pth": "7b1bba9e53455858465555931662d1da169252c7288dece0a8a6cdf73d5d6a77"
+}

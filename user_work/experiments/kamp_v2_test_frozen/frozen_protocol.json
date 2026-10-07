@@ -1,0 +1,219 @@
+{
+  "frozen_at": "2026-10-02T15:06:04.247523+09:00",
+  "user_authorized_test": true,
+  "selected_model_before_test": "dfine_mal_UQ",
+  "jobs": [
+    {
+      "name": "yolov8s_seed20260929",
+      "variant": "yolov8s",
+      "seed": 20260929,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/yolov8s_seed20260929/weights/best.pt",
+      "sha256": "f37dbb7799c0f784771617c08a1d142ba83685813ea8641c4551f5d81c3c357e",
+      "config": null,
+      "val_threshold": 0.07941053062677383,
+      "val_AP": 38.67753800728681,
+      "val_AP75": 16.650067597343924
+    },
+    {
+      "name": "yolov8s_p2_seed20260929",
+      "variant": "yolov8s_p2",
+      "seed": 20260929,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/yolov8s_p2_seed20260929/weights/best.pt",
+      "sha256": "73fc42bc2ad5a4d7abe55c56562620fdc1ff12d0bdd6f9a78bfa8b0a96879f80",
+      "config": null,
+      "val_threshold": 0.1685377061367035,
+      "val_AP": 38.3236209212547,
+      "val_AP75": 19.369943979284308
+    },
+    {
+      "name": "dfine_s_seed20260929",
+      "variant": "dfine_s",
+      "seed": 20260929,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/dfine_s_seed20260929/best_stg1.pth",
+      "sha256": "ddb0f38d5629a0c0cd11eb61509e2c24a2d652502932ba434532627f4336e309",
+      "config": "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_seed20260929.yml",
+      "val_threshold": 0.31877240538597107,
+      "val_AP": 40.29496424245138,
+      "val_AP75": 17.367576706641604
+    },
+    {
+      "name": "dfine_s_p2_seed20260929",
+      "variant": "dfine_s_p2",
+      "seed": 20260929,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/dfine_s_p2_seed20260929/best_stg1.pth",
+      "sha256": "b69c32f559587335de24196a38181489c40525fb38b38e0e44f9c0001432fe44",
+      "config": "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_p2_seed20260929.yml",
+      "val_threshold": 0.2429427206516266,
+      "val_AP": 38.60673307146646,
+      "val_AP75": 15.791484728091682
+    },
+    {
+      "name": "dfine_M_seed20260929",
+      "variant": "dfine_M",
+      "seed": 20260929,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_mal/runs/dfine_M_seed20260929/best_stg1.pth",
+      "sha256": "ebfdc60289b583f8d65091fded84653b0c1dec53e38b118aa8bf2597720d0166",
+      "config": "/home/viplab/contest/experiments/kamp_v2_mal/configs/dfine_M_seed20260929.yml",
+      "val_threshold": 0.1510106772184372,
+      "val_AP": 38.42986695027576,
+      "val_AP75": 19.31530970368418
+    },
+    {
+      "name": "dfine_mal_UQ_seed20260929",
+      "variant": "dfine_mal_UQ",
+      "seed": 20260929,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_uq/runs_frozen/dfine_mal_UQ_seed20260929/last.pth",
+      "sha256": "cee41a3bda1643e1252106776ed4d55c60ac979bfbb24f483f2511220238387f",
+      "config": "/home/viplab/contest/experiments/kamp_v2_uq/configs/dfine_UQ_seed20260929.yml",
+      "val_threshold": 0.15639793872833252,
+      "val_AP": 38.82110934386967,
+      "val_AP75": 19.306411885558905
+    },
+    {
+      "name": "yolov8s_seed20260930",
+      "variant": "yolov8s",
+      "seed": 20260930,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/yolov8s_seed20260930/weights/best.pt",
+      "sha256": "4cbf34e7017df92ba1c3176640cdb5c84d6cd77ccd13b13bb6338ab2816b0f2d",
+      "config": null,
+      "val_threshold": 0.8020033836364746,
+      "val_AP": 39.635094243762545,
+      "val_AP75": 16.84338120184065
+    },
+    {
+      "name": "yolov8s_p2_seed20260930",
+      "variant": "yolov8s_p2",
+      "seed": 20260930,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/yolov8s_p2_seed20260930/weights/best.pt",
+      "sha256": "e320e80bf7315d628ebb51d7a05bd5e6bc1bdc91073660ee8fdee09d377988f4",
+      "config": null,
+      "val_threshold": 0.47702929377555847,
+      "val_AP": 39.20109140611236,
+      "val_AP75": 21.599080613813268
+    },
+    {
+      "name": "dfine_s_seed20260930",
+      "variant": "dfine_s",
+      "seed": 20260930,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/dfine_s_seed20260930/best_stg1.pth",
+      "sha256": "634df32977736e49679f909ced9d8c85ccc68195436818cbcab7e86a912818ef",
+      "config": "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_seed20260930.yml",
+      "val_threshold": 0.4116468131542206,
+      "val_AP": 38.06518377216612,
+      "val_AP75": 15.97453250645705
+    },
+    {
+      "name": "dfine_s_p2_seed20260930",
+      "variant": "dfine_s_p2",
+      "seed": 20260930,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/dfine_s_p2_seed20260930/best_stg1.pth",
+      "sha256": "5716e7b41b5e84bdd0a642155b8386a7d992caa652bc19ce5ea4817353564f4f",
+      "config": "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_p2_seed20260930.yml",
+      "val_threshold": 0.3616723120212555,
+      "val_AP": 39.832853530749155,
+      "val_AP75": 19.497262862685282
+    },
+    {
+      "name": "dfine_M_seed20260930",
+      "variant": "dfine_M",
+      "seed": 20260930,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_mal/runs/dfine_M_seed20260930/best_stg1.pth",
+      "sha256": "cba0969607e8893e415b1853e544821cd62935530068d4936a2c5b1a859fdd97",
+      "config": "/home/viplab/contest/experiments/kamp_v2_mal/configs/dfine_M_seed20260930.yml",
+      "val_threshold": 0.2838345468044281,
+      "val_AP": 38.362364424933354,
+      "val_AP75": 17.687133333080872
+    },
+    {
+      "name": "dfine_mal_UQ_seed20260930",
+      "variant": "dfine_mal_UQ",
+      "seed": 20260930,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_uq/runs_frozen/dfine_mal_UQ_seed20260930/last.pth",
+      "sha256": "ddbdbc3638e661003b49922832edb84a44c8d0b95e30d33906ff4cae984c6461",
+      "config": "/home/viplab/contest/experiments/kamp_v2_uq/configs/dfine_UQ_seed20260929.yml",
+      "val_threshold": 0.19337229430675507,
+      "val_AP": 39.27580797691046,
+      "val_AP75": 19.660061547449224
+    },
+    {
+      "name": "yolov8s_seed20261001",
+      "variant": "yolov8s",
+      "seed": 20261001,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/yolov8s_seed20261001/weights/best.pt",
+      "sha256": "ad2ac419d68186c7ae8bbd12a46ab7725a57822e0e001c8773490e164f90f1a5",
+      "config": null,
+      "val_threshold": 0.528835654258728,
+      "val_AP": 37.92688612156612,
+      "val_AP75": 19.669977411549397
+    },
+    {
+      "name": "yolov8s_p2_seed20261001",
+      "variant": "yolov8s_p2",
+      "seed": 20261001,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/yolov8s_p2_seed20261001/weights/best.pt",
+      "sha256": "29ed3411a6ee5640b1ee763bfb056262e8e80bf7b96ed83118ec3470b105d67b",
+      "config": null,
+      "val_threshold": 0.01418741699308157,
+      "val_AP": 39.91229558188497,
+      "val_AP75": 17.502504104946926
+    },
+    {
+      "name": "dfine_s_seed20261001",
+      "variant": "dfine_s",
+      "seed": 20261001,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/dfine_s_seed20261001/best_stg1.pth",
+      "sha256": "304e9caca21be38f90e181a974ecfa58f5e8dfef9578b30953b3a2118fd53e6b",
+      "config": "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_seed20261001.yml",
+      "val_threshold": 0.30556273460388184,
+      "val_AP": 37.67978986575076,
+      "val_AP75": 16.94471448155363
+    },
+    {
+      "name": "dfine_s_p2_seed20261001",
+      "variant": "dfine_s_p2",
+      "seed": 20261001,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/dfine_s_p2_seed20261001/best_stg1.pth",
+      "sha256": "567874a32637b1d008c6a4e61333a6ac8d07d858ac382955ba4eb0221feae138",
+      "config": "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_p2_seed20261001.yml",
+      "val_threshold": 0.2016734480857849,
+      "val_AP": 38.95265359422268,
+      "val_AP75": 20.240588620179487
+    },
+    {
+      "name": "dfine_M_seed20261001",
+      "variant": "dfine_M",
+      "seed": 20261001,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_mal/runs/dfine_M_seed20261001/best_stg1.pth",
+      "sha256": "7b1bba9e53455858465555931662d1da169252c7288dece0a8a6cdf73d5d6a77",
+      "config": "/home/viplab/contest/experiments/kamp_v2_mal/configs/dfine_M_seed20261001.yml",
+      "val_threshold": 0.24561819434165955,
+      "val_AP": 38.29311167795553,
+      "val_AP75": 15.271529229549136
+    },
+    {
+      "name": "dfine_mal_UQ_seed20261001",
+      "variant": "dfine_mal_UQ",
+      "seed": 20261001,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_uq/runs_frozen/dfine_mal_UQ_seed20261001/last.pth",
+      "sha256": "78b1f99869aa58235e86c2c21e474f36171458dde2fe768cfec14e6e26c8cd3a",
+      "config": "/home/viplab/contest/experiments/kamp_v2_uq/configs/dfine_UQ_seed20260929.yml",
+      "val_threshold": 0.17760604619979858,
+      "val_AP": 40.04270236936445,
+      "val_AP75": 18.183664731554426
+    }
+  ],
+  "settings": {
+    "input": 640,
+    "NMS": 0.7,
+    "box_scale": 1,
+    "score_floor": 0.001,
+    "max_det": 300,
+    "COCO_maxDets": 100,
+    "operating_thresholds": "locked per-run validation FP<=6 thresholds; no test threshold tuning"
+  },
+  "limitations": [
+    "teammate used test in preprocessing selection",
+    "positive-only test cannot estimate normal false alarm rate"
+  ],
+  "prohibited_followup": "Do not tune or select new settings on this test and call a rerun independent validation"
+}

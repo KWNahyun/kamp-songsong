@@ -1,0 +1,256 @@
+{
+  "pid": 1692454,
+  "started": "2026-10-01T06:41:57.287733+00:00",
+  "status": "finished",
+  "test_used": false,
+  "analysis_performed": false,
+  "jobs": [
+    {
+      "name": "yolov8s_seed20260929",
+      "family": "yolo",
+      "seed": 20260929,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/train_yolo.py",
+        "--seed",
+        "20260929",
+        "--name",
+        "yolov8s_seed20260929"
+      ],
+      "status": "trained",
+      "started": "2026-10-01T06:41:57.315527+00:00",
+      "pid": 1692470,
+      "returncode": 0,
+      "finished": "2026-10-01T06:44:20.489580+00:00"
+    },
+    {
+      "name": "yolov8s_p2_seed20260929",
+      "family": "yolo",
+      "seed": 20260929,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/train_yolo.py",
+        "--seed",
+        "20260929",
+        "--name",
+        "yolov8s_p2_seed20260929",
+        "--p2"
+      ],
+      "status": "trained",
+      "started": "2026-10-01T06:44:20.507289+00:00",
+      "pid": 1694922,
+      "returncode": 0,
+      "finished": "2026-10-01T06:47:38.476222+00:00"
+    },
+    {
+      "name": "dfine_s_seed20260929",
+      "family": "dfine",
+      "seed": 20260929,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/train_dfine.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_seed20260929.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260929"
+      ],
+      "status": "trained",
+      "started": "2026-10-01T06:47:38.493012+00:00",
+      "pid": 1698271,
+      "returncode": 0,
+      "finished": "2026-10-01T06:53:59.232212+00:00"
+    },
+    {
+      "name": "dfine_s_p2_seed20260929",
+      "family": "dfine",
+      "seed": 20260929,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/train_dfine.py",
+        "--p2",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_p2_seed20260929.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_p2_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260929"
+      ],
+      "status": "trained",
+      "started": "2026-10-01T06:53:59.250532+00:00",
+      "pid": 1704980,
+      "returncode": 0,
+      "finished": "2026-10-01T07:01:41.318153+00:00"
+    },
+    {
+      "name": "yolov8s_seed20260930",
+      "family": "yolo",
+      "seed": 20260930,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/train_yolo.py",
+        "--seed",
+        "20260930",
+        "--name",
+        "yolov8s_seed20260930"
+      ],
+      "status": "trained",
+      "started": "2026-10-01T07:01:41.337411+00:00",
+      "pid": 1712979,
+      "returncode": 0,
+      "finished": "2026-10-01T07:04:00.726528+00:00"
+    },
+    {
+      "name": "yolov8s_p2_seed20260930",
+      "family": "yolo",
+      "seed": 20260930,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/train_yolo.py",
+        "--seed",
+        "20260930",
+        "--name",
+        "yolov8s_p2_seed20260930",
+        "--p2"
+      ],
+      "status": "trained",
+      "started": "2026-10-01T07:04:00.744533+00:00",
+      "pid": 1715372,
+      "returncode": 0,
+      "finished": "2026-10-01T07:07:17.001889+00:00"
+    },
+    {
+      "name": "dfine_s_seed20260930",
+      "family": "dfine",
+      "seed": 20260930,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/train_dfine.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_seed20260930.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260930"
+      ],
+      "status": "trained",
+      "started": "2026-10-01T07:07:17.020205+00:00",
+      "pid": 1718637,
+      "returncode": 0,
+      "finished": "2026-10-01T07:13:45.548982+00:00"
+    },
+    {
+      "name": "dfine_s_p2_seed20260930",
+      "family": "dfine",
+      "seed": 20260930,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/train_dfine.py",
+        "--p2",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_p2_seed20260930.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_p2_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260930"
+      ],
+      "status": "trained",
+      "started": "2026-10-01T07:13:45.569877+00:00",
+      "pid": 1724631,
+      "returncode": 0,
+      "finished": "2026-10-01T07:21:33.429648+00:00"
+    },
+    {
+      "name": "yolov8s_seed20261001",
+      "family": "yolo",
+      "seed": 20261001,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/train_yolo.py",
+        "--seed",
+        "20261001",
+        "--name",
+        "yolov8s_seed20261001"
+      ],
+      "status": "trained",
+      "started": "2026-10-01T07:21:33.448204+00:00",
+      "pid": 1730341,
+      "returncode": 0,
+      "finished": "2026-10-01T07:23:53.048534+00:00"
+    },
+    {
+      "name": "yolov8s_p2_seed20261001",
+      "family": "yolo",
+      "seed": 20261001,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/train_yolo.py",
+        "--seed",
+        "20261001",
+        "--name",
+        "yolov8s_p2_seed20261001",
+        "--p2"
+      ],
+      "status": "trained",
+      "started": "2026-10-01T07:23:53.066301+00:00",
+      "pid": 1731995,
+      "returncode": 0,
+      "finished": "2026-10-01T07:27:07.400956+00:00"
+    },
+    {
+      "name": "dfine_s_seed20261001",
+      "family": "dfine",
+      "seed": 20261001,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/train_dfine.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_seed20261001.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20261001"
+      ],
+      "status": "trained",
+      "started": "2026-10-01T07:27:07.418311+00:00",
+      "pid": 1734288,
+      "returncode": 0,
+      "finished": "2026-10-01T07:33:29.468824+00:00"
+    },
+    {
+      "name": "dfine_s_p2_seed20261001",
+      "family": "dfine",
+      "seed": 20261001,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/train_dfine.py",
+        "--p2",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_p2_seed20261001.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_p2_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20261001"
+      ],
+      "status": "trained",
+      "started": "2026-10-01T07:33:29.489764+00:00",
+      "pid": 1739021,
+      "returncode": 0,
+      "finished": "2026-10-01T07:41:13.740389+00:00"
+    }
+  ],
+  "finished": "2026-10-01T07:41:13.741831+00:00"
+}

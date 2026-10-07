@@ -1,0 +1,80 @@
+{
+  "checks": [
+    {
+      "check": "표 captions sequential",
+      "passed": true
+    },
+    {
+      "check": "그림 captions sequential",
+      "passed": true
+    },
+    {
+      "check": "13 figures exist",
+      "passed": true
+    },
+    {
+      "check": "dfine_M AP mean",
+      "passed": true
+    },
+    {
+      "check": "dfine_M_seed20260929 all validation images alarm",
+      "passed": true
+    },
+    {
+      "check": "dfine_M_seed20260930 all validation images alarm",
+      "passed": true
+    },
+    {
+      "check": "dfine_M_seed20261001 all validation images alarm",
+      "passed": true
+    },
+    {
+      "check": "dfine_mal_UQ AP mean",
+      "passed": true
+    },
+    {
+      "check": "dfine_mal_UQ_seed20260929 all validation images alarm",
+      "passed": true
+    },
+    {
+      "check": "dfine_mal_UQ_seed20260930 all validation images alarm",
+      "passed": true
+    },
+    {
+      "check": "dfine_mal_UQ_seed20261001 all validation images alarm",
+      "passed": true
+    },
+    {
+      "check": "saved test UQ AP",
+      "passed": true
+    },
+    {
+      "check": "saved test FP increases",
+      "passed": true
+    },
+    {
+      "check": "representative FN IDs",
+      "passed": true
+    },
+    {
+      "check": "representative FN localization",
+      "passed": true
+    },
+    {
+      "check": "each condition denominator 144",
+      "passed": true
+    },
+    {
+      "check": "each condition FN 2",
+      "passed": true
+    },
+    {
+      "check": "Soft1 vs edge AP75 improves only one seed",
+      "passed": true
+    }
+  ],
+  "test_inference_executed": false,
+  "saved_test_results_read": true,
+  "training_executed": false,
+  "report_sha256": "2c7188caec226b2d418b589635da17e39b16683c5056e5400d72f93e92e06cba"
+}

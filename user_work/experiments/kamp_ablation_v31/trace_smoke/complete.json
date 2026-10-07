@@ -1,0 +1,6 @@
+{
+  "completed": true,
+  "runs": 1,
+  "test_used": false,
+  "warning": "Coverage is per-GT oracle diagnostic, not one-to-one detector recall. Encoder full-grid boxes are counterfactual applications of the same head, not actual selected runtime predictions. NMS normalized coordinates are unclipped diagnostic boxes."
+}

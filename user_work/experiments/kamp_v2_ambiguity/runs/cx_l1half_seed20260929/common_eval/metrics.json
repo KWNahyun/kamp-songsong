@@ -1,0 +1,40 @@
+{
+  "name": "cx_l1half_seed20260929",
+  "variant": "cx_l1half",
+  "seed": 20260929,
+  "AP": 36.83736635857435,
+  "AP50": 96.80580463308446,
+  "AP75": 17.08987221353518,
+  "raw_AP": 37.620218218331644,
+  "raw_AP75": 18.41875692850397,
+  "threshold": 0.18205231428146362,
+  "TP": 141,
+  "FP": 6,
+  "recall": 0.9791666666666666,
+  "FP_per_image": 0.09090909090909091,
+  "conditions": {
+    "M1": {
+      "GT": 56,
+      "TP": 55
+    },
+    "M2": {
+      "GT": 42,
+      "TP": 42
+    },
+    "M3": {
+      "GT": 46,
+      "TP": 44
+    }
+  },
+  "precise_candidate": 99,
+  "precise_leader": 52,
+  "precise_after_nms": 77,
+  "checkpoint_sha256": "6c958d809cf8b7e32f9c5984e3968f8ba01ee0c524643c2504c320ef35b87091",
+  "epoch": 5,
+  "split": "val",
+  "test_used": false,
+  "UQ": false,
+  "NMS": 0.7,
+  "box_scale": 1,
+  "operating_point": "validation-selected FP <= 6 over 66 images; not fixed operational deployment threshold"
+}

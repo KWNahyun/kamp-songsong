@@ -1,0 +1,40 @@
+usage: train.py [-h] -c CONFIG [-r RESUME] [-t TUNING] [-d DEVICE]
+                [--seed SEED] [--use-amp] [--output-dir OUTPUT_DIR]
+                [--summary-dir SUMMARY_DIR] [--test-only]
+                [-u UPDATE [UPDATE ...]] [--print-method PRINT_METHOD]
+                [--print-rank PRINT_RANK] [--local-rank LOCAL_RANK]
+
+options:
+  -h, --help            show this help message and exit
+  -c, --config CONFIG
+  -r, --resume RESUME   resume from checkpoint
+  -t, --tuning TUNING   tuning from checkpoint
+  -d, --device DEVICE   device
+  --seed SEED           exp reproducibility
+  --use-amp             auto mixed precision training
+  --output-dir OUTPUT_DIR
+                        output directoy
+  --summary-dir SUMMARY_DIR
+                        tensorboard summry
+  --test-only
+  -u, --update UPDATE [UPDATE ...]
+                        update yaml config
+  --print-method PRINT_METHOD
+                        print method
+  --print-rank PRINT_RANK
+                        print rank id
+  --local-rank LOCAL_RANK
+                        local rank id
+usage: train_uq.py [-h] [--mode {unary}] --config CONFIG
+                   --base-checkpoint BASE_CHECKPOINT --output OUTPUT
+                   [--seed SEED] [--base {mal}] [--smoke]
+
+options:
+  -h, --help            show this help message and exit
+  --mode {unary}
+  --config CONFIG
+  --base-checkpoint BASE_CHECKPOINT
+  --output OUTPUT
+  --seed SEED
+  --base {mal}
+  --smoke

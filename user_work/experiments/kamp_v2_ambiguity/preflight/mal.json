@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "variant": "mal",
+  "steps": [
+    {
+      "step": 0,
+      "loss": 32.888187408447266,
+      "grad_norm": 148.97195434570312,
+      "mal": 0.11459428817033768,
+      "bbox": 1.661125659942627,
+      "fgl": 0.1956382393836975
+    },
+    {
+      "step": 1,
+      "loss": 31.199846267700195,
+      "grad_norm": 97.2888412475586,
+      "mal": 0.265343576669693,
+      "bbox": 1.061171293258667,
+      "fgl": 0.2855478823184967
+    }
+  ],
+  "zero_target_loss_diff": 0.0,
+  "zero_target_gradient_max_diff": 5.960464477539063e-08,
+  "peak_vram_MiB": 5094.0810546875,
+  "GT_unchanged": true,
+  "matching_unchanged_on_fixed_outputs": true,
+  "regular_aux_DN_verified": true,
+  "test_used": false,
+  "smoke_weights_discarded": true
+}

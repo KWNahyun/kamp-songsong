@@ -1,0 +1,77 @@
+stem,reason,priority
+001_20200623_003516(8),TXT source coordinate conflict,1
+001_20200622_203312(6),TXT source coordinate conflict,1
+001_20200922_163332(2),TXT source coordinate conflict,1
+001_20200623_082407(9),box 2: dilated-mask overlap 0.263,2
+001_20200623_082419(6),box 1: dilated-mask overlap 0.257,2
+001_20200623_123236(9),box 2: dilated-mask overlap 0.286,2
+001_20200623_163159(5),box 2: dilated-mask overlap 0.281,2
+001_20200623_163209(3),box 2: dilated-mask overlap 0.250,2
+001_20200623_163212(9),box 1: dilated-mask overlap 0.304,2
+001_20200623_163222(9),box 1: dilated-mask overlap 0.394,2
+001_20200623_163222(9),box 2: dilated-mask overlap 0.294,2
+001_20200623_203226(3),box 2: dilated-mask overlap 0.265,2
+001_20200623_203230(9),box 2: dilated-mask overlap 0.314,2
+001_20200623_203247(5),box 0: dilated-mask overlap 0.260,2
+001_20200623_203247(5),box 1: dilated-mask overlap 0.348,2
+001_20200624_003247(7),box 0: dilated-mask overlap 0.333,2
+001_20200624_003247(7),box 1: dilated-mask overlap 0.250,2
+001_20200624_003247(7),box 2: dilated-mask overlap 0.265,2
+001_20200624_003303(5),box 0: dilated-mask overlap 0.253,2
+001_20200624_003303(5),box 2: dilated-mask overlap 0.266,2
+001_20200624_043315(2),box 1: dilated-mask overlap 0.250,2
+001_20200624_043324(2),box 1: dilated-mask overlap 0.250,2
+001_20200624_043324(2),box 2: dilated-mask overlap 0.400,2
+001_20200624_043328(7),box 0: dilated-mask overlap 0.320,2
+001_20200624_043328(7),box 2: dilated-mask overlap 0.357,2
+001_20200624_043333(2),box 2: dilated-mask overlap 0.308,2
+001_20200624_043337(8),box 0: dilated-mask overlap 0.250,2
+001_20200624_043349(7),box 0: dilated-mask overlap 0.300,2
+001_20200624_083150(7),box 2: dilated-mask overlap 0.294,2
+001_20200624_083156(9),box 2: dilated-mask overlap 0.279,2
+001_20200624_083205(7),box 0: dilated-mask overlap 0.411,2
+001_20200624_083205(7),box 2: dilated-mask overlap 0.267,2
+001_20200624_123313(4),box 0: dilated-mask overlap 0.250,2
+001_20200624_123313(4),box 1: dilated-mask overlap 0.250,2
+001_20200624_123313(4),box 2: dilated-mask overlap 0.250,2
+001_20200624_123317(8),box 0: dilated-mask overlap 0.327,2
+001_20200624_123322(3),box 0: dilated-mask overlap 0.265,2
+001_20200624_123322(3),box 1: dilated-mask overlap 0.357,2
+001_20200624_123322(3),box 2: dilated-mask overlap 0.319,2
+001_20200624_123326(6),box 2: dilated-mask overlap 0.265,2
+001_20200624_123331(2),box 2: dilated-mask overlap 0.385,2
+001_20200624_123335(6),box 0: dilated-mask overlap 0.471,2
+001_20200624_162816(3),box 0: dilated-mask overlap 0.326,2
+001_20200624_162816(3),box 1: dilated-mask overlap 0.289,2
+001_20200624_162816(3),box 2: dilated-mask overlap 0.400,2
+001_20200624_162831(2),box 0: dilated-mask overlap 0.250,2
+001_20200624_162835(8),box 2: dilated-mask overlap 0.365,2
+001_20200624_203154(3),box 0: dilated-mask overlap 0.275,2
+001_20200624_203203(1),box 2: dilated-mask overlap 0.294,2
+001_20200625_003515(9),box 0: dilated-mask overlap 0.257,2
+001_20200629_082828(0),box 0: dilated-mask overlap 0.300,2
+001_20200629_082837(2),box 1: dilated-mask overlap 0.294,2
+001_20200629_082837(2),box 2: dilated-mask overlap 0.265,2
+001_20200629_082840(2),box 0: dilated-mask overlap 0.250,2
+001_20200810_203212(6),box 0: dilated-mask overlap 0.262,2
+001_20200814_043321(6),box 0: dilated-mask overlap 0.275,2
+002_20200622_203136(3),box 0: dilated-mask overlap 0.250,2
+002_20200623_043109(4),box 2: dilated-mask overlap 0.375,2
+002_20200623_043115(4),box 2: dilated-mask overlap 0.293,2
+002_20200623_082311(8),box 0: dilated-mask overlap 0.341,2
+002_20200623_082311(8),box 2: dilated-mask overlap 0.250,2
+002_20200623_123042(0),box 2: dilated-mask overlap 0.250,2
+002_20200623_123055(5),box 0: dilated-mask overlap 0.250,2
+002_20200623_163026(3),box 2: dilated-mask overlap 0.250,2
+002_20200623_203033(6),box 0: dilated-mask overlap 0.262,2
+002_20200623_203047(0),box 0: dilated-mask overlap 0.265,2
+002_20200624_003132(0),box 1: dilated-mask overlap 0.267,2
+002_20200624_003132(0),box 2: dilated-mask overlap 0.275,2
+001_20200624_083202(6),TXT count differs from chromatic components,1
+001_20200629_082834(2),TXT count differs from chromatic components,1
+002_20200623_123055(5),TXT count differs from chromatic components,1
+002_20200623_163023(3),TXT count differs from chromatic components,1
+002_20200624_203114(3),TXT count differs from chromatic components,1
+002_20200916_122650(1),"same stem, different pixel content across raw paths",1
+002_20200918_043338(2),"same stem, different pixel content across raw paths",1
+002_20200922_163053(8),"same stem, different pixel content across raw paths",1

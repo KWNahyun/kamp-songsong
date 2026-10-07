@@ -1,0 +1,24 @@
+{
+  "completed": 36,
+  "epochs_each": 30,
+  "all_finite": true,
+  "all_source_hashes_match": true,
+  "all_checkpoint_hashes_match": true,
+  "GT_source_files_unchanged": true,
+  "clipped_coordinates": 0,
+  "started_KST": "2026-10-02T16:39:46.410109",
+  "ended_KST": "2026-10-02T19:27:50.231437",
+  "elapsed_minutes": 168.06368879477182,
+  "test_used": false,
+  "notes": [
+    "Original FGL distance support clipping is not separately counted by the added image/box clipping counter.",
+    "No per-step gradient magnitudes were persisted; fail-fast gradient checks and successful trainer completion are evidence against detected nonfinite gradients.",
+    "orig official GT, matching implementation, NMS, box_scale unchanged."
+  ],
+  "analysis_dependencies_added_after_training": {
+    "pandas": "2.2.3",
+    "pytz": "2026.4",
+    "tzdata": "2026.4"
+  },
+  "CSV_float_handling": "pandas round_trip parsing for confidence thresholds; saved metrics/predictions unchanged"
+}

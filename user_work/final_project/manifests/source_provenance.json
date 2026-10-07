@@ -1,0 +1,44 @@
+{
+  "original_root": "/home/viplab/contest",
+  "checkpoint_source": "/home/viplab/contest/experiments/kamp_v2_uq/runs_frozen/dfine_mal_UQ_seed20260930/last.pth",
+  "source_files": [
+    {
+      "source": "/home/viplab/contest/inference_locked/predict.py",
+      "sha256": "0527bd10981b3d638fd078f49188c8989c029c388182336aeae7a0e82dbac789"
+    },
+    {
+      "source": "/home/viplab/contest/experiments/kamp_v2_uq/selector_patch.py",
+      "sha256": "39959e07c333ba1b6ba312243482ea273dcfec13acc1e0dd621fc59ebc0dc808"
+    },
+    {
+      "source": "/home/viplab/contest/experiments/kamp_pilot_v1/analyze_failures.py",
+      "sha256": "ba7c84ba9367c9a6d4716f7c0460f4a97ea63abce37db4fd75e6fadd7d48b005"
+    }
+  ],
+  "training_sources": [
+    {
+      "source": "/home/viplab/contest/experiments/kamp_v2_uq/train.py",
+      "sha256": "aa2c080cd815c7bf2d6a7b7ea6b154eefdd972874f2f2e7c7599a4a00ad7885a"
+    },
+    {
+      "source": "/home/viplab/contest/experiments/kamp_ablation_v3/loss_patch.py",
+      "sha256": "ec2fe0e28c529667dd536e50a5f0374f40c4005fcff4f2eed49c58ea02fbeac6"
+    },
+    {
+      "source": "/home/viplab/contest/experiments/kamp_v2_baselines/prepare.py",
+      "sha256": "712a12338c84418bb0178bf3c6b8e309d7799db75c87facb72dbeee3d653399d"
+    },
+    {
+      "source": "/home/viplab/contest/experiments/kamp_v2_mal/configs/dfine_M_seed20260930.yml",
+      "sha256": "6f68b611b701f707f64a1a64a41400f5c7b55d2656142c9088bc0311f2a0cfde"
+    },
+    {
+      "source": "/home/viplab/contest/models/D-FINE/train.py",
+      "sha256": "4b1b13f64bba72669437f31016d37c44f415f0206affee8e910120a0c52cacb2"
+    },
+    {
+      "source": "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+      "sha256": "0ac6124d45341889b9999b2294540cc6105add3679fe6182ea692c9e6917f531"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+__include__: ['/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s.yml']
+output_dir: /home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_p2
+HGNetv2:
+  return_idx: [0, 1, 2, 3]
+DFINETransformer:
+  feat_channels: [256, 256, 256, 256]
+  feat_strides: [8, 16, 32, 4]
+  num_levels: 4
+  num_points: [3, 6, 3, 3]

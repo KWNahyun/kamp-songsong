@@ -1,0 +1,365 @@
+{
+  "passed": true,
+  "variants": [
+    {
+      "passed": true,
+      "variant": "mal",
+      "steps": [
+        {
+          "step": 0,
+          "loss": 32.888187408447266,
+          "grad_norm": 148.97195434570312,
+          "mal": 0.11459428817033768,
+          "bbox": 1.661125659942627,
+          "fgl": 0.1956382393836975
+        },
+        {
+          "step": 1,
+          "loss": 31.199846267700195,
+          "grad_norm": 97.2888412475586,
+          "mal": 0.265343576669693,
+          "bbox": 1.061171293258667,
+          "fgl": 0.2855478823184967
+        }
+      ],
+      "zero_target_loss_diff": 0.0,
+      "zero_target_gradient_max_diff": 5.960464477539063e-08,
+      "peak_vram_MiB": 5094.0810546875,
+      "GT_unchanged": true,
+      "matching_unchanged_on_fixed_outputs": true,
+      "regular_aux_DN_verified": true,
+      "test_used": false,
+      "smoke_weights_discarded": true
+    },
+    {
+      "passed": true,
+      "variant": "cx_l1half",
+      "steps": [
+        {
+          "step": 0,
+          "loss": 28.25343132019043,
+          "grad_norm": 135.8821563720703,
+          "mal": 0.11459428817033768,
+          "bbox": 0.8305628299713135,
+          "fgl": 0.1956382393836975
+        },
+        {
+          "step": 1,
+          "loss": 26.777421951293945,
+          "grad_norm": 79.1680908203125,
+          "mal": 0.17239809036254883,
+          "bbox": 0.5350601673126221,
+          "fgl": 0.27024129033088684
+        }
+      ],
+      "zero_target_loss_diff": 0.0,
+      "zero_target_gradient_max_diff": 5.960464477539063e-08,
+      "peak_vram_MiB": 5094.0810546875,
+      "GT_unchanged": true,
+      "matching_unchanged_on_fixed_outputs": true,
+      "regular_aux_DN_verified": true,
+      "test_used": false,
+      "smoke_weights_discarded": true
+    },
+    {
+      "passed": true,
+      "variant": "edge",
+      "steps": [
+        {
+          "step": 0,
+          "loss": 32.540931701660156,
+          "grad_norm": 147.5919952392578,
+          "mal": 0.11459428817033768,
+          "bbox": 1.5920437574386597,
+          "fgl": 0.1956382393836975
+        },
+        {
+          "step": 1,
+          "loss": 29.714326858520508,
+          "grad_norm": 127.62203216552734,
+          "mal": 0.28547149896621704,
+          "bbox": 0.9621480107307434,
+          "fgl": 0.3497696816921234
+        }
+      ],
+      "zero_target_loss_diff": 0.0,
+      "zero_target_gradient_max_diff": 5.960464477539063e-08,
+      "peak_vram_MiB": 5094.0810546875,
+      "GT_unchanged": true,
+      "matching_unchanged_on_fixed_outputs": true,
+      "regular_aux_DN_verified": true,
+      "test_used": false,
+      "smoke_weights_discarded": true
+    },
+    {
+      "passed": true,
+      "variant": "edge_half",
+      "steps": [
+        {
+          "step": 0,
+          "loss": 28.07979965209961,
+          "grad_norm": 135.98353576660156,
+          "mal": 0.11459428817033768,
+          "bbox": 0.7960218787193298,
+          "fgl": 0.1956382393836975
+        },
+        {
+          "step": 1,
+          "loss": 26.222076416015625,
+          "grad_norm": 97.57765197753906,
+          "mal": 0.14783458411693573,
+          "bbox": 0.5076786875724792,
+          "fgl": 0.26449868083000183
+        }
+      ],
+      "zero_target_loss_diff": 0.0,
+      "zero_target_gradient_max_diff": 5.960464477539063e-08,
+      "peak_vram_MiB": 5094.0810546875,
+      "GT_unchanged": true,
+      "matching_unchanged_on_fixed_outputs": true,
+      "regular_aux_DN_verified": true,
+      "test_used": false,
+      "smoke_weights_discarded": true
+    },
+    {
+      "passed": true,
+      "variant": "soft05",
+      "steps": [
+        {
+          "step": 0,
+          "loss": 32.35554504394531,
+          "grad_norm": 149.60733032226562,
+          "mal": 0.11459428817033768,
+          "bbox": 1.5713518857955933,
+          "fgl": 0.1956382393836975
+        },
+        {
+          "step": 1,
+          "loss": 29.382579803466797,
+          "grad_norm": 156.4154815673828,
+          "mal": 0.27318909764289856,
+          "bbox": 0.909238338470459,
+          "fgl": 0.3536794185638428
+        }
+      ],
+      "zero_target_loss_diff": 0.0,
+      "zero_target_gradient_max_diff": 5.960464477539063e-08,
+      "peak_vram_MiB": 5094.0810546875,
+      "GT_unchanged": true,
+      "matching_unchanged_on_fixed_outputs": true,
+      "regular_aux_DN_verified": true,
+      "test_used": false,
+      "smoke_weights_discarded": true
+    },
+    {
+      "passed": true,
+      "variant": "soft10",
+      "steps": [
+        {
+          "step": 0,
+          "loss": 32.17758560180664,
+          "grad_norm": 148.88136291503906,
+          "mal": 0.11459428817033768,
+          "bbox": 1.5510505437850952,
+          "fgl": 0.1956382393836975
+        },
+        {
+          "step": 1,
+          "loss": 29.308597564697266,
+          "grad_norm": 145.853759765625,
+          "mal": 0.2675686180591583,
+          "bbox": 0.8957015872001648,
+          "fgl": 0.35124242305755615
+        }
+      ],
+      "zero_target_loss_diff": 0.0,
+      "zero_target_gradient_max_diff": 5.960464477539063e-08,
+      "peak_vram_MiB": 5094.0810546875,
+      "GT_unchanged": true,
+      "matching_unchanged_on_fixed_outputs": true,
+      "regular_aux_DN_verified": true,
+      "test_used": false,
+      "smoke_weights_discarded": true
+    },
+    {
+      "passed": true,
+      "variant": "soft20",
+      "steps": [
+        {
+          "step": 0,
+          "loss": 31.846817016601562,
+          "grad_norm": 154.0985107421875,
+          "mal": 0.11459428817033768,
+          "bbox": 1.511591911315918,
+          "fgl": 0.1956382393836975
+        },
+        {
+          "step": 1,
+          "loss": 28.99066734313965,
+          "grad_norm": 169.54823303222656,
+          "mal": 0.29436343908309937,
+          "bbox": 0.8573042750358582,
+          "fgl": 0.39040935039520264
+        }
+      ],
+      "zero_target_loss_diff": 0.0,
+      "zero_target_gradient_max_diff": 5.960464477539063e-08,
+      "peak_vram_MiB": 5094.0810546875,
+      "GT_unchanged": true,
+      "matching_unchanged_on_fixed_outputs": true,
+      "regular_aux_DN_verified": true,
+      "test_used": false,
+      "smoke_weights_discarded": true
+    },
+    {
+      "passed": true,
+      "variant": "hard10",
+      "steps": [
+        {
+          "step": 0,
+          "loss": 32.05647277832031,
+          "grad_norm": 149.2893524169922,
+          "mal": 0.11459428817033768,
+          "bbox": 1.537386178970337,
+          "fgl": 0.1956382393836975
+        },
+        {
+          "step": 1,
+          "loss": 29.233041763305664,
+          "grad_norm": 154.81204223632812,
+          "mal": 0.2825400233268738,
+          "bbox": 0.8759721517562866,
+          "fgl": 0.36317965388298035
+        }
+      ],
+      "zero_target_loss_diff": 0.0,
+      "zero_target_gradient_max_diff": 5.960464477539063e-08,
+      "peak_vram_MiB": 5094.0810546875,
+      "GT_unchanged": true,
+      "matching_unchanged_on_fixed_outputs": true,
+      "regular_aux_DN_verified": true,
+      "test_used": false,
+      "smoke_weights_discarded": true
+    },
+    {
+      "passed": true,
+      "variant": "fgl05",
+      "steps": [
+        {
+          "step": 0,
+          "loss": 32.89085388183594,
+          "grad_norm": 148.19142150878906,
+          "mal": 0.11459428817033768,
+          "bbox": 1.661125659942627,
+          "fgl": 0.19555602967739105
+        },
+        {
+          "step": 1,
+          "loss": 31.283597946166992,
+          "grad_norm": 103.14430236816406,
+          "mal": 0.2638843357563019,
+          "bbox": 1.0637353658676147,
+          "fgl": 0.2839232385158539
+        }
+      ],
+      "zero_target_loss_diff": 0.0,
+      "zero_target_gradient_max_diff": 5.960464477539063e-08,
+      "peak_vram_MiB": 5094.4052734375,
+      "GT_unchanged": true,
+      "matching_unchanged_on_fixed_outputs": true,
+      "regular_aux_DN_verified": true,
+      "test_used": false,
+      "smoke_weights_discarded": true
+    },
+    {
+      "passed": true,
+      "variant": "fgl10",
+      "steps": [
+        {
+          "step": 0,
+          "loss": 32.899147033691406,
+          "grad_norm": 143.68328857421875,
+          "mal": 0.11459428817033768,
+          "bbox": 1.661125659942627,
+          "fgl": 0.19532479345798492
+        },
+        {
+          "step": 1,
+          "loss": 30.333572387695312,
+          "grad_norm": 105.48880004882812,
+          "mal": 0.31459417939186096,
+          "bbox": 1.0599660873413086,
+          "fgl": 0.3290519118309021
+        }
+      ],
+      "zero_target_loss_diff": 0.0,
+      "zero_target_gradient_max_diff": 5.960464477539063e-08,
+      "peak_vram_MiB": 5094.4052734375,
+      "GT_unchanged": true,
+      "matching_unchanged_on_fixed_outputs": true,
+      "regular_aux_DN_verified": true,
+      "test_used": false,
+      "smoke_weights_discarded": true
+    },
+    {
+      "passed": true,
+      "variant": "jitter10",
+      "steps": [
+        {
+          "step": 0,
+          "loss": 32.8994140625,
+          "grad_norm": 131.61827087402344,
+          "mal": 0.11459428817033768,
+          "bbox": 1.661125659942627,
+          "fgl": 0.1917792707681656
+        },
+        {
+          "step": 1,
+          "loss": 30.436965942382812,
+          "grad_norm": 180.12258911132812,
+          "mal": 0.3371164798736572,
+          "bbox": 1.0325692892074585,
+          "fgl": 0.34545519948005676
+        }
+      ],
+      "zero_target_loss_diff": 0.0,
+      "zero_target_gradient_max_diff": 5.960464477539063e-08,
+      "peak_vram_MiB": 5094.4052734375,
+      "GT_unchanged": true,
+      "matching_unchanged_on_fixed_outputs": true,
+      "regular_aux_DN_verified": true,
+      "test_used": false,
+      "smoke_weights_discarded": true
+    },
+    {
+      "passed": true,
+      "variant": "soft_fgl10",
+      "steps": [
+        {
+          "step": 0,
+          "loss": 32.188541412353516,
+          "grad_norm": 143.7255096435547,
+          "mal": 0.11459428817033768,
+          "bbox": 1.5510505437850952,
+          "fgl": 0.19532479345798492
+        },
+        {
+          "step": 1,
+          "loss": 29.366331100463867,
+          "grad_norm": 133.31333923339844,
+          "mal": 0.2785627841949463,
+          "bbox": 0.8884240388870239,
+          "fgl": 0.354544460773468
+        }
+      ],
+      "zero_target_loss_diff": 0.0,
+      "zero_target_gradient_max_diff": 5.960464477539063e-08,
+      "peak_vram_MiB": 5094.4052734375,
+      "GT_unchanged": true,
+      "matching_unchanged_on_fixed_outputs": true,
+      "regular_aux_DN_verified": true,
+      "test_used": false,
+      "smoke_weights_discarded": true
+    }
+  ]
+}

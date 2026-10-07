@@ -1,0 +1,115 @@
+{
+  "split": "validation",
+  "seed": 20260929,
+  "test_used": false,
+  "fixed_postprocess": {
+    "box_scale": 0.95,
+    "hard_nms_iou": 0.7
+  },
+  "metrics": [
+    {
+      "model": "MAL",
+      "setting": "raw_scale095",
+      "AP": 40.234511506340695,
+      "AP50": 98.86992277045236,
+      "AP75": 19.183850197966727,
+      "TP_FP6": 141,
+      "FP": 6,
+      "threshold_FP6": 0.26093727350234985
+    },
+    {
+      "model": "MAL",
+      "setting": "hard_nms07_scale095",
+      "AP": 39.45611366291327,
+      "AP50": 98.94714823595038,
+      "AP75": 17.72739112694691,
+      "TP_FP6": 141,
+      "FP": 6,
+      "threshold_FP6": 0.08665746450424194
+    },
+    {
+      "model": "UQ",
+      "setting": "raw_scale095",
+      "AP": 40.24103904608039,
+      "AP50": 96.14278964883368,
+      "AP75": 23.339362017810068,
+      "TP_FP6": 136,
+      "FP": 6,
+      "threshold_FP6": 0.5691403150558472
+    },
+    {
+      "model": "UQ",
+      "setting": "hard_nms07_scale095",
+      "AP": 40.31145808612951,
+      "AP50": 97.51543880614028,
+      "AP75": 22.250169037890196,
+      "TP_FP6": 140,
+      "FP": 6,
+      "threshold_FP6": 0.22297482192516327
+    },
+    {
+      "model": "RQS",
+      "setting": "raw_scale095",
+      "AP": 40.81948816205917,
+      "AP50": 96.94481717681336,
+      "AP75": 21.612215983208504,
+      "TP_FP6": 131,
+      "FP": 6,
+      "threshold_FP6": 0.6135096549987793
+    },
+    {
+      "model": "RQS",
+      "setting": "hard_nms07_scale095",
+      "AP": 41.21129650107965,
+      "AP50": 98.9680658206666,
+      "AP75": 20.224426743571854,
+      "TP_FP6": 141,
+      "FP": 6,
+      "threshold_FP6": 0.2499801516532898
+    }
+  ],
+  "candidate_ranking": [
+    {
+      "model": "MAL",
+      "iou75_and_good_leader": 50,
+      "iou75_exists_bad_score_leader": 55,
+      "iou50_but_no_iou75": 36,
+      "near_but_below_iou50": 1,
+      "candidate_score_iou_spearman": 0.42213628812057713
+    },
+    {
+      "model": "UQ",
+      "iou75_and_good_leader": 58,
+      "iou50_but_no_iou75": 36,
+      "iou75_exists_bad_score_leader": 48,
+      "candidate_score_iou_spearman": 0.6538065271312888
+    },
+    {
+      "model": "RQS",
+      "iou75_and_good_leader": 54,
+      "iou75_exists_bad_score_leader": 55,
+      "near_but_below_iou50": 1,
+      "iou50_but_no_iou75": 32,
+      "candidate_score_iou_spearman": 0.8237869030242507
+    }
+  ],
+  "last_epoch_detector_identity": {
+    "UQ": {
+      "compared_tensors": 794,
+      "unequal_tensors": 686,
+      "max_absolute_difference": 177.469482421875,
+      "bitwise_identical": false
+    },
+    "RQS": {
+      "compared_tensors": 794,
+      "unequal_tensors": 686,
+      "max_absolute_difference": 206.8934326171875,
+      "bitwise_identical": false
+    }
+  },
+  "limitations": [
+    "Single-seed 30-epoch pilot.",
+    "Each best checkpoint was selected on the same validation split reported here.",
+    "Telea preprocessing is temporary."
+  ]
+}

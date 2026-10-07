@@ -1,0 +1,41 @@
+{
+  "name": "dfine_M_seed20261001",
+  "variant": "dfine_M",
+  "seed": 20261001,
+  "AP": 36.37989475000031,
+  "AP50": 92.94209118396093,
+  "AP75": 14.67130751864579,
+  "val_threshold": 0.24561819434165955,
+  "TP": 197,
+  "FP": 9,
+  "FN": 9,
+  "recall": 0.9563106796116505,
+  "FP_per_image": 0.10714285714285714,
+  "alarm_images": 84,
+  "images": 84,
+  "GT": 206,
+  "test_threshold_optimized": false,
+  "conditions": [
+    {
+      "machine": "M1",
+      "images": 31,
+      "GT": 81,
+      "TP": 80,
+      "FP": 1
+    },
+    {
+      "machine": "M2",
+      "images": 25,
+      "GT": 61,
+      "TP": 56,
+      "FP": 5
+    },
+    {
+      "machine": "M3",
+      "images": 28,
+      "GT": 64,
+      "TP": 61,
+      "FP": 3
+    }
+  ]
+}

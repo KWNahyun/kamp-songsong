@@ -1,0 +1,12 @@
+{
+  "base": "mal",
+  "seed": 20261001,
+  "mode": "listwise",
+  "AP": 40.060445216937175,
+  "AP75": 18.096513380566208,
+  "TP_FP6": 142,
+  "old_precise": 51,
+  "new_precise": 51,
+  "improved": 0,
+  "worsened": 0
+}

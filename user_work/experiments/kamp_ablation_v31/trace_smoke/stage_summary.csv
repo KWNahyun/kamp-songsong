@@ -1,0 +1,8 @@
+run,variant,seed,stage,GT,GT_with_candidate_iou50,GT_with_candidate_iou75,GT_with_candidate_iou50_score05,GT_with_multiple_iou50_score05,GT_best75_leader_below75
+dfine_s,dfine_s,20260929,encoder_all_counterfactual,3,0,0,0,0,0
+dfine_s,dfine_s,20260929,topk,3,0,0,0,0,0
+dfine_s,dfine_s,20260929,pre_bbox,3,3,3,3,3,1
+dfine_s,dfine_s,20260929,decoder_1,3,3,3,3,3,1
+dfine_s,dfine_s,20260929,decoder_2,3,3,3,3,3,1
+dfine_s,dfine_s,20260929,decoder_3,3,3,3,3,3,0
+dfine_s,dfine_s,20260929,final_nms07,3,3,2,3,0,0

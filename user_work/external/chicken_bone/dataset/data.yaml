@@ -1,0 +1,6 @@
+path: /home/viplab/contest/external/chicken_bone/dataset
+train: images/train
+val: images/val
+test: images/test
+names:
+  0: Defect

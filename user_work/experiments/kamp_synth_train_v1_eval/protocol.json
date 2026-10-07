@@ -1,0 +1,224 @@
+{
+  "created": "2026-10-07T09:39:05.814956+09:00",
+  "dataset": "/home/viplab/contest/data/synthetic/kamp_synth_test_v1",
+  "jobs": [
+    {
+      "name": "dfine_s_synth25_seed20260929",
+      "variant": "dfine_s",
+      "seed": 20260929,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/dfine_s_synth25_seed20260929/best_stg1.pth",
+      "sha256": "1fa8afa3f20107c0182d3cf59c9eebe98b4db2f2740be68277dc594ba2eb920e",
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_s_synth25_seed20260929.yml",
+      "val_threshold": 0.31877240538597107,
+      "threshold_source": "pre-synthetic real-validation operating point; locked for transfer diagnosis"
+    },
+    {
+      "name": "dfine_s_p2_synth25_seed20260929",
+      "variant": "dfine_s_p2",
+      "seed": 20260929,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/dfine_s_p2_synth25_seed20260929/best_stg1.pth",
+      "sha256": "d4f63743de9b5988c5173e7de360787a66e38ee87cb566ef0b217d6740198c72",
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_s_p2_synth25_seed20260929.yml",
+      "val_threshold": 0.2429427206516266,
+      "threshold_source": "pre-synthetic real-validation operating point; locked for transfer diagnosis"
+    },
+    {
+      "name": "dfine_M_synth25_seed20260929",
+      "variant": "dfine_M",
+      "seed": 20260929,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/dfine_M_synth25_seed20260929/best_stg1.pth",
+      "sha256": "72f352f93604a09d233a4724c225f999ac3930eadee23764a043eb24bba363fd",
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_M_synth25_seed20260929.yml",
+      "val_threshold": 0.1510106772184372,
+      "threshold_source": "pre-synthetic real-validation operating point; locked for transfer diagnosis"
+    },
+    {
+      "name": "yolov8s_synth25_seed20260929",
+      "variant": "yolov8s",
+      "seed": 20260929,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/yolov8s_synth25_seed20260929/weights/best.pt",
+      "sha256": "c27199e6e404c5eeb487987dc024379db214f538bf7b7169fc458962a6c90586",
+      "config": null,
+      "val_threshold": 0.07941053062677383,
+      "threshold_source": "pre-synthetic real-validation operating point; locked for transfer diagnosis"
+    },
+    {
+      "name": "yolov8s_p2_synth25_seed20260929",
+      "variant": "yolov8s_p2",
+      "seed": 20260929,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/yolov8s_p2_synth25_seed20260929/weights/best.pt",
+      "sha256": "d3f9269a144b6c4a082f2f67ab9ec82230d032b5556e33214ef2fe651451c236",
+      "config": null,
+      "val_threshold": 0.1685377061367035,
+      "threshold_source": "pre-synthetic real-validation operating point; locked for transfer diagnosis"
+    },
+    {
+      "name": "dfine_mal_UQ_synth25_seed20260929",
+      "variant": "dfine_mal_UQ",
+      "seed": 20260929,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/dfine_mal_UQ_synth25_seed20260929/last.pth",
+      "sha256": "92fbe925c22fa028965ac992217dd55d4e550199af27c6b2868fb38dbc2a47b3",
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_M_synth25_seed20260929.yml",
+      "val_threshold": 0.15639793872833252,
+      "threshold_source": "pre-synthetic real-validation operating point; locked for transfer diagnosis"
+    },
+    {
+      "name": "dfine_s_synth25_seed20260930",
+      "variant": "dfine_s",
+      "seed": 20260930,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/dfine_s_synth25_seed20260930/best_stg1.pth",
+      "sha256": "7596c694f61a3bdc0a89bc1735ffec0a4eae9336cc48a715ac03acf2e8c7341f",
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_s_synth25_seed20260930.yml",
+      "val_threshold": 0.4116468131542206,
+      "threshold_source": "pre-synthetic real-validation operating point; locked for transfer diagnosis"
+    },
+    {
+      "name": "dfine_s_p2_synth25_seed20260930",
+      "variant": "dfine_s_p2",
+      "seed": 20260930,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/dfine_s_p2_synth25_seed20260930/best_stg1.pth",
+      "sha256": "68da1f860899af43b4c5b117c5b4ed40f6bd12620f331bcc57a723bab0bac0c9",
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_s_p2_synth25_seed20260930.yml",
+      "val_threshold": 0.3616723120212555,
+      "threshold_source": "pre-synthetic real-validation operating point; locked for transfer diagnosis"
+    },
+    {
+      "name": "dfine_M_synth25_seed20260930",
+      "variant": "dfine_M",
+      "seed": 20260930,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/dfine_M_synth25_seed20260930/best_stg1.pth",
+      "sha256": "9c2a1500e3afd3d5862c1cf8c4acebd38eb2f237868fe68145b72573bbe390ba",
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_M_synth25_seed20260930.yml",
+      "val_threshold": 0.2838345468044281,
+      "threshold_source": "pre-synthetic real-validation operating point; locked for transfer diagnosis"
+    },
+    {
+      "name": "yolov8s_synth25_seed20260930",
+      "variant": "yolov8s",
+      "seed": 20260930,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/yolov8s_synth25_seed20260930/weights/best.pt",
+      "sha256": "7e4455f8fb5b58946c809b10a539cea153c41a862b9e8595914332456b58ba30",
+      "config": null,
+      "val_threshold": 0.8020033836364746,
+      "threshold_source": "pre-synthetic real-validation operating point; locked for transfer diagnosis"
+    },
+    {
+      "name": "yolov8s_p2_synth25_seed20260930",
+      "variant": "yolov8s_p2",
+      "seed": 20260930,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/yolov8s_p2_synth25_seed20260930/weights/best.pt",
+      "sha256": "4846976f80ec175cecc51a42f1938822c1f68022b69ef4266be9daf7497f81e4",
+      "config": null,
+      "val_threshold": 0.47702929377555847,
+      "threshold_source": "pre-synthetic real-validation operating point; locked for transfer diagnosis"
+    },
+    {
+      "name": "dfine_mal_UQ_synth25_seed20260930",
+      "variant": "dfine_mal_UQ",
+      "seed": 20260930,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/dfine_mal_UQ_synth25_seed20260930/last.pth",
+      "sha256": "566625e16b739ba275b6b879b9414e056582901cda7d0320ac0f22d5a2598967",
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_M_synth25_seed20260930.yml",
+      "val_threshold": 0.19337229430675507,
+      "threshold_source": "pre-synthetic real-validation operating point; locked for transfer diagnosis"
+    },
+    {
+      "name": "dfine_s_synth25_seed20261001",
+      "variant": "dfine_s",
+      "seed": 20261001,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/dfine_s_synth25_seed20261001/best_stg1.pth",
+      "sha256": "2011eccde6c8c50eadb033ea7ff9bf5c578775458a667556f41ce6ba8c0e12c9",
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_s_synth25_seed20261001.yml",
+      "val_threshold": 0.30556273460388184,
+      "threshold_source": "pre-synthetic real-validation operating point; locked for transfer diagnosis"
+    },
+    {
+      "name": "dfine_s_p2_synth25_seed20261001",
+      "variant": "dfine_s_p2",
+      "seed": 20261001,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/dfine_s_p2_synth25_seed20261001/best_stg1.pth",
+      "sha256": "de3bfa3cbf5991d73789a0db69dd27a657fffc9daca8d9132142ec2c0ea752ee",
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_s_p2_synth25_seed20261001.yml",
+      "val_threshold": 0.2016734480857849,
+      "threshold_source": "pre-synthetic real-validation operating point; locked for transfer diagnosis"
+    },
+    {
+      "name": "dfine_M_synth25_seed20261001",
+      "variant": "dfine_M",
+      "seed": 20261001,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/dfine_M_synth25_seed20261001/best_stg1.pth",
+      "sha256": "1bbd79cc8d9de279db9279c590c7868d4b82310f2a19f528bf3bb01e76673b28",
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_M_synth25_seed20261001.yml",
+      "val_threshold": 0.24561819434165955,
+      "threshold_source": "pre-synthetic real-validation operating point; locked for transfer diagnosis"
+    },
+    {
+      "name": "yolov8s_synth25_seed20261001",
+      "variant": "yolov8s",
+      "seed": 20261001,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/yolov8s_synth25_seed20261001/weights/best.pt",
+      "sha256": "bfefa4b93c6a2b4443ce454326c2be26167258ac058dd18da1470d09257233bb",
+      "config": null,
+      "val_threshold": 0.528835654258728,
+      "threshold_source": "pre-synthetic real-validation operating point; locked for transfer diagnosis"
+    },
+    {
+      "name": "yolov8s_p2_synth25_seed20261001",
+      "variant": "yolov8s_p2",
+      "seed": 20261001,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/yolov8s_p2_synth25_seed20261001/weights/best.pt",
+      "sha256": "d719fb5adc0fed6d9ba0e8041d0f8177a929f600a3556809ff4c3f0c5407b02c",
+      "config": null,
+      "val_threshold": 0.01418741699308157,
+      "threshold_source": "pre-synthetic real-validation operating point; locked for transfer diagnosis"
+    },
+    {
+      "name": "dfine_mal_UQ_synth25_seed20261001",
+      "variant": "dfine_mal_UQ",
+      "seed": 20261001,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/dfine_mal_UQ_synth25_seed20261001/last.pth",
+      "sha256": "5d9c7d2ffd35e33f141f0061e5d195eb53a01020b9bf4227c603441fd190160a",
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_M_synth25_seed20261001.yml",
+      "val_threshold": 0.17760604619979858,
+      "threshold_source": "pre-synthetic real-validation operating point; locked for transfer diagnosis"
+    }
+  ],
+  "training_protocol": "/home/viplab/contest/experiments/kamp_synth_train_v1/protocol.json",
+  "batch": 1,
+  "NMS": 0.7,
+  "box_scale": 1.0,
+  "score_floor": 0.001,
+  "threshold_grid": [
+    0.001,
+    0.005,
+    0.01,
+    0.025,
+    0.05,
+    0.075,
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9,
+    0.95
+  ],
+  "calibration_targets": [
+    0.9,
+    0.95,
+    0.98
+  ],
+  "review_budgets": [
+    0.05,
+    0.1,
+    0.2
+  ],
+  "scope": "post-training evaluation; synthetic test excluded from training",
+  "real_validation_caution": "synthetic training images derive from the same 66 backgrounds",
+  "real_test_caution": "previously opened competition test; supplementary comparison only"
+}

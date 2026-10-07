@@ -1,0 +1,96 @@
+{
+  "runs": [
+    {
+      "run": "base_20260929_hard_pair",
+      "epochs": 15,
+      "checkpoint_exists": true
+    },
+    {
+      "run": "base_20260929_listwise",
+      "epochs": 15,
+      "checkpoint_exists": true
+    },
+    {
+      "run": "base_20260929_quality",
+      "epochs": 15,
+      "checkpoint_exists": true
+    },
+    {
+      "run": "base_20260930_hard_pair",
+      "epochs": 15,
+      "checkpoint_exists": true
+    },
+    {
+      "run": "base_20260930_listwise",
+      "epochs": 15,
+      "checkpoint_exists": true
+    },
+    {
+      "run": "base_20260930_quality",
+      "epochs": 15,
+      "checkpoint_exists": true
+    },
+    {
+      "run": "base_20261001_hard_pair",
+      "epochs": 15,
+      "checkpoint_exists": true
+    },
+    {
+      "run": "base_20261001_listwise",
+      "epochs": 15,
+      "checkpoint_exists": true
+    },
+    {
+      "run": "base_20261001_quality",
+      "epochs": 15,
+      "checkpoint_exists": true
+    },
+    {
+      "run": "mal_20260929_hard_pair",
+      "epochs": 15,
+      "checkpoint_exists": true
+    },
+    {
+      "run": "mal_20260929_listwise",
+      "epochs": 15,
+      "checkpoint_exists": true
+    },
+    {
+      "run": "mal_20260929_quality",
+      "epochs": 15,
+      "checkpoint_exists": true
+    },
+    {
+      "run": "mal_20260930_hard_pair",
+      "epochs": 15,
+      "checkpoint_exists": true
+    },
+    {
+      "run": "mal_20260930_listwise",
+      "epochs": 15,
+      "checkpoint_exists": true
+    },
+    {
+      "run": "mal_20260930_quality",
+      "epochs": 15,
+      "checkpoint_exists": true
+    },
+    {
+      "run": "mal_20261001_hard_pair",
+      "epochs": 15,
+      "checkpoint_exists": true
+    },
+    {
+      "run": "mal_20261001_listwise",
+      "epochs": 15,
+      "checkpoint_exists": true
+    },
+    {
+      "run": "mal_20261001_quality",
+      "epochs": 15,
+      "checkpoint_exists": true
+    }
+  ],
+  "test_used": false,
+  "source_sha256": "9ad59c528fe68120096e353976e5ec9382e47b6ca90603e998f690f4e791e576"
+}

@@ -1,0 +1,16 @@
+﻿gt_id,image_id,stem,reason,file
+12,92,001_20200629_082834(2),hard_nms_operating_miss_all_seeds;no_raw_iou75_candidate_all_seeds,gt_12_001_20200629_082834(2).png
+14,93,001_20200629_082837(2),no_raw_iou75_candidate_all_seeds,gt_14_001_20200629_082837(2).png
+24,96,001_20200629_123107(1),no_raw_iou75_candidate_all_seeds,gt_24_001_20200629_123107(1).png
+35,100,001_20200629_123125(2),no_raw_iou75_candidate_all_seeds,gt_35_001_20200629_123125(2).png
+37,120,001_20200811_003323(2),no_raw_iou75_candidate_all_seeds,gt_37_001_20200811_003323(2).png
+44,140,001_20200818_163230(6),no_raw_iou75_candidate_all_seeds,gt_44_001_20200818_163230(6).png
+58,343,002_20200629_082645(4),no_raw_iou75_candidate_all_seeds,gt_58_002_20200629_082645(4).png
+76,349,002_20200629_082839(9),no_raw_iou75_candidate_all_seeds,gt_76_002_20200629_082839(9).png
+82,351,002_20200629_123447(0),no_raw_iou75_candidate_all_seeds,gt_82_002_20200629_123447(0).png
+94,355,002_20200629_123505(0),no_raw_iou75_candidate_all_seeds,gt_94_002_20200629_123505(0).png
+95,355,002_20200629_123505(0),no_raw_iou75_candidate_all_seeds,gt_95_002_20200629_123505(0).png
+99,357,002_20200629_163659(7),no_raw_iou75_candidate_all_seeds,gt_99_002_20200629_163659(7).png
+113,361,002_20200629_163711(8),no_raw_iou75_candidate_all_seeds,gt_113_002_20200629_163711(8).png
+125,390,002_20200715_002509(0),no_raw_iou75_candidate_all_seeds,gt_125_002_20200715_002509(0).png
+135,493,002_20200907_184823(7),no_raw_iou75_candidate_all_seeds,gt_135_002_20200907_184823(7).png

@@ -1,0 +1,23 @@
+{
+  "passed": true,
+  "train_smoke_steps": [
+    {
+      "step": 0,
+      "loss": 30.906944274902344,
+      "mal": 0.1646740883588791
+    },
+    {
+      "step": 1,
+      "loss": 32.13835144042969,
+      "mal": 0.2509055733680725
+    },
+    {
+      "step": 2,
+      "loss": 34.9386100769043,
+      "mal": 0.023349760100245476
+    }
+  ],
+  "test_used": false,
+  "peak_vram_MiB": 5091.001953125,
+  "smoke_weights_discarded": true
+}

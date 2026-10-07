@@ -1,0 +1,94 @@
+{
+  "model": "dfine_s_p2_seed20260930",
+  "split": "val",
+  "images": 66,
+  "objects": 144,
+  "AP50_95": 0.3903884624084603,
+  "AP50": 0.9209958387454114,
+  "AP75": 0.20635941429701754,
+  "AR100": 0.6361111111111112,
+  "operating_points": {
+    "0.1": {
+      "threshold": 0.6880434155464172,
+      "TP": 99,
+      "FP": 6,
+      "recall": 0.6875,
+      "FP_per_image": 0.09090909090909091,
+      "size_bins": {
+        "lt8": {
+          "GT": 17,
+          "TP": 11,
+          "FN": 6,
+          "recall": 0.6470588235294118
+        },
+        "8to12": {
+          "GT": 104,
+          "TP": 68,
+          "FN": 36,
+          "recall": 0.6538461538461539
+        },
+        "12to16": {
+          "GT": 22,
+          "TP": 20,
+          "FN": 2,
+          "recall": 0.9090909090909091
+        },
+        "ge16": {
+          "GT": 1,
+          "TP": 0,
+          "FN": 1,
+          "recall": 0.0
+        }
+      },
+      "all_objects_image_recall": 0.42424242424242425
+    },
+    "0.5": {
+      "threshold": 0.4188430905342102,
+      "TP": 134,
+      "FP": 33,
+      "recall": 0.9305555555555556,
+      "FP_per_image": 0.5,
+      "size_bins": {
+        "lt8": {
+          "GT": 17,
+          "TP": 15,
+          "FN": 2,
+          "recall": 0.8823529411764706
+        },
+        "8to12": {
+          "GT": 104,
+          "TP": 97,
+          "FN": 7,
+          "recall": 0.9326923076923077
+        },
+        "12to16": {
+          "GT": 22,
+          "TP": 22,
+          "FN": 0,
+          "recall": 1.0
+        },
+        "ge16": {
+          "GT": 1,
+          "TP": 0,
+          "FN": 1,
+          "recall": 0.0
+        }
+      },
+      "all_objects_image_recall": 0.8636363636363636
+    }
+  },
+  "settings": {
+    "score_floor": 0.001,
+    "prediction_cap": 300,
+    "COCO_maxDets": [
+      1,
+      10,
+      100
+    ],
+    "IoU_operating_points": 0.5,
+    "yolo_NMS_IoU": 0.7,
+    "dfine_NMS": false
+  },
+  "caution": "KAMP v2 30-epoch pilot; this file is one seed of a three-seed comparison. Validation-selected checkpoints and thresholds; no test evaluation or safety estimate.",
+  "evaluation_wall_seconds": 5.5404298305511475
+}

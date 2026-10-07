@@ -1,0 +1,152 @@
+{
+  "started": "2026-09-30T12:52:15.062002+00:00",
+  "pid": 949548,
+  "test_used": false,
+  "phase": "finished",
+  "jobs": [
+    {
+      "name": "dfine_G01_v31_seed20260929",
+      "variant": "G01",
+      "seed": 20260929,
+      "status": "trained",
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v31/train.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_ablation_v31/configs/dfine_G01_v31_seed20260929.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260929"
+      ],
+      "loss_version": "relative_huber_v31",
+      "started": "2026-09-30T12:52:53.601014+00:00",
+      "returncode": 0,
+      "finished": "2026-09-30T12:59:42.671939+00:00",
+      "evaluation_returncode": 0
+    },
+    {
+      "name": "dfine_GM01_v31_seed20260929",
+      "variant": "GM01",
+      "seed": 20260929,
+      "status": "trained",
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v31/train.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_ablation_v31/configs/dfine_GM01_v31_seed20260929.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260929",
+        "--mal"
+      ],
+      "loss_version": "relative_huber_v31",
+      "started": "2026-09-30T12:59:49.776495+00:00",
+      "returncode": 0,
+      "finished": "2026-09-30T13:06:27.585261+00:00",
+      "evaluation_returncode": 0
+    },
+    {
+      "name": "dfine_G01_v31_seed20260930",
+      "variant": "G01",
+      "seed": 20260930,
+      "status": "trained",
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v31/train.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_ablation_v31/configs/dfine_G01_v31_seed20260930.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260930"
+      ],
+      "loss_version": "relative_huber_v31",
+      "started": "2026-09-30T13:06:34.592536+00:00",
+      "returncode": 0,
+      "finished": "2026-09-30T13:13:12.635995+00:00",
+      "evaluation_returncode": 0
+    },
+    {
+      "name": "dfine_GM01_v31_seed20260930",
+      "variant": "GM01",
+      "seed": 20260930,
+      "status": "trained",
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v31/train.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_ablation_v31/configs/dfine_GM01_v31_seed20260930.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260930",
+        "--mal"
+      ],
+      "loss_version": "relative_huber_v31",
+      "started": "2026-09-30T13:13:19.638981+00:00",
+      "returncode": 0,
+      "finished": "2026-09-30T13:19:46.992264+00:00",
+      "evaluation_returncode": 0
+    },
+    {
+      "name": "dfine_G01_v31_seed20261001",
+      "variant": "G01",
+      "seed": 20261001,
+      "status": "trained",
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v31/train.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_ablation_v31/configs/dfine_G01_v31_seed20261001.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20261001"
+      ],
+      "loss_version": "relative_huber_v31",
+      "started": "2026-09-30T13:19:53.811316+00:00",
+      "returncode": 0,
+      "finished": "2026-09-30T13:26:20.383242+00:00",
+      "evaluation_returncode": 0
+    },
+    {
+      "name": "dfine_GM01_v31_seed20261001",
+      "variant": "GM01",
+      "seed": 20261001,
+      "status": "trained",
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v31/train.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_ablation_v31/configs/dfine_GM01_v31_seed20261001.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20261001",
+        "--mal"
+      ],
+      "loss_version": "relative_huber_v31",
+      "started": "2026-09-30T13:26:27.429762+00:00",
+      "returncode": 0,
+      "finished": "2026-09-30T13:32:53.252927+00:00",
+      "evaluation_returncode": 0
+    }
+  ],
+  "trace_returncode": 0,
+  "analysis_returncode": 0,
+  "finished": "2026-09-30T13:33:18.312961+00:00"
+}

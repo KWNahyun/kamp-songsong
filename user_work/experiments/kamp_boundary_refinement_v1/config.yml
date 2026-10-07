@@ -1,0 +1,4 @@
+__include__:
+- /home/viplab/contest/experiments/kamp_pilot_v1/dfine_s.yml
+output_dir: /home/viplab/contest/experiments/kamp_boundary_refinement_v1/unused_solver_output
+

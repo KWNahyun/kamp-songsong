@@ -1,0 +1,12 @@
+{
+  "base": "base",
+  "seed": 20261001,
+  "mode": "quality",
+  "AP": 37.80502591103173,
+  "AP75": 16.954931875080234,
+  "TP_FP6": 141,
+  "old_precise": 56,
+  "new_precise": 56,
+  "improved": 0,
+  "worsened": 0
+}

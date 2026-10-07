@@ -1,0 +1,13 @@
+{
+  "name": "dfine_s",
+  "variant": "dfine_s",
+  "seed": 20260929,
+  "config": "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s.yml",
+  "path": "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s",
+  "images_verified": 1,
+  "max_final_output_difference": 0.0,
+  "eval_mode_preserved": true,
+  "encoder_all_is_counterfactual": true,
+  "per_gt_coverage_not_one_to_one_recall": true,
+  "test_used": false
+}

@@ -1,0 +1,15 @@
+{
+  "dfine_repository": "https://github.com/Peterande/D-FINE",
+  "dfine_commit": "956d1709314c2c6a4df6f34de232054578a7449f",
+  "seed": 20260929,
+  "epochs": 30,
+  "images_checked": 500,
+  "preprocessing": "RGB range >30, dilation=0, Telea radius=2, grayscale RGB",
+  "split_sha256": "00c3cb5bde2eb9441ad335ff3261f0b08d5c16af89ccc319c55db22f5a33c259",
+  "weights": {
+    "yolov8s.pt": "1f47a78bf100391c2a140b7ac73a1caae18c32779be7d310658112f7ac9aa78a",
+    "dfine_s_coco.pth": "48a6c8cc43eb57186843f752e2e8461ddd3326e0d3c575e71e6e960844683e89"
+  },
+  "native_yolo_validation_fix": "FixedSquareTrainer disables rectangular validation padding; first val672 run archived and excluded",
+  "test_predictions": false
+}

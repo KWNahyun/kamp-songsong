@@ -1,0 +1,10 @@
+DFINECriterion:
+  weight_dict:
+    loss_bbox: 7.5
+    loss_ddf: 1.5
+    loss_fgl: 0.15
+    loss_giou: 2
+    loss_vfl: 1
+__include__:
+- /home/viplab/contest/experiments/kamp_pilot_v1/dfine_s.yml
+output_dir: /home/viplab/contest/experiments/kamp_ablation_v3/runs/dfine_C0_seed20261001

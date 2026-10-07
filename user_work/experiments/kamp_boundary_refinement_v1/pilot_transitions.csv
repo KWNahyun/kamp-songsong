@@ -1,0 +1,4 @@
+﻿model,gained_iou75_gt,lost_iou75_gt,net_iou75_gt,mean_best_iou_change,median_best_iou_change,gt_best_iou_improved,gt_best_iou_worsened
+BR,7,19,-12,-0.006623411969418393,-0.0028966403516708095,66,76
+EBR,7,19,-12,-0.008034687141008265,-6.493502883297975e-05,71,71
+BPS,5,4,1,0.002064965381884998,0.0,52,34

@@ -1,0 +1,31 @@
+Traceback (most recent call last):
+  File "/home/viplab/contest/experiments/kamp_synth_v1_eval/queue.py", line 2, in <module>
+    from concurrent.futures import ThreadPoolExecutor,as_completed
+  File "/home/viplab/.local/share/uv/python/cpython-3.13.11-linux-x86_64-gnu/lib/python3.13/concurrent/futures/__init__.py", line 50, in __getattr__
+    from .thread import ThreadPoolExecutor as te
+  File "/home/viplab/.local/share/uv/python/cpython-3.13.11-linux-x86_64-gnu/lib/python3.13/concurrent/futures/thread.py", line 10, in <module>
+    import queue
+  File "/home/viplab/contest/experiments/kamp_synth_v1_eval/queue.py", line 2, in <module>
+    from concurrent.futures import ThreadPoolExecutor,as_completed
+  File "/home/viplab/.local/share/uv/python/cpython-3.13.11-linux-x86_64-gnu/lib/python3.13/concurrent/futures/__init__.py", line 50, in __getattr__
+    from .thread import ThreadPoolExecutor as te
+ImportError: cannot import name 'ThreadPoolExecutor' from partially initialized module 'concurrent.futures.thread' (most likely due to a circular import) (/home/viplab/.local/share/uv/python/cpython-3.13.11-linux-x86_64-gnu/lib/python3.13/concurrent/futures/thread.py)
+2026-10-06T22:10:20.893741+09:00 START 18 jobs; 2 workers
+2026-10-06T22:16:07.222733+09:00 DONE dfine_M_seed20260930
+2026-10-06T22:16:16.302842+09:00 DONE dfine_mal_UQ_seed20260930
+2026-10-06T22:19:14.894696+09:00 DONE yolov8s_seed20260930
+2026-10-06T22:22:05.622510+09:00 DONE dfine_s_seed20260930
+2026-10-06T22:25:04.981660+09:00 DONE dfine_s_p2_seed20260930
+2026-10-06T22:25:23.941834+09:00 DONE yolov8s_p2_seed20260930
+2026-10-06T22:30:59.306510+09:00 DONE dfine_mal_UQ_seed20260929
+2026-10-06T22:31:24.818695+09:00 DONE dfine_mal_UQ_seed20261001
+2026-10-06T22:37:07.441490+09:00 DONE dfine_M_seed20260929
+2026-10-06T22:37:34.053539+09:00 DONE dfine_M_seed20261001
+2026-10-06T22:43:23.520148+09:00 DONE dfine_s_seed20260929
+2026-10-06T22:43:45.903294+09:00 DONE dfine_s_seed20261001
+2026-10-06T22:46:41.525342+09:00 DONE yolov8s_seed20260929
+2026-10-06T22:47:00.695689+09:00 DONE yolov8s_seed20261001
+2026-10-06T22:53:02.555710+09:00 DONE dfine_s_p2_seed20260929
+2026-10-06T22:53:21.080468+09:00 DONE dfine_s_p2_seed20261001
+2026-10-06T22:56:46.669574+09:00 DONE yolov8s_p2_seed20260929
+2026-10-06T22:57:05.260674+09:00 DONE yolov8s_p2_seed20261001

@@ -1,0 +1,31 @@
+{
+  "comparisons": [
+    {
+      "comparison": "old_a vs old_b",
+      "initial_equal": true,
+      "steps": 8,
+      "all_inputs_gt_rng_equal": true,
+      "first_output_equal": true,
+      "first_loss_equal": true,
+      "first_gradient_equal": false,
+      "first_updated_weights_equal": false
+    },
+    {
+      "comparison": "old_a vs new_a",
+      "initial_equal": true,
+      "steps": 8,
+      "all_inputs_gt_rng_equal": true,
+      "first_output_equal": true,
+      "first_loss_equal": true,
+      "first_gradient_equal": false,
+      "first_updated_weights_equal": false
+    }
+  ],
+  "strict_check": {
+    "raised": true,
+    "error": "grid_sampler_2d_backward_cuda does not have a deterministic implementation, but you set 'torch.use_deterministic_algorithms(True)'. You can turn off determinism just for this operation, or you can use the 'warn_only=True' option, if that's acceptable for your application. You can also file an issue at https://github.com/pytorch/pytorch/issues to help us prioritize adding deterministic support for this operation.",
+    "traceback": "Traceback (most recent call last):\n  File \"/home/viplab/contest/experiments/kamp_v2_repro_audit/strict_check.py\", line 9, in <module>\n    loss=sum(cfg.criterion(m(im,t),t).values());loss.backward();result={'raised':False,'strict_backward_completed':True}\n                                                ~~~~~~~~~~~~~^^\n  File \"/home/viplab/contest/.detector-venv/lib/python3.13/site-packages/torch/_tensor.py\", line 630, in backward\n    torch.autograd.backward(\n    ~~~~~~~~~~~~~~~~~~~~~~~^\n        self, gradient, retain_graph, create_graph, inputs=inputs\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/home/viplab/contest/.detector-venv/lib/python3.13/site-packages/torch/autograd/__init__.py\", line 364, in backward\n    _engine_run_backward(\n    ~~~~~~~~~~~~~~~~~~~~^\n        tensors,\n        ^^^^^^^^\n    ...<5 lines>...\n        accumulate_grad=True,\n        ^^^^^^^^^^^^^^^^^^^^^\n    )\n    ^\n  File \"/home/viplab/contest/.detector-venv/lib/python3.13/site-packages/torch/autograd/graph.py\", line 865, in _engine_run_backward\n    return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n        t_outputs, *args, **kwargs\n        ^^^^^^^^^^^^^^^^^^^^^^^^^^\n    )  # Calls into the C++ engine to run the backward pass\n    ^\nRuntimeError: grid_sampler_2d_backward_cuda does not have a deterministic implementation, but you set 'torch.use_deterministic_algorithms(True)'. You can turn off determinism just for this operation, or you can use the 'warn_only=True' option, if that's acceptable for your application. You can also file an issue at https://github.com/pytorch/pytorch/issues to help us prioritize adding deterministic support for this operation.\n",
+    "scope": "diagnostic actual D-FINE training forward/backward; no optimizer update"
+  },
+  "interpretation": "GPU backward nondeterminism demonstrated even within old runner. This does not establish that the entire historical AP gap is caused exclusively by nondeterminism. Compare this bundle checkpoints only."
+}

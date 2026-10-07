@@ -1,0 +1,13 @@
+{
+  "name": "dfine_s_seed20260930",
+  "variant": "dfine_s",
+  "seed": 20260930,
+  "config": "/home/viplab/contest/experiments/kamp_ablation_v3/configs/dfine_s_seed20260930.yml",
+  "path": "/home/viplab/contest/experiments/kamp_ablation_v3/runs/dfine_s_seed20260930",
+  "images_verified": 64,
+  "max_final_output_difference": 0.0,
+  "eval_mode_preserved": true,
+  "encoder_all_is_counterfactual": true,
+  "per_gt_coverage_not_one_to_one_recall": true,
+  "test_used": false
+}

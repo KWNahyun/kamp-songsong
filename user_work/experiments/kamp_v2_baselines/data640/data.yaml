@@ -1,0 +1,5 @@
+names:
+  0: defect
+path: /home/viplab/contest/experiments/kamp_v2_baselines/data640
+train: images/train
+val: images/val

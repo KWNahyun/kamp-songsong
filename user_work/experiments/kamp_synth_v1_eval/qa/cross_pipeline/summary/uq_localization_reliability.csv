@@ -1,0 +1,7 @@
+seed,split,quality_bin,objects,mean_quality,mean_selected_iou,meaning
+20260930,test,"(0.4, 0.5]",504,0.5,0.5,"synthetic TXT localization agreement, not contamination probability"
+20260930,val,"(0.4, 0.5]",504,0.5,0.5,"synthetic TXT localization agreement, not contamination probability"
+20260929,test,"(0.4, 0.5]",504,0.5,0.5,"synthetic TXT localization agreement, not contamination probability"
+20260929,val,"(0.4, 0.5]",504,0.5,0.5,"synthetic TXT localization agreement, not contamination probability"
+20261001,test,"(0.4, 0.5]",504,0.5,0.5,"synthetic TXT localization agreement, not contamination probability"
+20261001,val,"(0.4, 0.5]",504,0.5,0.5,"synthetic TXT localization agreement, not contamination probability"

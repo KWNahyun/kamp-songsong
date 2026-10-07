@@ -1,0 +1,94 @@
+{
+  "model": "dfine_GM03_seed20260929",
+  "split": "val",
+  "images": 64,
+  "objects": 142,
+  "AP50_95": 0.36267989761274166,
+  "AP50": 0.8896307233059514,
+  "AP75": 0.1812399006707311,
+  "AR100": 0.6725352112676056,
+  "operating_points": {
+    "0.1": {
+      "threshold": 0.5633959174156189,
+      "TP": 69,
+      "FP": 6,
+      "recall": 0.4859154929577465,
+      "FP_per_image": 0.09375,
+      "size_bins": {
+        "lt8": {
+          "GT": 17,
+          "TP": 5,
+          "FN": 12,
+          "recall": 0.29411764705882354
+        },
+        "8to12": {
+          "GT": 104,
+          "TP": 56,
+          "FN": 48,
+          "recall": 0.5384615384615384
+        },
+        "12to16": {
+          "GT": 20,
+          "TP": 8,
+          "FN": 12,
+          "recall": 0.4
+        },
+        "ge16": {
+          "GT": 1,
+          "TP": 0,
+          "FN": 1,
+          "recall": 0.0
+        }
+      },
+      "all_objects_image_recall": 0.34375
+    },
+    "0.5": {
+      "threshold": 0.4020509719848633,
+      "TP": 134,
+      "FP": 32,
+      "recall": 0.9436619718309859,
+      "FP_per_image": 0.5,
+      "size_bins": {
+        "lt8": {
+          "GT": 17,
+          "TP": 11,
+          "FN": 6,
+          "recall": 0.6470588235294118
+        },
+        "8to12": {
+          "GT": 104,
+          "TP": 103,
+          "FN": 1,
+          "recall": 0.9903846153846154
+        },
+        "12to16": {
+          "GT": 20,
+          "TP": 20,
+          "FN": 0,
+          "recall": 1.0
+        },
+        "ge16": {
+          "GT": 1,
+          "TP": 0,
+          "FN": 1,
+          "recall": 0.0
+        }
+      },
+      "all_objects_image_recall": 0.90625
+    }
+  },
+  "settings": {
+    "score_floor": 0.001,
+    "prediction_cap": 300,
+    "COCO_maxDets": [
+      1,
+      10,
+      100
+    ],
+    "IoU_operating_points": 0.5,
+    "yolo_NMS_IoU": 0.7,
+    "dfine_NMS": false
+  },
+  "caution": "single seed 30-epoch pilot; val-selected checkpoint and thresholds; not held-out test or safety estimate; preprocessing artifacts may remain",
+  "evaluation_wall_seconds": 5.298770189285278
+}

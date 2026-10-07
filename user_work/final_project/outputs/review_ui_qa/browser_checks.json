@@ -1,0 +1,16 @@
+{
+  "passed": true,
+  "cases": 66,
+  "errors": [],
+  "checks": [
+    "render",
+    "mode switching",
+    "click",
+    "undo",
+    "next validation",
+    "resume",
+    "completion",
+    "download"
+  ],
+  "human_results": false
+}

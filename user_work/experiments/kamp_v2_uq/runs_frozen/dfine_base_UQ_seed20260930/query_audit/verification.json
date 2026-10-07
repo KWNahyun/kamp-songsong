@@ -1,0 +1,336 @@
+{
+  "base_bitwise_identical": true,
+  "images": [
+    {
+      "image_id": 1,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 2,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 3,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 4,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 5,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 6,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 7,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 8,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 9,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 10,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 11,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 12,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 13,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 14,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 15,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 16,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 17,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 18,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 19,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 20,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 21,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 22,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 23,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 24,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 25,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 26,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 27,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 28,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 29,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 30,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 31,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 32,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 33,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 34,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 35,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 36,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 37,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 38,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 39,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 40,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 41,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 42,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 43,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 44,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 45,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 46,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 47,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 48,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 49,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 50,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 51,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 52,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 53,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 54,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 55,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 56,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 57,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 58,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 59,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 60,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 61,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 62,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 63,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 64,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 65,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    },
+    {
+      "image_id": 66,
+      "max_box_diff": 0.0,
+      "max_base_score_diff": 0.0
+    }
+  ],
+  "test_used": false
+}

@@ -1,0 +1,25 @@
+{
+  "checked_on": "2026-10-03",
+  "primary_sources": [
+    {
+      "title": "DEIM",
+      "url": "https://openaccess.thecvf.com/content/CVPR2025/html/Huang_DEIM_DETR_with_Improved_Matching_for_Fast_Convergence_CVPR_2025_paper.html",
+      "verification": "CVF search metadata: title, authors, pages, MAL description"
+    },
+    {
+      "title": "D-FINE",
+      "url": "https://proceedings.iclr.cc/paper_files/paper/2025/hash/6cf58a87e3097e7d1f9be3e8693a93de-Abstract-Conference.html",
+      "verification": "official proceedings: authors, ICLR2025, FDR and GO-LSD abstract"
+    },
+    {
+      "title": "Rank-DETR",
+      "url": "https://arxiv.org/abs/2310.08854",
+      "verification": "author abstract, authors, NeurIPS2023, ranking-localization misalignment"
+    },
+    {
+      "title": "Conformal risk control",
+      "url": "https://research.google/pubs/conformal-risk-control/",
+      "verification": "primary publication page; not implemented in project"
+    }
+  ]
+}

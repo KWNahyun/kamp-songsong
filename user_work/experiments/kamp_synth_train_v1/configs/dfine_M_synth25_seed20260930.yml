@@ -1,0 +1,58 @@
+HGNetv2:
+  pretrained: false
+__include__:
+- /home/viplab/contest/models/D-FINE/configs/dfine/dfine_hgnetv2_s_coco.yml
+checkpoint_freq: 12
+ema:
+  warmups: 100
+epochs: 12
+lr_scheduler:
+  gamma: 0.1
+  milestones:
+  - 10
+  type: MultiStepLR
+lr_warmup_scheduler:
+  type: LinearWarmup
+  warmup_duration: 15
+num_classes: 1
+optimizer:
+  lr: 5.0e-05
+  type: AdamW
+  weight_decay: 0.0001
+output_dir: /home/viplab/contest/experiments/kamp_synth_train_v1/runs/dfine_M_synth25_seed20260930
+print_freq: 10
+remap_mscoco_category: false
+sync_bn: false
+train_dataloader:
+  collate_fn:
+    base_size_repeat: null
+    stop_epoch: 1000
+  dataset:
+    ann_file: /home/viplab/contest/experiments/kamp_synth_train_v1/data640_mix25/annotations/train.json
+    img_folder: /home/viplab/contest/experiments/kamp_synth_train_v1/data640_mix25/images/train
+    transforms:
+      ops:
+      - dtype: float32
+        scale: true
+        type: ConvertPILImage
+      - fmt: cxcywh
+        normalize: true
+        type: ConvertBoxes
+      policy:
+        epoch: 1000
+  drop_last: false
+  num_workers: 2
+  total_batch_size: 8
+use_amp: false
+use_ema: true
+val_dataloader:
+  dataset:
+    ann_file: /home/viplab/contest/experiments/kamp_synth_train_v1/data640_mix25/annotations/val.json
+    img_folder: /home/viplab/contest/experiments/kamp_synth_train_v1/data640_mix25/images/val
+    transforms:
+      ops:
+      - dtype: float32
+        scale: true
+        type: ConvertPILImage
+  num_workers: 2
+  total_batch_size: 8

@@ -1,0 +1,828 @@
+                    This CVPR paper is the Open Access version, provided by the Computer Vision Foundation.
+                                 Except for this watermark, it is identical to the accepted version;
+                           the final published version of the proceedings is available on IEEE Xplore.
+
+
+
+
+  DyFCLT: Dynamic Frequency-Decoupled Cross-Modal Learning Transformer
+                  for Multimodal Tiny Object Detection
+
+     Chaolang Li1,2 Pengwen Dai1,2∗ Jingyu Li1,2 Siyuan Yao1,2 Yuchen Jiang1 Zhuoran Zheng3
+        1
+          School of Cyber Science and Technology, Shenzhen Campus of Sun Yat-sen University
+    2
+      Shenzhen Key Laboratory of Adversarial Artificial Intelligence 3 Qilu University of Technology
+     {lichlang5, lijy768}@mail2.sysu.edu.cn; {daipw, yaosy29, jiangych39}@mail.sysu.edu.cn
+                                                    zhengzr@njust.edu.cn
+
+
+
+                             Abstract                                  100%
+                                                                                                    Low     Mid   High
+                                                                                                                          100%
+                                                                                                                                                    Low     Mid   High
+
+                                                                       90%                                                90%
+
+                                                                       80%                                                80%
+ Multimodal tiny object detection plays a critical role in             70%                                                70%
+
+real-world applications, yet remains highly challenging due            60%                                                60%
+
+                                                                       50%                                                50%
+to weak target representations and complex cross-modal in-             40%                                                40%
+
+terference. Existing frequency-domain methods for tiny ob-             30%                                                30%
+
+                                                                       20%                                                20%
+ject detection are still largely limited to the visible modality       10%                                                10%
+
+                                                                        0%                                                 0%
+and overlook complementary cross-modal frequency cues                            Tiny   Extremely   Small    Medium and          Tiny   Extremely   Small    Medium and
+                                                                                          Small                Large                      Small                Large
+in multimodal scenes. In this paper, we investigate cross-                               IR Modality                                     RGB Modality
+
+modal frequency learning for RGBT tiny object detection.                      (a) Normalized frequency energy distribution of RGBT-Tiny Dataset
+
+Through frequency characteristic analysis, we find that tiny
+objects in both RGB and infrared modalities contain richer
+mid- and high-frequency components as object size de-
+creases. Motivated by this observation, we propose a Dy-
+namic Frequency-Decoupled Cross-Modal Learning Trans-
+former (DyFCLT). Specifically, DyFCLT introduces a Dy-
+namic Frequency-Band Decoupled Cross-Modal Attention
+(DFCA) mechanism to perform fine-grained cross-modal
+                                                                                        (b) Object interfered with by background noise
+interaction across dynamic frequency sub-bands, and a Se-
+lective Smoothing Enhancement (SSE) module to suppress
+                                                                    Figure 1. (a) Normalized frequency energy distribution of RGBT-
+background noise and enhance foreground responses dur-              Tiny. (b) An example of complex cross-modal background noise.
+ing multi-scale fusion. Extensive experiments on two RGBT
+tiny object detection benchmarks and one general-scale
+benchmark demonstrate that DyFCLT achieves state-of-the-            timodal approaches, such as visible-infrared (RGBT) tiny
+art performance with strong generalization across different         object detection, are emerging as a hot research topic [47].
+scales and scenes.                                                     Recent studies have explored various directions for im-
+                                                                    proving TOD, including multi-scale feature learning [21,
+                                                                    40] and super resolution feature enhancement techniques
+1. Introduction                                                     [18, 26], etc. Moreover, since tiny objects inherently ex-
+                                                                    hibit high-frequency characteristics, enhancing their signal
+Tiny object detection (TOD) has wide practical applica-             responses in the frequency domain is becoming increasingly
+tions in real-world scenarios , such as autonomous driving,         popular [32]. Nevertheless, existing frequency-domain ex-
+video surveillance, and disaster rescue [9]. However, re-           plorations for TOD remain largely limited to the general
+lying solely on the conventional visible modality usually           visible modality [32, 35]. In RGBT settings, related meth-
+limits detection performance, as environmental complexi-            ods are typically developed under the assumption that in-
+ties (e.g., dynamic lighting or occlusions) lead to insuffi-        frared images mainly contain low-frequency components,
+cient representations for tiny objects [52]. Therefore, Mul-        while RGB images are dominated by high-frequency details
+   * Corresponding author.                                          [19, 64]. However, there is still a lack of systematic anal-
+
+
+
+                                                               11313
+ysis of the frequency characteristics of objects at different    size benchmark demonstrate that our approach achieves
+scales across modalities, and the problem of effectively cap-    new state-of-the-art results, surpassing the previous best
+turing complementary frequency information of tiny objects       methods by a significant margin and exhibiting strong gen-
+in RGBT scenarios remains underexplored.                         eralization across different scales and scenes.
+    To fill this gap, we conduct a frequency characteristic
+analysis on RGBT-Tiny dataset [47]. Specifically, we em-         2. Related Work
+ploy a radial frequency decomposition to divide the normal-
+ized spectrum into low-, mid-, and high-frequency bands          2.1. General Small Object Detection
+[34], and compute the proportion of the normalized fre-          Existing general small object detection methods fall mainly
+quency energy within each band for RGB and IR modal-             into the following three categories:(i) Data augmentation:
+ities across different object scales, as shown in Fig. 1(a).     Various augmentation strategies increase the number of
+The results show that as object size decreases, the propor-      training samples, encouraging detectors to focus on in-
+tion of mid- and high-frequency energy increases in both         stances at specific scales during training [15, 16, 67]. (ii)
+modalities. Surprisingly, although the IR modality is gener-     Feature learning: Multi-scale learning methods based on
+ally dominated by low-frequency components, tiny objects         feature pyramids [21], and their variants deeply fuse fea-
+still contain abundant frequency information across multi-       tures across different levels, significantly enhancing the
+ple spectral bands. This observation motivates us to focus       detection of tiny objects [24, 37]. In addition, recent
+on fully mining cross-modal frequency information across         methods introduce auxiliary self-reconstruction branches
+different spectral bands that is beneficial for tiny objects.    to strengthen weak feature representations of tiny objects
+    However, exploring finer-grained frequency information       [4, 45]. Meanwhile, since tiny objects exhibit distinctive
+also carries the risk of introducing more noise from com-        frequency characteristics, frequency-domain enhancement
+plex environments. As illustrated in Fig. 1(b), the vehicles     is gradually emerging as an effective direction [32, 35]. (iii)
+in both modalities are obviously occluded, indicating that       Label assignment strategies: Intersection over Union (IoU)
+directly enhancing the frequency responses in these regions      is commonly used to match predicted boxes with ground-
+may simultaneously amplify noise and thus harm detection         truth boxes, but it is highly sensitive to positional deviations
+performance. This suggests that extracting target signals        for tiny objects, which severely degrades label assignment
+requires suppressing complex noise interference while cap-       quality in anchor-based detectors. To address this issue,
+turing rich cross-modal frequency information.                   several alternative strategies have been proposed, such as
+    To this end, we propose DyFCLT, a Dynamic                    Dot Distance [42], Normalized Gaussian Wasserstein Dis-
+Frequency-Decoupled Cross-modal Learning Tranformer              tance [39], and Receptive Field Label Assignment [43].
+that introduces a new frequency-domain perspective                   Despite these advances, most studies on tiny object de-
+for RGBT TOD. Specifically, we propose a Dy-                     tection remain limited to the visible-light modality and
+namic Frequency-Band Decoupled Cross-Modal Attention             therefore struggle to handle real-world challenges such as
+(DFCA) mechanism to explore fine-grained complementary           illumination variation and occlusion. This limitation makes
+frequency representations across modalities. Specifically,       multimodal exploration essential for improving the robust-
+DFCA decomposes the multimodal features into multiple            ness of tiny object detection.
+dynamic sub-bands through radial frequency decomposi-
+                                                                 2.2. Visible-Infrared Object Detection
+tion, and performs cross-modal interactions and modulation
+within each band. The band-wise features are then fused          With the growing exploration of cross-modal feature com-
+to produce cross-modal representations enriched with di-         plementarity, feature-level fusion has become the dominant
+verse and informative frequency cues. To further suppress        paradigm for RGBT object detection. Early efforts mainly
+noise interference and enhance foreground responses, we          focused on dynamically weighted fusion based on cues such
+introduce a Selective Smoothing Enhancement (SSE) mod-           as illumination [36, 59, 63]. With the rise of attention mech-
+ule. SSE predicts a binary mask and make use of channel          anisms, various attention-based interaction modules have
+compression to smooth irrelevant background noise. More-         been introduced into cross-modal settings [12, 31, 41, 48].
+over, to improve multi-scale feature fusion, the background-     In parallel, a number of methods have attempted to ex-
+smoothed features are used to generate a set of sampling         tract or fuse complementary information in the frequency
+kernels that guide the upsampling of low-resolution fea-         domain [19, 60, 64]. More recently, preliminary progress
+tures, enhancing foreground-relevant signals within fused        has also been made in multimodal detection for tiny-object
+representations. DFCA and SSE operate in a synergistic           scenarios. QFDet [56] designs a label assignment strategy
+manner, jointly accomplishing a cross-modal feature en-          for tiny objects by combining prior and posterior knowl-
+richment–refinement process. Extensive experiments con-          edge. COXNet [27] captures tiny targets in complex en-
+ducted on two RGBT TOD benchmarks and one general-               vironments through multi-scale cross-modal alignment and
+
+
+
+                                                            11314
+                                                                                              RGB branch of DyFCLT
+                                                                                          IR branch of DyFCLT
+                                              𝐥+𝟏
+                                             𝐅𝐯𝐢𝐬                                𝐅𝐢𝐫𝐥+𝟏
+                                       𝐥                                         𝐅𝐢𝐫𝐥+𝟏   Self-
+                                                                                                                                  Fusion
+                                                                                                                                                                                                         Output
+                                      𝐅𝐯𝐢𝐬
+
+
+
+
+                                                                                                                                                            Decoder & head
+                     Backbone                                                             Attn
+                                                                                 𝐅𝐢𝐫𝐥+𝟏
+                                   𝐥−𝟏
+                                  𝐅𝐯𝐢𝐬
+                                                                                  𝐥
+                                                                                 𝐅𝐯𝐢𝐬
+   Visible Input
+                                                                                 𝐅𝐢𝐫𝐥     DFCA                   SSE              FusionC        C
+                                                                                 𝐅𝐢𝐫𝐥
+                                             𝐅𝐢𝐫𝐥+𝟏
+                                                                                  𝐥−𝟏
+                                      𝐅𝐢𝐫𝐥                                       𝐅𝐯𝐢𝐬
+                     Backbone
+                                                                                 𝐅𝐢𝐫𝐥−𝟏   DFCA                   SSE              Fusion
+                                 𝐅𝐢𝐫𝐥−𝟏
+                                                                                 𝐅𝐢𝐫𝐥−𝟏
+   Infrared Input
+                                                                                                  (a) Overview of DyFCLT
+                     DWConv
+
+
+
+
+                                                 Band-Wise Frequency Attention
+              Conv
+
+
+
+
+                                FBD
+
+
+
+
+                                                                                                                                       FFT
+
+                                                                                                                          𝐅𝐯𝐥
+
+
+
+
+                                                                                                                                                                                                           Sigmoid
+   𝐅𝐯𝐥
+
+
+
+
+                                                                                                                                                                                         IFFT
+
+
+
+                                                                                                                                                                                                  Conv
+                                                                                                                                                             𝐥
+                                                                                                                                                            𝐅𝐪,𝟎
+                     DWConv
+
+
+
+
+                                                                                                   Norm
+
+                                                                                                          Conv
+              Conv
+
+
+
+
+                                FBD
+
+
+
+
+                                                                                                                        𝑴𝟎          𝑴𝟏           𝑴𝟐
+   𝐅𝐢𝐫𝐥                                                                                                                                                      𝐥
+                                                                                                                                                            𝐅𝐤,𝟎
+                     DWConv
+
+
+
+
+                                                                                                                                                                                         IFFT
+              Conv
+
+
+
+
+                                FBD
+
+
+
+
+                                                                                                                             𝐥             𝐥
+   𝐅𝐢𝐫𝐥                                                                                                                     𝐅𝐯,𝟎       𝐅𝐯,𝟏      𝐥
+                                                                                                                                                𝐅𝐯,𝟐         𝐥
+                                                                                                                                                            𝐅𝐯,𝟎
+          (b) Dynamic Frequency-Band Decoupled Cross-Modal Attention                                                    (c) Freuqency Band Decomposition                     (d) Band-Wise Frequency Attention
+
+
+Figure 2. (a) Overview of DyFCLT. (b) Illustration of DFCA. (c), and (d) provide a detailed illustration of the l-th layer in the IR
+branch of DFCA. It consists of two key components: (c) Freuqency Band Decomposition (FBD) and (d) Band-Wise Frequency Attention.
+Specifically, (c) takes the band decomposition of Fvl as an example, while Fvq and Fvk follow the same process. (d) shows the attention
+interaction in the 0-th frequency band, and the remaining bands follow the same process.
+
+enhancement. IM-CMDet [25] strengthens tiny-object sig-                                                                         at their corresponding levels, followed by concatenation
+nals via differential fusion and feature reconstruction.                                                                        and flattening. Finally, the decoder cope with flattened to-
+   Although frequency-domain techniques have been intro-                                                                        kens and the head outputs detection results. Unless other-
+duced into cross-modal detection, existing studies still lack                                                                   wise specified, all subsequent descriptions take the infrared
+a systematic analysis of the frequency characteristics of tiny                                                                  branch as an example, while the same operations are applied
+objects in RGBT scenes. This work fills this gap and pro-                                                                       to the visible branch.
+poses DyFCLT to perform fine-grained and effective com-
+                                                                                                                                3.1. Dynamic Frequency-Decoupled Cross-Modal
+plementary fusion of tiny-object features across different
+                                                                                                                                     Attention
+frequency bands.
+                                                                                                                                                                       l
+                                                                                                                                Given the l-th layer features Fvis        and Firl ∈ RC×H×W ,
+                                                                                                                                                          l                      l
+3. Method                                                                                                                       the query feature Fq is generated from Fvis        , while the key
+                                                                                                                                and value features Fk and Fv are generated from Firl , each
+                                                                                                                                                            l      l
+The overall architecture of our proposed method is pre-                                                                         through a 1 × 1 point-wise convolution followed by a 3 × 3
+sented in Fig. 2(a). It consists of three main components:                                                                      depthwise convolution, as shown in Fig. 2(b). Then, each
+modality-specific feature extractors, dynamic frequency-                                                                        feature Fql , Fkl , Fvl is adaptively partitioned into distinct fre-
+decoupled cross-modal learning Transformer (DyFCLT)                                                                             quency sub-bands via FBD, as shown in Fig. 2(c):
+with two branches, and a Transformer-based decoder with
+                                                                                                                                                l              l
+deformable attention and a detection head [65]. Given a pair                                                                                   Fm,b = Mb ⊙ F (Fm ),                    m ∈ {q, k, v},                (1)
+of visible and infrared images Ivis and Iir , the modality-
+                                                                                                                                where F denote the FFT operation. The binary mask Mb
+specific feature extractors ϕvis and ϕir extract multi-scale
+                    l                                                                                                           isolates a specific frequency sub-band in a radial manner,
+visible features {Fvis }L
+                        l=1 = ϕvis (Ivis ) and infrared fea-
+         l L                                                                                                                    which is defined as:
+tures {Fir }l=1 = ϕir (Iir ), where L denotes the number of                                                                                          (            √
+layers. Then, DyFCLT fuses the multi-scale features from                                                                                               1, if kb ≤ u2 + v 2 < kb+1 ,
+both modalities to generate enhanced representations, by                                                                               Mb (u, v) =                                     (2)
+                                                                                                                                                       0, otherwise.
+two collaborative components Dynamic Frequency-Band
+Decoupled Cross-Modal Attention (DFCA) and Selective                                                                            Here, (u, v)√are the horizontal and vertical frequency in-
+Smoothing Enhancement (SSE). Subsequently, the multi-                                                                           dices, and u2 + v 2 denotes the radial frequency mag-
+scale features from the two modality branches are fused                                                                         nitude, i.e., the distance of a frequency component from
+
+
+
+                                                                                                                       11315
+the origin in the 2D Fourier domain. {kb }B      b=0 defines the
+frequency-band boundaries, where B is the total number of
+                                                                                                                              𝐥
+bands and [kb , kb+1 ) specifies the range of the b-th band.                                                                 𝐅𝐟𝐠
+By the Nyquist theorem, the normalized frequency range is
+                                                                                                                                   IBS
+[0, 21 ] [6]; thus, k0 and kB are fixed to 0 and 12 , respectively.
+Following the analysis in Fig. 1, we set B = 3 to divide the                        𝐅෨𝐢𝐫𝐥                               𝐥                 𝐥
+                                                                                                                       𝐅𝐛𝐠               𝐅𝐛𝐠𝐬
+spectrum into low-, mid-, and high-frequency bands, cap-
+turing rich and complementary cues for tiny objects.
+    To enable dynamic band division, the inner bound-                                               (a) Irrelevant Background Smoothing
+aries {kb }B−1b=1 are parameterized as cumulative positive in-
+crements, which guarantees a monotonic ordering of the                                                       Conv
+learned bands. These increments are initialized from an                                        𝐥
+                                                                                              𝐅𝐛𝐠𝐬
+octave-based scheme derived from the input band fac-
+tors—for instance, {0, 14 , 21 } when B = 2, and {0, 18 , 14 , 12 }
+when B = 3—thereby preserving the original band parti-
+                                                                                              𝐅෨𝐢𝐫𝐥+𝟏
+tion at initialization while allowing the boundaries to adapt
+during training.                                                                                                                                Fusion
+    After FBD, Band-Wise Frequency Attention is per-                                   (b) Foreground-Relevant Enhancement Fusion
+
+formed to capture complementary frequency information
+specific to that band, as shown in Fig. 2(d). We first obtain             Figure 3. Illustration of SSE. It consists of two key components:
+the cross-modal correlation weights Alb for each frequency                (a) Irrelevant Background Smoothing (IBS) and (b) Foreground-
+band b:                                                                   Relevant Enhancement Fusion (FREF).
+                     Alb = F −1 Fq,b
+                                   l       l
+                                             
+                                      ⊙ Fk,b   ,                (3)
+                                                                          passes through a convolutional layer to predict a binary
+where ⊙ denotes element-wise multiplication in the fre-                   foreground mask M , which is optimized during training via
+quency domain, (·) indicates the complex conjugate, and                   a variant of focal loss [1]. Using this binary mask, we ex-
+F −1 (·) represents the inverse FFT operation.                            tract the foreground and background features as:
+   Then, we modulate cross-modal correlation weights
+through a local convolution and activation, which adjusts                                   Ffgl = M ⊙ F̃irl ,       l
+                                                                                                                    Fbg = (1 − M ) ⊙ F̃irl .             (6)
+the response strength of each frequency band at different
+spatial locations,and then multiply the modulated weights                    To suppress interference from complex backgrounds, we
+     l
+by Fv,b :                                                                 perform feature dimensionality reduction to smooth the
+                                                                          background representation. Specifically, two sequential
+            Rbl = σ Conv3×3 (Alb ) ⊙ F −1 Fv,b
+                                          l
+                                               ),              (4)        convolutional layers with kernel size 3 × 3 are employed
+                                                                          to first compress and then recover the channel dimension,
+where the 3 × 3 convolution modulates the band-specific                   while spatially smoothing the responses:
+responses across spatial positions, and σ(·) denotes the sig-                                          
+                                                                                                             C/r
+                                                                                                                       
+moid activation.
+                                                                                         l
+                                                                                       F̂bg = ConvC3×3  Conv 3×3 (F l
+                                                                                                                   bg )  ,      (7)
+   Last, all bands are aggregated and normalized, followed
+by a linear projection to construct the final feature map with            where the superscript of each convolution denotes its output
+fine-grained cross-modal frequency representations:                       channel dimension, and r is the reduction ratio controlling
+                                                                          the compression strength. This operation effectively sup-
+                                B                                        presses high-frequency background components, yielding
+                    l
+                                 X    
+                  F̃ir = Proj LN   Rbl ,                       (5)        smoother and less distracting representations for subsequent
+                                     b=0                                  target feature extraction.
+                                                                             Finally, the smoothed background feature is element-
+where LN(·) denotes layer normalization and Proj(·) repre-
+                                                                          wise added to the foreground representation to obtain the
+sents a linear projection layer.
+                                                                          noise-suppressed feature:
+3.2. Selective Smoothing Enhancement                                                                        l
+                                                                                                           Fbgs = Ffgl + F̂bg
+                                                                                                                           l
+                                                                                                                              .                          (8)
+As illustrated in Fig. 3, our SSE consists of two com-
+ponents: irrelevant background smoothing (IBS) and                              Foreground-Relevant Enhancement Fusion. To fur-
+foreground-relevant enhancement fusion (FREF).                               ther recover target-related details from high-level features
+   Irrelevant Background Smoothing. As shown in Fig                          while preserving semantic abstraction, we design FREF. As
+3(a), given the output F̃irl of a certain DFCA layer, it first               shown in Fig. 3(b), benefiting from the noise-suppressed
+
+
+
+                                                                     11316
+property of Flbgs , we use it to guide the upsampling of the             To achieve a more balanced fusion between refined se-
+higher-level infrared feature F̃l+1                                   mantic and spatial details, the resulting feature Ŷl+1 is con-
+                                 ir , enabling the network to
+enhance fine-grained target information embedded in coarse            catenated with Flbgs and urther processed by a Fusion block
+semantic representations.                                             for final integration:
+    To achieve this, we first generate spatially adaptive dy-                                                     
+namic filters based on the foreground-enhanced feature                                Flout = Fusion Ŷl+1 , Flbgs .             (15)
+Flbgs . Specifically, a convolutional layer is employed to
+predict a location-dependent filter kernel for each spatial               Here, the Fusion block adopts a CSPBlock [61]. Finally,
+position, capturing fine-grained spatial cues from the sup-            the Flout features from the RGB and IR branches are further
+pressed background representation. Formally, this process              fused by another CSPBlock, as shown in Fig. 2(a).
+is expressed as:
+                                                                       4. Experiment
+                      Vl = Conv3×3 (Flbgs ),                (9)
+                                                                       4.1. Datasets and Evaluation metrics
+                                 l,(p,q)                              RGBT-Tiny. This dataset [47] is a large-scale benchmark
+              l,(p,q)
+                          exp V(x,y)
+             W(x,y) = P               l,(p,q) 
+                                                ,          (10)        designed for tiny object detection in visible–infrared im-
+                              exp V(x,y)                               ages, primarily captured from UAV-based remote sensing.
+                      (p,q)∈Ω
+                                                                       It consists of 93k frames and 1.2M manually annotated ob-
+where each spatial position (x, y) is associated with a local          jects across seven categories and eight diverse scene types.
+kernel of size K × K, and Ω defines its neighborhood re-               Over 81% of the objects are smaller than 16 × 16 pixels.
+gion. These position-specific dynamic filters adaptively em-               RGBTDronePerson. This dataset [57] is a large-scale
+phasize the foreground-relevant high-frequency structures              benchmark for visible–infrared tiny person detection. It
+while suppressing low-frequency background responses.                  contains 6,125 RGBT image pairs and 70,880 annotated
+                                                  2
+   Next, the learned dynamic filters Wl ∈ RK ×2H×2W                    instances across four types of person categories. Notably,
+are spatially reorganized through a pixel-unshuffle opera-             98% of the objects are smaller than 20 pixels, making the
+tion to align with the upsampling feature resolution:                  dataset highly challenging.
+                                                                           FLIR. This dataset [49] offers a highly challenging vis-
+                                  2
+     W̃l = PixelUnshuffle Wl ∈ R4K ×H×W .                              ible–infrared object detection benchmark. In this study, we
+                            
+                                                           (11)
+                                                                       utilized the “aligned” version, which contains 4,129 pairs
+These filters are then applied to guide the upsampling of              for training and 1,013 pairs for testing. It is worth noting
+F̃l+1
+  ir , effectively restoring detailed foreground signals. The
+                                                                       that, unlike the previous two datasets, FLIR is not specifi-
+reorganized filters are divided into four groups, each act-            cally designed for tiny objects and contains a large number
+ing as a spatially variant kernel to modulate the correspond-          of instances at regular scales.
+ing region of F̃l+1
+                 ir   ∈ RC×H×W . Denoting each group as                    Evaluation metrics. We adopt AP, AR, and their vari-
+            2
+W̃gl ∈ RK ×H×W , where g ∈ {1, 2, 3, 4}, the modulation                ants following the standard COCO protocols. Note that tiny
+process is formulated as:                                              object definitions differ between RGBT-Tiny and RGBT-
+                                                                       DronePerson. In addition, RGBT-Tiny employs a COCO
+                                                                       evaluation metric specifically designed for tiny objects. In
+             X
+    Ygl =             W̃gl (x, y) · F̃l+1
+                                      ir (x + p, y + q).   (12)
+            (p,q)∈Ω
+                                                                       our experiments, we adhere to each dataset’s respective def-
+                                                                       initions and evaluation settings to ensure fairness.
+   Each spatial position is thus convolved with four adap-
+                                                                       4.2. Implementation Details
+tive kernels, producing a modulated representation with
+quadrupled channels. We then apply a pixel-shuffle oper-               We employ pretrained ResNet50 [11] as the backbone for
+ation to restore the spatial resolution and obtain the guided          both the visible and infrared branches, and the number of
+upsampling result:                                                     feature layers L is set to 3. The number of B = 3 in DFCA
+                                                                       is set to 3. As for data augmentation, we employ only ba-
+      l+1
+             = PixelShuffle Y1l , Y2l , Y3l , Y4l .
+                                                 
+     Yguided                                               (13)        sic ones such as random resize, crop, and flip. For IBS in
+                                                                       SSE, the mask supervision is optimized using focal tver-
+   Finally, the guided upsampling output is fused with the             sky loss [1], which is better suited than the standard focal
+standard bilinear-upsampled feature through element-wise               loss for highly imbalanced foreground-background segmen-
+addition:                                                              tation. The training epochs are set to 20 for RGBT-Tiny and
+                                                                     RGBTDronePerson, and 50 for FLIR. The learning rate is
+                      l+1
+           Ŷl+1 = Yguided + Upsample F̃l+1
+                                          ir   .      (14)             set to 0.00025 for all three datasets. We add a modality
+
+
+
+                                                                  11317
+           Method                  Modality      Params       AP       AP 50     APts      APets    APss     APms      APls      AR
+                                                            Universal Object Detectors
+           Faster RCNN [30]           IR          41.2M       29.5     43.0       21.9     35.2     45.0      41.4     80.0      36.4
+           CO-DETR [66]               IR          65.2M       35.0     49.9       25.0     40.1     51.2      48.8     100.0     49.1
+           DINO [51]                  IR          97.7M       34.0     50.6       25.7     37.0     53.0      44.4     80.0      48.4
+           DINO                      RGB          97.7M       34.7     52.4       27.6     38.6     52.9      45.1     90.0      50.4
+           DDQ [54]                   IR          48.3M       34.3     49.4       26.4     37.2     55.0      46.0     90.0      50.0
+           DiffusionDet [7]           IR         151.0M       36.9     53.4       29.5     39.9     57.5      46.7     90.0      50.8
+           DiffusionDet              RGB         151.0M       38.4     55.7       34.1     36.4     53.5      30.6     85.0      50.4
+           RT-DETR [61]               IR          42.0M       42.7     60.8       33.7     45.2     59.2      57.1     80.0      57.0
+                                                         Unimodal Small Object Detectors
+           QueryDet [46]             RGB          39.4M       23.6     36.0       19.2     25.1     37.0      20.3      30.0     37.6
+           QueryDet                   IR          39.4M       25.1     39.4       19.3     31.0     40.1      21.3      40.0     39.9
+           RFLA [43]                 RGB          36.3M       32.1     47.1       26.8     30.4     45.3      29.4      50.0     43.0
+           RFLA                       IR          36.3M       33.8     50.2       27.5     37.6     49.8      38.8      60.0     45.4
+           C3Det [17]                RGB          55.3M       9.4      13.8        0.5      8.1     42.1      25.6      81.7     10.9
+           C3Det                      IR          55.3M       11.4     16.8        0.3      8.0     48.7      45.2      80.0     13.3
+           HS-FPN [32]                IR          71.7M       35.8     50.5       40.6     27.0     58.0      44.8      85.0     45.0
+           DQ-DETR [13]               IR          58.7M       43.6     60.2       33.0     47.0     62.3      58.0      90.0     60.8
+                                                           Multimodal Object Detectors
+           UA-CMDet [36]            RGBT         139.2M       20.0     35.0       10.8     24.1     35.0      38.5      9.7      28.5
+           ProbEn-early [8]         RGBT          60.3M       17.0     26.8       12.3     20.2     32.3      22.2     76.7      22.2
+           ProbEn-middle            RGBT         120.6M       29.3     41.0       21.8     35.3     44.1      37.5     70.0      34.0
+           QFDet [56]               RGBT          60.3M       33.2     50.3       24.3     37.5     50.9      40.6     100.0     43.0
+           CALNet [12]              RGBT         153.6M       29.4     50.7       25.0     35.7     44.7      24.9      5.2      38.2
+           CMA-Det [33]             RGBT         33.4M        18.4     36.0       17.1     21.4     23.1      24.6     70.0      31.0
+           MDPMFN [23]              RGBT            –         37.8      -         25.6     40.8     56.4      41.1     80.0       -
+           RSDet [60]               RGBT         386.0M       33.6     48.6       25.0     36.4     51.1      43.0     100.0     43.1
+           M2 D-LIF [59]            RGBT          36.6M       38.7     54.9       29.0     45.6     56.9      50.4     90.0      51.7
+           DyFCLT (Ours)            RGBT          85.5M       48.2     69.1       41.3     52.8     61.5      49.1     100.0     63.2
+
+Table 1. Comparisons with state-of-the-art methods on RGBT-Tiny. APts , APets , APss , APms , and APls evaluate detection performance
+on objects with areas in the following ranges, respectively: tiny targets ([12 , 82 ) pixels), extremely small targets ([82 , 162 ) pixels), small
+targets ([162 , 322 ) pixels), medium targets ([322 , 962 ) pixels), and large targets (≥ 962 pixels).
+
+
+branch to RT-DETR to construct our baseline, so all other                      Method                   Modality     AP 50     APt50     APs50
+settings, such as the number of decoder layers and the num-
+                                                                               Faster R-CNN [30] *         RGBT       28.4      28.5     34.4
+ber of queries, are kept the same as in [61]. All experiments                  Cascade R-CNN* [3]          RGBT       31.6      32.0     33.6
+are conducted on an NVIDIA A100 GPU.                                           DetectoRS* [28]             RGBT       32.2      32.7     33.7
+                                                                               RetinaNet* [22]             RGBT       22.9      23.3     15.8
+4.3. Comparisons with Stat-of-the-arts                                         FCOS* [38]                  RGBT       29.9      30.7     26.0
+                                                                               ATSS* [53]                  RGBT       36.2      37.4     24.6
+Comparison Results on RGBT-Tiny. As shown in Ta-                               GFL* [20]                   RGBT       38.8      40.0     26.8
+ble 1, our method achieves the best overall performance                        QueryDet*                   RGBT       37.0      37.8     25.5
+on RGBT-Tiny. Compared with the best unimodal detector,                        CFT [29]                    RGBT       22.7      22.8      8.1
+                                                                               HRfuser [2]                 RGBT       22.2      22.5     23.9
+DQ-DETR, our method improves AP by 4.6% and AR by                              TINet [58]                  RGBT       28.3      28.6     35.0
+2.4%. Compared with the best multimodal baseline, M2 D-                        ICAFusion [31]              RGBT       41.7      43.0     23.3
+LIF, our method further improves AP by 9.5%, AP50 by                           C2Former [48]               RGBT       41.8      43.4     28.0
+                                                                               QFDet [56]                  RGBT       42.1      44.0     26.8
+14.2%, and AR by 11.5%. In addition, our method achieves                       RSDet [60]                  RGBT       43.1      44.6     21.7
+the best results on tiny, extremely small, and large objects.                  IM-CMDET [25]               RGBT       43.6      45.2     28.6
+It also delivers highly competitive performance on small                       COXNet [27]                 RGBT       45.5      47.1     29.7
+and medium objects, with 61.5% APss and 49.1% APsm .                           DyFCLT (Ours)               RGBT       61.0      62.4     35.1
+These results consistently demonstrate the effectiveness and
+robustness of the proposed method across different object                   Table 2. Comparisons with state-of-the-arts on the dataset RG-
+scales.                                                                     BTDronePerson. * indicates that the method is modified to the
+                                                                            version of the RGBT baseline detector (Dual-Stream).
+   Comparison Results on RGBTDronePerson. As
+shown in Table 2, our method achieves the best overall per-
+formance on RGBTDronePerson. DyFCLT reaches 61.0%                           AP50 , 62.4% AP50              50
+                                                                                           t , and 35.1% APs , surpassing all previ-
+
+
+
+
+                                                                     11318
+                                                                                         SSE                     Performance
+      Method               Modality      AP 50      AP              DFCA
+                                                                                   IBS          FREF        AP     AP 50       APts
+      Yolov5 [14]            RGB          67.8     31.8               ✗             ✗            ✗        45.4     65.9         36.6
+      Yolov5                  IR          80.1     42.4               ✓             ✗            ✗        46.8     67.5         37.8
+      Yolov8                 RGB          66.3     28.2               ✗             ✓            ✓        46.9     67.4         39.7
+      Yolov8                  IR          72.9     38.3               ✓             ✓            ✗        47.4     68.2         40.1
+                                                                      ✓             ✓            ✓        48.2     69.1         41.3
+      DINO [51]              RGB          70.9      -
+      DINO                    IR          80.6     44.8
+                                                                 Table 4. Ablation study on DFCA and SSE. ✓: enabled, ✗: dis-
+      CFT [29]               RGBT         78.7     40.2
+      ICAFusion [31]         RGBT         79.2     41.4          abled.
+      GAFF [50]              RGBT         72.9     36.6                Decoupled Components            AP        AP 50         APts
+      CSSA [5]               RGBT         79.2     41.3                          None                  46.1      66.5          37.5
+      CrossFormer [55]       RGBT         79.3     42.1                       Query only               45.2      66.0          37.3
+      LRAF-Net [10]          RGBT         80.5     42.8                      Query & Key               47.1      67.8          39.3
+      DDFM [62]              RGBT         81.2      -                         Key & Value              46.8      67.8          38.1
+      ESSFN [44]             RGBT         80.8     42.3                   Query & Key & Value          48.2      69.1          41.3
+      RSDet [60]             RGBT         81.1     41.4
+      FD2 Net [19]           RGBT         82.9      -               Table 5. Effects of decoupled components on RGBT-Tiny.
+      DyFCLT (Ours)          RGBT         84.1     45.0
+                                                                 mance achieved by the joint use of SSE and DFCA further
+     Table 3. Comparisons with state-of-the-arts on FLIR.        verifies that SSE effectively suppresses noise within the rich
+                                                                 frequency information extracted by DFCA, thereby high-
+ous methods across all reported metrics. Notably, the strong     lighting tiny object features. Removing FREF on top of this
+improvement on tiny objects further verifies the effective-      collaboration results in drops of 0.8% in AP, 0.9% in AP50 ,
+ness of our frequency-aware cross-modal learning frame-          and 1.2% in APst , demonstrating that both IBS and FREF
+work for RGBT tiny object detection.                             contribute positively to the overall detection performance.
+    Comparison Results on FLIR. As shown in Table 3,                 Effect of FBD. We first investigate effects of FBD. As
+our method achieves the best performance among all com-          shown in Table 5, only decomposing the query harms per-
+pared methods on FLIR. DyFCLT attains 84.1% AP50 and             formance, especially for tiny objects, leading to a drop. This
+45.0% AP, consistently outperforming both single-modality        is mainly because the isolated decomposition of Q intro-
+detectors and existing RGBT fusion methods. In particu-          duces frequency leakage, making it difficult for the model
+lar, compared with the strongest unimodal baseline, DINO         to learn stable frequency correspondences. In contrast, the
+(IR), our method still achieves clear gains, while also sur-     performance gains from decomposing both Q and K, as well
+passing previous multimodal state-of-the-art methods such        as the best results achieved when decomposing all Q, K,
+as FD2 Net, DDFM, and LRAF-Net. These results further            and V, indicate that clean within-band interactions effec-
+demonstrate the strong generalization capability of DyF-         tively capture richer cross-modal frequency complementar-
+CLT across different scales and scenes.                          ities. These observations validate the rationality of our pro-
+                                                                 posed frequency-band interaction mechanism.
+4.4. Ablation Study                                                  Effect of Frequency-band Partition Strategy. We fur-
+                                                                 ther study the impact of the number of frequency bands and
+We conduct ablation experiments on RGBT-Tiny dataset to          band types in Table 6. Compared with the non-partitioned
+investigate the effectiveness of each component proposed in      setting (B = 1), introducing learnable band partition gener-
+our framework. We progressively introduce each module to         ally improves performance, and the best results are achieved
+validate its effectiveness.                                      at B = 3, yielding 48.2% AP, 69.1% AP50 , and 41.3% APst .
+    Effect of DFCA. As shown in Table 4, directly apply-         This corresponds to gains of 2.1, 2.6, and 3.8 points, respec-
+ing DFCA to the baseline leads to improvements of 1.4% in        tively, showing that an appropriate band decomposition is
+AP, 1.6% in AP50 , and 1.2% in APst . Building upon SSE,         particularly beneficial for tiny objects. However, the perfor-
+the introduction of DFCA brings further substantial gains        mance drops when the number of bands is further increased
+and achieves the best overall performance. This demon-           to B = 4, indicating that finer partition is not always more
+strates that DFCA can fully exploit the rich cross-modal in-     effective. In addition, using static bands at B = 3 leads
+formation within different frequency bands, thereby bene-        to clear performance degradation compared with learnable
+fiting tiny object detection.                                    bands, which validates the advantage of our adaptive band
+    Effect of SSE. As shown in Table 4, introducing SSE          partition design in matching the intrinsic cross-modal fre-
+alone into the baseline yields a consistent improvement of       quency characteristics of targets.
+1.5% in both AP and AP50 . Benefiting from SSE’s capa-
+bility of smoothing the prominent background, the perfor-        4.5. Visualization
+mance on tiny objects is significantly enhanced, achieving       Results Comparison With other methods. The qualita-
+a notable 3.1% gain in APst . Moreover, the superior perfor-     tive results are depicted in Fig. 4. In the red dashed box,
+
+
+
+                                                            11319
+            Ground Truth               Ours                    CLANet                   QFDet                    RSDet
+
+
+
+
+Figure 4. Comparison results with other RGBT methods on RGBT-Tiny. The categories within the blue, green, and yellow detection boxes
+in the figure correspond to car, cyclist, and pedestrian, respectively.
+
+  Number of Bands     Band Type     AP        AP 50     APst
+        1                 -         46.1      66.5     37.5
+        2             learnable     46.4      66.7     37.8
+        3             learnable     48.2      69.1     41.3
+        3               static      46.5      67.3     37.4
+        4             learnable     47.0      67.4     39.0
+
+
+Table 6. Effects of the number of frequency bands B and band
+types on RGBT-Tiny.                                                                   RGB Input                IR Input
+
+
+there are multiple cars affected by severe low-light con-
+ditions and tree occlusions, as well as several extremely
+tiny pedestrians and cyclists. As shown by the visualiza-
+tion results, our method is able to detect most vehicles even
+under such challenging scenarios where background noise
+is strong and target signals are extremely weak, while the                         Heatmap (Baseline)       Heatmap (Ours)
+compared methods miss a large number of them. Moreover,
+our approach can still accurately detect and distinguish very                    Figure 5. Visualization of feature heatmap.
+small and visually similar categories such as pedestrians
+and cyclists. These observations demonstrate the effective-             beyond the commonly assumed low-/high-frequency di-
+ness of our proposed frequency-band method in handling                  chotomy, which highlights the importance of finer-grained
+challenging tiny object detection scenarios.                            cross-modal frequency modeling. To this end, we propose
+    Visual analysis of effectiveness. To validate the effec-            DyFCLT, which enables dynamic band-wise cross-modal
+tiveness of our proposed method at the feature level, we vi-            interaction and robust feature refinement under complex
+sualize the heatmaps of the fused features after processing             background noise. By better exploiting complementary fre-
+the third-layer backbone features with our method and the               quency cues from the two modalities, our method improves
+baseline, as shown in Fig. 5. From the figure, it can be                tiny object representation and detection performance.
+observed that background noise is effectively suppressed,               We hope this study offers a useful direction for future
+while the heat responses of densely packed tiny objects are             multimodal tiny object detection research.
+clearer and cleaner. This demonstrates that our method
+can effectively capture rich information among tiny objects
+while simultaneously reducing background noise.                         Acknowledgements
+                                                                        This work was supported by the National Natural
+5. Conclusion
+                                                                        Science Foundation of China (62302532,62402055),
+In this paper, we study RGBT tiny object detection from                 Guangdong Basic and Applied Basic Research Foun-
+a new frequency-domain perspective. We show that tiny                   dation (2025A1515011224), and Shenzhen Science
+objects in both RGB and infrared modalities contain                     and Technology Program (KQTD20221101093559018,
+informative frequency components across different bands,                SYSRD20250529113401002).
+
+
+
+                                                                11320
+References                                                                  Yoo. Interactive multi-class tiny-object detection. In CVPR,
+                                                                            pages 14136–14145, 2022. 6
+ [1] Nabila Abraham and Naimul Mefraz Khan. A novel focal
+                                                                       [18] Jianan Li, Xiaodan Liang, Yunchao Wei, Tingfa Xu, Jiashi
+     tversky loss function with improved attention u-net for lesion
+                                                                            Feng, and Shuicheng Yan. Perceptual generative adversarial
+     segmentation. In ISBI, pages 683–687, 2019. 4, 5
+                                                                            networks for small object detection. In CVPR, pages 1222–
+ [2] Tim Broedermann, Christos Sakaridis, Dengxin Dai, and
+                                                                            1230, 2017. 1
+     Luc Van Gool. Hrfuser: A multi-resolution sensor fusion
+                                                                       [19] Ke Li, Di Wang, Zhangyuan Hu, Shaofeng Li, Weiping Ni,
+     architecture for 2d object detection. In ITSC, pages 4159–
+                                                                            Lin Zhao, and Quan Wang. Fd2-net: Frequency-driven fea-
+     4166, 2023. 6
+                                                                            ture decomposition network for infrared-visible object detec-
+ [3] Zhaowei Cai and Nuno Vasconcelos. Cascade r-cnn: Delving
+                                                                            tion. In AAAI, pages 4797–4805, 2025. 1, 2, 7
+     into high quality object detection. In CVPR, pages 6154–
+                                                                       [20] Xiang Li, Wenhai Wang, Lijun Wu, Shuo Chen, Xiaolin Hu,
+     6162, 2018. 6
+                                                                            Jun Li, Jinhui Tang, and Jian Yang. Generalized focal loss:
+ [4] Bing Cao, Haiyu Yao, Pengfei Zhu, and Qinghua Hu. Visible
+                                                                            Learning qualified and distributed bounding boxes for dense
+     and clear: Finding tiny objects in difference map. In Euro-
+                                                                            object detection. Advances in neural information processing
+     pean Conference on Computer Vision, pages 1–18, 2024. 2
+                                                                            systems, 33:21002–21012, 2020. 6
+ [5] Yue Cao, Junchi Bin, Jozsef Hamari, Erik Blasch, and Zheng
+                                                                       [21] Tsung-Yi Lin, Piotr Dollár, Ross Girshick, Kaiming He,
+     Liu. Multimodal object detection by channel switching and
+                                                                            Bharath Hariharan, and Serge Belongie. Feature pyramid
+     spatial attention. In CVPRW, pages 403–411, 2023. 7
+                                                                            networks for object detection. In CVPR, pages 2117–2125,
+ [6] Linwei Chen, Lin Gu, Dezhi Zheng, and Ying Fu.
+                                                                            2017. 1, 2
+     Frequency-adaptive dilated convolution for semantic seg-
+     mentation. In CVPR, pages 3414–3425, 2024. 4                      [22] Tsung-Yi Lin, Priya Goyal, Ross Girshick, Kaiming He, and
+                                                                            Piotr Dollár. Focal loss for dense object detection. In ICCV,
+ [7] Shoufa Chen, Peize Sun, Yibing Song, and Ping Luo. Dif-
+                                                                            pages 2980–2988, 2017. 6
+     fusiondet: Diffusion model for object detection. In ICCV,
+     pages 19773–19786, 2023. 6                                        [23] Kewei Liu, Dongliang Peng, and Tao Li. Multimodal remote
+ [8] Yi-Ting Chen, Jinghao Shi, Zelin Ye, Christoph Mertz, Deva             sensing object detection based on prior-enhanced mixture-
+     Ramanan, and Shu Kong. Multimodal object detection via                 of-experts fusion network. IEEE Transactions on Geo-
+     probabilistic ensembling. In ECCV, pages 139–158, 2022. 6              science and Remote Sensing, 63:1–14, 2025. 6
+ [9] Gong Cheng, Xiang Yuan, Xiwen Yao, Kebing Yan, Qinghua            [24] Shu Liu, Lu Qi, Haifang Qin, Jianping Shi, and Jiaya Jia.
+     Zeng, Xingxing Xie, and Junwei Han. Towards large-scale                Path aggregation network for instance segmentation. In
+     small object detection: Survey and benchmarks. IEEE Trans-             CVPR, pages 8759–8768, 2018. 2
+     actions on Pattern Analysis and Machine Intelligence, 45:         [25] Minchao Luo, Rui Zhao, Shenfu Zhang, Liang Chen, Feng
+     13467–13488, 2023. 1                                                   Shao, and Xiangchao Meng. Im-cmdet: An intramodal en-
+[10] Haolong Fu, Shixun Wang, Puhong Duan, Changyan Xiao,                   hancement and cross-modal fusion network for small object
+     Renwei Dian, Shutao Li, and Zhiyong Li. Lraf-net: Long-                detection in uav aerial visible-infrared imagery. IEEE Trans-
+     range attention fusion network for visible–infrared object de-         actions on Geoscience and Remote Sensing, 63:1–16, 2025.
+     tection. IEEE Transactions on Neural Networks and Learn-               3, 6
+     ing Systems, 35:13232–13245, 2024. 7                              [26] Junhyug Noh, Wonho Bae, Wonhee Lee, Jinhwan Seo, and
+[11] Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.                 Gunhee Kim. Better to follow, follow to be better: Towards
+     Deep residual learning for image recognition. In CVPR,                 precise supervision of feature super-resolution for small ob-
+     pages 770–778, 2016. 5                                                 ject detection. In ICCV, pages 9724–9733, 2019. 1
+[12] Xiao He, Chang Tang, Xin Zou, and Wei Zhang. Multispec-           [27] Peiran Peng, Tingfa Xu, Liqiang Song, Mengqi Zhu,
+     tral object detection via cross-modal conflict-aware learning.         Yuqiang Fang, and Jianan Li. Coxnet: Cross-layer fusion
+     In ACM MM, pages 1465–1474, 2023. 2, 6                                 with adaptive alignment and scale integration for rgbt tiny
+[13] Yi-Xin Huang, Hou-I Liu, Hong-Han Shuai, and Wen-Huang                 object detection. IEEE Transactions on Circuits and Systems
+     Cheng. Dq-detr: Detr with dynamic query for tiny object                for Video Technology, 36:596–608, 2026. 2, 6
+     detection. In ECCV, pages 290–305, 2024. 6                        [28] Siyuan Qiao, Liang-Chieh Chen, and Alan Yuille. Detectors:
+[14] Glenn Jocher, Alex Stoken, Jirka Borovec, Liu Changyu,                 Detecting objects with recursive feature pyramid and switch-
+     Adam Hogan, Laurentiu Diaconu, Jake Poznanski, Lijun Yu,               able atrous convolution. In CVPR, pages 10213–10224,
+     Prashant Rai, Russ Ferriday, et al. ultralytics/yolov5: v3. 0.         2021. 6
+     Zenodo, 2020. 7                                                   [29] Fang Qingyun, Han Dapeng, and Wang Zhaokui. Cross-
+[15] Mate Kisantal, Zbigniew Wojna, Jakub Murawski, Jacek                   modality fusion transformer for multispectral object detec-
+     Naruniec, and Kyunghyun Cho. Augmentation for small ob-                tion. arXiv preprint arXiv:2111.00273, 2021. 6, 7
+     ject detection. arXiv preprint arXiv:1902.07296, 2019. 2          [30] Shaoqing Ren, Kaiming He, Ross Girshick, and Jian Sun.
+[16] Mate Kisantal, Zbigniew Wojna, Jakub Murawski, Jacek                   Faster r-cnn: Towards real-time object detection with region
+     Naruniec, and Kyunghyun Cho. Augmentation for small ob-                proposal networks. IEEE Transactions on Pattern Analysis
+     ject detection. arXiv preprint arXiv:1902.07296, 2019. 2               and Machine Intelligence, 39:1137–1149, 2016. 6
+[17] Chunggi Lee, Seonwook Park, Heon Song, Jeongun Ryu,               [31] Jifeng Shen, Yifei Chen, Yue Liu, Xin Zuo, Heng Fan, and
+     Sanghoon Kim, Haejoon Kim, Sérgio Pereira, and Donggeun               Wankou Yang. Icafusion: Iterative cross-attention guided
+
+
+
+
+                                                                  11321
+     feature fusion for multispectral object detection. Pattern        [46] Chenhongyi Yang, Zehao Huang, and Naiyan Wang. Query-
+     Recognition, 145:109913, 2024. 2, 6, 7                                 det: Cascaded sparse query for accelerating high-resolution
+[32] Zican Shi, Jing Hu, Jie Ren, Hengkang Ye, Xuyang Yuan,                 small object detection. In CVPR, pages 13668–13677, 2022.
+     Yan Ouyang, Jia He, Bo Ji, and Junyu Guo. HS-FPN: high                 6
+     frequency and spatial perception FPN for tiny object detec-       [47] Xinyi Ying, Chao Xiao, Wei An, Ruojing Li, Xu He, Boyang
+     tion. In AAAI, pages 6896–6904, 2025. 1, 2, 6                          Li, Xu Cao, Zhaoxu Li, Yingqian Wang, Mingyuan Hu, et al.
+[33] Kechen Song, Xiaotong Xue, Hongwei Wen, Yingying Ji,                   Visible-thermal tiny object detection: A benchmark dataset
+     Yunhui Yan, and Qinggang Meng. Misaligned visible-                     and baselines. IEEE Transactions on Pattern Analysis and
+     thermal object detection: A drone-based benchmark and                  Machine Intelligence, 2025. 1, 2, 5
+     baseline. IEEE Transactions on Intelligent Vehicles, 9:7449–      [48] Maoxun Yuan and Xingxing Wei. C2 former: Calibrated
+     7460, 2024. 6                                                          and complementary transformer for rgb-infrared object de-
+[34] Ajay Subramanian, Elena Sizikova, Najib J. Majaj, and De-              tection. IEEE Transactions on Geoscience and Remote Sens-
+     nis G. Pelli. Spatial-frequency channels, shape bias, and ad-          ing, 62:1–12, 2024. 2, 6
+     versarial robustness. In NeurIPS, pages 4137–4149, 2023.          [49] Heng Zhang, Élisa Fromont, Sébastien Lefèvre, and Bruno
+     2                                                                      Avignon. Multispectral fusion for object detection with
+[35] Huixin Sun, Runqi Wang, Yanjing Li, Linlin Yang, Shaohui               cyclic fuse-and-refine blocks. In ICIP, pages 276–280, 2020.
+     Lin, Xianbin Cao, and Baochang Zhang. Set: Spectral en-                5
+     hancement for tiny object detection. In CVPR, pages 4713–         [50] Heng Zhang, Elisa Fromont, Sébastien Lefèvre, and Bruno
+     4723, 2025. 1, 2                                                       Avignon. Guided attentive feature fusion for multispectral
+[36] Yiming Sun, Bing Cao, Pengfei Zhu, and Qinghua Hu.                     pedestrian detection. In WACV, pages 72–80, 2021. 7
+     Drone-based rgb-infrared cross-modality vehicle detection         [51] Hao Zhang, Feng Li, Shilong Liu, Lei Zhang, Hang Su, Jun
+     via uncertainty-aware learning. IEEE Transactions on Cir-              Zhu, Lionel M. Ni, and Heung-Yeung Shum. DINO: DETR
+     cuits and Systems for Video Technology, 32(10):6700–6713,              with improved denoising anchor boxes for end-to-end object
+     2022. 2, 6                                                             detection. In ICLR, 2023. 6, 7
+[37] Mingxing Tan, Ruoming Pang, and Quoc V Le. Efficient-             [52] Lu Zhang, Xiangyu Zhu, Xiangyu Chen, Xu Yang, Zhen Lei,
+     det: Scalable and efficient object detection. In CVPR, pages           and Zhiyong Liu. Weakly aligned cross-modal learning for
+     10781–10790, 2020. 2                                                   multispectral pedestrian detection. In ICCV, pages 5126–
+[38] Zhi Tian, Chunhua Shen, Hao Chen, and Tong He. Fcos:                   5136, 2019. 1
+     Fully convolutional one-stage object detection. In ICCV,          [53] Shifeng Zhang, Cheng Chi, Yongqiang Yao, Zhen Lei, and
+     pages 9627–9636, 2019. 6                                               Stan Z Li. Bridging the gap between anchor-based and
+[39] Jinwang Wang, Chang Xu, Wen Yang, and Lei Yu. A normal-                anchor-free detection via adaptive training sample selection.
+     ized gaussian wasserstein distance for tiny object detection.          In CVPR, pages 9759–9768, 2020. 6
+     arXiv preprint arXiv:2110.13389, 2021. 2                          [54] Shilong Zhang, Xinjiang Wang, Jiaqi Wang, Jiangmiao
+[40] Yao Xiao, Tingfa Xu, Yu Xin, and Jianan Li. FBRT-YOLO:                 Pang, Chengqi Lyu, Wenwei Zhang, Ping Luo, and Kai
+     faster and better for real-time aerial image detection. In             Chen. Dense distinct query for end-to-end object detection.
+     AAAI, pages 8673–8681, 2025. 1                                         In CVPR, pages 7329–7338, 2023. 6
+[41] Yinghui Xing, Shuo Yang, Song Wang, Shizhou Zhang,                [55] Yunhao Zhang and Junchi Yan. Crossformer: Transformer
+     Guoqiang Liang, Xiuwei Zhang, and Yanning Zhang. MS-                   utilizing cross-dimension dependency for multivariate time
+     DETR: multispectral pedestrian detection transformer with              series forecasting. In ICLR, 2023. 7
+     loosely coupled fusion and modality-balanced optimization.        [56] Yan Zhang, Chang Xu, Wen Yang, Guangjun He, Huai Yu,
+     IEEE Transactions on Intelligent Transportation Systems, 25            Lei Yu, and Gui-Song Xia. Drone-based rgbt tiny person
+     (12):20628–20642, 2024. 2                                              detection. ISPRS Journal of Photogrammetry and Remote
+[42] Chang Xu, Jinwang Wang, Wen Yang, and Lei Yu. Dot dis-                 Sensing, 204:61–76, 2023. 2, 6
+     tance for tiny object detection in aerial images. In CVPR,        [57] Yan Zhang, Chang Xu, Wen Yang, Guangjun He, Huai Yu,
+     pages 1192–1201, 2021. 2                                               Lei Yu, and Gui-Song Xia. Drone-based rgbt tiny person
+[43] Chang Xu, Jinwang Wang, Wen Yang, Huai Yu, Lei Yu, and                 detection. ISPRS Journal of Photogrammetry and Remote
+     Gui-Song Xia. Rfla: Gaussian receptive field based label               Sensing, 204:61–76, 2023. 5
+     assignment for tiny object detection. In ECCV, pages 526–         [58] Yan Zhang, Huai Yu, Yujie He, Xinya Wang, and Wen
+     543, 2022. 2, 6                                                        Yang. Illumination-guided rgbt object detection with inter-
+[44] Fengxiang Xu, Tingfa Xu, Lang Hong, Peiran Peng, Jiaxin                and intra-modality fusion. IEEE Transactions on Instrumen-
+     Guo, and Jianan Li. Enhanced spectral–spatial fusion net-              tation and Measurement, 72:1–13, 2023. 6
+     work for multispectral object detection in ground-aerial im-      [59] Tianyi Zhao, Boyang Liu, Yanglei Gao, Yiming Sun,
+     ages. IEEE Geoscience and Remote Sensing Letters, 21:1–5,              Maoxun Yuan, and Xingxing Wei. Rethinking multi-modal
+     2024. 7                                                                object detection from the perspective of mono-modality fea-
+[45] Sheng Xu, Mingze Wang, Yanjing Li, Mingbao Lin,                        ture learning. In ICCV, pages 6364–6373, 2025. 2, 6
+     Baochang Zhang, David Doermann, and Xiao Sun. Learning            [60] Tianyi Zhao, Maoxun Yuan, Feng Jiang, Nan Wang, and
+     1-bit tiny object detector with discriminative feature refine-         Xingxing Wei. Removal then selection: A coarse-to-
+     ment. In ICML, 2024. 2                                                 fine fusion perspective for rgb-infrared object detection.
+
+
+
+
+                                                                  11322
+     IEEE Transactions on Intelligent Transportation Systems,
+     27:2504–2519, 2026. 2, 6, 7
+[61] Yian Zhao, Wenyu Lv, Shangliang Xu, Jinman Wei,
+     Guanzhong Wang, Qingqing Dang, Yi Liu, and Jie Chen.
+     Detrs beat yolos on real-time object detection. In CVPR,
+     pages 16965–16974, 2024. 5, 6
+[62] Zixiang Zhao, Haowen Bai, Yuanzhi Zhu, Jiangshe Zhang,
+     Shuang Xu, Yulun Zhang, Kai Zhang, Deyu Meng, Radu
+     Timofte, and Luc Van Gool. Ddfm: Denoising diffusion
+     model for multi-modality image fusion. In ICCV, pages
+     8082–8093, 2023. 7
+[63] Kailai Zhou, Linsen Chen, and Xun Cao. Improving multi-
+     spectral pedestrian detection by addressing modality imbal-
+     ance problems. In ECCV, pages 787–803, 2020. 2
+[64] Haodong Zhu, Wenhao Dong, Linlin Yang, Hong Li,
+     Yuguang Yang, Yangyang Ren, Qingcheng Zhu, Zichao
+     Feng, Changbai Li, Shaohui Lin, et al. Wavemamba:
+     Wavelet-driven mamba fusion for rgb-infrared object detec-
+     tion. In ICCV, pages 11219–11229, 2025. 1, 2
+[65] Xizhou Zhu, Weijie Su, Lewei Lu, Bin Li, Xiaogang Wang,
+     and Jifeng Dai. Deformable DETR: deformable transformers
+     for end-to-end object detection. In ICLR, 2021. 3
+[66] Zhuofan Zong, Guanglu Song, and Yu Liu. Detrs with
+     collaborative hybrid assignments training. In ICCV, pages
+     6748–6758, 2023. 6
+[67] Barret Zoph, Ekin D Cubuk, Golnaz Ghiasi, Tsung-Yi Lin,
+     Jonathon Shlens, and Quoc V Le. Learning data augmenta-
+     tion strategies for object detection. In ECCV, pages 566–583,
+     2020. 2
+
+
+
+
+                                                                 11323
+

@@ -1,0 +1,15 @@
+{
+ "parent":"MAL+UQ",
+ "pilot_seed":20260929,
+ "repeat_seeds_if_pilot_passes":[20260930,20261001],
+ "pilot_gate":"local AP75 > matched query control AP75; local precise representative count > matched control; local TP_FP6 >= matched control and >= prior MAL+UQ",
+ "detector":"frozen cached boxes and query features",
+ "crop":"predicted bbox expanded 1.5x; original teammate grayscale image; 16x16 bilinear sample; border padding; no GT in extraction",
+ "local_features":"256 mean-centered/std-normalized pixels with std floor .02 plus intensity mean and std",
+ "control_features":"256 query features plus 2 log-size features; duplicated branch input matches 258 dimensions; query-only control has identical parameter count",
+ "head":"frozen original UQ + zero-initialized residual MLP on original283 and branch258 features",
+ "train":"30 epochs; AdamW lr .0001 wd .0001; batch16; modulated quality loss + .1 hard pair logistic; last epoch; paired init/data order",
+ "evaluation":"same original-coordinate COCO evaluator; NMS .7; scale1; fixed base-score>=.001 support; no validation tuning",
+ "secondary":"zero-local input intervention is diagnostic only, out of distribution, no refitting",
+ "test_used":false
+}

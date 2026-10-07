@@ -1,0 +1,10 @@
+{
+  "run": "dfine_frozen_BPS_seed20260929",
+  "seed": 20260929,
+  "epochs": 30,
+  "source_checkpoint": "/home/viplab/contest/experiments/kamp_boundary_refinement_v1/runs/dfine_frozen_BR_seed20260929/last.pth",
+  "pair_selector_parameters": 92735,
+  "validation_used_for_training_or_selection": false,
+  "test_used": false,
+  "wall_seconds": 100.47438311576843
+}

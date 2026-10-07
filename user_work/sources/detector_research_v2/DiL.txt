@@ -1,0 +1,601 @@
+                        This WACV paper is the Open Access version, provided by the Computer Vision Foundation.
+                                     Except for this watermark, it is identical to the accepted version;
+                               the final published version of the proceedings is available on IEEE Xplore.
+
+
+
+
+ DiL: An Explainable and Practical Metric for Abnormal Uncertainty in Object
+                                  Detection
+
+  Amit Giloni1* , Omer Hofman2* , Ikuya Morikawa3 , Toshiya Shimizu3 , Yuval Elovici1 , Asaf Shabtai1
+                               1
+                                 Ben-Gurion University of the Negev
+                                     2
+                                       Fujitsu Research of Europe
+                                            3
+                                              Fujitsu Limited
+                                          *
+                                            Equal contribution
+
+
+                        Abstract                                  with an abnormal scene [29], i.e., a scene that contains con-
+                                                                  ditions unfamiliar to the OD model. Such abnormalities can
+    Although object detection models are widely used, their       stem from a natural event (such as partially occluded [40] or
+predictive performance has been shown to deteriorate when         out-of-distribution (OOD) objects [8]) or a deliberate event
+faced with abnormal scenes. Such abnormalities can oc-            caused by an adversary that changes the OD model’s pre-
+cur naturally (by partially occluded or out-of-distribution       dictions (such as an adversarial patch attack [16]).
+objects) or deliberately (in the case of an adversarial at-          To fairly measure the effect of these abnormalities, it is
+tack). Existing uncertainty quantification methods, such as       important to consider all abnormality types and their effect
+object detection evaluation metrics and label-uncertainty         on both the model’s predictions and the model’s decision-
+quantification techniques, do not consider the abnormal-          making process (MDM). Furthermore, since the effect of
+ities’ effect on the model’s internal decision-making pro-        abnormalities appears in new samples at inference time, a
+cess. Furthermore, practical methods that consider the ef-        practical solution would require solely access to the model
+fects of abnormalities (such as abnormality detection and         and the input sample itself. The existing solutions for mea-
+mitigation) are designed to deal with one type of abnormal-       suring the effect of these abnormalities on an OD model
+ity. We present distinctive localization (DiL), an unsuper-       include predictive performance measures [34] and uncer-
+vised, practical and explainable metric that quantitatively       tainty quantification methods [10, 13, 23, 44]. None of these
+interprets any type of abnormality and can be leveraged for       methods upheld all of the above conditions. Furthermore,
+preventive purposes. By utilizing XAI techniques (saliency        practical methods (e.g., abnormality detection [8, 47] and
+maps), DiL maps the objectness of a given scene and cap-          mitigation methods [8, 20, 21]) that do uphold these condi-
+tures the model’s inner uncertainty regarding the identified      tions address only one abnormality type and do not provide
+(and missed) objects. DiL was evaluated across nine use           a quantitative measure.
+cases, including partially occluded and out-of-distribution
+                                                                     We present distinctive localization (DiL), an unsuper-
+objects, as well as adversarial patches, in both physical and
+                                                                  vised, practical and explainable metric that quantitatively
+digital spaces, on benchmark datasets, and our newly E-PO
+                                                                  interprets an abnormality’s effect on the MDM process, re-
+dataset (generated with DALL-E 2). Our results show that
+                                                                  gardless of the type of abnormality. Given a new scene, DiL
+DiL: i) successfully interprets and quantifies an abnormal-
+                                                                  uses explainable AI (XAI) techniques (saliency maps) to
+ity’s effect on the model’s decision-making process, regard-
+                                                                  map the objectness level based on the model’s internal com-
+less of the abnormality type; and ii) can be leveraged to
+                                                                  ponents and examines any incompatibility with the model’s
+detect and mitigate this effect.
+                                                                  output (illustrated in Figure 1). This results in a DiL score
+                                                                  for every scene and allows DiL to interpret the model’s in-
+                                                                  ner uncertainty regarding its identified (and missed) objects.
+1. Introduction                                                   The DiL score can also be used for preventive purposes: i)
+    Object detection (OD) models play a vital role in com-        a DiL threshold can be set to detect the occurrence of an ab-
+puter vision and are widely used in numerous industries,          normality, i.e., abnormality detection; and ii) the DiL score
+including autonomous driving [19], retail [15], and secu-         can be used to dynamically adjust the decision threshold for
+rity [18]. Although widely used, the performance of OD            a given scene, i.e., mitigating the abnormality’s effect.
+models has been shown to deteriorate when they are faced               We empirically evaluated DiL using two clean and seven
+
+
+
+                                                                2507
+Figure 1. DiL pipeline and components. The input scene (an E-PO dataset image) is used to get (a) the model’s predictions and the XAI
+technique’s input to produce (b) a saliency map. Then, (a) and (b) are used to calculate the DiL score.
+
+
+abnormality use cases in both the physical and digital space;             the five new datasets) will be publicly available upon
+the use cases varied in terms of the type of abnormality                  publication and can be used by the research commu-
+- partially occluded, OOD, and adversarially attacked ob-                 nity to further investigate abnormalities.
+jects. Eight OD algorithms were used in our evaluation,
+including one-stage (e.g., YOLOF [5]), two-stage (e.g.,              2. Background and Related Work
+Faster R-CNN [38]), and multi-stage detectors (e.g., Cas-
+cade RPN [42]). In the digital evaluation, the Microsoft                 Abnormal scenes can be categorized based on their
+Common Object in Context (COCO) [28] and Occluded-                   cause: a natural event and a deliberate event. Examples
+PASCAL 3D+ [43] datasets were used, along with a sub-                of the former include scenes containing: i) an object that is
+set of the ImageNet [7] dataset, in the clean, partial occlu-        partially occluded by a another object [22, 39, 51]; or ii) an
+sion, and OOD use cases respectively, and our new E-PO               object from a class that was not part of the model’s training
+dataset (created with DALL-E 2). In the physical evalua-             set, i.e., an OOD object [8]. Both scenarios lead to the omis-
+tion, the Superstore [15] dataset was used, and our new PO-          sion of a bounding box, a critical error in applications such
+Superstore and OOD-Superstore datasets. For the digital              as autonomous vehicles [8]. In contrast, abnormal scenes
+and physical adversarial use cases, we crafted four adver-           caused by a deliberate event are initiated by an adversary
+sarial patches and placed them both on images and real ob-           that aims to hide an object from the model, often via a phys-
+jects. The results of our evaluation demonstrate that DiL: i)        ically placed adversarial patch attack [3].
+successfully interprets and estimates an abnormality’s effect            The effect of abnormalities on an OD model is tradi-
+on the MDM process, regardless of the type of abnormality;           tionally measured using existing supervised performance
+and ii) can be successfully leveraged to detect and mitigate         metrics, such as mean average precision (mAP) and its
+the abnormality’s effect on the model’s outputs.                     variants [33, 45], intersection over union (IoU) [27], and
+   DiL’s novelty lies in the unique integration, use, and            probability-based detection quality (PDQ) (which is suit-
+adaptation of techniques from the XAI and OD fields re-              able only for probabilistic OD) [12]. However, these met-
+sulting in a practical and effective uncertainty metric. The         rics do not consider the abnormalities’ effect on the MDM
+main contributions of this paper are as follows:                     process [34]. Additionally, they presume the availability of
+                                                                     ground truth - an impractical assumption at inference time.
+   • To the best of our knowledge, DiL is the first metric           Newer uncertainty quantification techniques [10, 23, 44],
+     capable of quantitatively interpreting the inner uncer-         such as Bayesian estimation [13], Monte Carlo dropout [9]
+     tainty of OD models under abnormal scenarios.                   and ensemble [24] approaches, provide insights on the
+                                                                     model’s label-uncertainty levels. However, these methods
+   • To the best of our knowledge, DiL is the first metric           inherently assume that all objects are detected, which lim-
+     that addresses all types of abnormalities, i.e., partially      its their applicability in abnormal scenarios that result in a
+     occluded and OOD objects, and adversarial patch at-             not-detected object. Additionally, some of these methods
+     tacks.                                                          assume access to the training set, which is not practical.
+   • DiL is a model-agnostic, unsupervised, and practical                Existing methods that address the effect of abnormali-
+     metric. We demonstrate that DiL can be used for ab-             ties include practical methods that aim to detect or mit-
+     normality analysis with one-, two- and multi-OD algo-           igate the abnormalities’ effect, such as the effect of par-
+     rithms, does not necessitate the ground truth label, and        tial occlusion [35, 43, 50], OOD [8, 14], and adversarial
+     solely requires access to the model and the input scene.        patches [6, 15, 17, 20, 47, 49]. However, those methods: 1)
+                                                                     deal with one type of abnormality; 2) do not quantify the
+   • The resources developed in this research (the code and          inner effect of the abnormality; and 3) lack explainability.
+
+
+
+                                                                  2508
+     Figure 2. An illustration of computing the DiL score for a clean scene (left images) and partially occluded scene (right images).
+
+
+DiL is the first practical and explainable metric to quantify           and x be an input scene. Let bi ∈ M (x) be the i’th bound-
+the internal effect of all types of abnormalities without rely-         ing box in M ’s output for scene x. Let Mo be M ’s in-
+ing on non-practical assumptions. A table summarizing the               ternal component that outputs M ’s objectness. Let MA (x)
+related works is in the supplementary material.                         and M∇ (x) be M ’s activation and gradients respectively
+   To successfully interpret the abnormality’s effect on the            for processing x from M ’s first layer until Mo . Let S be a
+MDM process, DiL utilizes XAI techniques to produce                     saliency map technique.
+a saliency-map-based interpretation of the model’s deci-
+sions [25]. A saliency map is a vector matching the in-                 3.1. Distinctive Localization (DiL)
+put scene’s dimensions where elements correlating with                      To compute the DiL score for a given input scene x, one
+more contributive pixels have higher values [1]. During                 should first obtain: i) M (x) predictions for input scene x,
+the saliency map’s creation, the XAI techniques rely on the             i.e., the identified bounding boxes bi ∈ M (x) (denoted as
+model’s activations [32], gradients [4,41], or both [11]. The           ’a’ in Figure 1); and ii) a saliency map of Mo ’s objectness.
+quality of a saliency map is evaluated based on its fulfill-            Both are used to compute the CL and BL values that corre-
+ment of the localization objective [25, 26]. A well-localized           spond specifically to input scene x. The process of obtain-
+explanation discriminates between the object and its back-              ing the former is performed identically for all model types
+ground, showing higher saliency map values for object-                  by querying model M . To obtain the latter (the saliency
+related pixels. DiL is inspired by the localization objective           map of Mo ’s objectness), the internal component Mo needs
+and utilizes it for a different goal. Instead of using it to eval-      to be selected.
+uate the quality of the explanation itself (the saliency map),              Since different OD algorithms compute objectness dif-
+DiL uses it to explain and evaluate the model’s behavior.               ferently, Mo is selected according to the type of OD algo-
+                                                                        rithm used by M . In most one-stage OD algorithms (such as
+3. The Method                                                           YOLO), objectness is computed simultaneously with other
+                                                                        bounding box attributes, such as the object class and the
+   DiL was designed based on the assumption that the                    associated class confidence. Then the bounding boxes are
+MDM process will be unstable when faced with an ab-                     refined by the non-maximum suppression (NMS) function
+normal scene. This instability will be reflected in an in-              into a list of the final predicted bounding boxes. The ob-
+consistent presence (and absence) of an object through-                 jectness of the bounding boxes produced by the NMS is
+out the entire OD pipeline. To capture this inconsistency               more concise than other objectness indications; therefore,
+for a given scene, DiL measures the relation between two                in one-stage models, the last layer before the NMS func-
+stages: i) the model’s mid-stage ’perception’ (the object-              tion is selected as Mo . In one-stage OD algorithms that
+ness saliency map); and ii) the final-stage ’perception’ (the           do not explicitly produce objectness scores, such as SSD
+predicted bounding boxes).                                              and keypoint-based detectors (e.g., CornerNet and Center-
+   In this section, we introduce DiL’s components, their                Net) Mo can be set as the layer that produces the class log-
+computation process, and the final calculation of the DiL               its rather than an objectness score. These logits can effec-
+score (illustrated in Figures 1 and 2). DiL reflects the differ-        tively serve as a proxy for objectness. In contrast, in two-
+ence between the background localization and the complete               and multi-stage OD algorithms (such as Faster R-CNN and
+localization, both of which are derived from the objectness             Cascade RPN) the objectness is computed by the region
+saliency map. The complete localization (CL) implies the                proposal network (RPN) component. Then the RPN’s out-
+existence of objects in the entire scene, whereas the back-             put (i.e., the objectness) is processed by additional compo-
+ground localization (BL) implies the existence of objects in            nents (such as NMS), which vary depending on the algo-
+the areas of a scene that fall outside of any predicted bound-          rithm used. Therefore, in two- and multi-stage models, Mo
+ing box. The DiL score reflects the compatibility between               is defined as the final layer of the RPN component (e.g.,
+BL and CL values, i.e., greater compatibility implies greater           before the NMS).
+abnormality (i.e., a higher DiL score) and vice versa.                      After Mo has been selected, the predefined saliency map
+   The notation used is as follows: Let M be an OD model                technique S is used to compute the saliency map of Mo ’s
+
+
+
+                                                                     2509
+objectness according to S. When S is an activation-based                                                                                                                       pixels that are not bounded by any predicted bounding box.
+technique, S receives MA (x) (the activations of M until                                                                                                                       The BL value calculation is presented in Equation 4:
+Mo ) as input, regardless of the type of OD algorithm used
+by M . However, when S is a gradient-based technique, S
+                                                                                                                                                                                          \label {equation:background_localization} BL(\mathbf {x}) = \sum _{sm_i \in SM_\mathbf {x}} \begin {cases}sm_i & sm_i\in BG\\0 & sm_i \notin BG\end {cases}    (4)
+receives M∇ (x) (the gradients of M until Mo ) as input,
+which is calculated by backpropagating from Mo ’s object-
+ness to x. Note that an aggregation technique compresses                                                                                                                       where BL(x) is the BL value of input scene x and BG are
+the objectness scores into a single value to apply back-                                                                                                                       pixels that are not bounded by any predicted bounding box
+propagation. This aggregation’s calculation depends on the                                                                                                                     bi ∈ M (x), i.e., background pixels. The calculation of the
+OD algorithm type used by M . When M is a one-stage                                                                                                                            final DiL score is presented in Equation 5:
+model, the objectness scores produced by Mo are summed
+into a single value. This aggregation and the calculation of
+M∇ (x) are detailed in Equation 1:                                                                                                                                                                          \label {equation:dil} \name (\mathbf {x}) = \frac {Background_L(\mathbf {x})}{Complete_L(\mathbf {x})}                                       (5)
+
+                                                                                                                                                                               This calculation reflects the relation between the BL value
+                                 \label {equation:obj_one_stage} M_\nabla (\mathbf {x}) = \nabla _\mathbf {x}\Bigg ( \sum _{o_i \in M_o(\mathbf {x})} o_i \Bigg )      (1)     and the CL value. Since the BL is a subset of the CL, the
+                                                                                                                                                                               BL value is invariably less than the CL value; thus, the DiL
+                                                                                                                                                                               score ranges from (0, 1). When the BL value is far from
+where Mo (x) are the outputs of Mo obtained when M is
+                                                                                                                                                                               the CL value (i.e., a low DiL score), there are more indica-
+queried with x. When M is a two- or multi-stage model,
+                                                                                                                                                                               tions for objects inside the predicted bounding boxes than
+Mo outputs several vectors, each of which indicates a region
+                                                                                                                                                                               in the background. Therefore, model M ’s perception of x
+of interest that contains several bounding box candidates.
+                                                                                                                                                                               did not change during M ’s pipeline, i.e., there is no change
+To aggregate Mo outputs into a single scalar value, the most
+                                                                                                                                                                               between the perception gained by Mo and the model’s fi-
+indicative bounding box of each region is selected (the one
+                                                                                                                                                                               nal prediction. However, a close BL and CL values (i.e., a
+that has the highest objectness score), and then the regions’
+                                                                                                                                                                               high DiL score) indicate that the MDM process was irregu-
+objectness scores are summed. This aggregation and the
+                                                                                                                                                                               lar. This irregularity, indicated by a high DiL score, arises
+calculation of M∇ (x) are presented in Equation 2:
+                                                                                                                                                                               when the values of smi ∈ BG are close to the values of
+                                                                                                                                                                               smi ∈ / BG, reflecting a shift between the initial perception
+          \label {equation:obj_two_stage} M_\nabla (\mathbf {x}) = \nabla _\mathbf {x}\Bigg ( \sum _{r_i \in M_o(\mathbf {x})} max\left (bb \in r_i\right ) \Bigg )    (2)     by Mo and the final model’s prediction. Furthermore, DiL’s
+                                                                                                                                                                               behavior reflects the localization objective fulfillment (Sec-
+                                                                                                                                                                               tion 2), i.e., better localization in the objectness saliency
+where Mo (x) are the outputs of Mo obtained when M is                                                                                                                          map will result in a lower DiL score and vice versa.
+queried with x and bb ∈ ri is a bounding box in region ri .
+The use of summing as the aggregation technique ensures                                                                                                                        3.2. Practical Applications of DiL
+that no region of interest is overlooked, which results in gra-                                                                                                                3.2.1   DiL for Model Evaluation
+dients that are more indicative for S. The resulting saliency
+map of Mo ’s objectness is the vector SMx , which has the                                                                                                                      The DiL metric can serve as an evaluation measure that
+same dimensions as x and reflects the objectness level of ev-                                                                                                                  reflects a model’s nature and robustness. When using tra-
+ery pixel. SMx can be visualized as a map in which higher                                                                                                                      ditional performance metrics to evaluate a model (such as
+values appear in warmer colors (’b’ in Figure 1).                                                                                                                              mAP), the assessment is performed for the model’s final
+    After obtaining M ’s predictions (bi ∈ M (x)) and the                                                                                                                      prediction, ignoring the MDM process. By computing the
+objectness saliency map SMx , the values of DiL’s compo-                                                                                                                       average DiL score for abnormal scenes, DiL can serve as
+nents can be calculated. The DiL score is the division of                                                                                                                      an evaluation metric. It can differentiate between two mod-
+the BL by the CL of input scene x. The latter (CL value)                                                                                                                       els exhibiting the same predictive behavior; e.g., one might
+is calculated by summing all values in SMx , indicating the                                                                                                                    have a better MDM process, which indicates that the model
+existence of objects in the entire scene. The calculation of                                                                                                                   is more robust to abnormalities. The results of DiL for
+CL value is presented in Equation 3:                                                                                                                                           model evaluation can be seen at the beginning of Section 5.
+
+                                             \label {equation:complete_localization} CL(\mathbf {x}) = \sum _{sm_i \in SM_\mathbf {x}} sm_i                            (3)     3.2.2   DiL for Detection
+                                                                                                                                                                               DiL can be leveraged for detecting abnormal scenes, i.e.,
+where CL(x) is the CL value of input scene x. The BL                                                                                                                           partially occluded and OOD objects, or an adversarial
+value is computed by summing the SMx values that relate                                                                                                                        patch. Such detection can be done by setting a DiL thresh-
+to pixels that were predicted as ’background’ by M , i.e.,                                                                                                                     old that distinguishes clean from abnormal scenes. A scene
+
+
+
+                                                                                                                                                                             2510
+with a DiL score above the DiL threshold will be detected                                                               includes 100 images from 27 classes serves as OOD for the
+as an abnormal scene. This DiL threshold can be set em-                                                                 models trained on the COCO dataset.
+pirically or based on the context of use [15]. The results of                                                           Additionally, we created the following datasets:
+DiL for detection can be seen in Figure 5 within Section 5.                                                             E-PO – a realistic OD dataset containing 100 images
+                                                                                                                        of occluded objects related to the classes in the COCO
+3.2.3   DiL for Robustness                                                                                              dataset. This dataset was generated with the assistance
+                                                                                                                        of DALL-E 2 [36] and contains real-looking images with
+DiL can be leveraged to improve the model’s robustness                                                                  natural-looking partial occlusions.
+when faced with abnormal scenes. Abnormal scenes can                                                                    Adv-COCO – an OD dataset containing 100 images
+cause a reduction in the model’s confidence in the predicted                                                            from the COCO dataset that were attacked. We digitally
+object. Therefore, DiL can be incorporated into the model’s                                                             placed an adversarial patch, crafted based on the DPatch
+inference process by changing the fixed decision threshold                                                              attack [30], on objects in the images, deliberately causing
+(FDT) to a dynamic decision threshold (DDT). The DDT                                                                    them to be ”hidden” from the model. Due to the patches’
+will be lower than the FDT when the DiL score is higher                                                                 low transferability, we created two versions of the Adv-
+and vice versa, i.e., when the model indicates an inconsis-                                                             COCO dataset using a different adversarial patch. Each
+tency in the MDM process (a high DiL score), the DDT will                                                               patch was crafted to mislead different models in each
+be lower. The DDT is calculated by subtracting the product                                                              version - either one- or two/multi-stage OD models.
+of the DiL score and a degradation factor from the FDT.                                                                 PO-Superstore – an OD dataset with 100 images of
+The degradation factor ensures that the decision threshold                                                              occluded objects related to the classes in the Superstore
+remains within a reasonable range to avoid performance                                                                  dataset. The superstore items were physically placed to oc-
+degradation in clean scenes. The DDT calculation is pre-                                                                clude one another simulating real-world partial occlusions.
+sented in Equation 6:                                                                                                   OOD-Superstore Dataset – an OD dataset containing
+                                                                                                                        100 images of superstore items that do not appear in
+               \label {equation:DDT} DDT_\mathbf {x} = FDT-\left ( \name (\mathbf {x}) \cdot \alpha \right )    (6)
+                                                                                                                        the Superstore dataset. This dataset can be considered a
+where DDTx is the adjusted decision threshold for an input                                                              real-world OOD scenario in the retail domain.
+scene x and α is the degradation factor. The results of DiL                                                             Adv-Superstore Dataset – an OD dataset containing 100
+for robustness can be seen in Table 3 within Section 5.                                                                 images of attacked objects related to the classes in the
+                                                                                                                        Superstore dataset. This dataset was created in the same
+4. Evaluation                                                                                                           manner as the Adv-COCO dataset with the exception of
+                                                                                                                        placing the adversarial patches physically on the items.
+4.1. Evaluation Use Cases
+    Table 1 presents the nine use cases used to evaluate DiL
+                                                                                                                        4.3. Experimental Settings
+and their corresponding datasets, the evaluated abnormal-                                                                  We used two sets of models according to the evaluated
+ity, and the evaluation space. The use cases were defined                                                               use case. In both sets, the models had identical parameters
+to include both physical and digital evaluations of all eval-                                                           which were set as follows. Each set includes the following
+uated abnormalities. The digital evaluations (use cases 1-5)                                                            OD models. One-stage models: 1) YOLOv3 [37] with a
+were performed on models trained on the COCO dataset.                                                                   Darknet-53 backbone; 2) YOLOv5X with a CSPDarknet53
+The physical evaluations (use cases 6-9) were performed on                                                              backbone and a YOLOv3 head; and 3) YOLOF [5] with
+models trained on the Superstore dataset.                                                                               a ResNet50 backbone and a dilated encoder that serves as
+                                                                                                                        an FPN. The decision thresholds were set as 0.5 and 0.7
+4.2. Datasets
+                                                                                                                        in the one-stage models trained on the COCO and Super-
+   The evaluation was performed using these datasets:                                                                   store datasets respectively. Two-stage models: 1) Faster
+Microsoft Common Object in Context (COCO)                                                                               R-CNN [38] with a ResNet50 backbone and FPN archi-
+2017 [28] – an OD benchmark dataset containing 80 object                                                                tecture; 2) Grid R-CNN [31] with a ResNet50 backbone
+classes and over 120K labeled images.                                                                                   and grid guided localization mechanism; and 3) Double
+Superstore [15] – an OD in retail dataset containing 2,200                                                              Head R-CNN [46] with a ResNet50 backbone and two-
+labeled images of 20 superstore items (classes) presented                                                               head structure output. Multi-stage models: 1) Cascade R-
+from a smart shopping cart perspective.                                                                                 CNN [2] with a ResNet50 backbone and a sequence of de-
+OccludedPASCAL 3D+ [43] – an OD dataset that                                                                            tectors trained with increasing IoU thresholds; and 2) Cas-
+simulates partial occlusion by digitally placing objects                                                                cade RPN [42] with a ResNet50 backbone and multi-stage
+cropped from the COCO dataset on top of objects from the                                                                anchoring refinement. The decision thresholds were set as
+OccludedPASCAL3D+ dataset [48].                                                                                         0.8 and 0.7 in the two-stage and multi-stage models trained
+ImageNet [7] – a small subset of the ImageNet dataset that                                                              on the COCO and Superstore datasets respectively. The ad-
+
+
+
+                                                                                                                      2511
+        No.      Use case name             Model training set      Evaluation space        Abnormality type        Abnormality sub-type            Evaluation set
+         1        COCO clean                                                                    None                     None                     COCO validation
+         2    COCO unrealistic PO                                                                                                              OccludedPASCAL 3D+
+                                                                                                                      Partial occlusion
+         3     COCO realistic PO                COCO train               Digital                 Natural                                            E-PO Dataset
+         4        COCO OOD                                                                                                  OOD                  Subset of ImageNet
+         5        COCO Adv.                                                                     Deliberate              Adversarial                  Adv-COCO
+         6      Superstore clean                                                                  None                      None                Superstore validation
+         7       Superstore PO                                                                                        Partial occlusion            PO-Superstore
+                                            Superstore train            Physical
+         8      Superstore OOD                                                                   Natural                    OOD                   OOD-Superstore
+         9      Superstore Adv.                                                                 Deliberate              Adversarial                Adv-Superstore
+
+                                                                     Table 1. Use cases examined.
+
+                                                                                                           Use case
+         Model Type           Metric
+                                                 [1] Clean   [2] Unrealistic PO    [3] Realistic PO   [4] OOD [5] Adv.       [6] Clean     [7] PO    [8] OOD    [9] Adv.
+                       Misclassification Rate        –             0.89 ↓                0.87 ↓         0.63 ↓      0.85 ↓        –        0.97 ↓      0.7 ↓     1.00 ↓
+         One-stage              CL                0.011 ↑          0.01 ↓              0.0047 ↓       0.0033 ↓     0.016 ↓     0.017 ↑    0.0105 ↓    0.019 ↓    0.02 ↓
+                                BL               0.0024 ↓         0.0046 ↑             0.0025 ↑        0.003 ↑     0.008 ↑    0.0004 ↓    0.008 ↑    0.0106 ↑   0.006 ↑
+                               DiL                0.216 ↓          0.475 ↑               0.53 ↑         0.93 ↑     0.519 ↑     0.03 ↓     0.413 ↑     0.494 ↑   0.342 ↑
+                       Misclassification Rate        –             0.93 ↓                0.93 ↓         0.83 ↓      0.85 ↓        –        0.77 ↓      0.9 ↓     0.72 ↓
+         Two-stage              CL                0.114 ↑          0.155 ↓              0.149 ↓        0.089 ↓     0.068 ↓     0.039 ↑    0.0223 ↓    0.061 ↓   0.014 ↓
+                                BL                0.011 ↓          0.091 ↑              0.065 ↑         0.08 ↑    0.0318 ↑     0.004 ↓    0.009 ↑     0.046 ↑   0.002 ↑
+                               DiL                0.122 ↓          0.59 ↑               0.449 ↑        0.908 ↑     0.617 ↑     0.11 ↓     0.396 ↑     0.756 ↑   0.793 ↑
+                       Misclassification Rate        –             0.92 ↓                0.84 ↓         0.84 ↓      0.76 ↓        –        0.93 ↓     0.53 ↓     0.75 ↓
+         Multi-stage            CL                0.114 ↑         0.1549 ↓             0.1493 ↓        0.087 ↓     0.066 ↓    0.0395 ↑    0.024 ↓     0.06 ↓    0.009 ↓
+                                BL                0.014 ↓         0.0856 ↑              0.064 ↑       0.0779 ↑ 0.0269 ↑      0.00525 ↓     0.05 ↑     0.055 ↑   0.036 ↑
+                               DiL                0.125 ↓          0.556 ↑             0.4515 ↑        0.895 ↑     0.535 ↑     0.13 ↓      0.39 ↑     0.94 ↑     0.78 ↑
+          All types         DiL mean              0.154 ↓          0.54 ↑               0.497 ↑        0.911 ↑     0.557 ↑     0.09 ↓      0.39 ↑     0.73 ↑     0.63 ↑
+          All types            mAP                0.359 ↑          0.23* ↓              0.253 ↓         0.0 ↓      0.212 ↓      0.9 ↑       0.5 ↓      0.5 ↓     0.01 ↓
+
+
+        Table 2. Mean DiL scores for all types of OD models in the digital COCO (1-5) and physical Superstore use cases (6-9).
+
+
+versarial patches used in use cases 5 and 9 were crafted with                                 to PO and adversarial patches, while one-stage models are
+the DPatch attack [30]. More details on the crafting process                                  more resilient to OOD scenes. Additionally, the results
+are provided in the supplementary material.                                                   show that overall, DiL succeeds in reflecting the difference
+    The Grad-CAM [41] XAI technique was used to evalu-                                        in the MDM process when faced with clean and abnormal
+ate DiL as a metric and as an abnormality detector. Grad-                                     scenes, i.e., the DiL scores obtained in the clean scenes are
+CAM++ [4] was employed to assess DiL as a robustness                                          lower than the scores obtained in the abnormal scenes. The
+solution. For more details on the selection of saliency map                                   DiL scores for the first and sixth use cases (clean use cases)
+techniques and related experiments see supplementary ma-                                      range in [0.122, 0.216] and [0.03, 0.13] respectively. In con-
+terial. In the evaluation of DiL as a robustness solution, we                                 trast, the DiL scores for use cases 2-5 and 7-9 (abnormal use
+empirically set the degradation factor to 0.2.                                                cases) range in [0.449, 0.93] and [0.342, 0.94] respectively.
+                                                                                              Moreover, the results show that DiL aligns with the super-
+5. Experimental Results                                                                       vised mAP metric, distinguishing between clean and abnor-
+                                                                                              mal scenes in an unsupervised manner without reliance on
+   Detailed experimental implementations, comprehensive                                       ground truth data. In addition, the results show that the DiL
+results, and DiL’s runtime analysis are available in the sup-                                 scores are more stable compared to the mAP score with re-
+plementary materials. The following section provides a                                        spect to the relations between different abnormalities (see
+summary of the key findings. Table 2 shows the results ob-                                    supplementary material).
+tained by the one-, two-, and multi-stage OD models for all
+nine use cases (Section 4.1). Each row lists the mean mis-                                       Furthermore, we can see that neither the CL nor the BL
+classification rate (fraction of incorrectly classified scenes),                              metric can be used independently as an abnormality indi-
+CL, BL, DiL scores, and mean average precision (mAP) as                                       cator. For example, the CL value of the one-stage mod-
+a representative of the existing methods for the evaluated                                    els in the sixth use case (a clean use case) is 0.017, and in
+models. The arrow in each cell indicates whether a high or                                    the eighth use case (an abnormal use case) the CL value is
+low value is the optimal value.                                                               0.019, i.e., very close values like these would not enable
+   The misclassification rate results presented in the ta-                                    differentiation between clean and abnormal scenes.
+ble show that the OD models struggle to detect objects                                           Moreover, the results indicate that the type of abnormal-
+across all types of abnormalities, underscoring their po-                                     ity influences the value of the DiL score. In use cases 2-5
+tential threat to OD model performance. Moreover, these                                       (the COCO use cases), the mean DiL score for the PO use
+results indicate that multi-stage models are more resilient                                   cases is 0.5185, which is the lowest mean score obtained
+
+
+
+                                                                                         2512
+                Figure 3. Qualitative assessment of DiL (the model’s predictions and the corresponding saliency maps).
+
+
+                                                                      stage models to fixate on the patch and diverting attention
+                                                                      in two/multi-stage models. This results in unusual saliency
+                                                                      maps focused only on the patch area, leading to a high
+                                                                      DiL score. Figure 4 shows output examples across various
+                                                                      use cases obtained from three label-uncertainty techniques:
+                                                                      Bayes-OD [13], Monte-Carlo Dropout [9], and Model’s En-
+                                                                      semble [24]. These examples reveal that while existing
+                                                                      techniques quantify uncertainty for detected objects, they
+                                                                      disregard the missed ones. As these techniques are designed
+Figure 4. The uncertainty techniques outputs when faced with an
+abnormality. None of the abnormalities was detected.                  to assess label uncertainty, they are applied at the predic-
+                                                                      tion process’s final stages, such as the ROI pooling layer in
+                                                                      Faster-RCNN. However, the abnormalities impact the out-
+in all the use cases; the mean DiL score for the adversar-            puts of earlier stages of the prediction process, causing the
+ial use case is 0.557; and the mean DiL score for the OOD             model to fail to ’propose’ an object for further processing,
+use case is 0.911, which is the highest obtained in all the           rendering these techniques ineffective. For more informa-
+use cases. The same phenomena can be seen in the Super-               tion on the uncertainty techniques implementations, along
+store use cases (7-9). This can be explained by the different         with a quantitative evaluation, see supplementary material.
+levels of alienation between the examined abnormality and                 Figure 5 presents the mean detection results for all eval-
+the distribution of normal scenes. In the PO and adversar-            uated models using DiL as a detector (Section 3.2). The
+ial use cases, the non-occluded/attacked objects and back-            upper plots present the true positive rate (TPR) and false
+grounds presented were taken from the normal scenes’ dis-             negative rate (FNR) for all evaluated abnormalities when
+tribution (i.e., low alienation), whereas that is not the case        using different DiL percentile cutoffs (PCs) as the detection
+in the OOD use cases (i.e., high alienation). Furthermore,            threshold. A scene with a DiL score above the PC would
+in the PO use cases, the objects that were used to cover the          be detected as an abnormality. The lower plots display the
+occluded object were from the normal scenes’ distribution             true negative rate (TNR) and false positive rate (FPR) for
+(i.e., low alienation), whereas, in the adversarial use cases,        clean use cases using varying DiL PCs. Figure 5 shows that
+the adversarial patches used were not (i.e., high alienation).        overall, DiL effectively differentiates between clean and ab-
+The results also show that DiL scores for realistic PO use-           normal scenes. In the TPR and FNR plots, we can see that
+case are lower compared to unrealistic PO use-case, likely            a lower PC threshold increases TPR and decreases FNR,
+due to their greater deviation from natural scene distribu-           i.e., a lower PC threshold improves the detection of abnor-
+tions (see supplementary material).                                   malities. However, in the TNR and FPR plots, we see the
+    Figure 3 shows a qualitative evaluation of DiL- exam-             opposite phenomenon - a lower PC threshold decreases the
+ples of model predictions along with their corresponding              ability to identify normal scenes. Notably, DiL’s most ef-
+saliency maps for each use case. The saliency maps visually           fective detection is observed in OOD use cases, consistent
+explain the abnormality’s effect on the MDM process. The              with the high DiL scores for OOD cases shown in Table 2.
+examples illustrate the different models’ inner perceptions               Table 3 presents the results obtained when DiL was used
+of different types of abnormalities. In the PO and OOD use            as a robustness method, showing average DDT results for
+cases, the saliency map accurately locates the partially oc-          all model types across all nine use cases (detailed results
+cluded/OOD object, whereas the model’s prediction did not,            in the supplementary material). Each cell presents the re-
+resulting in a high DiL score. In adversarial use cases, the          call, precision, F1 score, and TPR improvement for each
+patch disrupts the model’s inner perception by causing one-           model when using DDT. Since an abnormality’s effect on
+
+
+
+                                                                  2513
+      Figure 5. DiL’s performance as an abnormality detector. The TPR and FNR (spider plots) and the TNR and FPR (bar plots).
+
+                                                                                              Use case and abnormality
+            Metric
+                             [1] Clean    [2] Unrealistic PO   [3] Realistic PO      [4] OOD          [5] Adv.            [6] Clean        [7] PO          [8] OOD         [9] Adv.
+             Recall       0.671 (+6.6%)    0.712 (+39.6%)       0.615 (+30%)       0.36 (+50%)    0.571 (+17.6%)        0.908 (0.3%)   0.622 (+6.6%)    0.43 (+260%)    0.67 (+9.6%)
+           Precision      0.943 (+0.0%)     0.919 (+3.4%)       0.946 (+1.6%)     0.515 (+3.2%)    0.918 (+1.3%)     0.987 (+0.007%)   0.993 (+0.16%)   0.95 (+0.6%)    0.958 (+0.8%)
+           F1 Score       0.782 (+0.0%)     0.787 (+15%)        0.737 (+10%)      0.419 (+4.1%)    0.703 (+6.8%)       0.946 (+0.5%)   0.748 (+7.3%)    0.554 (+5.1%)   0.785 (+5.7%)
+        TPR improvement        7.6%              38%                 25%              14.6%            12.3%                 4%              20%            13.3%            9.6%
+
+
+                                   Table 3. Original and DDT performance for all OD model types and use cases.
+
+
+the model’s output is to ”hide” an object, we expect to see
+the highest improvement in the recall metric (the mean per-
+centage of objects localized by the model). The results pre-
+sented in Table 3 show DDT generally mitigates the ab-
+normalities’ effect without harming and even improving the
+model’s performance (F1 score). In COCO abnormality use
+cases (2-5), the model recall improvement ranged from 15%
+to 68%; TPR improvement from 3% to 52%; and F1 score
+improvement in [4.1%, 15%]. Similarly, in Superstore ab-                                            Figure 6. (A) Saliency map visualization across layers. (B) exam-
+normality use cases (7-9), recall improvement ranged from                                           ple saliency maps for small and regular objects.
+2% to 260%; TPR improvement from 5% to 31%, and F1
+score improvement in [0.5%, 7.3%].
+                                                                                                    CAM++ is recommended due to its use of second-order gra-
+6. Discussion                                                                                       dients, which yield more detailed saliency maps (see Fig-
+                                                                                                    ure 6 (B)). Further details and robustness analysis of the
+    The effectiveness of DiL in uncertainty quantification re-                                      objectness saliency map are in the supplementary material.
+lies on selecting a particularly informative layer within the
+object detection model: the layer responsible for generating                                        7. Conclusions and Future Work
+the objectness score. This layer captures the model’s ear-
+liest assessments of object presence and influences initial                                             In this paper, we presented distinctive localization (DiL),
+bounding box predictions. To support our layer choice, we                                           an unsupervised explainable metric that captures the in-
+conducted a qualitative experiment using saliency map visu-                                         ner uncertainty of an OD model when faced with abnor-
+alizations across various layers (see Figure 6 (A)) showing                                         mal scenes. In our experiments on various types of abnor-
+that the selected layer provides a clear understanding of the                                       malities, we showed that, in contrast to existing methods,
+MDM process in different scenarios.                                                                 DiL requires practical assumptions and can: i) reflect the
+    While DiL has been consistent across many scenarios, its                                        model’s inner uncertainty, both quantitatively and visually;
+performance may vary when dealing with extremely small                                              ii) explain the DiL score produced; and iii) be leveraged
+objects. Since DiL relies on a saliency map technique,                                              for preventive actions. Future work may include DiL eval-
+the quality of the DiL scores depends on the sensitivity                                            uation on other algorithms (e.g., transformers), tasks (e.g.,
+of the saliency map technique used. In our experiments,                                             object segmentation), and attacks (adversarial perturbations
+we benchmarked numerous saliency map techniques and                                                 and backdoors). Additional future work may include en-
+empirically showed that the Grad-CAM technique had the                                              hancing the abnormality mitigation using DiL by setting a
+most balanced sensitivity. However, for scenarios requiring                                         smart degradation factor. This can be done by analyzing the
+greater sensitivity, such as detecting small objects, Grad-                                         evidence for missing objects in the objectness saliency map.
+
+
+
+                                                                                               2514
+References                                                                 in deep object detectors. In 2020 IEEE International Con-
+                                                                           ference on Robotics and Automation (ICRA), pages 87–93.
+ [1] Amina Adadi and Mohammed Berrada. Peeking inside the                  IEEE, 2020. 1, 2, 7
+     black-box: a survey on explainable artificial intelligence
+                                                                      [14] Vahid Hashemi, Jan Křetı́nskỳ, Sabine Rieder, and Jessica
+     (xai). IEEE access, 6:52138–52160, 2018. 3
+                                                                           Schmidt. Runtime monitoring for out-of-distribution detec-
+ [2] Zhaowei Cai and Nuno Vasconcelos. Cascade r-cnn: high                 tion in object detection neural networks. In International
+     quality object detection and instance segmentation. IEEE              Symposium on Formal Methods, pages 622–634. Springer,
+     transactions on pattern analysis and machine intelligence,            2023. 2
+     43(5):1483–1498, 2019. 5                                         [15] Omer Hofman, Amit Giloni, Yarin Hayun, Ikuya Morikawa,
+ [3] Anirban Chakraborty, Manaar Alam, Vishal Dey, Anupam                  Toshiya Shimizu, Yuval Elovici, and Asaf Shabtai. X-detect:
+     Chattopadhyay, and Debdeep Mukhopadhyay. A survey on                  Explainable adversarial patch detection for object detectors
+     adversarial attacks and defences. CAAI Transactions on In-            in retail. arXiv preprint arXiv:2306.08422, 2023. 1, 2, 5
+     telligence Technology, 6(1):25–45, 2021. 2                       [16] Yu-Chih-Tuan Hu, Bo-Han Kung, Daniel Stanley Tan, Jun-
+ [4] Aditya Chattopadhay, Anirban Sarkar, Prantik Howlader,                Cheng Chen, Kai-Lung Hua, and Wen-Huang Cheng. Nat-
+     and Vineeth N Balasubramanian. Grad-cam++: General-                   uralistic physical adversarial patch for object detectors. In
+     ized gradient-based visual explanations for deep convolu-             Proceedings of the IEEE/CVF International Conference on
+     tional networks. In 2018 IEEE winter conference on appli-             Computer Vision, pages 7848–7857, 2021. 1
+     cations of computer vision (WACV), pages 839–847. IEEE,          [17] Nan Ji, YanFei Feng, Haidong Xie, Xueshuang Xiang,
+     2018. 3, 6                                                            and Naijin Liu. Adversarial yolo: Defense human detec-
+ [5] Qiang Chen, Yingming Wang, Tong Yang, Xiangyu Zhang,                  tion patch attacks via detecting adversarial patches. arXiv
+     Jian Cheng, and Jian Sun. You only look one-level feature.            preprint arXiv:2103.08860, 2021. 2
+     In IEEE Conference on Computer Vision and Pattern Recog-         [18] SivaNagiReddy Kalli, T Suresh, A Prasanth, T Muthuman-
+     nition, 2021. 2, 5                                                    ickam, and K Mohanram. An effective motion object de-
+ [6] Ping-Han Chiang, Chi-Shen Chan, and Shan-Hung Wu. Ad-                 tection using adaptive background modeling mechanism in
+     versarial pixel masking: A defense against physical attacks           video surveillance system. Journal of Intelligent & Fuzzy
+     for pre-trained object detectors. In Proceedings of the 29th          Systems, (Preprint):1–13, 2021. 1
+     ACM International Conference on Multimedia, pages 1856–          [19] Esraa Khatab, Ahmed Onsy, Martin Varley, and Ahmed
+     1865, 2021. 2                                                         Abouelfarag. Vulnerable objects detection for autonomous
+ [7] Jia Deng, Wei Dong, Richard Socher, Li-Jia Li, Kai Li,                driving: A review. Integration, 78:36–48, 2021. 1
+     and Li Fei-Fei. Imagenet: A large-scale hierarchical image       [20] Taeheon Kim, Youngjoon Yu, and Yong Man Ro. Defending
+     database. In 2009 IEEE conference on computer vision and              physical adversarial attack on object detection via adversar-
+     pattern recognition, pages 248–255. Ieee, 2009. 2, 5                  ial patch-feature energy. In Proceedings of the 30th ACM
+ [8] Xuefeng Du, Xin Wang, Gabriel Gozum, and Yixuan Li.                   International Conference on Multimedia, pages 1905–1913,
+     Unknown-aware object detection: Learning what you don’t               2022. 1, 2
+     know from videos in the wild. In Proceedings of the              [21] Adam Kortylewski, Qing Liu, Angtian Wang, Yihong Sun,
+     IEEE/CVF Conference on Computer Vision and Pattern                    and Alan Yuille. Compositional convolutional neural net-
+     Recognition, pages 13678–13688, 2022. 1, 2                            works: A robust and interpretable model for object recog-
+ [9] Yarin Gal and Zoubin Ghahramani. Dropout as a bayesian                nition under occlusion. International Journal of Computer
+     approximation: Representing model uncertainty in deep                 Vision, 129:736–760, 2021. 1
+     learning. In international conference on machine learning,       [22] Adam Kortylewski, Qing Liu, Huiyu Wang, Zhishuai Zhang,
+     pages 1050–1059. PMLR, 2016. 2, 7                                     and Alan Yuille. Combining compositional models and deep
+[10] Stefano Gasperini, Jan Haug, Mohammad-Ali Nikouei Ma-                 networks for robust object classification under occlusion. In
+     hani, Alvaro Marcos-Ramiro, Nassir Navab, Benjamin                    Proceedings of the IEEE/CVF winter conference on applica-
+     Busam, and Federico Tombari. Certainnet: Sampling-free                tions of computer vision, pages 1333–1341, 2020. 2
+     uncertainty estimation for object detection. IEEE Robotics       [23] Florian Kraus and Klaus Dietmayer. Uncertainty estima-
+     and Automation Letters, 7(2):698–705, 2021. 1, 2                      tion in one-stage object detection. In 2019 ieee intelligent
+[11] Jacob Gildenblat and contributors. Pytorch library for                transportation systems conference (itsc), pages 53–60. IEEE,
+     cam methods. https://github.com/jacobgil/                             2019. 1, 2
+     pytorch-grad-cam, 2021. 3                                        [24] Balaji Lakshminarayanan, Alexander Pritzel, and Charles
+[12] David Hall, Feras Dayoub, John Skinner, Haoyang Zhang,                Blundell. Simple and scalable predictive uncertainty estima-
+     Dimity Miller, Peter Corke, Gustavo Carneiro, Anelia An-              tion using deep ensembles. Advances in neural information
+     gelova, and Niko Sunderhauf. Probabilistic object detec-              processing systems, 30, 2017. 2, 7
+     tion: Definition and evaluation. In Proceedings of the           [25] Xuhong Li, Haoyi Xiong, Xingjian Li, Xuanyu Wu, Xiao
+     IEEE/CVF Winter Conference on Applications of Computer                Zhang, Ji Liu, Jiang Bian, and Dejing Dou. Interpretable
+     Vision, pages 1031–1040, 2020. 2                                      deep learning: Interpretation, interpretability, trustworthi-
+[13] Ali Harakeh, Michael Smart, and Steven L Waslander.                   ness, and beyond. Knowledge and Information Systems,
+     Bayesod: A bayesian approach for uncertainty estimation               64(12):3197–3234, 2022. 3
+
+
+
+
+                                                                    2515
+[26] Xiao-Hui Li, Yuhan Shi, Haoyang Li, Wei Bai, Caleb Chen                 objects detection in real complex scenarios for autonomous
+     Cao, and Lei Chen. An experimental study of quantitative                driving. Green Energy and Intelligent Transportation, page
+     evaluations on saliency methods. In Proceedings of the 27th             100092, 2023. 2
+     ACM sigkdd conference on knowledge discovery & data min-           [40] Kaziwa Saleh, Sándor Szénási, and Zoltán Vámossy. Oc-
+     ing, pages 3200–3208, 2021. 3                                           clusion handling in generic object detection: A review. In
+[27] Tsung-Yi Lin. Y, dollár p, girshick r, he k, hariharan b, be-          2021 IEEE 19th World Symposium on Applied Machine In-
+     longie s. feature pyramid networks for object detection. In             telligence and Informatics (SAMI), pages 000477–000484.
+     Proceedings-30th IEEE Conference on Computer Vision and                 IEEE, 2021. 1
+     Pattern Recognition, CVPR, volume 2017, pages 936–944,             [41] Ramprasaath R Selvaraju, Michael Cogswell, Abhishek Das,
+     2017. 2                                                                 Ramakrishna Vedantam, Devi Parikh, and Dhruv Batra.
+[28] Tsung-Yi Lin, Michael Maire, Serge Belongie, James Hays,                Grad-cam: Visual explanations from deep networks via
+     Pietro Perona, Deva Ramanan, Piotr Dollár, and C Lawrence              gradient-based localization. In Proceedings of the IEEE in-
+     Zitnick. Microsoft coco: Common objects in context. In                  ternational conference on computer vision, pages 618–626,
+     European conference on computer vision, pages 740–755.                  2017. 3, 6
+     Springer, 2014. 2, 5                                               [42] Thang Vu, Hyunjun Jang, Trung X Pham, and Chang Yoo.
+[29] Li Liu, Wanli Ouyang, Xiaogang Wang, Paul Fieguth, Jie                  Cascade rpn: Delving into high-quality region proposal net-
+     Chen, Xinwang Liu, and Matti Pietikäinen. Deep learning                work with adaptive convolution. Advances in neural infor-
+     for generic object detection: A survey. International journal           mation processing systems, 32, 2019. 2, 5
+     of computer vision, 128:261–318, 2020. 1                           [43] Angtian Wang, Yihong Sun, Adam Kortylewski, and Alan L
+[30] Xin Liu, Huanrui Yang, Ziwei Liu, Linghao Song, Hai Li,                 Yuille. Robust object detection under occlusion with context-
+     and Yiran Chen. Dpatch: An adversarial patch attack on                  aware compositionalnets. In Proceedings of the IEEE/CVF
+     object detectors. arXiv preprint arXiv:1806.02299, 2018. 5,             Conference on Computer Vision and Pattern Recognition,
+     6                                                                       pages 12645–12654, 2020. 2, 5
+                                                                        [44] Zining Wang, Di Feng, Yiyang Zhou, Lars Rosenbaum,
+[31] Xin Lu, Buyu Li, Yuxin Yue, Quanquan Li, and Junjie Yan.
+                                                                             Fabian Timm, Klaus Dietmayer, Masayoshi Tomizuka, and
+     Grid r-cnn. In Proceedings of the IEEE/CVF Conference
+                                                                             Wei Zhan. Inferring spatial uncertainty in object detection.
+     on Computer Vision and Pattern Recognition (CVPR), June
+                                                                             In 2020 IEEE/RSJ International Conference on Intelligent
+     2019. 5
+                                                                             Robots and Systems (IROS), pages 5792–5799. IEEE, 2020.
+[32] Mohammed Bany Muhammad and Mohammed Yeasin.                             1, 2
+     Eigen-cam: Class activation map using principal compo-             [45] Everingham M Van Gool L Williams. Ck winn j zisserman a
+     nents. In 2020 international joint conference on neural net-            the pascal visual object classes (voc) challenge. Int. J. Com-
+     works (IJCNN), pages 1–7. IEEE, 2020. 3                                 put. Vis, 88(2):303, 2010. 2
+[33] Kemal Oksuz, Baris Can Cam, Emre Akbas, and Sinan                  [46] Yue Wu, Yinpeng Chen, Lu Yuan, Zicheng Liu, Lijuan
+     Kalkan. Localization recall precision (lrp): A new perfor-              Wang, Hongzhi Li, and Yun Fu. Rethinking classification
+     mance metric for object detection. In Proceedings of the Eu-            and localization for object detection. 2019. 5
+     ropean conference on computer vision (ECCV), pages 504–            [47] Chong Xiang and Prateek Mittal. Detectorguard: Provably
+     519, 2018. 2                                                            securing object detectors against localized patch hiding at-
+[34] Rafael Padilla, Sergio L Netto, and Eduardo AB Da Silva.                tacks. In Proceedings of the 2021 ACM SIGSAC Conference
+     A survey on performance metrics for object-detection algo-              on Computer and Communications Security, pages 3177–
+     rithms. In 2020 international conference on systems, sig-               3196, 2021. 1, 2
+     nals and image processing (IWSSIP), pages 237–242. IEEE,           [48] Yu Xiang, Roozbeh Mottaghi, and Silvio Savarese. Beyond
+     2020. 1, 2                                                              pascal: A benchmark for 3d object detection in the wild. In
+[35] Lu Qi, Li Jiang, Shu Liu, Xiaoyong Shen, and Jiaya Jia.                 IEEE winter conference on applications of computer vision,
+     Amodal instance segmentation with kins dataset. In Pro-                 pages 75–82. IEEE, 2014. 5
+     ceedings of the IEEE/CVF Conference on Computer Vision             [49] Ke Xu, Yao Xiao, Zhaoheng Zheng, Kaijie Cai, and Ram
+     and Pattern Recognition, pages 3014–3023, 2019. 2                       Nevatia. Patchzero: Defending against adversarial patch at-
+[36] Aditya Ramesh, Prafulla Dhariwal, Alex Nichol, Casey                    tacks by detecting and zeroing the patch. In Proceedings of
+     Chu, and Mark Chen. Hierarchical text-conditional im-                   the IEEE/CVF Winter Conference on Applications of Com-
+     age generation with clip latents, 2022. URL https://arxiv.              puter Vision, pages 4632–4641, 2023. 2
+     org/abs/2204.06125, 7, 2022. 5                                     [50] Xiaohang Zhan, Xingang Pan, Bo Dai, Ziwei Liu, Dahua
+[37] Joseph Redmon and Ali Farhadi. Yolov3: An incremental                   Lin, and Chen Change Loy. Self-supervised scene de-
+     improvement. arXiv preprint arXiv:1804.02767, 2018. 5                   occlusion. In Proceedings of the IEEE/CVF conference on
+[38] Shaoqing Ren, Kaiming He, Ross Girshick, and Jian Sun.                  computer vision and pattern recognition, pages 3784–3792,
+     Faster r-cnn: Towards real-time object detection with region            2020. 2
+     proposal networks. Advances in neural information process-         [51] Hongru Zhu, Peng Tang, Jeongho Park, Soojin Park, and
+     ing systems, 28, 2015. 2, 5                                             Alan Yuille. Robustness of object recognition under ex-
+[39] Jiageng Ruan, Hanghang Cui, Yuhan Huang, Tongyang Li,                   treme occlusion in humans and computational models. arXiv
+     Changcheng Wu, and Kaixuan Zhang. A review of occluded                  preprint arXiv:1905.04598, 2019. 2
+
+
+
+
+                                                                      2516
+

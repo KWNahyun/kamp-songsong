@@ -1,0 +1,5 @@
+method,TP,FN,FP,recall,FP_per_image,worst_group_recall,infeasible_folds,policy_defined_all_folds,fallback_diagnostic_only,threshold_min,threshold_max,fallback_diagnostic_TP,fallback_diagnostic_FN,fallback_diagnostic_FP,fallback_diagnostic_recall,fallback_diagnostic_FP_per_image,fallback_diagnostic_worst_group_recall
+fp_budget,142.0,2.0,7.0,0.9861111111111112,0.10606060606060606,0.5,0,True,False,0.18563386797904968,0.19337229430675507,,,,,,
+group95,,,,,,,10,False,True,0.006203017197549343,0.5720618963241577,141.0,3.0,12672.0,0.9791666666666666,192.0,0.0
+recall95,135.0,9.0,2.0,0.9375,0.030303030303030304,0.0,0,True,False,0.5917363166809082,0.5987217426300049,,,,,,
+recall98,140.0,4.0,2.0,0.9722222222222222,0.030303030303030304,0.0,0,True,False,0.5692882537841797,0.5753422975540161,,,,,,

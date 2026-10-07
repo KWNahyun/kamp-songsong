@@ -1,0 +1,31 @@
+{
+  "name": "yolov8s_p2_seed20260930",
+  "images": 128,
+  "seconds": 1.7281160354614258,
+  "images_per_second": 74.06907988498183,
+  "peak_vram_gib": 0.6341328620910645,
+  "checkpoint_sha256": "e320e80bf7315d628ebb51d7a05bd5e6bc1bdc91073660ee8fdee09d377988f4",
+  "batch": 8,
+  "complete": true,
+  "YOLO_preNMS_saved": false,
+  "DFINE_regular_queries_saved": false,
+  "postprocessing": "score>=0.001, clip original coordinates, NMS0.7",
+  "files": [
+    "batch_00000.npz",
+    "batch_00001.npz",
+    "batch_00002.npz",
+    "batch_00003.npz",
+    "batch_00004.npz",
+    "batch_00005.npz",
+    "batch_00006.npz",
+    "batch_00007.npz",
+    "batch_00008.npz",
+    "batch_00009.npz",
+    "batch_00010.npz",
+    "batch_00011.npz",
+    "batch_00012.npz",
+    "batch_00013.npz",
+    "batch_00014.npz",
+    "batch_00015.npz"
+  ]
+}

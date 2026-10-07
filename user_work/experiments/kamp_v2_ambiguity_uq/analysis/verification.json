@@ -1,0 +1,60 @@
+{
+  "runs": [
+    {
+      "name": "dfine_mal_UQ_seed20260929",
+      "base_identity": true,
+      "hashes_valid": true,
+      "epochs": 30
+    },
+    {
+      "name": "dfine_mal_UQ_seed20260930",
+      "base_identity": true,
+      "hashes_valid": true,
+      "epochs": 30
+    },
+    {
+      "name": "dfine_mal_UQ_seed20261001",
+      "base_identity": true,
+      "hashes_valid": true,
+      "epochs": 30
+    },
+    {
+      "name": "dfine_edge_UQ_seed20260929",
+      "base_identity": true,
+      "hashes_valid": true,
+      "epochs": 30
+    },
+    {
+      "name": "dfine_edge_UQ_seed20260930",
+      "base_identity": true,
+      "hashes_valid": true,
+      "epochs": 30
+    },
+    {
+      "name": "dfine_edge_UQ_seed20261001",
+      "base_identity": true,
+      "hashes_valid": true,
+      "epochs": 30
+    },
+    {
+      "name": "dfine_soft10_UQ_seed20260929",
+      "base_identity": true,
+      "hashes_valid": true,
+      "epochs": 30
+    },
+    {
+      "name": "dfine_soft10_UQ_seed20260930",
+      "base_identity": true,
+      "hashes_valid": true,
+      "epochs": 30
+    },
+    {
+      "name": "dfine_soft10_UQ_seed20261001",
+      "base_identity": true,
+      "hashes_valid": true,
+      "epochs": 30
+    }
+  ],
+  "raw_best_iou_unchanged_all_GT": true,
+  "test_used": false
+}

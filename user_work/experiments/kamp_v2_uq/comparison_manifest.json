@@ -1,0 +1,205 @@
+{
+  "jobs": [
+    {
+      "name": "dfine_s_seed20260929",
+      "family": "dfine",
+      "seed": 20260929,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/train_dfine.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_seed20260929.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260929"
+      ],
+      "status": "trained",
+      "started": "2026-10-01T06:47:38.493012+00:00",
+      "pid": 1698271,
+      "returncode": 0,
+      "finished": "2026-10-01T06:53:59.232212+00:00"
+    },
+    {
+      "name": "dfine_s_seed20260930",
+      "family": "dfine",
+      "seed": 20260930,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/train_dfine.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_seed20260930.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260930"
+      ],
+      "status": "trained",
+      "started": "2026-10-01T07:07:17.020205+00:00",
+      "pid": 1718637,
+      "returncode": 0,
+      "finished": "2026-10-01T07:13:45.548982+00:00"
+    },
+    {
+      "name": "dfine_s_seed20261001",
+      "family": "dfine",
+      "seed": 20261001,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/train_dfine.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_v2_baselines/configs/dfine_s_seed20261001.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20261001"
+      ],
+      "status": "trained",
+      "started": "2026-10-01T07:27:07.418311+00:00",
+      "pid": 1734288,
+      "returncode": 0,
+      "finished": "2026-10-01T07:33:29.468824+00:00"
+    },
+    {
+      "name": "dfine_M_seed20260929",
+      "family": "dfine",
+      "seed": 20260929,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/train_dfine.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_v2_mal/configs/dfine_M_seed20260929.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260929",
+        "--mal"
+      ],
+      "status": "trained",
+      "started": "2026-10-01T12:37:29.644074+00:00",
+      "pid": 1946866,
+      "returncode": 0,
+      "finished": "2026-10-01T12:43:51.311745+00:00"
+    },
+    {
+      "name": "dfine_M_seed20260930",
+      "family": "dfine",
+      "seed": 20260930,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/train_dfine.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_v2_mal/configs/dfine_M_seed20260930.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260930",
+        "--mal"
+      ],
+      "status": "trained",
+      "started": "2026-10-01T12:43:51.333118+00:00",
+      "pid": 1951716,
+      "returncode": 0,
+      "finished": "2026-10-01T12:50:06.394219+00:00"
+    },
+    {
+      "name": "dfine_M_seed20261001",
+      "family": "dfine",
+      "seed": 20261001,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/train_dfine.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_v2_mal/configs/dfine_M_seed20261001.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20261001",
+        "--mal"
+      ],
+      "status": "trained",
+      "started": "2026-10-01T12:50:06.413218+00:00",
+      "pid": 1956388,
+      "returncode": 0,
+      "finished": "2026-10-01T12:56:31.133170+00:00"
+    },
+    {
+      "name": "dfine_base_UQ_seed20260929",
+      "base": "base",
+      "seed": 20260929,
+      "status": "trained",
+      "started": "2026-10-01T13:09:48.406380+00:00",
+      "pid": 1970341,
+      "finished": "2026-10-01T13:11:26.246818+00:00",
+      "returncode": 0,
+      "family": "uq"
+    },
+    {
+      "name": "dfine_mal_UQ_seed20260929",
+      "base": "mal",
+      "seed": 20260929,
+      "status": "trained",
+      "started": "2026-10-01T13:11:26.266321+00:00",
+      "pid": 1971753,
+      "finished": "2026-10-01T13:13:03.173629+00:00",
+      "returncode": 0,
+      "family": "uq"
+    },
+    {
+      "name": "dfine_base_UQ_seed20260930",
+      "base": "base",
+      "seed": 20260930,
+      "status": "trained",
+      "started": "2026-10-01T13:13:03.194076+00:00",
+      "pid": 1973112,
+      "finished": "2026-10-01T13:14:40.638342+00:00",
+      "returncode": 0,
+      "family": "uq"
+    },
+    {
+      "name": "dfine_mal_UQ_seed20260930",
+      "base": "mal",
+      "seed": 20260930,
+      "status": "trained",
+      "started": "2026-10-01T13:14:40.656193+00:00",
+      "pid": 1974473,
+      "finished": "2026-10-01T13:16:19.121200+00:00",
+      "returncode": 0,
+      "family": "uq"
+    },
+    {
+      "name": "dfine_base_UQ_seed20261001",
+      "base": "base",
+      "seed": 20261001,
+      "status": "trained",
+      "started": "2026-10-01T13:16:19.141240+00:00",
+      "pid": 1975863,
+      "finished": "2026-10-01T13:17:56.295686+00:00",
+      "returncode": 0,
+      "family": "uq"
+    },
+    {
+      "name": "dfine_mal_UQ_seed20261001",
+      "base": "mal",
+      "seed": 20261001,
+      "status": "trained",
+      "started": "2026-10-01T13:17:56.313319+00:00",
+      "pid": 1977224,
+      "finished": "2026-10-01T13:19:31.451877+00:00",
+      "returncode": 0,
+      "family": "uq"
+    }
+  ]
+}

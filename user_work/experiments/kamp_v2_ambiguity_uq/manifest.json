@@ -1,0 +1,87 @@
+{
+  "jobs": [
+    {
+      "name": "dfine_mal_UQ_seed20260929",
+      "variant": "mal",
+      "seed": 20260929,
+      "config": "/home/viplab/contest/experiments/kamp_v2_uq/configs/dfine_UQ_seed20260929.yml",
+      "base_checkpoint": "/home/viplab/contest/experiments/kamp_v2_ambiguity/runs/mal_seed20260929/best_stg1.pth",
+      "base_sha256": "c97a4f12d0ed939ea1cd080ce55e1bf330f6e586959468f7c9667c62d072c007"
+    },
+    {
+      "name": "dfine_mal_UQ_seed20260930",
+      "variant": "mal",
+      "seed": 20260930,
+      "config": "/home/viplab/contest/experiments/kamp_v2_uq/configs/dfine_UQ_seed20260929.yml",
+      "base_checkpoint": "/home/viplab/contest/experiments/kamp_v2_ambiguity/runs/mal_seed20260930/best_stg1.pth",
+      "base_sha256": "810136d9cee16efd3f6fdb9cf7f3b23ff602a3dc88afa4d4429339d8e3080052"
+    },
+    {
+      "name": "dfine_mal_UQ_seed20261001",
+      "variant": "mal",
+      "seed": 20261001,
+      "config": "/home/viplab/contest/experiments/kamp_v2_uq/configs/dfine_UQ_seed20260929.yml",
+      "base_checkpoint": "/home/viplab/contest/experiments/kamp_v2_ambiguity/runs/mal_seed20261001/best_stg1.pth",
+      "base_sha256": "8c0eca6f14b3307ac19170a3f405f6bed5edfeb4aa32ef48164517a0f53042db"
+    },
+    {
+      "name": "dfine_edge_UQ_seed20260929",
+      "variant": "edge",
+      "seed": 20260929,
+      "config": "/home/viplab/contest/experiments/kamp_v2_uq/configs/dfine_UQ_seed20260929.yml",
+      "base_checkpoint": "/home/viplab/contest/experiments/kamp_v2_ambiguity/runs/edge_seed20260929/best_stg1.pth",
+      "base_sha256": "3dc12a44ffa3f7a520be0f97a6618d397cd7711a8355c57eec4fd5e27448d040"
+    },
+    {
+      "name": "dfine_edge_UQ_seed20260930",
+      "variant": "edge",
+      "seed": 20260930,
+      "config": "/home/viplab/contest/experiments/kamp_v2_uq/configs/dfine_UQ_seed20260929.yml",
+      "base_checkpoint": "/home/viplab/contest/experiments/kamp_v2_ambiguity/runs/edge_seed20260930/best_stg1.pth",
+      "base_sha256": "5af70e6b82156e7d375d7bea6171fbf172bcb0e9305cb8187673082b871fc04e"
+    },
+    {
+      "name": "dfine_edge_UQ_seed20261001",
+      "variant": "edge",
+      "seed": 20261001,
+      "config": "/home/viplab/contest/experiments/kamp_v2_uq/configs/dfine_UQ_seed20260929.yml",
+      "base_checkpoint": "/home/viplab/contest/experiments/kamp_v2_ambiguity/runs/edge_seed20261001/best_stg1.pth",
+      "base_sha256": "9572b9cebb71c5e5570468fd7b60ac08e2924cad3ef9c2db809d3ca0b9bd8450"
+    },
+    {
+      "name": "dfine_soft10_UQ_seed20260929",
+      "variant": "soft10",
+      "seed": 20260929,
+      "config": "/home/viplab/contest/experiments/kamp_v2_uq/configs/dfine_UQ_seed20260929.yml",
+      "base_checkpoint": "/home/viplab/contest/experiments/kamp_v2_ambiguity/runs/soft10_seed20260929/best_stg1.pth",
+      "base_sha256": "7bdc6c8ab9880e31dc59799dc7031da2ff3493b28f9cd4bfc1e8df149d82d198"
+    },
+    {
+      "name": "dfine_soft10_UQ_seed20260930",
+      "variant": "soft10",
+      "seed": 20260930,
+      "config": "/home/viplab/contest/experiments/kamp_v2_uq/configs/dfine_UQ_seed20260929.yml",
+      "base_checkpoint": "/home/viplab/contest/experiments/kamp_v2_ambiguity/runs/soft10_seed20260930/best_stg1.pth",
+      "base_sha256": "143eb461d8cce61eb9ac3cee9137f3f2e97f0b7f3ccd190add497e1222ee5969"
+    },
+    {
+      "name": "dfine_soft10_UQ_seed20261001",
+      "variant": "soft10",
+      "seed": 20261001,
+      "config": "/home/viplab/contest/experiments/kamp_v2_uq/configs/dfine_UQ_seed20260929.yml",
+      "base_checkpoint": "/home/viplab/contest/experiments/kamp_v2_ambiguity/runs/soft10_seed20261001/best_stg1.pth",
+      "base_sha256": "051be9e1beb38d8d29783c71d89142f7d762d5572ff1cf7fa30d2d40458f834e"
+    }
+  ],
+  "train_images": 350,
+  "val_images": 66,
+  "epochs": 30,
+  "max_concurrent": 3,
+  "test_used": false,
+  "NMS": 0.7,
+  "box_scale": 1,
+  "selection": "fixed last epoch; no UQ validation checkpoint selection",
+  "adoption_rule": "Soft1+UQ versus each of MAL+UQ and edge+UQ: positive mean AP and AP75, each positive in at least 2/3 paired seeds, mean validation-selected FP<=6 TP not lower; exploratory evidence only, otherwise stop model search",
+  "recipe_source": "/home/viplab/contest/experiments/kamp_v2_uq/train.py",
+  "recipe_sha256": "aa2c080cd815c7bf2d6a7b7ea6b154eefdd972874f2f2e7c7599a4a00ad7885a"
+}

@@ -1,0 +1,10 @@
+{
+  "pilot_pass": false,
+  "reason": "AP75 lower than capacity control; precise representative unchanged",
+  "additional_seeds_started": false,
+  "delta_AP": 0.008052616584265593,
+  "delta_AP75": -0.2801080027935896,
+  "delta_TP": 0,
+  "test_used": false,
+  "report": "/home/viplab/contest/\ud504\ub85c\uc81d\ud2b8_\uc9c4\ud589\uacfc\uc815_\ud1b5\ud569\ubcf4\uace0\uc11c.md"
+}

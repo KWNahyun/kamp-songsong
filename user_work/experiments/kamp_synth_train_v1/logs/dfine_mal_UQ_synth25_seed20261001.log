@@ -1,0 +1,13 @@
+building train_dataloader with batch_size=8...
+{"epoch": 1, "loss": 0.0036718087651672125, "lr": 5e-05, "elapsed_seconds": 6.410080432891846}
+{"epoch": 2, "loss": 0.002893598972212018, "lr": 5e-05, "elapsed_seconds": 12.419864892959595}
+{"epoch": 3, "loss": 0.00274556090313373, "lr": 5e-05, "elapsed_seconds": 18.174906969070435}
+{"epoch": 4, "loss": 0.0026410978980030927, "lr": 5e-05, "elapsed_seconds": 24.18667507171631}
+{"epoch": 5, "loss": 0.0024877423736251007, "lr": 5e-05, "elapsed_seconds": 29.91959810256958}
+{"epoch": 6, "loss": 0.0023903469298571602, "lr": 5e-05, "elapsed_seconds": 35.90896677970886}
+{"epoch": 7, "loss": 0.0023053039202734953, "lr": 5e-05, "elapsed_seconds": 41.71416664123535}
+{"epoch": 8, "loss": 0.0022653121810990496, "lr": 5e-05, "elapsed_seconds": 47.701531648635864}
+{"epoch": 9, "loss": 0.0021988774414995085, "lr": 5e-05, "elapsed_seconds": 53.66632413864136}
+{"epoch": 10, "loss": 0.002171320730220463, "lr": 5e-05, "elapsed_seconds": 59.532655239105225}
+{"epoch": 11, "loss": 0.0021312002480322087, "lr": 5e-06, "elapsed_seconds": 65.6214370727539}
+{"epoch": 12, "loss": 0.002092433406703048, "lr": 5e-06, "elapsed_seconds": 71.35173654556274}

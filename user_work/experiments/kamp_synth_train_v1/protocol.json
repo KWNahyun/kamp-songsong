@@ -1,0 +1,216 @@
+{
+  "purpose": "supplementary synthetic weakness mitigation; no replacement of frozen final model",
+  "real_train_images": 350,
+  "synthetic_train_images": 120,
+  "synthetic_fraction": 0.2553191489361702,
+  "synthetic_source_split": "val only",
+  "synthetic_test_used_for_training": false,
+  "real_validation_background_overlap": "synthetic train derives from the same 66 validation backgrounds; real validation is diagnostic only",
+  "epochs": 12,
+  "learning_rate": 5e-05,
+  "jobs": [
+    {
+      "name": "dfine_s_synth25_seed20260929",
+      "family": "dfine",
+      "variant": "dfine_s",
+      "seed": 20260929,
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_s_synth25_seed20260929.yml",
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/dfine_s_seed20260929/best_stg1.pth",
+      "flags": [],
+      "depends_on": null
+    },
+    {
+      "name": "dfine_s_p2_synth25_seed20260929",
+      "family": "dfine",
+      "variant": "dfine_s_p2",
+      "seed": 20260929,
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_s_p2_synth25_seed20260929.yml",
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/dfine_s_p2_seed20260929/best_stg1.pth",
+      "flags": [
+        "--p2"
+      ],
+      "depends_on": null
+    },
+    {
+      "name": "dfine_M_synth25_seed20260929",
+      "family": "dfine",
+      "variant": "dfine_M",
+      "seed": 20260929,
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_M_synth25_seed20260929.yml",
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_mal/runs/dfine_M_seed20260929/best_stg1.pth",
+      "flags": [
+        "--mal"
+      ],
+      "depends_on": null
+    },
+    {
+      "name": "yolov8s_synth25_seed20260929",
+      "family": "yolo",
+      "variant": "yolov8s",
+      "seed": 20260929,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/yolov8s_seed20260929/weights/best.pt",
+      "depends_on": null
+    },
+    {
+      "name": "yolov8s_p2_synth25_seed20260929",
+      "family": "yolo",
+      "variant": "yolov8s_p2",
+      "seed": 20260929,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/yolov8s_p2_seed20260929/weights/best.pt",
+      "depends_on": null
+    },
+    {
+      "name": "dfine_mal_UQ_synth25_seed20260929",
+      "family": "uq",
+      "variant": "dfine_mal_UQ",
+      "seed": 20260929,
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_M_synth25_seed20260929.yml",
+      "base_uq_checkpoint": "/home/viplab/contest/experiments/kamp_v2_uq/runs_frozen/dfine_mal_UQ_seed20260929/last.pth",
+      "depends_on": "dfine_M_synth25_seed20260929"
+    },
+    {
+      "name": "dfine_s_synth25_seed20260930",
+      "family": "dfine",
+      "variant": "dfine_s",
+      "seed": 20260930,
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_s_synth25_seed20260930.yml",
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/dfine_s_seed20260930/best_stg1.pth",
+      "flags": [],
+      "depends_on": null
+    },
+    {
+      "name": "dfine_s_p2_synth25_seed20260930",
+      "family": "dfine",
+      "variant": "dfine_s_p2",
+      "seed": 20260930,
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_s_p2_synth25_seed20260930.yml",
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/dfine_s_p2_seed20260930/best_stg1.pth",
+      "flags": [
+        "--p2"
+      ],
+      "depends_on": null
+    },
+    {
+      "name": "dfine_M_synth25_seed20260930",
+      "family": "dfine",
+      "variant": "dfine_M",
+      "seed": 20260930,
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_M_synth25_seed20260930.yml",
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_mal/runs/dfine_M_seed20260930/best_stg1.pth",
+      "flags": [
+        "--mal"
+      ],
+      "depends_on": null
+    },
+    {
+      "name": "yolov8s_synth25_seed20260930",
+      "family": "yolo",
+      "variant": "yolov8s",
+      "seed": 20260930,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/yolov8s_seed20260930/weights/best.pt",
+      "depends_on": null
+    },
+    {
+      "name": "yolov8s_p2_synth25_seed20260930",
+      "family": "yolo",
+      "variant": "yolov8s_p2",
+      "seed": 20260930,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/yolov8s_p2_seed20260930/weights/best.pt",
+      "depends_on": null
+    },
+    {
+      "name": "dfine_mal_UQ_synth25_seed20260930",
+      "family": "uq",
+      "variant": "dfine_mal_UQ",
+      "seed": 20260930,
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_M_synth25_seed20260930.yml",
+      "base_uq_checkpoint": "/home/viplab/contest/experiments/kamp_v2_uq/runs_frozen/dfine_mal_UQ_seed20260930/last.pth",
+      "depends_on": "dfine_M_synth25_seed20260930"
+    },
+    {
+      "name": "dfine_s_synth25_seed20261001",
+      "family": "dfine",
+      "variant": "dfine_s",
+      "seed": 20261001,
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_s_synth25_seed20261001.yml",
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/dfine_s_seed20261001/best_stg1.pth",
+      "flags": [],
+      "depends_on": null
+    },
+    {
+      "name": "dfine_s_p2_synth25_seed20261001",
+      "family": "dfine",
+      "variant": "dfine_s_p2",
+      "seed": 20261001,
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_s_p2_synth25_seed20261001.yml",
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/dfine_s_p2_seed20261001/best_stg1.pth",
+      "flags": [
+        "--p2"
+      ],
+      "depends_on": null
+    },
+    {
+      "name": "dfine_M_synth25_seed20261001",
+      "family": "dfine",
+      "variant": "dfine_M",
+      "seed": 20261001,
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_M_synth25_seed20261001.yml",
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_mal/runs/dfine_M_seed20261001/best_stg1.pth",
+      "flags": [
+        "--mal"
+      ],
+      "depends_on": null
+    },
+    {
+      "name": "yolov8s_synth25_seed20261001",
+      "family": "yolo",
+      "variant": "yolov8s",
+      "seed": 20261001,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/yolov8s_seed20261001/weights/best.pt",
+      "depends_on": null
+    },
+    {
+      "name": "yolov8s_p2_synth25_seed20261001",
+      "family": "yolo",
+      "variant": "yolov8s_p2",
+      "seed": 20261001,
+      "checkpoint": "/home/viplab/contest/experiments/kamp_v2_baselines/runs/yolov8s_p2_seed20261001/weights/best.pt",
+      "depends_on": null
+    },
+    {
+      "name": "dfine_mal_UQ_synth25_seed20261001",
+      "family": "uq",
+      "variant": "dfine_mal_UQ",
+      "seed": 20261001,
+      "config": "/home/viplab/contest/experiments/kamp_synth_train_v1/configs/dfine_M_synth25_seed20261001.yml",
+      "base_uq_checkpoint": "/home/viplab/contest/experiments/kamp_v2_uq/runs_frozen/dfine_mal_UQ_seed20261001/last.pth",
+      "depends_on": "dfine_M_synth25_seed20261001"
+    }
+  ],
+  "quotas": {
+    "erased": 24,
+    "pos_random_k0.5": 20,
+    "gvxr_size_x0.5": 16,
+    "gvxr_size_x0.75": 12,
+    "gvxr_shape_wire10": 12,
+    "gvxr_shape_wire20": 12,
+    "gvxr_material_Al_x2": 6,
+    "gvxr_material_bone_x2": 6,
+    "gvxr_material_glass_x2": 6,
+    "gvxr_material_stone_x2": 6
+  },
+  "train_stats": {
+    "images": 470,
+    "boxes": 1085
+  },
+  "val_stats": {
+    "images": 66,
+    "boxes": 144
+  },
+  "hashes": {
+    "/home/viplab/contest/data/synthetic/kamp_synth_test_v1/images.csv": "2140380a1c95f31604ad312a33a4c41b7288ed17365157d0c526b5f217e2ce74",
+    "/home/viplab/contest/data/synthetic/kamp_synth_test_v1/objects.csv": "45b00509082c8847e73502bf3a819230a7d468652e15740cc0e3a82e8d781c7a",
+    "/home/viplab/contest/experiments/kamp_synth_train_v1/data640_mix25/annotations/train.json": "d98ff3568a86539a9fc8ffb2032539c9fb809dc1a67042cbb0650548f4d4b700",
+    "/home/viplab/contest/experiments/kamp_synth_train_v1/data640_mix25/annotations/val.json": "fdb9213cb0e4f4a35b6a315ae27efb749a4ce113ad67c179949798375a30f7b4"
+  }
+}

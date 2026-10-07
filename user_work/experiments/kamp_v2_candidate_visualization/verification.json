@@ -1,0 +1,23 @@
+[
+  {
+    "seed": 20260929,
+    "TP": 141,
+    "FP": 6,
+    "threshold": 0.15639793872833252,
+    "reference_matches": true
+  },
+  {
+    "seed": 20260930,
+    "TP": 142,
+    "FP": 6,
+    "threshold": 0.19337229430675507,
+    "reference_matches": true
+  },
+  {
+    "seed": 20261001,
+    "TP": 142,
+    "FP": 6,
+    "threshold": 0.17760604619979858,
+    "reference_matches": true
+  }
+]

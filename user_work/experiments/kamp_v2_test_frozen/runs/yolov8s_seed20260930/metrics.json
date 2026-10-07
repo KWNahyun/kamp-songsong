@@ -1,0 +1,41 @@
+{
+  "name": "yolov8s_seed20260930",
+  "variant": "yolov8s",
+  "seed": 20260930,
+  "AP": 31.245154847296973,
+  "AP50": 87.25848312986638,
+  "AP75": 10.403776249493022,
+  "val_threshold": 0.8020033836364746,
+  "TP": 189,
+  "FP": 13,
+  "FN": 17,
+  "recall": 0.9174757281553398,
+  "FP_per_image": 0.15476190476190477,
+  "alarm_images": 81,
+  "images": 84,
+  "GT": 206,
+  "test_threshold_optimized": false,
+  "conditions": [
+    {
+      "machine": "M1",
+      "images": 31,
+      "GT": 81,
+      "TP": 81,
+      "FP": 0
+    },
+    {
+      "machine": "M2",
+      "images": 25,
+      "GT": 61,
+      "TP": 54,
+      "FP": 7
+    },
+    {
+      "machine": "M3",
+      "images": 28,
+      "GT": 64,
+      "TP": 54,
+      "FP": 6
+    }
+  ]
+}

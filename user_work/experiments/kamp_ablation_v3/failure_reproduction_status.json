@@ -1,0 +1,8 @@
+{
+  "status": "stopped_after_bounded_diagnostic",
+  "complete_epochs": 12,
+  "original_failed_complete_epochs": 4,
+  "nonfinite_input_captured": false,
+  "included_in_comparison": false,
+  "note": "Same seed did not reproduce original failure within this diagnostic; do not claim exact runtime input cause captured."
+}

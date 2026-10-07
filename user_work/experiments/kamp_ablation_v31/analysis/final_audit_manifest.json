@@ -1,0 +1,15 @@
+{
+  "test_used": false,
+  "trained_successfully": 6,
+  "evaluated_successfully": 6,
+  "trace_forward_equivalence_checks": 384,
+  "trace_output_max_difference": 0,
+  "trace_score_floor": 0.05,
+  "trace_notes": "Per-GT oracle, not one-to-one recall. NMS loss uses same .001 floor. Encoder expanded-grid outputs are diagnostic counterfactuals.",
+  "source_hashes": {
+    "status.json": "b572e035e5539aad03bba65786f2eb9edfefb985e794a5c00aedee8b4ead4805",
+    "analysis/per_run.csv": "7265fb711177d41ae19dd8fa85897919a2e0dd036bc478060bd5a14c4f608cb0",
+    "analysis/postprocess.csv": "ff31ff08686bc58e1689740b03f9bb9790eaf11c1532e7763bfbc9852fe93f36",
+    "trace/stage_summary.csv": "77e4166d6da8e965691cff037821164f13e579485765cafd6c13d50ad459382c"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "run": "dfine_mal_UQ_seed20260930",
+  "checkpoint_sha256": "ddbdbc3638e661003b49922832edb84a44c8d0b95e30d33906ff4cae984c6461",
+  "val_threshold": 0.19337229430675507,
+  "images": 66,
+  "seconds": 3.714169979095459,
+  "GT_used": false,
+  "preprocessing": "provided marker-removed uint8 grayscale; original-resolution input; 640 central letterbox",
+  "NMS": 0.7,
+  "box_scale": 1,
+  "score_floor": 0.001,
+  "score_is_calibrated_probability": false
+}

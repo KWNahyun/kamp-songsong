@@ -1,0 +1,40 @@
+{
+  "name": "soft05_seed20260930",
+  "variant": "soft05",
+  "seed": 20260930,
+  "AP": 39.10912913311387,
+  "AP50": 96.313344321013,
+  "AP75": 14.150788350814286,
+  "raw_AP": 39.80448163069716,
+  "raw_AP75": 15.778242959860927,
+  "threshold": 0.18277078866958618,
+  "TP": 141,
+  "FP": 6,
+  "recall": 0.9791666666666666,
+  "FP_per_image": 0.09090909090909091,
+  "conditions": {
+    "M1": {
+      "GT": 56,
+      "TP": 56
+    },
+    "M2": {
+      "GT": 42,
+      "TP": 42
+    },
+    "M3": {
+      "GT": 46,
+      "TP": 43
+    }
+  },
+  "precise_candidate": 103,
+  "precise_leader": 47,
+  "precise_after_nms": 64,
+  "checkpoint_sha256": "d2c05c4727ddb23f98fc1ec6b1f982fe4cd52dea63c9ce44e3a5f39fab5e6748",
+  "epoch": 5,
+  "split": "val",
+  "test_used": false,
+  "UQ": false,
+  "NMS": 0.7,
+  "box_scale": 1,
+  "operating_point": "validation-selected FP <= 6 over 66 images; not fixed operational deployment threshold"
+}

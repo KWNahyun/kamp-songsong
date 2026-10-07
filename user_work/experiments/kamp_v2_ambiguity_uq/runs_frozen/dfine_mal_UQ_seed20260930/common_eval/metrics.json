@@ -1,0 +1,40 @@
+{
+  "name": "dfine_mal_UQ_seed20260930",
+  "variant": "mal",
+  "seed": 20260930,
+  "AP": 37.83899687515762,
+  "AP50": 97.00712333926231,
+  "AP75": 15.559453452584574,
+  "raw_AP": 37.856786696609596,
+  "raw_AP75": 17.87959101572522,
+  "threshold": 0.3815774619579315,
+  "TP": 140,
+  "FP": 6,
+  "recall": 0.9722222222222222,
+  "FP_per_image": 0.09090909090909091,
+  "conditions": {
+    "M1": {
+      "GT": 56,
+      "TP": 54
+    },
+    "M2": {
+      "GT": 42,
+      "TP": 42
+    },
+    "M3": {
+      "GT": 46,
+      "TP": 44
+    }
+  },
+  "precise_candidate": 97,
+  "precise_leader": 49,
+  "precise_after_nms": 64,
+  "checkpoint_sha256": "9edc8bfa760d3b2bc7d14fbd0c6fccef4c446b5f924d920daa321ec139e54ef2",
+  "epoch": null,
+  "split": "val",
+  "test_used": false,
+  "UQ": true,
+  "NMS": 0.7,
+  "box_scale": 1,
+  "operating_point": "validation-selected FP <= 6 over 66 images; not fixed operational deployment threshold"
+}

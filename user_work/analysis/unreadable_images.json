@@ -1,0 +1,57 @@
+[
+  {
+    "path": "4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/img.jpg",
+    "bytes": 632,
+    "error": "cannot identify image file '/home/viplab/contest/data/raw/4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/img.jpg'"
+  },
+  {
+    "path": "4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/splitdata.jpg",
+    "bytes": 656,
+    "error": "cannot identify image file '/home/viplab/contest/data/raw/4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/splitdata.jpg'"
+  },
+  {
+    "path": "4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/README.jpg",
+    "bytes": 10195,
+    "error": "cannot identify image file '/home/viplab/contest/data/raw/4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/README.jpg'"
+  },
+  {
+    "path": "4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/LICENSE.jpg",
+    "bytes": 35799,
+    "error": "cannot identify image file '/home/viplab/contest/data/raw/4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/LICENSE.jpg'"
+  },
+  {
+    "path": "4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/Dockerfile.jpg",
+    "bytes": 2711,
+    "error": "cannot identify image file '/home/viplab/contest/data/raw/4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/Dockerfile.jpg'"
+  },
+  {
+    "path": "4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/detect.jpg",
+    "bytes": 8610,
+    "error": "cannot identify image file '/home/viplab/contest/data/raw/4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/detect.jpg'"
+  },
+  {
+    "path": "4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/requirements.jpg",
+    "bytes": 596,
+    "error": "cannot identify image file '/home/viplab/contest/data/raw/4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/requirements.jpg'"
+  },
+  {
+    "path": "4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/test.jpg",
+    "bytes": 12291,
+    "error": "cannot identify image file '/home/viplab/contest/data/raw/4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/test.jpg'"
+  },
+  {
+    "path": "4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/train.jpg",
+    "bytes": 24229,
+    "error": "cannot identify image file '/home/viplab/contest/data/raw/4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/train.jpg'"
+  },
+  {
+    "path": "4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/models.jpg",
+    "bytes": 22881,
+    "error": "cannot identify image file '/home/viplab/contest/data/raw/4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/models.jpg'"
+  },
+  {
+    "path": "4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/yolov3-spp.jpg",
+    "bytes": 8599,
+    "error": "cannot identify image file '/home/viplab/contest/data/raw/4. X-ray 검사장비 AI 데이터셋/dataset/test1/yolov3/yolov3-spp.jpg'"
+  }
+]

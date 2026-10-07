@@ -1,0 +1,30 @@
+KAMP local reproduction package — third-party source inventory
+Checked 2026-10-03. This is a local handoff package, not a public release.
+
+D-FINE: https://github.com/Peterande/D-FINE
+Local source commit: 956d1709314c2c6a4df6f34de232054578a7449f
+Code license: Apache-2.0, preserved in vendor/dfine/LICENSE and licenses/D_FINE_LICENSE.
+Vendor files match the local clean source checkout; original file copyright notices,
+including RT-DETR attributions, are retained. UQ and MAL are external patches.
+
+DEIM: https://github.com/ShihuaHuang95/DEIM
+MAL reference: experiments/kamp_ablation_v3/sources/deim_criterion.py in the original workspace.
+Adaptation: src/loss_patch.py preserves existing D-FINE matching and installs the MAL loss.
+Copyright (c) 2024 The DEIM Authors. See licenses/DEIM_LICENSE for upstream terms.
+Current upstream license was retrieved on 2026-10-03; original source commit was not recorded.
+
+Weights: checkpoints/dfine_s_coco_init.pth is a project-specific single-class
+initialization derived from the author's COCO checkpoint, not an unchanged download.
+Upstream download listed by D-FINE:
+https://github.com/Peterande/storage/releases/download/dfinev1.0/dfine_s_coco.pth
+Shared shape-compatible tensors were loaded; remaining tensors were initialized
+with seed 20260929. The final checkpoint adds KAMP MAL training and frozen-detector UQ.
+A source-code license alone is not recorded here as clearance for all datasets/weights.
+
+Data: KAMP-provided data and team-processed images/labels. Public redistribution
+permission is not established by this inventory. No dataset is uploaded publicly.
+
+Dependencies: environment/requirements.lock.txt is a historical full environment,
+including Ultralytics used for baseline comparisons. It is not a minimal D-FINE-only list.
+Dependency packages and their license texts are not bundled as vendor source.
+No blanket license is assigned to the team-created package or to KAMP data by this file.

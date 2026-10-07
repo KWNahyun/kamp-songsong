@@ -1,0 +1,40 @@
+{
+  "name": "dfine_edge_UQ_seed20260929",
+  "variant": "edge",
+  "seed": 20260929,
+  "AP": 39.68538678140604,
+  "AP50": 95.99634931218179,
+  "AP75": 20.427521980894632,
+  "raw_AP": 39.703484514372285,
+  "raw_AP75": 21.29320706611077,
+  "threshold": 0.24231410026550293,
+  "TP": 140,
+  "FP": 6,
+  "recall": 0.9722222222222222,
+  "FP_per_image": 0.09090909090909091,
+  "conditions": {
+    "M1": {
+      "GT": 56,
+      "TP": 55
+    },
+    "M2": {
+      "GT": 42,
+      "TP": 41
+    },
+    "M3": {
+      "GT": 46,
+      "TP": 44
+    }
+  },
+  "precise_candidate": 102,
+  "precise_leader": 55,
+  "precise_after_nms": 75,
+  "checkpoint_sha256": "d217b8059686485c2d74f48bdd57b5fa0580a1b608dd935eac4626af33dd7866",
+  "epoch": null,
+  "split": "val",
+  "test_used": false,
+  "UQ": true,
+  "NMS": 0.7,
+  "box_scale": 1,
+  "operating_point": "validation-selected FP <= 6 over 66 images; not fixed operational deployment threshold"
+}

@@ -1,0 +1,21 @@
+{
+  "complete": true,
+  "test_used": false,
+  "retry_results": [
+    {
+      "name": "dfine_G01_seed20260930",
+      "status": "trained",
+      "returncode": 0
+    },
+    {
+      "name": "dfine_G03_seed20260930",
+      "status": "failed",
+      "returncode": 1
+    },
+    {
+      "name": "dfine_GM01_seed20261001",
+      "status": "trained",
+      "returncode": 0
+    }
+  ]
+}

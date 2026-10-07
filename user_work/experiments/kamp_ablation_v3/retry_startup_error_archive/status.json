@@ -1,0 +1,92 @@
+{
+  "started": "2026-09-30T12:13:29.995031+00:00",
+  "pid": 915798,
+  "objective_changed": false,
+  "resume": false,
+  "test_used": false,
+  "jobs": [
+    {
+      "name": "dfine_G01_seed20260930",
+      "variant": "G01",
+      "seed": 20260930,
+      "status": "failed",
+      "started": "2026-09-30T12:13:29.995090+00:00",
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/retry_failed_v1/train.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/configs/dfine_G01_seed20260930.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260930",
+        "--size-weight",
+        "0.1",
+        "--output-dir",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/retry_failed_v1/dfine_G01_seed20260930"
+      ],
+      "run": "/home/viplab/contest/experiments/kamp_ablation_v3/retry_failed_v1/dfine_G01_seed20260930",
+      "pid": 915799,
+      "returncode": 1,
+      "finished": "2026-09-30T12:13:30.656981+00:00"
+    },
+    {
+      "name": "dfine_G03_seed20260930",
+      "variant": "G03",
+      "seed": 20260930,
+      "status": "failed",
+      "started": "2026-09-30T12:13:30.657305+00:00",
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/retry_failed_v1/train.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/configs/dfine_G03_seed20260930.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260930",
+        "--size-weight",
+        "0.3",
+        "--output-dir",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/retry_failed_v1/dfine_G03_seed20260930"
+      ],
+      "run": "/home/viplab/contest/experiments/kamp_ablation_v3/retry_failed_v1/dfine_G03_seed20260930",
+      "pid": 915826,
+      "returncode": 1,
+      "finished": "2026-09-30T12:13:31.302070+00:00"
+    },
+    {
+      "name": "dfine_GM01_seed20261001",
+      "variant": "GM01",
+      "seed": 20261001,
+      "status": "failed",
+      "started": "2026-09-30T12:13:31.302386+00:00",
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/retry_failed_v1/train.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/configs/dfine_GM01_seed20261001.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20261001",
+        "--size-weight",
+        "0.1",
+        "--mal",
+        "--output-dir",
+        "/home/viplab/contest/experiments/kamp_ablation_v3/retry_failed_v1/dfine_GM01_seed20261001"
+      ],
+      "run": "/home/viplab/contest/experiments/kamp_ablation_v3/retry_failed_v1/dfine_GM01_seed20261001",
+      "pid": 915854,
+      "returncode": 1,
+      "finished": "2026-09-30T12:13:31.922141+00:00"
+    }
+  ],
+  "finished": "2026-09-30T12:13:31.922434+00:00"
+}

@@ -1,0 +1,46 @@
+dfine_G01_v31_seed20260929 33.99
+dfine_GM01_v31_seed20260929 39.35
+dfine_G01_v31_seed20260930 36.28
+dfine_GM01_v31_seed20260930 37.21
+dfine_G01_v31_seed20261001 37.06
+dfine_GM01_v31_seed20261001 37.59
+dfine_M_seed20260929 37.41
+dfine_M_seed20260930 36.09
+dfine_M_seed20261001 38.06
+dfine_s_seed20260930 36.24
+dfine_s_seed20261001 35.96
+dfine_s 35.69
+{
+  "G01": {
+    "AP": 35.778,
+    "AP75": 14.817,
+    "TP_0.1": 97.667,
+    "TP_lt8": 9.333,
+    "size_abslog": 0.157,
+    "rank_gap": 0.05
+  },
+  "GM01": {
+    "AP": 38.05,
+    "AP75": 15.776,
+    "TP_0.1": 87.667,
+    "TP_lt8": 11.0,
+    "size_abslog": 0.151,
+    "rank_gap": 0.031
+  },
+  "M": {
+    "AP": 37.187,
+    "AP75": 18.958,
+    "TP_0.1": 109.333,
+    "TP_lt8": 13.0,
+    "size_abslog": 0.152,
+    "rank_gap": 0.02
+  },
+  "dfine_s": {
+    "AP": 35.962,
+    "AP75": 16.641,
+    "TP_0.1": 101.667,
+    "TP_lt8": 8.0,
+    "size_abslog": 0.16,
+    "rank_gap": 0.051
+  }
+}

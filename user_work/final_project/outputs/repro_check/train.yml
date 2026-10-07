@@ -1,0 +1,194 @@
+task: detection
+evaluator:
+  type: CocoEvaluator
+  iou_types:
+  - bbox
+num_classes: 1
+remap_mscoco_category: false
+train_dataloader:
+  type: DataLoader
+  dataset:
+    type: CocoDetection
+    img_folder: /home/viplab/contest/experiments/kamp_v2_baselines/data640/images/train
+    ann_file: /home/viplab/contest/experiments/kamp_v2_baselines/data640/annotations/train.json
+    return_masks: false
+    transforms:
+      type: Compose
+      ops:
+      - dtype: float32
+        scale: true
+        type: ConvertPILImage
+      - fmt: cxcywh
+        normalize: true
+        type: ConvertBoxes
+      policy:
+        name: stop_epoch
+        epoch: 1000
+        ops:
+        - RandomPhotometricDistort
+        - RandomZoomOut
+        - RandomIoUCrop
+  shuffle: true
+  num_workers: 2
+  drop_last: false
+  collate_fn:
+    type: BatchImageCollateFunction
+    base_size: 640
+    base_size_repeat: null
+    stop_epoch: 1000
+    ema_restart_decay: 0.9999
+  total_batch_size: 8
+val_dataloader:
+  type: DataLoader
+  dataset:
+    type: CocoDetection
+    img_folder: /home/viplab/contest/experiments/kamp_v2_baselines/data640/images/val
+    ann_file: /home/viplab/contest/experiments/kamp_v2_baselines/data640/annotations/val.json
+    return_masks: false
+    transforms:
+      type: Compose
+      ops:
+      - dtype: float32
+        scale: true
+        type: ConvertPILImage
+  shuffle: false
+  num_workers: 2
+  drop_last: false
+  collate_fn:
+    type: BatchImageCollateFunction
+  total_batch_size: 8
+print_freq: 10
+output_dir: /home/viplab/contest/final_project/outputs/repro_check/mal_run
+checkpoint_freq: 30
+sync_bn: false
+find_unused_parameters: false
+use_amp: false
+scaler:
+  type: GradScaler
+  enabled: true
+use_ema: true
+ema:
+  type: ModelEMA
+  decay: 0.9999
+  warmups: 100
+  start: 0
+use_wandb: false
+project_name: D-FINE
+exp_name: baseline
+epochs: 30
+clip_max_norm: 0.1
+optimizer:
+  type: AdamW
+  params:
+  - params: ^(?=.*backbone)(?!.*norm|bn).*$
+    lr: 0.0001
+  - params: ^(?=.*backbone)(?=.*norm|bn).*$
+    lr: 0.0001
+    weight_decay: 0.0
+  - params: ^(?=.*(?:encoder|decoder))(?=.*(?:norm|bn|bias)).*$
+    weight_decay: 0.0
+  lr: 0.0002
+  betas:
+  - 0.9
+  - 0.999
+  weight_decay: 0.0001
+lr_scheduler:
+  type: MultiStepLR
+  milestones:
+  - 24
+  gamma: 0.1
+lr_warmup_scheduler:
+  type: LinearWarmup
+  warmup_duration: 45
+model: DFINE
+criterion: DFINECriterion
+postprocessor: DFINEPostProcessor
+use_focal_loss: true
+eval_spatial_size:
+- 640
+- 640
+DFINE:
+  backbone: HGNetv2
+  encoder: HybridEncoder
+  decoder: DFINETransformer
+HGNetv2:
+  pretrained: false
+  local_model_dir: weight/hgnetv2/
+  name: B0
+  return_idx:
+  - 1
+  - 2
+  - 3
+  freeze_at: -1
+  freeze_norm: false
+  use_lab: true
+HybridEncoder:
+  in_channels:
+  - 256
+  - 512
+  - 1024
+  feat_strides:
+  - 8
+  - 16
+  - 32
+  hidden_dim: 256
+  use_encoder_idx:
+  - 2
+  num_encoder_layers: 1
+  nhead: 8
+  dim_feedforward: 1024
+  dropout: 0.0
+  enc_act: gelu
+  expansion: 0.5
+  depth_mult: 0.34
+  act: silu
+DFINETransformer:
+  feat_channels:
+  - 256
+  - 256
+  - 256
+  feat_strides:
+  - 8
+  - 16
+  - 32
+  hidden_dim: 256
+  num_levels: 3
+  num_layers: 3
+  eval_idx: -1
+  num_queries: 300
+  num_denoising: 100
+  label_noise_ratio: 0.5
+  box_noise_scale: 1.0
+  reg_max: 32
+  reg_scale: 4
+  layer_scale: 1
+  num_points:
+  - 3
+  - 6
+  - 3
+  cross_attn_method: default
+  query_select_method: default
+DFINEPostProcessor:
+  num_top_queries: 300
+DFINECriterion:
+  weight_dict:
+    loss_vfl: 1
+    loss_bbox: 5
+    loss_giou: 2
+    loss_fgl: 0.15
+    loss_ddf: 1.5
+  losses:
+  - vfl
+  - boxes
+  - local
+  alpha: 0.75
+  gamma: 2.0
+  reg_max: 32
+  matcher:
+    type: HungarianMatcher
+    weight_dict:
+      cost_class: 2
+      cost_bbox: 5
+      cost_giou: 2
+    alpha: 0.25
+    gamma: 2.0

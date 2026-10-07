@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "variant": "edge_half",
+  "steps": [
+    {
+      "step": 0,
+      "loss": 28.07979965209961,
+      "grad_norm": 135.98353576660156,
+      "mal": 0.11459428817033768,
+      "bbox": 0.7960218787193298,
+      "fgl": 0.1956382393836975
+    },
+    {
+      "step": 1,
+      "loss": 26.222076416015625,
+      "grad_norm": 97.57765197753906,
+      "mal": 0.14783458411693573,
+      "bbox": 0.5076786875724792,
+      "fgl": 0.26449868083000183
+    }
+  ],
+  "zero_target_loss_diff": 0.0,
+  "zero_target_gradient_max_diff": 5.960464477539063e-08,
+  "peak_vram_MiB": 5094.0810546875,
+  "GT_unchanged": true,
+  "matching_unchanged_on_fixed_outputs": true,
+  "regular_aux_DN_verified": true,
+  "test_used": false,
+  "smoke_weights_discarded": true
+}

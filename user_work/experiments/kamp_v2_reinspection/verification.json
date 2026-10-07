@@ -1,0 +1,27 @@
+{
+  "operating_points": [
+    {
+      "seed": 20260929,
+      "TP": 141,
+      "FP": 6,
+      "threshold": 0.15639793872833252
+    },
+    {
+      "seed": 20260930,
+      "TP": 142,
+      "FP": 6,
+      "threshold": 0.19337229430675507
+    },
+    {
+      "seed": 20261001,
+      "TP": 142,
+      "FP": 6,
+      "threshold": 0.17760604619979858
+    }
+  ],
+  "test_used": false,
+  "signal_cutoff": 0.25,
+  "policy_fitted": false,
+  "random_draws": 10000,
+  "scope": "validation exploratory retrieval of missed-GT images, not actual reinspection recovery"
+}

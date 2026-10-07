@@ -1,0 +1,51 @@
+{
+  "status": "local_candidate_not_submission_ready",
+  "preprocessing_owner": "user_final_step",
+  "no_deletion": true,
+  "no_publication": true,
+  "vendor_files_verified": 78,
+  "saved_test_export": {
+    "source": "/home/viplab/contest/experiments/kamp_v2_test_frozen/runs/dfine_mal_UQ_seed20260930",
+    "export_only": true,
+    "new_test_inference": false,
+    "new_threshold_selection": false,
+    "checkpoint_sha256": "ddbdbc3638e661003b49922832edb84a44c8d0b95e30d33906ff4cae984c6461",
+    "images": 84,
+    "predictions": 16757,
+    "coordinate_format": "original-image pixel xywh",
+    "category_id": 0,
+    "nms_iou": 0.7,
+    "score_floor": 0.001,
+    "operating_threshold": 0.19337229430675507,
+    "sha256": {
+      "predictions.json": "0d527cd217b65b65d5190aab759c0cdf20cf9a3d7bff24cc2f269db2888659de",
+      "metrics.json": "17a7d135c200e25f445eec4d86ac323b1a9436922a8b7a953bb9ea2fce350caa",
+      "image_index.json": "7e1a45434f8d7ca44d30c6c2c408b6705cd636290e4a09531586afe2c10f16b4"
+    }
+  },
+  "ready": [
+    "code",
+    "requirements entrypoint",
+    "README",
+    "fixed checkpoint",
+    "saved test predictions",
+    "figures",
+    "source notices"
+  ],
+  "remaining": [
+    "raw preprocessing integration by user",
+    "training data inclusion in final code ZIP",
+    "team-combined final report PDF",
+    "presentation PDF and PPT",
+    "survey completion screenshot",
+    "final blind-submission review",
+    "final ZIP build after integration"
+  ],
+  "license_limits": [
+    "KAMP data public redistribution not established",
+    "project-specific weight/data terms not inferred from source license",
+    "team code license not assigned"
+  ],
+  "inventory_records": 1223,
+  "frozen_protocol_export_match": true
+}

@@ -1,0 +1,111 @@
+dfine_G01_seed20260929 38.57
+dfine_M_seed20260929 37.41
+dfine_GM01_seed20260929 38.56
+dfine_C0_seed20260929 36.84
+dfine_G03_seed20260929 36.36
+dfine_GM03_seed20260929 36.27
+dfine_M_seed20260930 36.09
+dfine_GM01_seed20260930 37.39
+dfine_C0_seed20260930 34.98
+dfine_GM03_seed20260930 38.61
+dfine_G01_seed20261001 36.38
+dfine_M_seed20261001 38.06
+dfine_C0_seed20261001 36.82
+dfine_G03_seed20261001 37.02
+dfine_GM03_seed20261001 37.0
+dfine_s_seed20260930 36.24
+yolov8s_seed20260930 36.6
+dfine_s_p2_seed20260930 35.63
+yolov8s_p2_seed20260930 35.99
+dfine_s_seed20261001 35.96
+yolov8s_seed20261001 36.6
+dfine_s_p2_seed20261001 37.27
+yolov8s_p2_seed20261001 35.99
+dfine_G01_seed20260930 34.89
+dfine_GM01_seed20261001 36.98
+dfine_s 35.69
+dfine_s_p2 37.25
+yolov8s 36.6
+yolov8s_p2 35.99
+{
+  "G01": {
+    "AP": 36.614,
+    "AP75": 15.366,
+    "TP_0.1": 93.0,
+    "TP_lt8": 8.0,
+    "size_abslog": 0.155,
+    "rank_gap": 0.066
+  },
+  "M": {
+    "AP": 37.187,
+    "AP75": 18.958,
+    "TP_0.1": 109.333,
+    "TP_lt8": 13.0,
+    "size_abslog": 0.152,
+    "rank_gap": 0.02
+  },
+  "GM01": {
+    "AP": 37.642,
+    "AP75": 17.638,
+    "TP_0.1": 100.0,
+    "TP_lt8": 11.333,
+    "size_abslog": 0.151,
+    "rank_gap": 0.03
+  },
+  "C0": {
+    "AP": 36.215,
+    "AP75": 14.189,
+    "TP_0.1": 114.333,
+    "TP_lt8": 11.0,
+    "size_abslog": 0.157,
+    "rank_gap": 0.067
+  },
+  "G03": {
+    "AP": 36.694,
+    "AP75": 14.887,
+    "TP_0.1": 114.5,
+    "TP_lt8": 11.5,
+    "size_abslog": 0.157,
+    "rank_gap": 0.046
+  },
+  "GM03": {
+    "AP": 37.293,
+    "AP75": 16.189,
+    "TP_0.1": 106.0,
+    "TP_lt8": 11.0,
+    "size_abslog": 0.156,
+    "rank_gap": 0.02
+  },
+  "dfine_s": {
+    "AP": 35.962,
+    "AP75": 16.641,
+    "TP_0.1": 101.667,
+    "TP_lt8": 8.0,
+    "size_abslog": 0.16,
+    "rank_gap": 0.051
+  },
+  "yolov8s": {
+    "AP": 36.605,
+    "AP75": 12.124,
+    "TP_0.1": 134.0,
+    "TP_lt8": 10.0,
+    "size_abslog": 0.153,
+    "rank_gap": 0.0
+  },
+  "dfine_s_p2": {
+    "AP": 36.716,
+    "AP75": 17.827,
+    "TP_0.1": 103.333,
+    "TP_lt8": 9.0,
+    "size_abslog": 0.156,
+    "rank_gap": 0.044
+  },
+  "yolov8s_p2": {
+    "AP": 35.986,
+    "AP75": 12.714,
+    "TP_0.1": 92.0,
+    "TP_lt8": 10.0,
+    "size_abslog": 0.151,
+    "rank_gap": 0.0
+  }
+}

@@ -1,0 +1,662 @@
+                         This WACV paper is the Open Access version, provided by the Computer Vision Foundation.
+                                      Except for this watermark, it is identical to the accepted version;
+                                the final published version of the proceedings is available on IEEE Xplore.
+
+
+
+
+Beyond Classification: Definition and Density-based Estimation of Calibration in
+                                Object Detection
+
+                     Teodora Popordanoska                                   Aleksei Tiulpin
+                     ESAT-PSI, KU Leuven                          HST Research Unit, University of Oulu
+             teodora.popordanoska@kuleuven.be                             aleksei.tiulpin@oulu.fi
+
+                                                  Matthew B. Blaschko
+                                                  ESAT-PSI, KU Leuven
+                                         matthew.blaschko@esat.kuleuven.be
+
+
+
+                         Abstract                                                                                         20
+
+
+
+
+                                                                            Calibration error \displaystyle \times  100
+    Despite their impressive predictive performance in var-                                                               18
+ious computer vision tasks, deep neural networks (DNNs)
+tend to make overly confident predictions, which hinders                                                                  16
+their widespread use in safety-critical applications. While
+there have been recent attempts to calibrate DNNs, most                                                                   14
+of these efforts have primarily been focused on classifica-
+tion tasks, thus neglecting DNN-based object detectors. Al-                                                               12
+though several recent works addressed calibration for ob-
+ject detection and proposed differentiable penalties, none                                                                     Base   TS   TCD   Ours
+
+of them are consistent estimators of established concepts in
+                                                                   Figure 1. Calibration error of RetinaNet on Pascal VOC. The
+calibration. In this work, we tackle the challenge of defining     model without calibration (Base) is compared with post-hoc (tem-
+and estimating calibration error specifically for this task.       perature scaling; TS) and train-time calibration methods (TCD and
+In particular, we adapt the definition of classification cali-     Ours). Our KDE-based estimator effectively reduces the calibra-
+bration error to handle the nuances associated with object         tion error. The error bars represent 95% CI.
+detection, and predictions in structured output spaces more
+generally. Furthermore, we propose a consistent and differ-
+entiable estimator of the detection calibration error, utiliz-     fidence [8, 28]. Unreliable uncertainty estimates produced
+ing kernel density estimation. Our experiments demonstrate         by such models can lead to erroneous decision-making,
+the effectiveness of our estimator against competing train-        which is especially risky in fields like autonomous driv-
+time and post-hoc calibration methods, while maintaining           ing [40] and medicine [6].
+similar detection performance.                                        The field of model calibration typically studies three sub-
+                                                                   problems: estimating calibration error, regularization dur-
+                                                                   ing training, and post-hoc calibration. While in recent years
+1. Introduction                                                    there have been multiple advances in all of these domains,
+                                                                   most of the existing literature studies calibration in the con-
+   Calibration is a property of a model, which directly            text of classification. Calibration in structured prediction
+translates to the ability to estimate its own predictive un-       problems, such as object detection (OD), have received sub-
+certainty, thereby facilitating safe and responsible deploy-       stantially less attention, despite their increased integration
+ment. Intuitively, a well-calibrated model produces confi-         in many safety-critical applications. While some attempts
+dence scores that accurately reflect the uncertainty associ-       have been made to define, measure, enforce, and adjust cal-
+ated with its predictions. In deep neural networks (DNNs),         ibration [15, 24, 25, 27], we argue that the field of OD lacks
+which are driving most of the current progress in machine          a solid mathematical foundation in both definition of cali-
+learning and computer vision, this has become an emerging          bration and estimation of calibration errors.
+concern, as they can yield wrong predictions with high con-           In spite of its importance, defining calibration for object
+
+
+
+                                                                 585
+detection is a challenging problem due to the variability of        logits before applying the softmax function. Train-time cal-
+DNN-based detectors. In particular, there are ambiguities           ibration methods [10, 14, 17, 22, 23, 31] typically incorpo-
+related to how many bounding boxes are returned, how to             rate calibration-related auxiliary loss directly into the train-
+select a detection confidence threshold below which detec-          ing process of a neural network. Even though these meth-
+tions are rejected, what is the intersection over union (IoU)       ods may introduce computational overhead, they do not re-
+threshold for considering a “correct“ detection, and so forth.      quire a hold-out validation set and have demonstrated supe-
+There have been a few recent attempts to define calibration         rior performance in handling domain shift [12], compared
+by either replacing accuracy with precision in the definition       to post-hoc methods.
+of calibration for classification [15, 25, 29], or by requir-
+ing that both classification and localization performances          2.2. Calibration in object detection
+jointly match the confidence score [27].                               Recent works have shown that miscalibration is a con-
+    In this paper, we propose a general framework that uni-         cern not only in classification tasks, but also in the domain
+fies existing definitions of calibration in OD, and is flexi-       of object detection [15, 29]. Pathiraja et al. [29] showed that
+ble to parametrize the notion of a “correct“ detection. Be-         existing calibration methods for classification are not as ef-
+yond defining calibration, we derive a consistent and dif-          fective for calibrating object detectors. As a result, there
+ferentiable estimator of calibration error in OD, relying           have been a few efforts to establish the definition of cali-
+on a kernel density estimator (KDE) recently proposed for           bration [15, 27] and to devise techniques to mitigate the is-
+classification [31], and recommended among the best prac-           sue. Oksuz et al. [27] propose a binning-based metric called
+tices [21] for assessing calibration of classifiers. Due to its     Localisation-aware Expected Calibration Error (LaECE),
+consistency and differentiability, our estimator of calibra-        and use it as part of existing post-hoc calibration approaches
+tion error can be used not only as a reliable tool to assess        like linear regression, histogram binning [42] and isotonic
+calibration, but also in calibration-regularized training of        regression [41]. In the realm of train-time calibration meth-
+popular detectors. We perform extensive experiments on              ods, several auxiliary loss terms have been proposed to be
+MS COCO [18], Cityscapes [4], and PASCAL VOC [7],                   used in addition to the detection-specific loss. For instance,
+and demonstrate that our estimator, when incorporated as an         TCD [24] and MCCL [29] were proposed to jointly cal-
+auxiliary loss during training, consistently reduces the cal-       ibrate the class-wise confidences and localization perfor-
+ibration error across several object detectors. Furthermore,        mance. Another recently introduced auxiliary loss is BPC
+we show that finetuning with our loss is an effective way to        [25], which is based on a heuristic that maximizes con-
+improve calibration, without sacrificing accuracy and with-         fidence scores for accurate predictions while minimizing
+out the need to re-train the models from scratch.                   scores for inaccurate predictions. Harakeh and Waslander
+    In summary, our contributions are:                              [9] propose an energy score to train probabalistic detectors,
+  1. We propose a general unifying definition of calibration        which is empirically shown to improve calibration.
+      in OD, which addresses the nuances related to assess-            However, none of the proposed binning-based metrics
+      ing the “correctness“ of a detection.                         and trainable auxiliary losses fulfill both requirements of
+  2. We develop a consistent and differentiable estimator of        being consistent and differentiable estimators of calibration
+      calibration error based on KDE [31] for OD.                   error in the context of object detection. In this paper, we
+  3. We perform rigorous empirical analysis of calibration          derive a novel estimator for calibration error in object de-
+      of popular object detectors on several datasets.              tection with those desired properties.
+  4. We demonstrate that our estimator can be used as an
+      auxiliary train-time loss, which effectively reduces the      3. Methods
+      calibration error, while maintaining similar average
+      precision (AP).                                               3.1. Defining calibration
+                                                                        Several notions of different strength exist for multi-class
+2. Related work                                                     calibration, including top-label, class-wise, and canonical
+                                                                    calibration [8, 36, 37]. However, following recent trends
+2.1. Calibration in classification
+                                                                    of training the classification branch of object detectors in a
+   Most of the prior work on developing techniques for im-          multi-label setting, i.e. by using K independent binary clas-
+proving calibration in the vision domain target the image           sifiers [19, 32, 35], we also favor the approach of defining
+classification task. Post-hoc methods [8, 20, 41, 42] re-           calibration by considering K binary object detectors, as the
+scale the output of a trained model using parameters learned        mutual-exclusion principle of multi-class classification does
+on a validation set. The most successful method of this             not hold (e.g. the area of an image occupied by a person may
+group is temperature scaling [8], where a single parame-            overlap with that of a bicycle).
+ter T is learned, usually by minimizing NLL, to scale the               Intuitively, calibration requires that the confidence score
+
+
+
+                                                                  586
+of a prediction should be aligned with some notion of cor-                                                                                                                          predicted and ground truth box. Then we define calibration
+rectness. In classification tasks, a correct prediction is de-                                                                                                                      for object detection as:
+termined by the match between the predicted and ground
+truth labels. However, in object detection, assessing cor-                                                                                                                                                    \label {eq:binary_calibration_od} \mathbb {P} \left (\zh \mid \sh = s\right ) = s, \quad \forall s \in [0,1].                              (3)
+rectness is more nuanced, since it involves evaluating the
+                                                                                                                                                                                       The introduction of a link function ψ, provides a concise
+degree of overlap between two sets of pixels (e.g. bounding
+                                                                                                                                                                                    way to relate the notion of calibration to existing literature.
+boxes). To account for this, we will introduce a similarity
+                                                                                                                                                                                    For example, by letting ψ be a threshold function and tak-
+measure (e.g. IoU) and a so-called link function, so that we
+                                                                                                                                                                                    ing L = IoU, we recover the definition of calibration used
+can define a family of notions of calibration that also con-
+                                                                                                                                                                                    in [15, 24, 25, 29], i.e., P(Z = 1 | Ŝ = s) = s, ∀s ∈ [0, 1],
+sider the degree of correctness of a given prediction. The
+                                                                                                                                                                                    with Z = 1 denoting an accurate detection in the sense that
+formal definitions are given below.
+                                                                                                                                                                                    IoU(B̂, B ∗ ) ≥ β. Similarly, by using an identity function
+                                                                                                                                                                                    for ψ, we obtain the definition proposed in [27, Equation
+Binary classification Let X ∈ X and Y ∈ Y = {0, 1} be                                                                                                                               (3)], i.e., P(Z = IoU(B̂, B ∗ ) | Ŝ = s) = s, ∀s ∈ [0, 1].
+random variables denoting the input and target, given by a                                                                                                                          Note that in both cases the requirement that the class predic-
+joint distribution P . Let f be a neural network with f (X) =                                                                                                                       tion matches the ground truth class is simplified since we’re
+Ŝ, where Ŝ ∈ [0, 1] denotes the model’s confidence that                                                                                                                           considering a binary detector and all predictions share the
+the label is 1. Then f is said to satisfy binary calibration                                                                                                                        same class as the ground truth.
+[2, 13, 41] if:
+                                                                                                                                                                                    3.2. Measuring calibration
+              \label {eq:binary_calibration} \mathbb {P} \left (Y=1 \mid \sh = s\right )=s, \quad \forall s \in [0,1] .                                                     (1)
+                                                                                                                                                                                        A predictive function trained with risk minimization on a
+                                                                                                                                                                                    continuous domain will be exactly calibrated with probabil-
+Object detection Given a set of images {Xi }1≤i≤n , the                                                                                                                             ity 0. We therefore need to measure a notion of calibration
+goal of an object detector is to predict bounding boxes, class                                                                                                                      error. Analogous to the definition of calibration error for
+labels and confidence scores for the objects in {Xi }. Let                                                                                                                          classification [8], we define the L1 calibration error for a
+gk be a binary object detector for class k with gk (Xi ) =                                                                                                                          binary object detector gk for the kth class as:
+{(Ŝij , B̂ij )}1≤j≤mik , where mik boxes are predicted for
+image Xi and class k, B̂ij ∈ B = R4 denotes a predicted                                                                                                                                                    \label {eq:LPcalibrationErrorOD} \operatorname {CE}(g_k) = \mathbb {E}\left [ \left | \mathbb {E} [\zh \mid \sh = s] - s \right | \right ].   (4)
+bounding box,1 and Ŝij ∈ [0, 1] its corresponding score.
+   Let L : B × B → [0, 1] denote a similarity measure,                                                                                                                              Estimating calibration error In practice, we rely on fi-
+for example IoU, Dice score, Hamming similarity etc. Let                                                                                                                            nite samples to estimate the quantities of interest. One of
+ψ : [0, 1] → [0, 1] denote a monotonic function, which we                                                                                                                           the desired properties of such estimators is consistency, i.e.,
+will refer to as a link function. Some choices for the link                                                                                                                         the estimator CE
+                                                                                                                                                                                                   c ( gk ) should converge in probability to the
+function in the context of object detectors may include an                                                                                                                          true value CE(gk ) [11]: plim CEc ( gk ) = CE(gk ). Another
+identity function ψ(L) = L, or a piece-wise linear ramp                                                                                                                                                                                                       n→∞
+function parametrized with α ≤ β ∈ [0, 1] as:                                                                                                                                       desired property for calibration error estimators is differen-
+                                                                                                                                                                                    tiability, as it allows the estimator to be directly optimized
+                                                                                                                                                                                    alongside the task-specific loss function. Before presenting
+                         \psi (\s ) = \begin {cases} 0 & \s \leq \alpha \\ \frac {\s -\alpha }{\beta -\alpha } & \alpha < \s < \beta \\ 1 & \s \geq \beta \end {cases} .    (2)     our estimator, which possesses both properties, we will in-
+                                                                                                                                                                                    troduce existing estimators and discuss their shortcomings.
+                                                                                                                                                                                       In classification, one of the most widely used estimators
+Two special cases of this function that could be of interest                                                                                                                        of calibration error is the L1 binned estimator, commonly
+are a step (threshold) function (0 < α = β ≤ 1), and a                                                                                                                              referred to as ECE [8]. Recent studies have proposed ex-
+piece-wise linear (hinge) function (α = 0.5, β = 1).                                                                                                                                tensions of this estimator to the detection task, called de-
+    Let Z := ψ(L(B̂, B ∗ )) be a random variable that                                                                                                                               tection ECE (D-ECE) [15] and Localization-aware ECE
+denotes the “correctness“ of a detection, and B ∗ be the                                                                                                                            [27] (LaECE), to be used as finite sample estimators of the
+ground-truth box that B̂ matches with. If ψ is a thresh-                                                                                                                            notion of calibration as defined by a threshold link and an
+old function then Z ∈ {0, 1} denotes whether the predicted                                                                                                                          identity link, respectively. Analogous to ECE, both D-ECE
+bounding box matched a ground truth box with L ≥ β, and                                                                                                                             and LaECE partition the predictions into M equally-spaced
+if ψ is an identity function then Z ∈ [0, 1] represents the de-                                                                                                                     bins. D-ECE is computed by taking a weighted average of
+gree of “correctness“ of the detection, e.g. the IoU between                                                                                                                        the difference between precision and confidence in each bin:
+   1 We note that in general this can be any set of pixels, not necessarily
+
+limited to the ones defined by a bounding box. We adopt this notation for                                                                                                                    \label {eq:dece_formulation} \dece = \sum _{m=1}^{M} \frac {|\mathcal {D}_m|}{|\mathcal {D}|}\left |\mathrm {prec}(m) - \mathrm {conf}(m)\right |,          (5)
+convenience, but it does not change the mathematical principles involved.
+
+
+
+
+                                                                                                                                                                                  587
+where Dm is the set of detections in mth bin, |D| is the                                                                                                                                                               Equation (9), we have:
+total number of detections, prec(m) denotes the precision                                                                                                                                                                \int _0^1{z \, p_{Z, \sh }(z, s) \, dz} &\approx \int _0^1 z \, \frac {1}{w} \sum _{u=1}^w k_s(\sh , s_u) k_z(Z, z_u) \, dz \\ &= \frac {1}{w} \sum _{u=1}^w k_s(\sh , s_u) \int _0^1 z \, k_{z}(Z, z_u) dz .
+and conf(m) the average confidence over samples in the
+mth bin. LaECE is computed as an average of k per-class
+calibration errors obtained as:
+
+
+  \label {eq:laece_formulation} \laece ^k = \sum _{m=1}^{M} \frac {|\mathcal {D}_m^k|}{|\mathcal {D}^k|}\left |\mathrm {prec^k}(m) \times \mathrm {IoU}^k(m) - \mathrm {conf^k}(m)\right |, 
+
+                                                            (6)                                                                                                                                                                                                                                                                                                                                                                                                 (12)
+    Several works have discussed the numerous flaws of bin-                                                                                                                                                                                  R1
+ning estimators [1, 5, 36, 37], such as sensitivity to the bin-                                                                                                                                                           The final integral 0 z kz (Z, zu )dz converges to zu as
+ning scheme, asymptotic inconsistency in many cases, and                                                                                                                                                               the bandwidth of kz approaches zero, the density estimate
+curse of dimensionality. Moreover, these estimators are not                                                                                                                                                            approaches the true density, and the kernel kz approaches
+differentiable and require additional approximations to be                                                                                                                                                             a Dirac delta function centered at zu . Finally, the resulting
+integrated as part of the optimization process.                                                                                                                                                                        estimator can be written as:
+    As a remedy, Popordanoska et al. [31], Zhang et al. [43]                                                                                                                                                                                                                            \widehat {\mathbb {E}[Z\mid \sh ]} = \frac {\sum _{u=1}^w k(\sh , s_u) \, z_u}{\sum _{u=1}^w k(\sh , s_u)} .
+recently proposed kernel density-based [34] estimators of                                                                                                                                                                                                                                                                                                                                                                                                       (13)
+calibration error, which are consistent, differentiable, and
+have more favorable statistical and computational proper-                                                                                                                                                              Plugging this back into Equation (7), and generalizing zu
+ties. Therefore, we extend the estimator of [31] to the de-                                                                                                                                                            with a link function, we obtain the following estimator of
+tection task. That is, we wish to find an estimator:                                                                                                                                                                   L1 calibration error for a binary object detector gk , a given
+                                                                                                                                                                                                                       link function ψ and a similarity measure L:
+                                  \label {eq:calibration_error_estimator_od} \widehat {\operatorname {CE}(g_k)} = \frac {1}{w}\sum _{v=1}^w \left | \widehat {\mathbb {E}[Z \mid \sh = s_v]}-s_v \right | ,    (7)
+                                                                                                                                                                                                                                 \label {eq:calibration_error_estimator_complete_form} \widehat {\operatorname {CE}(g_k)} = \frac {1}{w}\sum _{v=1}^w \left | \frac {\sum _{u \neq v} k(s_v, s_u) \, \psi (\s (b_u, b_u^{*}))}{\sum _{u \neq v} k(s_v, s_u)} - s_v \right | .
+
+where w denotes the number of detections across images.                                                                                                                                                                                                                                                                                                                                                                                                         (14)
+   We will focus on deriving an estimator of the conditional
+expectation, depending on the definition of calibration re-                                                                                                                                                            The estimator has values ∈ [0, 1], it is consistent, asymptot-
+sulting from using two distinct link functions ψ in Equa-                                                                                                                                                              ically unbiased [31], and differentiable almost everywhere,
+tion (3). In case ψ is a threshold function, Z is a discrete                                                                                                                                                           as desired.
+random variable, and the estimator obtained from this link
+                                                                                                                                                                                                                       3.3. Train-time calibration
+function is identical to the one proposed in [31]. However,
+in case ψ is a continuous function such as the identity, Z                                                                                                                                                                 A common approach to designing calibration methods
+is a continuous random variable, for which we derive the                                                                                                                                                               is to include a calibration-related auxiliary loss to the task-
+estimator below.                                                                                                                                                                                                       specific loss to be minimized during training [24, 25, 29]. In
+   Let Z and Ŝ be continuous random variables with joint                                                                                                                                                              this section, we will show that existing auxiliary losses are
+density fZ,Ŝ (z, ŝ). We wish to find an estimator for the                                                                                                                                                            not consistent estimators of calibration error. Instead, we
+conditional expectation:                                                                                                                                                                                               propose to use our estimator derived in the previous section.
+                                                                                                                                                                                                                           Munir et al. [24] proposed an auxiliary loss TCD =
+                                                                                                                                                                                                                       1
+                          \mathbb {E}[Z \mid \sh = s] &= \int _0^1 z \, p_{Z|\sh }(z \mid s) \, dz \\ &= \frac {1}{p_{\sh }(s)} \int _0^1{z \, p_{Z, \sh }(z, s) \, dz} . \label {eq:estimator_EZS}                    2 cls + ddet ). Adapting the notation from [24, Equa-
+                                                                                                                                                                                                                         (d
+                                                                                                                                                                                                                       tions (8) and (9)], we have that dcls = E[|Ŝ − Y |] and
+                                                                                                                                                                                                                       ddet = E[| IoU −Ŝ|]. We will derive a relationship between
+                                                                                                                                                                                                               (9)     the classification term dcls and the classification calibration
+                                                                                                                                                                                                                       error, as well as between the localization term ddet and the
+We derive an estimator for pZ,Ŝ (z, s) using KDE:                                                                                                                                                                     detection calibration error. The calibration error for binary
+                                                                                                                                                                                                                       classification is given by CEcls := E[|E[Y = 1|Ŝ] − Ŝ|],
+                                                                                                                                                                                                                       whereas CEdet := E[|E[IoU |Ŝ] − Ŝ|] defines the calibra-
+                              p_{Z, \sh }(z, s) &\approx \frac {1}{w} \sum _{u=1}^w \underbrace {k_s(\sh , s_u) k_{z}(Z, z_u)}_{k(Z, \sh , z_u, s_u)}.                                                        (10)     tion error for detection when ψ is an identity function.
+                                                                                                                                                                                                                       Proposition 3.1. The classification calibration error upper
+                                                                                                                                                                                                                       bounds dcls : CEcls ≥ dcls .
+where ks and kz denote any consistent kernels over their
+respective domains. The resulting density estimate remains                                                                                                                                                             Proposition 3.2. The detection calibration error is upper
+consistent [38, Theorem 6]. Therefore, for the integral in                                                                                                                                                             bounded by ddet : CEdet ≤ ddet .
+
+
+
+                                                                                                                                                                                                                     588
+    The proofs are given in appendix A. Thus, through                                                                             classify the objects in the image. Typically they per-
+Jensen’s inequality, we showed that neither of these terms                                                                        form better compared to one-stage detectors, but they
+is a consistent estimator for any established concept of cal-                                                                     are slower and require more computational resources.
+ibration error. We note that the auxiliary loss components                                                                     2. RetinaNet [19] is a one-stage detector with sigmoid
+defined in [29, Equations (8) and (9)] have the same func-                                                                        classifiers. Using this approach, objects are detected
+tional form as dcls and ddet . BPC [25, Equation (9)] is based                                                                    with a single pass through the network. RetinaNet ap-
+on a heuristic to maximize the confidence scores for accu-                                                                        plies a set of predefined anchor boxes to each feature
+rate predictions and minimize scores for inaccurate ones.                                                                         level and predicts the objectness score and class proba-
+Therefore, none of the existing auxiliary losses are based on                                                                     bilities for each anchor. In spite of their higher compu-
+a consistent estimator of calibration error. Consequently, a                                                                      tation efficiency, one-stage detectors may have lower
+principled way to minimize calibration error during train-                                                                        accuracy and struggle with small objects.
+ing is to integrate our KDE-based estimator CE,c as the only                                                                   3. FCOS [35] is another common one-stage detector with
+consistent and differentiable estimator of calibration error                                                                      sigmoid classifiers. Compared to RetinaNet, FCOS
+for object detection, with the task specific-loss Ldet as:                                                                        predicts the object bounding boxes and their class
+                                                                                                                                  probabilities without requiring an anchor-based mech-
+                       \label {eq:object_detection_loss_kde} \mathcal {L} = \mathcal {L}_{det} + \lambda \kde ,   (15)            anism. Both FCOS and RetinaNet use focal loss,
+                                                                                                                                  which aims to address the class imbalance problem,
+where λ is a regularization parameter set by cross-                                                                               and it is also known to help with calibration.
+validation.
+                                                                                                                           Baselines Every object detector we consider has a combi-
+4. Experiments                                                                                                             nation of classification and regression loss, which we refer
+   In this section, we investigate the performance of our es-                                                              to as task-specific loss, and represents the first baseline we
+timator, both as a metric to evaluate calibration error, and as                                                            compare to. Due to its strong performance, we include TS
+an auxiliary loss function used for train-time calibration.                                                                as a representative of the post-hoc calibration methods. As
+                                                                                                                           a train-time baseline method, we compare with the recently
+4.1. Setup                                                                                                                 proposed auxiliary loss function TCD [24], which is added
+Datasets We use the following three datasets:                                                                              to the task-specific loss.
+  1. MS COCO [18] is a widely used object detection
+     dataset that consists of more than 330000 object in-                                                                  Metrics For reporting detection performance we use the
+     stances belonging to 80 object categories. It contains                                                                COCO-defined metrics. Namely, average precision AP
+     118K training images and 5K validation images.                                                                        denotes an average across categories and 10 (.50:.05:.95)
+  2. Cityscapes [4] is an urban driving scene dataset, con-                                                                IoU overlap thresholds used for matching. In some ex-
+     sisting of 2975 training and 500 validation images split                                                              periments, we also report AP@0.5, AP@0.75, and AP for
+     into 8 object categories.                                                                                             small, medium and large objects, as defined in the COCO
+  3. PASCAL VOC [7] has 20 classes, which are a sub-                                                                       challenge [18]. For measuring calibration error, we use
+     set of those in MS COCO. Following other works, for                                                                   our KDE-based estimator CE c (Equation (14)) with differ-
+     training we combine the VOC 2007 and VOC 2012                                                                         ent link functions throughout the experiments. We use the
+     trainval sets, resulting in a total of 16551 images                                                                   same breakdown across object sizes and IoU overlaps as the
+     and more than 40000 objects.                                                                                          one used for AP. In addition, we report the D-ECE metric
+   We create separate validation sets with three different                                                                 (Equation (5)) used in [24, 25, 29], both at IoU@0.5 and
+seeds, by spliting the original train set into new train and                                                               averaged over 10 thresholds (.50:.05:.95). In our synthetic
+validation sets with 90:10 ratio. As the labels for the test                                                               experiment, we also compare with LaECE [27].
+set of COCO and Cityscapes are not publicly available, the
+original val set is used for reporting the results, and for                                                                Implementation Traditionally, detections are obtained in
+VOC we evaluate on the VOC 2007 test set.                                                                                  two steps: generating predictions and post-processing. The
+                                                                                                                           latter step performs further processing to filter out redun-
+Object detectors We use three popular object detectors                                                                     dant or low-confidence detections, through procedures like
+with different architectures, which have achieved strong                                                                   Non-Maximum Suppression (NMS) and top-k selection,
+performance in this task:                                                                                                  where typically k = 100 for COCO. Choosing the op-
+  1. Faster R-CNN (F-RCNN) [33] is a popular two-stage                                                                     timal value for k, or a threshold γ below which detec-
+     detector with softmax classifier. The two-stage ap-                                                                   tions are rejected is an open area of research [26, 27]. For
+     proach involves first generating a sparse set of object                                                               simplicity, in our experiments we set the score threshold
+     proposals, then refining them to accurately locate and                                                                γ = 0.5 for our main results, and show an ablation study of
+
+
+
+                                                                                                                         589
+the effect of this parameter on the reported metrics. Our                                                                         D-ECE
+implementation for evaluating CE on a test set is based                                          0.140                            CE
+                                                                                                                                  c (threshold)
+on the official API for assessing detection performance on                                                                        Ground truth
+
+
+
+
+                                                                             Calibration error
+COCO, i.e. we utilize the same information about match-                                          0.120
+ing predicted and ground truth boxes and IoU overlaps as
+                                                                                                 0.100
+for evaluating AP. We use a Beta kernel [3] and set the
+bandwidth parameter with a leave-one-out maximum likeli-
+                                                                                                 0.080
+hood procedure. For D-ECE we adopt the implementation
+from Küppers et al. [15]. We rely on Detectron2 [39] for                                        0.060
+the implementation and training configuration of the detec-                                              0   2000     4000    6000    8000   10000
+tors. The code and trained models are available at https:                                                           Number of samples
+//github.com/tpopordanoska/calibration-
+object-detection.                                                   Figure 2. Comparison of D-ECE vs. CE     c (threshold link) as a
+                                                                    function of the number of points used for the estimation.
+4.2. Results
+    Here we empirically showcase the utilities of our pro-          Evaluating a model zoo We conduct a rigorous anal-
+posed estimator and compare it with related work. The main          ysis to determine the calibration of F-RCNN, RetinaNet
+purpose of an estimator of calibration error is to assess the       and FCOS on popular benchmark datasets like COCO,
+extent to which a notion of calibration is violated. There-         Cityscapes and Pascal VOC. Analogous to the evaluation on
+fore, we start our experiments by comparing the different           the COCO challenge, we estimate calibration error across
+variants of our KDE-based estimator (obtained with differ-          different sizes of objects, and for different thresholds for
+ent choices for the link function) with the binning-based es-       the IoU overlap required to determine the matching between
+timators D-ECE and LaECE. Subsequently, we provide a                predicted and ground truth box. For this evaluation, we use
+comprehensive evaluation of CE   c and the standard AP met-         a threshold link function. The results are summarized in Ta-
+ric, at different IoU thresholds and object sizes. Finally, we      bles 1 and 2. The first thing to note is that modern object
+demonstrate the differentiability of our estimator by incor-        detectors are intrinsically miscalibrated. When comparing
+porating it as an auxiliary loss function during training, both     the different architectures, an observation can be made that
+from scratch and for fine-tuning. We note that the estimator        RetinaNet and FCOS have lower calibration errors than F-
+could also be integrated as part of a post-hoc method.              RCNN. This may be attributed to the use of focal loss for
+                                                                    the classification branch of RetinaNet and FCOS, which has
+                                                                    been empirically shown to improve calibration. Moreover,
+                                                                    different metrics reveal complementary information about
+Comparison of metrics D-ECE measures the notion of                  the calibration of the detector. For instance, CE50 on Pascal
+calibration obtained by letting ψ be a threshold function,          VOC shows similar performance of F-RCNN and FCOS,
+whereas LaECE is used for assessing calibration as ob-              whereas CE75 reveals that RetinaNet and FCOS have much
+tained through an identity function. We compare these               better performance than F-RCNN for a calibration error that
+binning-based estimators to the corresponding KDE-based             requires an IoU overlap of 0.75 for a correct detection.
+estimators on a synthetic binary problem, where the ground          Similarly, both RetinaNet and FCOS demonstrate similar
+truth calibration error is known. Similar to [31], we ap-           calibration errors when detecting small objects. However,
+ply temperature scaling with t1 = 0.6 to a uniform sample           FCOS exhibits superior calibration scores for medium-sized
+of numbers in [0, 1]. The purpose of this step is to ensure         objects, despite both detectors achieving the same APM .
+that the confidence scores are concentrated around 0 and 1,
+as in a realistic scenario. Then, we sample the labels, de-
+noting 1[IoU(B̂, B∗) ≥ β], according to that distribution,          Calibration-regularized training Another notion of cal-
+and therefore obtain perfect calibration. In order to simu-         ibration that might be of interest is when the link ψ is an
+late miscalibration, we perform another temperature scal-           identity function. Intuitively, this type of calibration re-
+ing with t2 = 0.6. D-ECE is calculated using 20 equally-            quires that the predicted score corresponds to the IoU over-
+spaced bins, as in [15]. For LaECE we use 25 bins, fol-             lap with a ground truth box. Using this setup for CE,c we
+lowing [27], and compute the weighted difference between            performed extensive experiments to compare the perfor-
+t1 and t2 scaled scores in each bin. As shown in Figure 2,          mance of our estimator with a post-hoc method (TS), and
+D-ECE and CE   c have similar performance and both yield            with a train-time loss (TCD). The temperature is chosen on
+good CE estimates with a few thousand points. The com-              a validation set by minimizing NLL. Table 3 reports the AP,
+parison with LaECE can be found in Appendix B.                      CE,
+                                                                     c and D-ECE with IoU overlap of 0.5, for RetinaNet and
+
+
+
+                                                                  590
+                              Table 1. Detection performance of object detectors on three popular datasets.
+
+                 Dataset          Model         AP          AP50         AP75          APS           APM           APL
+                              F-RCNN       36.11±0.10     53.35±0.15   40.04±0.12   18.88±0.10   39.40±0.11    47.98±0.08
+                  COCO        RetinaNet    30.83±0.12     43.33±0.22   34.03±0.07   13.59±0.28   34.13±0.13    43.16±0.24
+                               FCOS        34.02±0.06     48.84±0.04   37.37±0.10   17.29±0.17   37.84±0.17    45.15±0.17
+                              F-RCNN       35.36±0.65     54.46±0.82   37.90±0.79   11.54±0.31   35.34±0.51    56.62±0.48
+                Cityscapes    RetinaNet    34.60±0.23     52.60±0.81   36.41±0.35   10.39±0.15   35.56±0.15    57.47±0.39
+                               FCOS        34.81±0.08     52.31±0.29   36.62±0.23   10.66±0.60   32.84±0.44    56.90±0.81
+                              F-RCNN       52.96±0.05     75.88±0.08   59.67±0.05   18.48±0.39   40.90±0.11    61.43±0.08
+                Pascal VOC    RetinaNet    53.20±0.02     73.36±0.02   58.75±0.11   16.39±0.42   40.19±0.26    62.06±0.02
+                               FCOS        52.13±0.02     73.50±0.07   57.63±0.04   19.23±0.23   40.52±0.12    60.28±0.06
+
+Table 2. Calibration performance (CE × 100) of object detectors on three popular datasets. The calibration error is broken down into
+variants depending on the IoU threshold and the size of the objects, same as for AP.
+
+                 Dataset          Model         CE
+                                                c           CE
+                                                            c 50         CE
+                                                                         c 75          CE
+                                                                                       cS            CE
+                                                                                                     cM            CE
+                                                                                                                   cL
+                              F-RCNN       37.33±0.09     20.48±0.10   32.56±0.15   35.72±0.51   38.94±0.10    40.81±0.12
+                  COCO        RetinaNet    21.89±0.36     12.03±0.19   14.70±0.41   26.73±0.52   26.04±0.13    27.58±0.17
+                               FCOS        24.40±0.13     16.55±0.21   19.78±0.17   26.34±0.39   26.33±0.24    29.68±0.03
+                              F-RCNN       37.45±0.46     17.00±0.46   32.55±0.48   40.85±5.08   41.15±1.57    38.22±0.78
+                Cityscapes    RetinaNet    32.22±0.29     12.91±0.95   28.38±0.74   29.99±0.57   38.16±1.27    35.91±0.46
+                               FCOS        26.29±0.98     13.91±1.28   21.09±1.57   28.44±1.66   32.71±0.78    28.13±0.93
+                              F-RCNN       34.88±0.10     17.03±0.16   28.75±0.17   47.67±0.91   41.99±0.33    30.84±0.07
+                Pascal VOC    RetinaNet    24.11±0.09      7.95±0.19   17.89±0.14   36.31±1.22   31.53±0.06    21.73±0.11
+                               FCOS        22.32±0.05     15.77±0.10   15.55±0.11   36.84±0.65   27.12±0.04    20.97±0.02
+
+
+
+FCOS, trained on Cityscapes.                                             Table 4. Performance (AP and CE × 100) of models without cali-
+                                                                         bration and fine-tuned models using our auxiliary loss on COCO.
+Table 3. Comparison of detection (AP) and calibration perfor-
+mance (CE × 100) of models trained with RetinaNet and FCOS                              Model           AP ↑         c ↓
+                                                                                                                     CE
+on Cityscapes. Models with no calibration, with post-hoc (TS) and                      F-RCNN         36.11±0.10   31.76±0.05
+train-time (TCD) methods are compared with our approach.                            F-RCNN + CE
+                                                                                              c       34.72±0.09   26.91±0.14
+                                                                                      RetinaNet       30.83±0.12   21.89±0.36
+        Model              AP ↑           c ↓
+                                          CE         D-ECE50 ↓
+                                                                                    RetinaNet + CE
+                                                                                                c     30.10±0.06   9.72±0.18
+      RetinaNet       34.60±0.23     23.25±0.39      12.54±0.66
+                                                                                       FCOS           34.02±0.06   24.40±0.13
+   RetinaNet + TS     34.60±0.23     18.67±2.07      11.05±1.25
+  RetinaNet + TCD     33.94±0.81     25.01±1.13      13.04±0.47                      FCOS + CE
+                                                                                            c         33.41±0.12   15.32±0.17
+  RetinaNet + CEc     32.59±0.71     17.33±3.15      11.07±0.22
+       FCOS           34.81±0.08     14.43±1.31      13.23±1.18
+     FCOS + TS        33.62±0.44     13.33±2.16      11.96±0.90          Ablation study We investigate the effect of the regular-
+    FCOS + TCD        35.57±0.23     16.85±1.27      13.68±0.86          ization parameter λ, the test score threshold γ, and the num-
+     FCOS + CE
+            c         33.73±0.57     13.07±0.83      17.45±0.61          ber of epochs used for fine-tuning on the reported metrics.
+                                                                         In Figure 3 we present fine-tuned F-RCNN detectors on
+                                                                         Cityscapes for different values of the λ parameter. We no-
+                                                                         tice that increasing the weight of calibration regularization
+Fine-tuning Since there already exist a variety of trained               leads to noticeable reduction in calibration error. Table 5
+object detectors on COCO, we demonstrate that the bene-                  shows the evaluated performance on test set using different
+fits of adding our estimator as an auxiliary loss can be ob-             thresholds γ. From Table 6 we can observe that fine-tuning
+served also for fine-tuning pre-trained models even for a few            even for a few epochs can lead to improvements in calibra-
+epochs. Table 4 shows the reduction in CE, achieved by                   tion error, without sacrificing AP. In Appendix B we con-
+fine-tuning for three epochs, by minimizing the loss defined             duct further experiments for the effect of λ, both for fine-
+in Equation (15) on COCO dataset.                                        tuned models and trained from scratch on the three datasets.
+
+
+
+                                                                       591
+                                                              0
+                                                                               The empirical results showed that our estimator per-
+            28                                                             forms equally well for estimating calibration error as ex-
+                                                                           isting binning-based versions, while offering superior sta-
+            26                                           1                 tistical properties. Moreover, due to its differentiability, it
+                                                                           can be directly included as part of both post-hoc and train-
+       CE
+       c
+
+
+
+
+            24                                  2                          time calibration setups. In particular, when integrated into
+                                   3
+                                                                           the task-specific loss during training, our estimator achieves
+                            4
+            22                                                             substantial improvements in calibration error, while main-
+                        5
+                                                                           taining similar levels of AP. We have also shown that a re-
+            20                                                             duction in calibration error can be achieved by fine-tuning
+                                                                           with our auxiliary loss for a few epochs, thus eliminating
+                   33       33.5   34    34.5       35       35.5   36     the need to train object detectors from scratch.
+                                        AP                                     This work also has some limitations. The main limitation
+                                                                           is the intrinsic O(n2 ) [31] complexity of KDE. When us-
+Figure 3. Effect of λ on AP and CE.c The points represent fine-            ing the estimator of calibration error as an auxiliary loss for
+tuned Faster-RCNN detectors on Cityscapes for three epochs. The            one-stage object detectors, which generate a considerable
+number next to the point denotes the value of λ.                           number of candidate detections during training, the com-
+                                                                           plexity becomes particularly challenging. Nevertheless, our
+Table 5. Effect of test score threshold γ on detection performance         synthetic experiments have revealed that the calibration er-
+and calibration of Faster-RCNN trained on Cityscapes.                      ror can be accurately estimated using only a few thousand
+                                                                           data points. As a result, during training with RetinaNet and
+                 Model                  AP                   CE
+                                                             c
+                                                                           FCOS, we opt to randomly sample a subset of detections
+            F-RCNN (γ = 0.1)       38.34±0.18       22.61±1.11             and evaluate the calibration error based on this reduced set
+            F-RCNN (γ = 0.2)       37.53±0.26       26.26±0.78             of data points. Our empirical results verify that this is an ef-
+            F-RCNN (γ = 0.3)       36.92±0.31       27.86±0.80             fective strategy to conduct calibration-regularized training.
+            F-RCNN (γ = 0.4)       36.15±0.43       28.36±0.83
+                                                                           Another limitation of this paper is that we did not include a
+            F-RCNN (γ = 0.5)       35.36±0.65       28.48±0.68
+            F-RCNN (γ = 0.6)       34.31±0.75       28.19±0.90             transformer-based model, such as DINO [16], in our exper-
+            F-RCNN (γ = 0.7)       33.26±0.96       27.48±0.99             iments. However, the presented mathematical principles are
+                                                                           model-agnostic and our estimator can be trivially extended
+Table 6. Effect of number of epochs for fine-tuning a Faster-              to this family of detectors as well. Finally, it is worth not-
+RCNN network on Cityscapes, with λ = 1 and γ = 0.5 .                       ing that in certain scenarios, calibration regularized training
+                                                                           results in a slight reduction of the AP metric. Exploring
+                 Model                  AP                   CE
+                                                             c             the relationship between CE, AP, and the test score thresh-
+                F-RCNN             35.36±0.65       28.48±0.68
+                                                                           old, along with investigating the advantage that calibration
+            F-RCNN + CE
+                     c (1x)        34.39±0.19       25.88±1.40             brings to downstream tasks that utilize object detectors, is
+            F-RCNN + CE
+                     c (2x)        34.45±0.22       25.48±0.60             an interesting direction for future work.
+            F-RCNN + CE
+                     c (3x)        35.06±0.51       25.76±0.85                 To conclude, our study puts forward a novel and princi-
+            F-RCNN + CE
+                     c (4x)        35.67±0.41       26.72±0.56             pled view on calibration in OD, and proposes a new math-
+            F-RCNN + CE
+                     c (5x)        35.80±0.40       26.19±1.46             ematical framework, which enables both estimation of cali-
+                                                                           bration error, and calibration regularized training for object
+                                                                           detection. Considering the critical role of calibration in en-
+5. Discussion                                                              hancing overall system robustness, our method is highly rel-
+                                                                           evant across diverse computer vision applications, and espe-
+   In this paper, we tackled the challenge of defining cal-                cially in risk-sensitive scenarios.
+ibration and estimating calibration error for object detec-
+tion. Specifically, calibration error for OD is a quantity                 Acknowledgements
+that depends on the choice of a measure of “correctness“
+of a prediction, which we have decomposed into a similar-                     This research received funding from the Flemish Gov-
+ity measure L and a link function ψ, which together deter-                 ernment (AI Research Program) and the Research Founda-
+mine the notion of calibration that is relevant for a particular           tion - Flanders (FWO) through project number G0G2921N.
+scenario. Beyond the definition, we also proposed a consi-                 The publication was also supported by funding from the
+tent and differentiable estimator of a calibration error for               Academy of Finland (Profi6 336449 funding program). The
+OD, which can be used for common one-stage, two-stage,                     authors wish to acknowledge CSC – IT Center for Science,
+anchor-based and anchor-free DNN-based detectors.                          Finland, for generous computational resources.
+
+
+
+                                                                         592
+References                                                             [12] Archit Karandikar, Nicholas Cain, Dustin Tran, Balaji Lak-
+                                                                            shminarayanan, Jonathon Shlens, Michael Curtis Mozer, and
+ [1] Arsenii Ashukha, Alexander Lyzhov, Dmitry Molchanov,                   Rebecca Roelofs. Soft calibration objectives for neural net-
+     and Dmitry Vetrov. Pitfalls of in-domain uncertainty esti-             works. In A. Beygelzimer, Y. Dauphin, P. Liang, and J. Wort-
+     mation and ensembling in deep learning. In International               man Vaughan, editors, Advances in Neural Information Pro-
+     Conference on Learning Representations, 2020. 4                        cessing Systems, 2021. 2
+ [2] Jochen Bröcker. Reliability, sufficiency, and the decomposi-     [13] Ananya Kumar, Percy S Liang, and Tengyu Ma. Veri-
+     tion of proper scores. Quarterly Journal of the Royal Mete-            fied uncertainty calibration. In H. Wallach, H. Larochelle,
+     orological Society, 135(643):1512–1519, Jul 2009. 3                    A. Beygelzimer, F. d'Alché-Buc, E. Fox, and R. Garnett, edi-
+                                                                            tors, Advances in Neural Information Processing Systems 32,
+ [3] Song Xi Chen. Beta kernel estimators for density func-
+                                                                            pages 3792–3803. 2019. 3
+     tions. Computational Statistics & Data Analysis, 31:131–
+     145, 1999. 6                                                      [14] Aviral Kumar, Sunita Sarawagi, and Ujjwal Jain. Trainable
+                                                                            calibration measures for neural networks from kernel mean
+ [4] Marius Cordts, Mohamed Omran, Sebastian Ramos, Timo                    embeddings. In ICML, 2018. 2
+     Rehfeld, Markus Enzweiler, Rodrigo Benenson, Uwe
+     Franke, Stefan Roth, and Bernt Schiele. The cityscapes            [15] Fabian Küppers, Jan Kronenberger, Amirhossein Shantia,
+     dataset for semantic urban scene understanding. In Proc.               and Anselm Haselhoff. Multivariate confidence calibration
+     of the IEEE Conference on Computer Vision and Pattern                  for object detection. In The IEEE/CVF Conference on Com-
+     Recognition (CVPR), 2016. 2, 5                                         puter Vision and Pattern Recognition (CVPR) Workshops,
+                                                                            June 2020. 1, 2, 3, 6
+ [5] Yukun Ding, Jinglan Liu, Jinjun Xiong, and Yiyu Shi. Re-
+     visiting the evaluation of uncertainty estimation and its ap-     [16] Feng Li, Hao Zhang, Huaizhe Xu, Shilong Liu, Lei Zhang,
+     plication to explore model complexity-uncertainty trade-off.           Lionel M Ni, and Heung-Yeung Shum. Mask dino: Towards
+     In 2020 IEEE/CVF Conference on Computer Vision and Pat-                a unified transformer-based framework for object detection
+     tern Recognition Workshops (CVPRW), pages 22–31, 2020.                 and segmentation. In Proceedings of the IEEE/CVF Con-
+     4                                                                      ference on Computer Vision and Pattern Recognition, pages
+                                                                            3041–3050, 2023. 8
+ [6] Michael W Dusenberry, Dustin Tran, Edward Choi, Jonas
+     Kemp, Jeremy Nixon, Ghassen Jerfel, Katherine Heller, and         [17] Gongbo Liang, Yu Zhang, Xiaoqin Wang, and Nathan Ja-
+     Andrew M Dai. Analyzing the role of model uncertainty                  cobs. Improved trainable calibration method for neural net-
+     for electronic health records. In Proceedings of the ACM               works on medical imaging classification. In British Machine
+     Conference on Health, Inference, and Learning, pages 204–              Vision Conference, 2020. 2
+     213, 2020. 1
+                                                                       [18] Tsung-Yi Lin, Michael Maire, Serge J. Belongie, James
+ [7] M. Everingham, L. Van Gool, C. K. I. Williams, J. Winn,                Hays, Pietro Perona, Deva Ramanan, Piotr Dollár, and
+     and A. Zisserman. The PASCAL Visual Object Classes                     C. Lawrence Zitnick. Microsoft coco: Common objects in
+     Challenge 2012 (VOC2012) Results. http://www.pascal-                   context. In European Conference on Computer Vision, 2014.
+     network.org/challenges/VOC/voc2012/workshop/index.html.                2, 5
+     2, 5
+                                                                       [19] Tsung-Yi Lin, Priya Goyal, Ross B. Girshick, Kaiming He,
+ [8] Chuan Guo, Geoff Pleiss, Yu Sun, and Kilian Q Weinberger.              and Piotr Dollár. Focal loss for dense object detection. IEEE
+     On calibration of modern neural networks. In International             Transactions on Pattern Analysis and Machine Intelligence,
+     Conference on Machine Learning, pages 1321–1330. PMLR,                 42:318–327, 2017. 2, 5
+     2017. 1, 2, 3                                                     [20] Xingchen Ma and Matthew B. Blaschko. Meta-cal: Well-
+                                                                            controlled post-hoc calibration by ranking. In International
+ [9] Ali Harakeh and Steven L. Waslander. Estimating and evalu-
+                                                                            Conference on Machine Learning, 2021. 2
+     ating regression predictive uncertainty in deep object detec-
+     tors. In International Conference on Learning Representa-         [21] Lena Maier-Hein, Bjoern Menze, et al. Metrics reloaded:
+     tions, 2021. 2                                                         Pitfalls and recommendations for image analysis validation.
+                                                                            arXiv. org, (2206.01653), 2022. 2
+[10] Ramya Hebbalaguppe, Jatin Prakash, Neelabh Madan, and
+     Chetan Arora. A stitch in time saves nine: A train-time reg-      [22] Jishnu Mukhoti, Viveka Kulharia, Amartya Sanyal, Stuart
+     ularizing loss for improved neural network calibration. In             Golodetz, Philip Torr, and Puneet Dokania. Calibrating deep
+     Proceedings of the IEEE/CVF Conference on Computer Vi-                 neural networks using focal loss. Advances in Neural Infor-
+     sion and Pattern Recognition, pages 16081–16090, 2022. 2               mation Processing Systems, 33:15288–15299, 2020. 2
+
+[11] Ildar Abdulovich Ibragimov and Rafail Zalmanovich                 [23] Rafael Müller, Simon Kornblith, and Geoffrey E Hinton.
+     Has’ Minskii. Statistical estimation: asymptotic theory, vol-          When does label smoothing help? Advances in neural in-
+     ume 16. Springer Science & Business Media, 2013. 3                     formation processing systems, 32, 2019. 2
+
+
+
+
+                                                                     593
+[24] Muhammad Akhtar Munir, Muhammad Haris Khan, M Sar-                  [35] Zhi Tian, Chunhua Shen, Hao Chen, and Tong He. Fcos:
+     fraz, and Mohsen Ali. Towards improving calibration in ob-               Fully convolutional one-stage object detection. 2019
+     ject detection under domain shift. Advances in Neural Infor-             IEEE/CVF International Conference on Computer Vision
+     mation Processing Systems, 35:38706–38718, 2022. 1, 2, 3,                (ICCV), pages 9626–9635, 2019. 2, 5
+     4, 5
+                                                                         [36] Juozas Vaicenavicius, David Widmann, Carl Andersson,
+[25] Muhammad Akhtar Munir, Muhammad Haris Khan, Salman                       Fredrik Lindsten, Jacob Roll, and Thomas Schön. Evalu-
+     Khan, and Fahad Shahbaz Khan. Bridging precision and con-                ating model calibration in classification. In The 22nd Inter-
+     fidence: A train-time loss for calibrating object detection. In          national Conference on Artificial Intelligence and Statistics,
+     Proceedings of the IEEE/CVF Conference on Computer Vi-                   pages 3459–3467. PMLR, 2019. 2, 4
+     sion and Pattern Recognition, pages 11474–11483, 2023. 1,
+     2, 3, 4, 5                                                          [37] David Widmann, Fredrik Lindsten, and Dave Zachariah.
+                                                                              Calibration tests in multi-class classification: A unifying
+[26] Kemal Oksuz, Baris Can Cam, Emre Akbas, and Sinan                        framework. Advances in Neural Information Processing Sys-
+     Kalkan. Localization recall precision (lrp): A new perfor-               tems, 32, 2019. 2, 4
+     mance metric for object detection. In Proceedings of the Eu-
+     ropean conference on computer vision (ECCV), pages 504–             [38] Dominik Wied and Rafael Weißbach. Consistency of the ker-
+     519, 2018. 5                                                             nel density estimator - a survey. Statistical Papers, 53(1):
+                                                                              1–21, 2010. 4
+[27] Kemal Oksuz, Tom Joy, and Puneet K. Dokania. To-
+     wards building self-aware object detectors via reliable un-         [39] Yuxin Wu, Alexander Kirillov, Francisco Massa, Wan-Yen
+     certainty quantification and calibration. In Proceedings of              Lo, and Ross Girshick. Detectron2. https://github.
+     the IEEE/CVF Conference on Computer Vision and Pattern                   com/facebookresearch/detectron2, 2019. 6
+     Recognition (CVPR), pages 9263–9274, June 2023. 1, 2, 3,
+                                                                         [40] Ekim Yurtsever, Jacob Lambert, Alexander Carballo, and
+     5, 6
+                                                                              Kazuya Takeda. A survey of autonomous driving: Common
+[28] Yaniv Ovadia, Emily Fertig, Jie Ren, Zachary Nado, David                 practices and emerging technologies. IEEE access, 8:58443–
+     Sculley, Sebastian Nowozin, Joshua Dillon, Balaji Lakshmi-               58469, 2020. 1
+     narayanan, and Jasper Snoek. Can you trust your model’s             [41] B. Zadrozny and C. Elkan. Transforming classifier scores
+     uncertainty? evaluating predictive uncertainty under dataset             into accurate multiclass probability estimates. Proceedings
+     shift. Advances in neural information processing systems,                of the eighth ACM SIGKDD international conference on
+     32, 2019. 1                                                              Knowledge discovery and data mining, 2002. 2, 3
+[29] Bimsara Pathiraja, Malitha Gunawardhana, and Muham-                 [42] Bianca Zadrozny and Charles Elkan. Obtaining calibrated
+     mad Haris Khan. Multiclass confidence and localization cali-             probability estimates from decision trees and naive bayesian
+     bration for object detection. In Proceedings of the IEEE/CVF             classifiers. ICML, 1, 05 2001. 2
+     Conference on Computer Vision and Pattern Recognition
+     (CVPR), pages 19734–19743, June 2023. 2, 3, 4, 5                    [43] Jize Zhang, Bhavya Kailkhura, and T. Yong-Jin Han. Mix-n-
+                                                                              match: Ensemble and compositional methods for uncertainty
+[30] Teodora Popordanoska, Jeroen Bertels, Dirk Vandermeulen,                 calibration in deep learning. In International Conference on
+     Frederik Maes, and Matthew B. Blaschko. On the rela-                     Machine Learning, 2020. 4
+     tionship between calibrated predictors and unbiased volume
+     estimation. In Medical Image Computing and Computer-
+     Assisted Intervention. 2021. 11
+
+[31] Teodora Popordanoska, Raphael Sayer, and Matthew B.
+     Blaschko. A consistent and differentiable lp canonical cal-
+     ibration error estimator. In Alice H. Oh, Alekh Agarwal,
+     Danielle Belgrave, and Kyunghyun Cho, editors, Advances
+     in Neural Information Processing Systems, 2022. 2, 4, 6, 8
+
+[32] Joseph Redmon and Ali Farhadi. Yolov3: An incremental
+     improvement. arXiv preprint arXiv:1804.02767, 2018. 2
+
+[33] Shaoqing Ren, Kaiming He, Ross B. Girshick, and Jian Sun.
+     Faster r-cnn: Towards real-time object detection with region
+     proposal networks. IEEE Transactions on Pattern Analysis
+     and Machine Intelligence, 39:1137–1149, 2015. 5
+
+[34] B. W. Silverman. Density Estimation for Statistics and Data
+     Analysis. Chapman & Hall, 1986. 4
+
+
+
+
+                                                                       594
+

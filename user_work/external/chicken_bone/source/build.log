@@ -1,0 +1,120 @@
+{
+  "source": "https://zenodo.org/records/10579608",
+  "license": "CC-BY-4.0",
+  "condition": "40kV_40W_100ms_10avg",
+  "resize": "width 352, aspect preserved, Lanczos; bbox uses exact per-axis ratios",
+  "window": {
+    "lower": -0.05467727182433009,
+    "upper": 1.2255879803896073,
+    "method": "training-only pooled pixel 0.1/99.9 percentiles, sample every 8 pixels; invert attenuation"
+  },
+  "mask_rule": "channel 1 union -> one bbox per RibBone image; channel 0 is chicken, not target",
+  "stats": {
+    "train": {
+      "images": 154,
+      "positive": 88,
+      "negative": 66,
+      "boxes": 88,
+      "short_side_min_median_max": [
+        4.4184100418409855,
+        11.78947368421052,
+        26.878661087866135
+      ],
+      "chicken_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "bone_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18
+      ]
+    },
+    "val": {
+      "images": 40,
+      "positive": 30,
+      "negative": 10,
+      "boxes": 30,
+      "short_side_min_median_max": [
+        5.89473684210526,
+        10.684210526315788,
+        20.619246861924694
+      ],
+      "chicken_ids": [
+        10,
+        11
+      ],
+      "bone_ids": [
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28
+      ]
+    },
+    "test": {
+      "images": 60,
+      "positive": 45,
+      "negative": 15,
+      "boxes": 45,
+      "short_side_min_median_max": [
+        5.15789473684211,
+        12.887029288702962,
+        26.142259414225947
+      ],
+      "chicken_ids": [
+        12,
+        13,
+        14
+      ],
+      "bone_ids": [
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43
+      ]
+    }
+  },
+  "source_unique_pixels": 254,
+  "output_unique_pixels": 254,
+  "cross_split_source_duplicates": 0,
+  "cross_split_output_duplicates": 0
+}

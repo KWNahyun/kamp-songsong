@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "checks": [
+    "254 images decoded",
+    "all RGB channels identical",
+    "YOLO coordinates in bounds",
+    "YOLO and COCO boxes match",
+    "all image pixel hashes unique",
+    "positive/negative label presence consistent"
+  ],
+  "splits": {
+    "train": {
+      "images": 154,
+      "boxes": 88,
+      "negative": 66
+    },
+    "val": {
+      "images": 40,
+      "boxes": 30,
+      "negative": 10
+    },
+    "test": {
+      "images": 60,
+      "boxes": 45,
+      "negative": 15
+    }
+  }
+}

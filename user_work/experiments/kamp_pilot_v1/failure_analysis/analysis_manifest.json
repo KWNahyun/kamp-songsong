@@ -1,0 +1,19 @@
+{
+  "input_prediction_sha256": {
+    "yolov8s": "490cd0f149b787db1844e06b937c006ec8c257eb51928ce73351d1057f212d49",
+    "yolov8s_p2": "b995d60f38979e4f034affcc907e345a3515e375ae4417b783c7b23a5740f3c2",
+    "dfine_s": "cef0f4b3caed406c961bf9a93b0c8d406f723f45e270dbf39aff095b6af4789a",
+    "dfine_s_p2": "6bcebf85dce2f1cf515fe5d61319f67008c7be62e7c2ce91abc06eaec45bf4a8"
+  },
+  "split": "val",
+  "images": 64,
+  "GT": 142,
+  "test_used": false,
+  "retraining_performed": false,
+  "postprocess_default_changed": false,
+  "analysis_scripts": [
+    "analyze_failures.py",
+    "analyze_sensitivity.py",
+    "inference_postprocess.py"
+  ]
+}

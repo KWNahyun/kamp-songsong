@@ -1,0 +1,8 @@
+{
+  "name": "yolov8s_p2_synth25_seed20260930",
+  "processed": 12741,
+  "total": 12750,
+  "seconds": 140.02653312683105,
+  "images_per_second": 90.98989823921195,
+  "peak_vram_gib": 0.12313032150268555
+}

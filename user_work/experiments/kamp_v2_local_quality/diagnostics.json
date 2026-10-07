@@ -1,0 +1,23 @@
+{
+  "results": [
+    {
+      "mode": "query_control",
+      "hard_pair_accuracy": 0.6568904286832947,
+      "quality_only_precise": 52,
+      "quality_only_improved": 20,
+      "quality_only_worsened": 34,
+      "residual_logit_std": 0.3885195263139938
+    },
+    {
+      "mode": "query_local",
+      "hard_pair_accuracy": 0.6576872742457622,
+      "quality_only_precise": 53,
+      "quality_only_improved": 18,
+      "quality_only_worsened": 32,
+      "residual_logit_std": 1.040398417269223
+    }
+  ],
+  "cpu_bilinear_feature_max_error": 8.209692291982762e-06,
+  "epochs_verified": 30,
+  "test_used": false
+}

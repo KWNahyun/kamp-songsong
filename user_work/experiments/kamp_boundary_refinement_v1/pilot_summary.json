@@ -1,0 +1,204 @@
+{
+  "split": "validation",
+  "seed": 20260929,
+  "test_used": false,
+  "base_detector_frozen": true,
+  "detector_identity": {
+    "BR": {
+      "compared_detector_tensors": 794,
+      "unequal_detector_tensors": 0,
+      "bitwise_identical": true
+    },
+    "EBR": {
+      "compared_detector_tensors": 794,
+      "unequal_detector_tensors": 0,
+      "bitwise_identical": true
+    },
+    "BPS": {
+      "compared_detector_tensors": 794,
+      "unequal_detector_tensors": 0,
+      "bitwise_identical": true
+    }
+  },
+  "coverage_at_score_floor_001": {
+    "MAL": {
+      "mean_best_iou": 0.7849947850273329,
+      "coverage_iou50": 141,
+      "coverage_iou75": 103
+    },
+    "BR": {
+      "mean_best_iou": 0.7783713730579145,
+      "coverage_iou50": 141,
+      "coverage_iou75": 91
+    },
+    "EBR": {
+      "mean_best_iou": 0.7769600978863244,
+      "coverage_iou50": 141,
+      "coverage_iou75": 91
+    },
+    "BPS": {
+      "mean_best_iou": 0.7870597504092177,
+      "coverage_iou50": 141,
+      "coverage_iou75": 104
+    }
+  },
+  "base_br_union_oracle": {
+    "mean_best_iou": 0.8037987746245278,
+    "coverage_iou50": 141,
+    "coverage_iou75": 110,
+    "warning": "GT oracle over the union of base and BR boxes; diagnostic ceiling only."
+  },
+  "iou75_transitions": [
+    {
+      "model": "BR",
+      "gained_iou75_gt": 7,
+      "lost_iou75_gt": 19,
+      "net_iou75_gt": -12,
+      "mean_best_iou_change": -0.006623411969418393,
+      "median_best_iou_change": -0.0028966403516708095,
+      "gt_best_iou_improved": 66,
+      "gt_best_iou_worsened": 76
+    },
+    {
+      "model": "EBR",
+      "gained_iou75_gt": 7,
+      "lost_iou75_gt": 19,
+      "net_iou75_gt": -12,
+      "mean_best_iou_change": -0.008034687141008265,
+      "median_best_iou_change": -6.493502883297975e-05,
+      "gt_best_iou_improved": 71,
+      "gt_best_iou_worsened": 71
+    },
+    {
+      "model": "BPS",
+      "gained_iou75_gt": 5,
+      "lost_iou75_gt": 4,
+      "net_iou75_gt": 1,
+      "mean_best_iou_change": 0.002064965381884998,
+      "median_best_iou_change": 0.0,
+      "gt_best_iou_improved": 52,
+      "gt_best_iou_worsened": 34
+    }
+  ],
+  "metrics": [
+    {
+      "model": "MAL",
+      "setting": "raw",
+      "AP": 37.40918282085125,
+      "AP50": 93.1869225082455,
+      "AP75": 20.638703830502177,
+      "TP_FP6": 123,
+      "FP": 6
+    },
+    {
+      "model": "MAL",
+      "setting": "hard_nms07",
+      "AP": 36.65353410303609,
+      "AP50": 93.0190862479583,
+      "AP75": 18.65711174374134,
+      "TP_FP6": 136,
+      "FP": 6
+    },
+    {
+      "model": "MAL",
+      "setting": "hard_nms07_scale095",
+      "AP": 39.45611366291327,
+      "AP50": 98.94714823595038,
+      "AP75": 17.72739112694691,
+      "TP_FP6": 141,
+      "FP": 6
+    },
+    {
+      "model": "BR",
+      "setting": "raw",
+      "AP": 37.10295569330558,
+      "AP50": 95.24922598098357,
+      "AP75": 18.54489202031666,
+      "TP_FP6": 137,
+      "FP": 6
+    },
+    {
+      "model": "BR",
+      "setting": "hard_nms07",
+      "AP": 36.096863579877535,
+      "AP50": 94.5153679519528,
+      "AP75": 16.80391734302308,
+      "TP_FP6": 137,
+      "FP": 6
+    },
+    {
+      "model": "BR",
+      "setting": "hard_nms07_scale095",
+      "AP": 39.07453606674727,
+      "AP50": 98.94714823595038,
+      "AP75": 18.783836908836484,
+      "TP_FP6": 141,
+      "FP": 6
+    },
+    {
+      "model": "EBR",
+      "setting": "raw",
+      "AP": 37.31757407329218,
+      "AP50": 94.65468864038318,
+      "AP75": 18.758315311821846,
+      "TP_FP6": 137,
+      "FP": 6
+    },
+    {
+      "model": "EBR",
+      "setting": "hard_nms07",
+      "AP": 36.350016041331386,
+      "AP50": 94.5055098232828,
+      "AP75": 16.931630559321334,
+      "TP_FP6": 137,
+      "FP": 6
+    },
+    {
+      "model": "EBR",
+      "setting": "hard_nms07_scale095",
+      "AP": 39.071111154575185,
+      "AP50": 98.94714823595038,
+      "AP75": 18.592312310177856,
+      "TP_FP6": 141,
+      "FP": 6
+    },
+    {
+      "model": "BPS",
+      "setting": "raw",
+      "AP": 38.071869607199275,
+      "AP50": 94.03059241260875,
+      "AP75": 21.515546673133553,
+      "TP_FP6": 131,
+      "FP": 6
+    },
+    {
+      "model": "BPS",
+      "setting": "hard_nms07",
+      "AP": 37.81453026870201,
+      "AP50": 94.56066749193705,
+      "AP75": 19.409533278625236,
+      "TP_FP6": 136,
+      "FP": 6
+    },
+    {
+      "model": "BPS",
+      "setting": "hard_nms07_scale095",
+      "AP": 40.135426963658375,
+      "AP50": 98.98201087714408,
+      "AP75": 19.871695662743775,
+      "TP_FP6": 141,
+      "FP": 6
+    }
+  ],
+  "fixed_settings": {
+    "hard_nms_iou": 0.7,
+    "optional_existing_box_scale": 0.95,
+    "score_floor": 0.001
+  },
+  "limitations": [
+    "Single-seed pilot on the temporary Telea preprocessing.",
+    "The MAL base checkpoint was previously selected on validation.",
+    "No validation-based refiner checkpoint selection was used.",
+    "The held-out test split remains untouched."
+  ]
+}

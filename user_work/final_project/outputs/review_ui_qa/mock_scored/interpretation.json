@@ -1,0 +1,11 @@
+{
+  "metric": "one-to-one click containment in official TXT bbox",
+  "not_detector_AP": true,
+  "not_physical_detection_ground_truth": true,
+  "not_factory_trial": true,
+  "participants": 1,
+  "rows": 3,
+  "uncertainty": "no independent image/binomial confidence intervals; repeated captures and shared participants require group-aware analysis",
+  "human_results_provided_by_user": false,
+  "software_test_only": true
+}

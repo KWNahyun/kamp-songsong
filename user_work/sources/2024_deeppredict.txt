@@ -1,0 +1,83 @@
+The 4th Korea AI Manufacturing Data Analysis Competition - Winner (The Grand Prize) > News | 서울대학교 초자율화 인공지능 연구실
+Introduction
+About HAI LAB
+Location
+People
+Professor
+Current members
+Alumni
+Research
+Intelligent Metrology
+System Modeling
+Decision Making
+Publication
+Journal
+Patent
+Conference
+Project
+Project
+Board
+News
+Awards
+Press & Multimedia
+Gallery
+Contact Us
+LOGIN
+Contact Us
+Introduction
+About HAI LAB
+Location
+People
+Professor
+Current members
+Alumni
+Research
+Intelligent Metrology
+System Modeling
+Decision Making
+Publication
+Journal
+Patent
+Conference
+Project
+Project
+Board
+News
+Awards
+Press & Multimedia
+Gallery
+Board
+Hyperautonomy Artificial Intelligence Lab
+News
+Awards
+Press & Multimedia
+Gallery
+News
+News
+Awards
+Press & Multimedia
+Gallery
+The 4th Korea AI Manufacturing Data Analysis Competition - Winner (The Grand Prize)
+페이지 정보
+작성자
+최고관리자
+작성일
+24-11-27 14:12
+조회
+2,079회
+본문
+서울대학교 윤병동 교수 연구팀, 제 4회 K-인공지능 제조데이터 분석 경진대회 최우수상 수상
+인공지능 중소벤처 제조 플랫폼(KAMP) 데이터를 활용하여 중소 제조 현장의 고민을 해결하는 ‘제 4회 K-인공지능 제조데이터 분석 경진대회’에서 서울대학교 초자율화 인공지능 연구실(HAI)의 ‘Deep Predict’ 팀 (김주현, 권경륜, 송원빈)이 최우수상을 수상하였다.
+대회는 중소 제조업에서 원인 모를 품질 이상, 갑작스러운 장비 고장 등으로 인해 어려움을 겪고 있는 ‘뿌리기업의 현장 개선’을 과제로 제시했다. 총 183개 팀이 지원하여 제품 불량 조기 탐지 및 원인 분석, 장비 고장 예측, 공정 최적화, 작업자 의사 결정 보조 등 다양한 현장 개선 아이디어를 제시하고 인공지능으로 구현했으며, 1차 서면 평가, 최종 발표 평가를 통해 최종 8개 팀이 수상했다.
+최우수상을 수상한 ‘Deep Predict’ 팀은 “스마트 제조의 초자율화: 딥러닝 기반의 고장 예측 및 분석과 역설계를 통한 최적 후보군 탐색”이라는 주제로, 하나의 딥러닝 모델로 다양한 작업을 수행할 수 있는 ‘Multi-task AI Model’을 개발하여 뛰어난 성과를 거두었다. 또한, 인공지능 기술의 완성도와 현장 적용 가능성 측면에서도 높은 평가를 받았다.
+이번 대회는 인공지능 개발자에게 평소에 쉽게 접할 수 없는 양질의 현장 제조 데이터를 제공함으로써, 새로운 분야에 인공지능을 접목해 보는 기회를 제공하고, 동시에 실제 중소기업이 처한 어려움을 해결한다는 점에서 큰 의미를 지닌다.
+목록
+이전글
+The Webinar of  'Automation World 2024 Best Solution Day' is held!
+24.09.14
+다음글
+Prof. Youn gave an invited talk in KiSTi (Korea institute of Science and Technology information)
+24.11.28
+Copyright (c) Hyperautonomy Artificial Intelligence Lab at SNU All rights reserved. Designed by
+dsso.kr.
+상단으로

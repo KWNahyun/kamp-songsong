@@ -1,0 +1,6 @@
+Tuning checkpoint from /home/viplab/contest/final_project/checkpoints/dfine_s_coco_init.pth
+Load model.state_dict, {'missed': [], 'unmatched': []}
+Initial lr: [0.0001, 0.0001, 0.0002, 0.0002]
+building train_dataloader with batch_size=8...
+building val_dataloader with batch_size=8...
+{'mal_backward_passed': True, 'batch': 8, 'loss': 31.53916358947754, 'finite_gradient_tensors': 488, 'optimizer_step_executed': False, 'test_used': False}

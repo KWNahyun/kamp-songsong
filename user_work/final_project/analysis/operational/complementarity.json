@@ -1,0 +1,25 @@
+{
+  "dfine_fixed_TP": 142,
+  "yolo_fixed_TP": 136,
+  "either_model_matched_GT_upper_bound": 142,
+  "incremental_fixed_GT": [],
+  "incremental_saved_GT": [],
+  "not_a_fused_detector_metric": true,
+  "FN_details": [
+    {
+      "gt_id": 110,
+      "YOLO_fixed_matched": false,
+      "YOLO_saved_matched": false,
+      "YOLO_saved_best_iou": 0.3217247982114622,
+      "YOLO_fixed_best_iou": 0.3217247982114622
+    },
+    {
+      "gt_id": 136,
+      "YOLO_fixed_matched": false,
+      "YOLO_saved_matched": false,
+      "YOLO_saved_best_iou": 0.4103477876074087,
+      "YOLO_fixed_best_iou": 0.4103477876074087
+    }
+  ],
+  "yolo_threshold": 0.8020033836364746
+}

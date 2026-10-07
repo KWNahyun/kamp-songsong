@@ -1,0 +1,5 @@
+path: /home/viplab/contest/experiments/kamp_synth_train_v1/data640_mix25
+train: images/train
+val: images/val
+names:
+  0: defect

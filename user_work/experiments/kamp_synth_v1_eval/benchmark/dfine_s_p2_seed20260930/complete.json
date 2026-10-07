@@ -1,0 +1,31 @@
+{
+  "name": "dfine_s_p2_seed20260930",
+  "images": 128,
+  "seconds": 1.6189219951629639,
+  "images_per_second": 79.06492334454646,
+  "peak_vram_gib": 1.4607877731323242,
+  "checkpoint_sha256": "5716e7b41b5e84bdd0a642155b8386a7d992caa652bc19ce5ea4817353564f4f",
+  "batch": 8,
+  "complete": true,
+  "YOLO_preNMS_saved": false,
+  "DFINE_regular_queries_saved": true,
+  "postprocessing": "score>=0.001, clip original coordinates, NMS0.7",
+  "files": [
+    "batch_00000.npz",
+    "batch_00001.npz",
+    "batch_00002.npz",
+    "batch_00003.npz",
+    "batch_00004.npz",
+    "batch_00005.npz",
+    "batch_00006.npz",
+    "batch_00007.npz",
+    "batch_00008.npz",
+    "batch_00009.npz",
+    "batch_00010.npz",
+    "batch_00011.npz",
+    "batch_00012.npz",
+    "batch_00013.npz",
+    "batch_00014.npz",
+    "batch_00015.npz"
+  ]
+}

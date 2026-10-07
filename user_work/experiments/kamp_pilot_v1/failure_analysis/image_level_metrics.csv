@@ -1,0 +1,5 @@
+﻿model,threshold,defect_images,any_box_alarm_images,any_matched_object_images,all_objects_matched_images
+yolov8s,0.7843811511993408,64,64,64,57
+yolov8s_p2,0.8481985330581665,64,50,49,29
+dfine_s,0.7551202178001404,64,50,50,39
+dfine_s_p2,0.7137823104858398,64,60,60,49

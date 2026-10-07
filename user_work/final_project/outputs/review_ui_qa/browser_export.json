@@ -1,0 +1,673 @@
+{
+  "version": "kamp-review-v1-20261003",
+  "protocol": "review-study-v1",
+  "preview": false,
+  "participant": "SOFTWARE_QA",
+  "armIndex": 0,
+  "familiar": false,
+  "started": "2026-10-03T07:23:46.667Z",
+  "results": [
+    {
+      "case_id": "case_016",
+      "condition": "raw",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.15069999992847444,
+      "wall_started": "2026-10-03T07:23:46.667Z",
+      "finished": "2026-10-03T07:23:46.833Z"
+    },
+    {
+      "case_id": "case_030",
+      "condition": "regions",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.08479999995231628,
+      "wall_started": "2026-10-03T07:23:47.000Z",
+      "finished": "2026-10-03T07:23:47.100Z"
+    },
+    {
+      "case_id": "case_065",
+      "condition": "boxes",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05020000004768371,
+      "wall_started": "2026-10-03T07:23:47.100Z",
+      "finished": "2026-10-03T07:23:47.166Z"
+    },
+    {
+      "case_id": "case_063",
+      "condition": "regions",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.052,
+      "wall_started": "2026-10-03T07:23:47.166Z",
+      "finished": "2026-10-03T07:23:47.233Z"
+    },
+    {
+      "case_id": "case_028",
+      "condition": "raw",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05110000002384186,
+      "wall_started": "2026-10-03T07:23:47.233Z",
+      "finished": "2026-10-03T07:23:47.299Z"
+    },
+    {
+      "case_id": "case_061",
+      "condition": "raw",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05060000002384186,
+      "wall_started": "2026-10-03T07:23:47.299Z",
+      "finished": "2026-10-03T07:23:47.366Z"
+    },
+    {
+      "case_id": "case_047",
+      "condition": "boxes",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.052,
+      "wall_started": "2026-10-03T07:23:47.366Z",
+      "finished": "2026-10-03T07:23:47.433Z"
+    },
+    {
+      "case_id": "case_005",
+      "condition": "boxes",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05060000002384186,
+      "wall_started": "2026-10-03T07:23:47.433Z",
+      "finished": "2026-10-03T07:23:47.499Z"
+    },
+    {
+      "case_id": "case_014",
+      "condition": "boxes",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.052,
+      "wall_started": "2026-10-03T07:23:47.499Z",
+      "finished": "2026-10-03T07:23:47.566Z"
+    },
+    {
+      "case_id": "case_021",
+      "condition": "regions",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05089999997615814,
+      "wall_started": "2026-10-03T07:23:47.566Z",
+      "finished": "2026-10-03T07:23:47.632Z"
+    },
+    {
+      "case_id": "case_049",
+      "condition": "raw",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05020000004768371,
+      "wall_started": "2026-10-03T07:23:47.632Z",
+      "finished": "2026-10-03T07:23:47.699Z"
+    },
+    {
+      "case_id": "case_045",
+      "condition": "regions",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05139999997615814,
+      "wall_started": "2026-10-03T07:23:47.699Z",
+      "finished": "2026-10-03T07:23:47.765Z"
+    },
+    {
+      "case_id": "case_064",
+      "condition": "raw",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.0515,
+      "wall_started": "2026-10-03T07:23:47.765Z",
+      "finished": "2026-10-03T07:23:47.832Z"
+    },
+    {
+      "case_id": "case_013",
+      "condition": "raw",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.051,
+      "wall_started": "2026-10-03T07:23:47.832Z",
+      "finished": "2026-10-03T07:23:47.899Z"
+    },
+    {
+      "case_id": "case_042",
+      "condition": "regions",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05089999997615814,
+      "wall_started": "2026-10-03T07:23:47.899Z",
+      "finished": "2026-10-03T07:23:47.965Z"
+    },
+    {
+      "case_id": "case_027",
+      "condition": "regions",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.0515,
+      "wall_started": "2026-10-03T07:23:47.965Z",
+      "finished": "2026-10-03T07:23:48.032Z"
+    },
+    {
+      "case_id": "case_018",
+      "condition": "regions",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05210000002384186,
+      "wall_started": "2026-10-03T07:23:48.032Z",
+      "finished": "2026-10-03T07:23:48.099Z"
+    },
+    {
+      "case_id": "case_038",
+      "condition": "boxes",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05179999995231628,
+      "wall_started": "2026-10-03T07:23:48.099Z",
+      "finished": "2026-10-03T07:23:48.166Z"
+    },
+    {
+      "case_id": "case_048",
+      "condition": "regions",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.050299999952316286,
+      "wall_started": "2026-10-03T07:23:48.166Z",
+      "finished": "2026-10-03T07:23:48.232Z"
+    },
+    {
+      "case_id": "case_050",
+      "condition": "boxes",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.0515,
+      "wall_started": "2026-10-03T07:23:48.233Z",
+      "finished": "2026-10-03T07:23:48.299Z"
+    },
+    {
+      "case_id": "case_057",
+      "condition": "regions",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05179999995231628,
+      "wall_started": "2026-10-03T07:23:48.299Z",
+      "finished": "2026-10-03T07:23:48.366Z"
+    },
+    {
+      "case_id": "case_026",
+      "condition": "boxes",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05089999997615814,
+      "wall_started": "2026-10-03T07:23:48.366Z",
+      "finished": "2026-10-03T07:23:48.433Z"
+    },
+    {
+      "case_id": "case_012",
+      "condition": "regions",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05070000004768371,
+      "wall_started": "2026-10-03T07:23:48.433Z",
+      "finished": "2026-10-03T07:23:48.499Z"
+    },
+    {
+      "case_id": "case_037",
+      "condition": "raw",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05139999997615814,
+      "wall_started": "2026-10-03T07:23:48.499Z",
+      "finished": "2026-10-03T07:23:48.566Z"
+    },
+    {
+      "case_id": "case_011",
+      "condition": "boxes",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.051200000047683714,
+      "wall_started": "2026-10-03T07:23:48.566Z",
+      "finished": "2026-10-03T07:23:48.633Z"
+    },
+    {
+      "case_id": "case_051",
+      "condition": "regions",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.050299999952316286,
+      "wall_started": "2026-10-03T07:23:48.633Z",
+      "finished": "2026-10-03T07:23:48.699Z"
+    },
+    {
+      "case_id": "case_024",
+      "condition": "regions",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05070000004768371,
+      "wall_started": "2026-10-03T07:23:48.699Z",
+      "finished": "2026-10-03T07:23:48.766Z"
+    },
+    {
+      "case_id": "case_023",
+      "condition": "boxes",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.052,
+      "wall_started": "2026-10-03T07:23:48.766Z",
+      "finished": "2026-10-03T07:23:48.832Z"
+    },
+    {
+      "case_id": "case_029",
+      "condition": "boxes",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05229999995231628,
+      "wall_started": "2026-10-03T07:23:48.832Z",
+      "finished": "2026-10-03T07:23:48.899Z"
+    },
+    {
+      "case_id": "case_039",
+      "condition": "regions",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05179999995231628,
+      "wall_started": "2026-10-03T07:23:48.899Z",
+      "finished": "2026-10-03T07:23:48.966Z"
+    },
+    {
+      "case_id": "case_006",
+      "condition": "regions",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.050800000071525575,
+      "wall_started": "2026-10-03T07:23:48.966Z",
+      "finished": "2026-10-03T07:23:49.032Z"
+    },
+    {
+      "case_id": "case_017",
+      "condition": "boxes",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.051199999928474425,
+      "wall_started": "2026-10-03T07:23:49.032Z",
+      "finished": "2026-10-03T07:23:49.099Z"
+    },
+    {
+      "case_id": "case_003",
+      "condition": "regions",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.051,
+      "wall_started": "2026-10-03T07:23:49.099Z",
+      "finished": "2026-10-03T07:23:49.166Z"
+    },
+    {
+      "case_id": "case_035",
+      "condition": "boxes",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.050699999928474425,
+      "wall_started": "2026-10-03T07:23:49.166Z",
+      "finished": "2026-10-03T07:23:49.232Z"
+    },
+    {
+      "case_id": "case_022",
+      "condition": "raw",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05189999997615814,
+      "wall_started": "2026-10-03T07:23:49.232Z",
+      "finished": "2026-10-03T07:23:49.299Z"
+    },
+    {
+      "case_id": "case_053",
+      "condition": "boxes",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.050199999928474424,
+      "wall_started": "2026-10-03T07:23:49.299Z",
+      "finished": "2026-10-03T07:23:49.366Z"
+    },
+    {
+      "case_id": "case_046",
+      "condition": "raw",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05139999997615814,
+      "wall_started": "2026-10-03T07:23:49.366Z",
+      "finished": "2026-10-03T07:23:49.432Z"
+    },
+    {
+      "case_id": "case_062",
+      "condition": "boxes",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05089999997615814,
+      "wall_started": "2026-10-03T07:23:49.432Z",
+      "finished": "2026-10-03T07:23:49.499Z"
+    },
+    {
+      "case_id": "case_060",
+      "condition": "regions",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05160000002384186,
+      "wall_started": "2026-10-03T07:23:49.499Z",
+      "finished": "2026-10-03T07:23:49.566Z"
+    },
+    {
+      "case_id": "case_036",
+      "condition": "regions",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.050299999952316286,
+      "wall_started": "2026-10-03T07:23:49.566Z",
+      "finished": "2026-10-03T07:23:49.632Z"
+    },
+    {
+      "case_id": "case_015",
+      "condition": "regions",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05060000002384186,
+      "wall_started": "2026-10-03T07:23:49.632Z",
+      "finished": "2026-10-03T07:23:49.699Z"
+    },
+    {
+      "case_id": "case_052",
+      "condition": "raw",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.04939999997615814,
+      "wall_started": "2026-10-03T07:23:49.699Z",
+      "finished": "2026-10-03T07:23:49.765Z"
+    },
+    {
+      "case_id": "case_033",
+      "condition": "regions",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.0505,
+      "wall_started": "2026-10-03T07:23:49.765Z",
+      "finished": "2026-10-03T07:23:49.832Z"
+    },
+    {
+      "case_id": "case_056",
+      "condition": "boxes",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.04939999997615814,
+      "wall_started": "2026-10-03T07:23:49.832Z",
+      "finished": "2026-10-03T07:23:49.899Z"
+    },
+    {
+      "case_id": "case_009",
+      "condition": "regions",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05,
+      "wall_started": "2026-10-03T07:23:49.899Z",
+      "finished": "2026-10-03T07:23:49.965Z"
+    },
+    {
+      "case_id": "case_041",
+      "condition": "boxes",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05079999995231629,
+      "wall_started": "2026-10-03T07:23:49.965Z",
+      "finished": "2026-10-03T07:23:50.033Z"
+    },
+    {
+      "case_id": "case_008",
+      "condition": "boxes",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05070000004768371,
+      "wall_started": "2026-10-03T07:23:50.033Z",
+      "finished": "2026-10-03T07:23:50.099Z"
+    },
+    {
+      "case_id": "case_055",
+      "condition": "raw",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.04970000004768372,
+      "wall_started": "2026-10-03T07:23:50.099Z",
+      "finished": "2026-10-03T07:23:50.166Z"
+    },
+    {
+      "case_id": "case_031",
+      "condition": "raw",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.050199999928474424,
+      "wall_started": "2026-10-03T07:23:50.166Z",
+      "finished": "2026-10-03T07:23:50.232Z"
+    },
+    {
+      "case_id": "case_043",
+      "condition": "raw",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05189999997615814,
+      "wall_started": "2026-10-03T07:23:50.232Z",
+      "finished": "2026-10-03T07:23:50.299Z"
+    },
+    {
+      "case_id": "case_002",
+      "condition": "boxes",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.051200000047683714,
+      "wall_started": "2026-10-03T07:23:50.299Z",
+      "finished": "2026-10-03T07:23:50.366Z"
+    },
+    {
+      "case_id": "case_066",
+      "condition": "regions",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05010000002384186,
+      "wall_started": "2026-10-03T07:23:50.366Z",
+      "finished": "2026-10-03T07:23:50.432Z"
+    },
+    {
+      "case_id": "case_020",
+      "condition": "boxes",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05110000002384186,
+      "wall_started": "2026-10-03T07:23:50.432Z",
+      "finished": "2026-10-03T07:23:50.499Z"
+    },
+    {
+      "case_id": "case_058",
+      "condition": "raw",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.04989999997615814,
+      "wall_started": "2026-10-03T07:23:50.499Z",
+      "finished": "2026-10-03T07:23:50.565Z"
+    },
+    {
+      "case_id": "case_025",
+      "condition": "raw",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.0505,
+      "wall_started": "2026-10-03T07:23:50.565Z",
+      "finished": "2026-10-03T07:23:50.632Z"
+    },
+    {
+      "case_id": "case_040",
+      "condition": "raw",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05209999990463257,
+      "wall_started": "2026-10-03T07:23:50.632Z",
+      "finished": "2026-10-03T07:23:50.699Z"
+    },
+    {
+      "case_id": "case_007",
+      "condition": "raw",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.050800000071525575,
+      "wall_started": "2026-10-03T07:23:50.699Z",
+      "finished": "2026-10-03T07:23:50.765Z"
+    },
+    {
+      "case_id": "case_034",
+      "condition": "raw",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.051,
+      "wall_started": "2026-10-03T07:23:50.765Z",
+      "finished": "2026-10-03T07:23:50.832Z"
+    },
+    {
+      "case_id": "case_019",
+      "condition": "raw",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.051800000071525576,
+      "wall_started": "2026-10-03T07:23:50.832Z",
+      "finished": "2026-10-03T07:23:50.899Z"
+    },
+    {
+      "case_id": "case_032",
+      "condition": "boxes",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05189999997615814,
+      "wall_started": "2026-10-03T07:23:50.899Z",
+      "finished": "2026-10-03T07:23:50.966Z"
+    },
+    {
+      "case_id": "case_054",
+      "condition": "regions",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.049699999928474424,
+      "wall_started": "2026-10-03T07:23:50.966Z",
+      "finished": "2026-10-03T07:23:51.032Z"
+    },
+    {
+      "case_id": "case_010",
+      "condition": "raw",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05040000009536743,
+      "wall_started": "2026-10-03T07:23:51.033Z",
+      "finished": "2026-10-03T07:23:51.099Z"
+    },
+    {
+      "case_id": "case_059",
+      "condition": "boxes",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.04970000004768372,
+      "wall_started": "2026-10-03T07:23:51.099Z",
+      "finished": "2026-10-03T07:23:51.165Z"
+    },
+    {
+      "case_id": "case_044",
+      "condition": "boxes",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05070000004768371,
+      "wall_started": "2026-10-03T07:23:51.165Z",
+      "finished": "2026-10-03T07:23:51.232Z"
+    },
+    {
+      "case_id": "case_001",
+      "condition": "raw",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05039999997615814,
+      "wall_started": "2026-10-03T07:23:51.232Z",
+      "finished": "2026-10-03T07:23:51.299Z"
+    },
+    {
+      "case_id": "case_004",
+      "condition": "raw",
+      "clicks": [],
+      "unmarked": true,
+      "note": "",
+      "active_seconds": 0.05240000009536743,
+      "wall_started": "2026-10-03T07:23:51.299Z",
+      "finished": "2026-10-03T07:23:51.366Z"
+    }
+  ],
+  "exported": "2026-10-03T07:23:51.399Z",
+  "software_test": true
+}

@@ -1,0 +1,44 @@
+[
+  {
+    "variant": "maluq",
+    "file": "001_20200629_082825(1).png",
+    "boxes": 225,
+    "max_box_diff": 0.0,
+    "max_score_diff": 0.0
+  },
+  {
+    "variant": "maluq",
+    "file": "002_20200622_203053(2).png",
+    "boxes": 223,
+    "max_box_diff": 0.0,
+    "max_score_diff": 0.0
+  },
+  {
+    "variant": "maluq",
+    "file": "002_20200622_203136(3).png",
+    "boxes": 239,
+    "max_box_diff": 0.0,
+    "max_score_diff": 0.0
+  },
+  {
+    "variant": "yolo",
+    "file": "001_20200629_082825(1).png",
+    "boxes": 3,
+    "max_box_diff": 0.0,
+    "max_score_diff": 0.0
+  },
+  {
+    "variant": "yolo",
+    "file": "002_20200622_203053(2).png",
+    "boxes": 3,
+    "max_box_diff": 0.0,
+    "max_score_diff": 0.0
+  },
+  {
+    "variant": "yolo",
+    "file": "002_20200622_203136(3).png",
+    "boxes": 3,
+    "max_box_diff": 0.0,
+    "max_score_diff": 0.0
+  }
+]

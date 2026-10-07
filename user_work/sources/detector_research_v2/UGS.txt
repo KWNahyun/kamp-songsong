@@ -1,0 +1,774 @@
+                       This ICCV paper is the Open Access version, provided by the Computer Vision Foundation.
+                                     Except for this watermark, it is identical to the accepted version;
+                               the final published version of the proceedings is available on IEEE Xplore.
+
+
+
+
+         Uncertainty-Aware Gradient Stabilization for Small Object Detection
+
+                                                                                         †                           †
+              Huixin Sun1 , Yanjing Li1 , Linlin Yang4 , Xianbin Cao1 , Baochang Zhang2,3
+                     1
+                       School of Electronic Information Engineering, Beihang University
+                            2
+                              School of Artificial Intelligence, Beihang University
+                                  3
+                                    Zhongguancun Laboratory, Beijing, China
+                 4
+                   State Key Laboratory of Media Convergence and Communication, CUC
+                                                    †
+                                                        Corresponding authors
+
+
+
+                        Abstract
+                                                                                                                              Salient
+                                                                                                                             Examples
+Despite advances in generic object detection, there remains
+a performance gap in detecting small objects compared
+to normal-scale objects. We reveal that conventional ob-
+                                                                                                                             Converged
+ject localization methods suffer from gradient instability in                                                                Examples
+small objects due to sharper loss curvature, leading to a
+convergence challenge. To address the issue, we propose
+Uncertainty-Aware Gradient Stabilization (UGS), a frame-
+work that reformulates object localization as a classifica-                                                                  Gradient
+tion task to stabilize gradients. UGS quantizes continu-                                                                     Magnitude
+ous labels into interval non-uniform discrete representa-                 Epoch 1                    Epoch 1      Epoch 1
+                                                                                                                  Epoch 1
+tions. Under a classification-based objective, the localiza-
+tion branch generates bounded and confidence-driven gra-
+dients, mitigating instability. Furthermore, UGS integrates
+an uncertainty minimization (UM) loss that reduces predic-                                             Salient
+tion variance and an uncertainty-guided refinement (UR)                                                           Epoch 1
+module that identifies and refines high-uncertainty regions               Epoch 12                  Epoch 12      Epoch 12
+via perturbations. Evaluated on four benchmarks, UGS                                                                          Convergence
+consistently improves anchor-based, anchor-free, and lead-             Figure 1. Gradient magnitude maps based on the ℓ2 -Norm of the
+ing small object detectors. Notably, UGS enhances DINO-                gradient in the regression features [15]. The maps are generated
+5scale by 2.6 AP on VisDrone, surpassing prior state-of-
+                                                                                                          Salient
+                                                                       using a 1× Faster R-CNN [44] detector with ResNet-18 backbone.
+the-art performance.                                                   By epoch 12, most objects exhibit converged gradients (red areas)
+                                                                                                                      Epoch
+                                                                       (a) multiple small object examples (yellow areas)
+                                                                       while                                                  12salient
+                                                                                                                          exhibit
+                                                                       gradients, indicating a convergence challenge.          Convergence
+           Normal Scale Objects Region
+1. Introduction                                                                      Small Objects Region
+                                                                          Due to the limited pixel inputs (under 32×32 [33]), one
+Recent advances in deep neural networks (DNNs) [16, 59]                of the primary challenges in small object detection is the
+have substantially improved the object detection field [11,            extraction of discriminative foreground features [32]. The
+33]. Nevertheless, detecting small objects remains a per-              (a)                                        Epoch 12 [5],
+                                                                       challenge is compounded in cluttered environments
+sistent challenge [55]. For instance, Cascade R-CNN [4],               where occlusions, background noise, and low signal-to-
+              Normal Scale Objects Region
+one of the most representative two-stage object detectors,                           Small Objects Region
+                                                                       noise ratio conditions induce feature ambiguity. Conse-
+achieves 45.5% and 55.2% AP on medium and large-sized                  quently, generic detectors can develop a feature bias to-
+objects but only 23.7% AP on small objects in the COCO                 wards distinguishing the foreground from background re-
+test-dev set [33]. The significant performance gap between             gions that resemble it [54]. Recent efforts address these
+small and normal-sized objects limits the effectiveness of             problems by increasing the resolution of feature maps [1,
+object detectors in real-world applications, such as driving           34], integrating contextual information [10, 56], and em-
+assistance, traffic management, and anomaly detection.                 ploying auxiliary self-reconstruction branches [5, 54] to en-
+
+                                                                                                                     Epoch 1
+                                                                8407
+
+                                                                                                     Salient
+                      Average Object Gradient
+ 0.6
+                                 Epoch 1     Epoch 12     mean             tainty minimization (UM) loss and an uncertainty-guided
+           Salient
+                                                                           refinement (UR) module. The UM loss explicitly models
+                                                                           and minimizes prediction uncertainty via entropy, reducing
+ 0.45
+                                                                      mean the prediction variance. Additionally, the UR module lever-
+
+                                                                           ages adversarial perturbations to identify and refine high-
+                                                                           uncertainty regions, thereby improving feature robustness.
+  0.3                                                                          To summarize, our main contributions are three-fold:
+                                                                      mean 1. A gradient analysis is conducted to investigate the Small
+
+                                                                               Object Detection (SOD) challenge, which shows that
+         Salient                                        Convergence
+ 0.15                                                                          conventional object localization suffers from unstable
+                                                                               gradients on small objects and leads to a convergence
+                                                                               challenge. We propose a novel Uncertainty-Aware Gra-
+                       Small Objects                       Others
+    0                                                                          dient Stabilization (UGS) method to improve gradient
+      16 64    128 160  256  336   448   512 640  800  1152 2112 5984
+                               Object Scale
+                               Object Scale                                    stability and foster better convergence.
+                    Epoch 0                      Epoch 12                  2. UGS integrates three key components: a classification-
+Figure 2. Statistics of the average object gradient. Object gradi-             based localization objective for generating bounded and
+ent is derived by summing the gradient magnitudes within each                  confidence-driven gradients, an uncertainty minimiza-
+bounding box based on the gradient maps. The average gradi-                    tion loss that explicitly models and minimizes prediction
+ent of each object scale is calculated as the mean across objects              uncertainty in small objects, and an uncertainty-guided
+in the corresponding size category. The figure is generated using              refinement module that leverages adversarial perturba-
+100 randomly selected samples in the VisDrone test [62]. The                   tions to identify and refine high-uncertainty regions.
+bottom curve (epoch 12) reveals that gradients for medium and
+                                                                           3. UGS exhibits consistent increases on baseline detectors
+large objects have significantly reduced after training. In contrast,
+                                                                               and state-of-the-art small-object detectors, demonstrat-
+gradients for small objects remain pronounced, indicating the con-
+vergence challenge.                                                            ing effectiveness in general object detection and high-
+                                                                               resolution detection.
+hance object features. In this work, we analyze the SOD                  2. Related Work
+challenge from a novel perspective of gradient stability.
+   Motivated by prior research on gradient anomalies [38,                2.1. Small Object Detection
+49], we examine the Hessian matrix of the object lo-                     Small object detection remains a major challenge in com-
+calization losses and demonstrate that conventional meth-                puter vision due to the inherent limitations of pixel-level in-
+ods [44, 57] suffer from gradient instability in small ob-               puts [54]. Key difficulties include weak feature representa-
+jects due to the sharper loss curvature, which leads to a                tion [32, 34], information loss during down-sampling [24],
+convergence challenge. We illustrate this phenomenon us-                 and fewer assigned positives due to higher sensitivity in
+ing the gradient magnitudes generated from the localization              IoU calculations [52, 53, 58]. To address these issues, var-
+features in Fig. 1. As shown, the detector converges well                ious approaches have been proposed, which can be cat-
+for most objects (red areas) but exhibits salient gradients in           egorized into four main strategies: feature enhancement,
+multiple small object examples at epoch 12 (yellow areas).               where methods like [6, 8, 34] improve feature representa-
+We further quantified the average object gradient based on               tion through advanced architectures and fusion techniques;
+the gradient magnitudes. As shown in Fig. 2, the gradi-                  data augmentation and oversampling, where techniques
+ents of small objects remain pronounced at epoch 12, while               like [36, 65] increase the diversity and quantity of train-
+those of normal-scale objects converge effectively.                      ing data for small objects; scale-aware training, where ap-
+   In light of the analysis, we propose Uncertainty-Aware                proaches like [31, 47] adapt models to handle objects at
+Gradient Stabilization (UGS), a framework that stabilizes                multiple scales; super-solution-based method, where frame-
+gradients by reformulating regression as a classification task           works like [2, 27] enhance small object features by recon-
+with uncertainty-aware mechanisms. The framework of                      structing high-resolution representations. Recent state-of-
+UGS is illustrated in Fig. 4. Building on prior classification-          the-art methods focus on label assignment and proposal re-
+based localization methods [29, 42], UGS quantizes contin-               finement to ensure both the quantity and quality of propos-
+uous labels into interval non-uniform discrete representa-               als for small objects [53, 58]. Additionally, auxiliary self-
+tions to address the label imbalance in small objects. Under             reconstruction [5, 54] and spectral enhancement [48] meth-
+a classification-based objective, the localization branch gen-           ods have been proposed to enhance the weak representa-
+erates bounded and confidence-driven gradients, mitigating               tions of objects. Our method is orthogonal to existing small
+instability. To further stabilize training, UGS introduces a             object detection methods from a new perspective of solving
+dual uncertainty-aware mechanism consisting of an uncer-                 the convergence challenge in localization.
+
+
+
+                                                                  8408
+                                                                            3.1. Gradient Instability in Small Objects
+                                                                            Norm-based Localization. We analyze gradient instability
+                                                                            using the L2 loss in norm-based localization. Following
+                               Certain                                      previous detectors [13, 14, 44], we denote the localization
+                               & Sharp                                      targets and predictions as:
+                                                                                                            x − xa y − ya       w       h
+                                                                             {Tx , Ty , Tw , Th } = {             ,       , log    , log },
+                                                                                                              wa     ha         wa      ha
+               (a)                                                                                          x̂ − xa ŷ − ya       ŵ      ĥ
+                       (a)                                                   {T̂x , T̂y , T̂w , T̂h } = {          ,        , log    , log },
+                                                                                                               wa      ha         wa      ha
+                                                                                                                                             (1)
+
+                                                                            where (xa , ya , wa , ha ) denote the anchor coordinates,
+              (b)                                Uncertain                  (x, y, w, h) the ground-truth coordinates, and (x̂, ŷ, ŵ, ĥ)
+                                                  & Flat                    the predicted coordinates, respectively. The L2 loss can be
+           Medium
+                                                                            formulated as:
+           Small
+                                                                                               L2 (Tx , T̂x ) = ∥Tx − T̂x ∥22 ,              (2)
+                       (b)
+                                                                            which applies to y, w, and h. For center coordinates (x, y),
+Figure 3. A qualitative example of localization uncertainty using           the Hessian derives as:
+FCOS [50] trained with LCE (Eq. (10)). (a) The medium object in-
+                                                                                              ∂ 2 L2    2                 ∂ 2 L2    2
+stance shows certain and sharp prediction distribution (σ = 0.44),                   Hx =           2
+                                                                                                      = 2,         Hy =         2
+                                                                                                                                  = 2,       (3)
+while (b) the small object instance exhibits flatter distribution                              ∂ x̂    wa                  ∂ ŷ    ha
+(σ = 1.48), reflecting higher prediction uncertainty.
+                                                                            where the Lipschitz constants Kx and Ky scale inversely
+                                                                            with the square of anchor size. For small objects assigned
+                                                                            with smaller anchors, the Lipschitz constants increase, lead-
+2.2. Uncertainty Estimation in Object Detection
+                                                                            ing to steeper loss curvature. For size regression, the Hes-
+Recent advances in localization uncertainty estimation aim                  sian is:                             2
+to quantify prediction uncertainty by modeling bounding                                             ∂ 2 L2        1
+box distributions. Early work by [22] directly predicts the                                 Hw =         2
+                                                                                                           =2·          ,             (4)
+                                                                                                    ∂ ŵ          ŵ
+Intersection-over-Union (IoU) between ground-truth and
+                                                                            where the Lipschitz constant Kw depends inversely on the
+predicted boxes as a confidence measure. Subsequent ap-
+                                                                            predicted width ŵ, resulting in steeper loss curvature for
+proaches like [18] formulate uncertainty via KL divergence
+                                                                            small objects. Steep loss curvature can result in unstable up-
+loss between Dirac delta ground-truths and Gaussian pre-
+                                                                            dates [39] that are prone to oscillate or diverge near minima,
+dictions, enabling variance-based refinement. The state-
+                                                                            causing a convergence challenge. As shown in Fig. 2, the
+of-the-art GFL V1 [29] further generalizes this paradigm
+                                                                            gradients of small objects remain pronounced at epoch 12,
+by modeling arbitrary distributions through distribution fo-
+                                                                            while those of normal-scale objects converge effectively.
+cal loss. However, the methods are based on anchor-free
+                                                                            IoU-based Localization. We analyze the issue using the
+frameworks (e.g., FCOS [50]), limiting their compatibil-
+                                                                            IoU loss [57], which is applicable to other IoU-based
+ity with anchor-based methods (e.g., RetinaNet [60]), mod-
+                                                                            losses [45, 61]. Following [52], we consider the case where
+ern anchor-free methods (e.g., YOLO series [3, 43, 64]),
+                                                                            the ground truth (x, y, w, h) and the prediction (x̂, ŷ, ŵ, ĥ)
+two-stage detectors (e.g., Faster R-CNN [44]), and DETR-
+                                                                            are aligned square boxes with a center displacement d =
+based detectors (e.g., DINO [59]). Moreover, while un-
+                                                                            |x − x̂|. The IoU loss is expressed as:
+certainty estimation addresses challenges such as occlusion
+and noise [26], it remains unexplored for small object de-                                                      
+                                                                                                                  I
+tection.                                                                                         LIoU = − ln           ,                 (5)
+                                                                                                                 U
+3. Method
+                                                                            where I and U represent the intersection and union. For
+In this section, we first analyze the gradient instabil-                    overlapping boxes (|x − x̂| < w), the gradient with respect
+ity in norm-based and IoU-based localization methods,                       to x̂ is derived as:
+then introduce the Uncertainty-Aware Gradient Stabiliza-                                   ∂LIoU      2
+tion (UGS) design as a solution.                                                                  = 2      · sign(x − x̂),          (6)
+                                                                                             ∂ x̂  w − d2
+
+
+
+                                                                     8409
+                                                                  ℋ(𝑝)
+                                                                                                       𝑷𝟕
+                                   Softmax                                𝐿#$
+ localization
+                                             1
+                                             0.5
+                                                                                                        𝑷𝟔
+   branch                                                                                                                                           𝐿%&
+                                                                                        𝑭𝟓               𝑷𝟓                    UGS
+                                                   Confidence                                                                                       𝐿#$
+                          logits                                          𝐿%&                            𝝐∗𝟓                Localization
+                                                   distribution                                                                                      𝐿,-
+                                                                                                                                                      +
+                      1
+                                              1                                         𝑭𝟒                𝑷𝟒
+                                             0.5
+ supervision         0.
+                                                                                         𝑭𝟑                  𝑷𝟑                          Original Feature
+                     5
+                              𝑇"                     $
+                                                     𝑻                                                                            Adversarial Perturbation
+                                                                                                                                             Forward Pass
+                                                                                         Image
+                    Two-hot Soft Targets     Interval Non-uniform (IN)                                                                     Backward Pass
+
+
+Figure 4. Overview of the proposed UGS localization method with FCOS [50] framework, consisting a classification-based localization
+objective (LCE ), an uncertainty minimization loss (LUM ), and an uncertainty-guided refinement module (Lur ).
+
+
+the Hessian can be derived as:                                                   leading to class imbalance and ineffective training. Further-
+                                                                                 more, in offset-based label systems [44, 60], target values
+                   ∂ 2 LIoU       4w                                             decrease with training and are constantly assigned to the
+                            =             ,                         (7)
+                     ∂ x̂2    (w2 − d2 )2                                        same grid interval after some iterations, further hindering
+                                                                                 optimization. To address the issues, we design interval non-
+where the gradient scales inversely with w and the Hessian
+                                                                                 uniform (IN) labels through exponential grid spacing:
+with w3 . Consequently, smaller objects exhibit larger gradi-
+ents and sharper loss curvature. This can lead to more sig-                                                         α                     
+nificant fluctuations in the loss landscape and oscillations                                 yiIN = sign(yi ) ·                 eβ|yi | − 1 ,           (9)
+                                                                                                                  eαβ − 1
+near the ground truth, resulting in instability during opti-
+mization. Derivations of Eq. (3), Eq. (4), Eq. (6), and Eq. (7)                  where yi = −α + 2αi    n are uniformly spaced grids within
+are provided in the supplementary material.                                      [−α, α], and β is a factor controlling the density of grid
+                                                                                 points. A larger β results in denser grids near zero, balanc-
+3.2. Uncertainty-Aware Gradient Stabilization
+                                                                                 ing the localization targets for small objects and facilitating
+To address the gradient instability problem in small object                      better optimization.
+localization, we propose the Uncertainty-Aware Gradient                             For optimization, the framework minimizes the cross-
+Stabilization (UGS) method, depicted in Fig. 4. UGS in-                          entropy loss between the predicted distribution p and the
+tegrates three components: a classification-based localiza-                      ground truth p∗ :
+tion objective that generates bounded and confidence-driven
+gradients, an uncertainty minimization loss to further sta-                                     LCE = −p∗il log pil − p∗ir log pir .                  (10)
+bilize optimization, and an uncertainty-guided refinement
+module that leverages adversarial perturbations to identify
+                                                                                 where theP continuous coordinate prediction can be restored
+and refine regions of high uncertainty.                                                       n
+                                                                                 as T̂ =      i=0 pi ∗ yi . We demonstrate that the gradi-
+3.2.1. Classification-based Localization                                         ent of the classification-based localization objective is both
+Building upon GFL V1 [29], we propose a classification-                          bounded and confidence-driven:
+based localization objective that quantizes continuous re-                            ∂LCE
+gression targets into interval non-uniform discrete grid rep-                              = pi − p∗i ,
+                                                                                       ∂li
+resentations. Specifically, the continuous regression range                                  (                                                        (11)
+[−α, α] for each target value T is partitioned into n + 1                                      pi − |yi − T | · n+1
+                                                                                                                 2α , i = il , ir
+                                                                                           =
+uniformly spaced intervals, yielding the discrete grid set                                     pi ,                   otherwise,
+Y = {y0 , y1 , . . . , yn }. The ground truth T is mapped to
+adjacent grids il and ir using two-hot soft targets [29]:                        which shows that the gradient magnitude of the cross-
+                (                                                                entropy loss with respect to logits |pi − p∗i | is bounded
+                    |yi − T | · n+1
+                                 2α , if i = il or ir ,                          within [0, 1] across object scales, mitigating instability for
+          p∗i =                                           (8)
+                    0,                otherwise.                                 small objects. Additionally, the gradient magnitude is pro-
+                                                                                 portional to the confidence difference |pi − p∗i | and enables
+   For small objects, the regression targets are distributed                     confidence-driven learning, where large differences lead to
+in a limited range. When transformed into soft targets, the                      more aggressive updates and small differences result in fine-
+head range of the target distribution occupies few grids,                        grained refinements, facilitating precise localization.
+
+
+
+                                                                          8410
+3.2.2. Uncertainty Minimization                                                                                  Occlusion         Occlusion
+To further stabilize training, we explicitly model and min-                                                                           &
+imize the prediction uncertainty in the confidence distribu-                                                                        Noise
+tion p:
+                                 X n
+             LUM = H(p) = −          pi log pi ,        (12)
+                                     i=0
+
+where H(p) represents the entropy of the distribution
+p [46]. By minimizing the entropy, the loss can suppress                                                            (a) Faster R-CNN w/ ℒ2
+uncertain predictions that amplify gradient variance and re-
+duce the coordinate prediction variance, stabilizing the op-                 Salient Examples
+timization. Moreover, it penalizes high-confidence errors                    Uncertain Examples
+less aggressively than the cross-entropy objective through:                                                        (b) Faster R-CNN w/ UGS
+
+                   ∂LUM                                                  Figure 5. Comparing the gradient magnitudes maps [15] using
+                        = − (log pi + 1) ,                (13)
+                    ∂li                                                  a 1× Faster R-CNN detector with ResNet-18 backbone. In (a),
+                                                                         normal-scale objects converge by epoch 12 while the gradients
+which benefits small objects as they tend to generate noisy
+                                                                         for some small objects remain salient, indicating a convergence
+and uncertain predictions due to insufficient feature repre-             challenge. In (b), the gradients in the salient object are less pro-
+sentations [30], exhibited in Fig. 3 (b). The UM loss also               nounced.
+maintains stable updates across object scales via bounded
+gradients.
+3.2.3. Uncertainty-guided Refinement                                     representations [19], further stabilizing the training process
+Inspired by prior works in beneficial noise learning [21],               for small objects.
+we propose an Uncertainty-guided Refinement (UR) mod-                       We formulate the overall training objective as:
+ule that leverages perturbations derived from the uncertainty                                                       N
+minimization loss (LUM ) to identify and refine regions of                Llocalization = LCE + λLUM +         γ·
+                                                                                                                    X
+                                                                                                                          Lur       ∗
+                                                                                                                           i (Fi + ϵi )      ,
+high uncertainty. This approach also enhances feature ro-                                                           i=1
+bustness and stabilizes the optimization process for small                                                     |             {z         }
+                                                                                                            Uncertainty-Guided Refinement Loss
+objects.
+                                                                                                                              (16)
+   The UR formulation for FPN [34] layer Fi establishes a
+                                                                         where λ, γ are balancing hyperparameters, and Lur
+                                                                                                                        i  denotes
+min-max objective:
+                                                                         the layer-wise uncertainty-guided refinement loss. De-
+                                                                         scribed in Sec. 6, our approach reduces gradient variance
+                                                
+           min max LUM (Fi + ϵi ) + γ∥Fi ∥22 ,           (14)            by 2.5× compared to Smooth-L1 loss for small objects.
+         Fi ,θi   ∥ϵi ∥≤ρ
+
+where LUM quantifies prediction uncertainty via entropy                  4. Experiments
+minimization. The inner optimization introduces adversar-
+ial perturbation ϵi into the feature space of Fi , with ρ con-           4.1. Datasets and Implementation Details
+trolling the perturbation magnitude and γ regulating the reg-            4.1.1. Datasets
+ularization strength. Here, θi represents the model parame-              We evaluate the proposed method on VisDrone [62],
+ters at the i-th layer. Following [12], we derive the closed-            SODA-A[9], COCO 2017 [33], and the PASCAL VOC
+form perturbation under L2 -norm:                                        dataset [11]. The main experiments were conducted us-
+                               ∇Fi LUM (Fi )                             ing the VisDrone [62] dataset, which contains a high pro-
+                  ϵ∗i ≈ ρ ·                    ,          (15)           portion of small object instances. The dataset consists of
+                              ∥∇Fi LUM (Fi )∥2
+                                                                         10,209 drone-shot images divided into a training set (6,471
+where the perturbation ϵ∗i targets regions where LUM ex-                 images), a validation set (548 images), and a test set (3,190
+hibits high sensitivity to activation changes, indicating areas          images). Meanwhile, we conduct experiments on SODA-
+of high uncertainty. The introduced perturbation can am-                 A [9] dataset, which comprises 2513 high-resolution im-
+plify the refinement [23] of these uncertain regions while               ages of aerial scenes, which has 872069 instances annotated
+preserving stable updates in regions with high confidence.               with oriented rectangle box annotations over 9 classes. We
+Fig. 5 shows that the method can learn about occluded ob-                also perform experiments on two general object detection
+jects and noise that resembles objects. Additionally, the ad-            benchmarks: the COCO 2017 [33] dataset and the PAS-
+versarial objective encourages the learning of robust feature            CAL VOC [11] dataset.
+
+
+
+                                                                  8411
+Table 1. Detection performance on the VisDrone val set [62]. +(·) indicates the improvement over the baseline, bold denotes the best
+results. Baselines include general and small-object-oriented detectors.
+
+              Method                    Year   AP           AP50              APs           APm           APl
+              QueryDet [55]             2022   28.3         48.1              -             -             -
+              DetectoRS [41]            2021   29.4         49.3              -             -             -
+              CZDet [37]                2023   33.2         58.3              -             -             -
+              DQ-DETR [20]              2024   37.0         60.9              -             -             -
+              FCOS [50]                 2019   19.9         37.7              11.4          30.7          35.2
+              w/ UGS                      -    22.4         39.7              13.0          33.2          37.8
+              Faster R-CNN [44]         2015   21.3         36.4              12.8          32.9          38.9
+              w/ UGS                      -    24.2         41.3              15.8          37.6          42.5
+              Cascade R-CNN [4]         2018   22.4         37.0              13.1          34.1          42.1
+              w/ UGS                      -    24.4         40.1              15.8          37.8          44.3
+              GFL V1 [29]               2020   28.4         50.0              15.9          39.7          42.6
+              w/ CEASC [10]             2023   28.7         50.7              -             -             -
+              w/ UGS                      -    31.2         53.0              19.2          42.6          54.4
+              DINO-5scale [59]          2023   35.5         58.0              22.4          45.6          51.2
+              w/ UGS                      -    38.1         61.9              24.2          47.3          56.6
+
+
+Table 2. Detection performance of YOLO-based detectors on the           4.2. Experiments on VisDrone
+VisDrone val [62], using CSP-D53 [51] as backbone. +(·) in-
+dicates the performance improvement, and bold denotes the best          We evaluate the proposed UGS method with various base-
+results.                                                                lines and two state-of-the-art small object detectors on the
+                                                                        VisDrone val set [62]. As shown in Tab. 1, UGS enhances
+ Method                    Input Size      AP     APs    APm            all baseline detectors by approximately 2% in AP, a notable
+ TPH-YOLOv5-x [64]                         26.5   14.1   22.0           improvement. Specifically, UGS boosts the performance of
+                          (640, 640)
+ w/ UGS                                    29.0   16.7   23.9           the anchor-free FCOS [50] by 2.5% in AP and 1.6% in APs .
+ TPH-YOLOv5-x [64]                         39.2   22.4   34.7           Integrated with two-stage detectors, UGS improves Faster
+                         (1536, 1536)
+ w/ UGS                                    41.7   24.2   36.2           R-CNN [44] by 2.6% AP and 1.5% APs , while enhanc-
+                                                                        ing Cascade R-CNN [4] by 2.0% AP and 2.7% APs , yield-
+                                                                        ing consistent performance gains. Furthermore, we apply
+4.1.2. Implementation Details.                                          UGS to GFL V1 [29], a strong general object detector that
+We conduct the experiments on a computer with 4 NVIDIA                  employs a classification-based localization objective. UGS
+RTX 3090 GPUs. The models are implemented using Py-                     improves GFL V1 by a significant 3.5% AP, surpassing the
+Torch [40], with core functionalities built upon the MMDe-              state-of-the-art comparison CEASC [10]. In addition, we
+tection framework [7]. For the VisDrone dataset [62], we                evaluate UGS’s compatibility with DETR-based architec-
+use an input resolution of 1333×800 with a batch size of                ture DINO [59]. UGS boosts the performance of the DINO-
+16. For fair comparisons, we utilize default optimization               5scale baseline by 2.6% AP, surpassing the prior art DQ-
+parameters and 1× learning schedule without multi-scale                 DETR [20]. Tab. 2 highlights the compatibility of UGS
+training. We utilize the SGD optimizer with initial learn-              with YOLO-based architectures. Specifically, UGS im-
+ing rate of 2e-2, decayed by 0.1 at epoch 8 and 11, and                 proves TPH-YOLOv5 by 2.5% AP at both 6402 and 15362
+weight decay of 1e-4. We evaluate our method on two state-              resolutions. In particular, UGS achieves 41.7% AP in the
+of-the-art small object detectors. For YOLO-based TPH-                  VisDrone validation set without test-time augmentation.
+YOLOv5 [64], we train the model for 80 epochs using the
+default hyperparameters from [64]. We evaluate under two
+                                                                        4.3. Experiments on SODA-A
+input resolutions—640×640 and 1536×1536, with batch                     We further validate the UGS method on the aerial rotated
+sizes of 16 and 4, respectively. We also train a transformer-           small object detection dataset SODA-A [9]. As shown in
+based detector, DINO [59], with 5-scale feature maps for                Tab. 3, the proposed UGS method effectively improves the
+24 epochs as a baseline. Training employs the AdamW op-                 performance of both anchor-free and anchor-based rotating
+timizer with initial learning rate 2e-4, and adopts DETR-               detectors. Specifically, for the single-stage anchor-based
+style augmentation [63] including random cropping and                   model, Rotated RetinaNet [35], UGS improved the AP by
+multi-scale resizing. At test time, the maximum number of               4.5%. For the anchor-free model, Rotated FCOS, UGS en-
+predictions per image is increased to 1500 following DQ-                hanced the AP by 2.6%. For the proposal-based Oriented
+DETR [20] to accommodate dense small-object scenarios.                  RCNN, UGS boosted the AP by 1.6%.
+
+
+
+                                                                 8412
+Table 3. Main results with various frameworks and FPN features on SODA-A. Note that models are trained on the SODA-A train and
+validated on the SODA-A test. We report APs (%) with different IoU threshold and APs (%) for objects in various sizes based on the
+SODA-A criterion. The bold denotes the best result.
+
+         Method                       AP             AP0.5          AP0.75                                 APeS               APrS                   APgS                APN
+         Rotated RetinaNet [35]       22.3           57.7           10.6                                   7.7                18.0                   28.0                23.0
+         w/ UGS                       26.8           63.2           15.9                                   8.9                21.7                   34.9                27.5
+         Rotated FCOS [50]            32.6           69.4           24.8                                   11.5               30.0                   42.7                41.6
+         w/ UGS                       35.2           72.9           28.7                                   12.3               30.5                   46.3                39.2
+         Oriented Reppoints [28]      25.4           60.0           16.8                                   8.6                21.9                   29.6                27.8
+         w/ UGS                       28.2           64.5           19.7                                   9.8                23.8                   33.6                31.2
+         Oriented RCNN [28]           34.4           70.7           28.6                                   12.5               28.6                   44.5                36.7
+         w/ UGS                       36.0           73.1           30.3                                   13.7               30.2                   47.8                38.1
+
+
+Table 4. Experiments with Faster R-CNN on VOC [11] and                                        (a) Gradient Variance During Training (b) Variance Reduction by Anchor Size
+                                                                                                                                           2.9×
+                                                                                               1.0
+COCO [33]. +(·) indicates the performance improvement, and                                                         Smooth- 1          3.0
+
+
+bold denotes the best results. ‘-’ indicates that the result is not re-                                            UGS                              2.5×
+
+
+
+
+                                                                                                                                            (Smooth- 1 / UGS)
+                                                                                                                                      2.5
+
+
+
+
+                                                                                 Gradient Variance
+                                                                                               0.8
+
+
+
+
+                                                                                                                                              Variance Ratio
+ported or not publicly available.                                                                                                                           2.0
+                                                                                                     0.6
+
+
+                                                                                                                                                                                    1.2×
+                                                                                                                                                            1.5
+ Backbone       Method             Dataset              AP      APs                                  0.4
+                                                                                                                                                            1.0
+                Faster R-CNN                            78.4    -
+                                   VOC
+                w/ UGS                                  82.2    -                                    0.2                                                    0.5
+ R-50
+                Faster R-CNN                            37.4    21.2                                                                                        0.0
+                                   COCO                                                                    0      20    40    60      80                          <32      32-64      64-
+                w/ UGS                                  38.9    22.6                                           Training Iterations (x100)                          Anchor Width (pixels)
+                Faster R-CNN                            79.9    -
+                                   VOC
+                w/ UGS                                  81.7    -                  Figure 6. Gradient variance analysis for small objects. (a) Vari-
+ R-101
+                Faster R-CNN                            39.4    22.4               ance of localization loss gradients across training iterations. (b)
+                                   COCO
+                w/ UGS                                  41.4    24.9               Mean variance ratio (UGS vs. Smooth-L1 ) grouped by anchor
+                                                                                   size. Our method reduces variance by 2.9× for wa < 32 pixels.
+
+4.4. Experiments on COCO and VOC                                                   Table 5. Comparing the training cost of Baseline and our UGS
+                                                                                   using various detection frameworks using ResNet-50 backbone.
+To evaluate the generalizability of UGS, we conduct exper-
+iments on two general object detection benchmarks: PAS-                                      Method                    AP          Time (s/batch)                 GFLOPs       Params (M)
+CAL VOC [11] and COCO [33]. As shown in Tab. 4,                                              FCOS                      19.9           0.151                        127.25         42.40
+UGS achieves significant improvements over the baselines                                     w/ UGS                    22.4           0.174                        128.06         48.12
+on VOC. Under the ResNet-50 backbone, UGS improves
+Faster R-CNN by 3.8% AP, raising the performance from
+78.4% to 82.2%. With the ResNet-101 backbone, UGS
+                                                                                   4.6. Gradient Variance Analysis
+achieves a 1.8% improvement. On the COCO dataset,                                  To quantify gradient stability, we measure the gradient vari-
+UGS demonstrates consistent improvements, particularly                             ance during training for both our method (UGS) and the
+for small objects (APs ). With the ResNet-50 backbone,                             Smooth-L1 baseline. For small objects (wa < 32), we
+UGS improves overall AP by 1.5% and APs by 1.4%.                                   compute the variance of localization loss gradients across
+For ResNet-101, the improvements are more pronounced.                              100 training iterations and report the mean variance ratio,
+These results underscore UGS’s effectiveness in improv-                            defined as the ratio of the gradient variance of Smooth-L1
+ing small object detection while maintaining strong perfor-                        to that of UGS. Results in Fig. 6 demonstrate that UGS
+mance across all object sizes.                                                     reduces gradient variance by up to 2.9× for small objects
+                                                                                   compared to Smooth-L1 . This validates our analysis in
+4.5. Training Cost of UGS                                                          Sec. 3.2 that classification-based localization objective and
+                                                                                   the proposed uncertainty-aware designs lead to smoother
+We analyze the training cost of our UGS on 1 NVIDIA RTX
+                                                                                   optimization landscapes and more stable gradients.
+3090 GPU with 24 GB memory. We test them using a batch
+size of 2 and input resolution of 1333 × 800 at each itera-
+                                                                                   4.7. Visualizations
+tion. As shown in Tab. 5, UGS introduces 15%, 0.6%, 13%
+increase in training time, computational and memory cost,                          We show in Fig. 5 that our design leads to a more stable
+which is moderate.                                                                 training process, where the gradient magnitude of salient
+
+
+
+                                                                          8413
+Table 6. Ablation study of UGS components on VisDrone vali-               Table 7. Parameter analysis of UGS components on Faster R-
+dation set using Faster R-CNN. Improvements over L2 baseline              CNN: Effects of range (α), IN modulator (β), and grid number
+are marked in blue. UR denotes the uncertainty-guided refinement          (n). Best results per stage are in bold.
+loss.
+                                                                           Stage      Parameter     α    β    n     AP     AP50    APs
+Method                  λ γ ρ IN         AP        AP50     APs                                     2   1.0   10    21.9   37.4    13.0
+L2 (Baseline)           -    -    - -    21.3      36.4     12.8                                    2   1.5   10    21.8   37.2    13.1
+                                                                                        α-β
+Smooth-L1               -    -    - -    21.5      36.4     12.7
+                                                                           RPN                      3   1.0   10    21.8   37.2    13.1
+IoU-loss [57]           -    -    - -    21.8      37.0     13.0
+                                                                                                    3   1.5   10    21.7   37.1    13.0
+Gradient Clipping       -    -    - -    21.6      36.7     12.9
+Bayesian YOLO [25] -         -    - -    22.0      37.3     13.1                                               2    21.8   36.9    12.9
+Classification-based Localization                                                                              4    21.9   37.1    13.0
+                                                                                    Grid Number     2   1.0
+LCE                     -    -    - -    22.1       37.1    13.2                                              10    21.9   37.4    13.0
+LCE +IN                 -    -    - ✓ 22.5          38.2    13.4                                              20    21.8   37.1    13.0
+CE + Uncertainty Minimization (UM)                                                                  4   1.0   5     22.2   37.6    13.1
+LCE + λLUM              0.1 -     - ✓ 22.7          38.2    13.6                                    4   1.5   5     21.9   37.2    13.0
+                                                                                        α-β
+LCE + λLUM              0.5 -     - ✓ 22.9          38.4    13.6          R-CNN                     5   1.0    5    22.5   38.2    13.4
+LCE + λLUM              1.0 -     - ✓ 22.6          37.2    13.7                                    5   1.5    5    22.0   37.0    13.1
+CE + UM + Uncertainty-guided Refinement (UR)
+LCE + λLUM + γLur 0.5 0.1 0.5 ✓ 23.5                39.0    14.1                                               5    22.5   38.2    13.4
+LCE + λLUM + γLur 0.5 0.5 0.5 ✓ 24.2                41.3    15.8                    Grid Number     5   1.0   10    22.3   37.6    13.2
+LCE + λLUM + γLur 0.5 0.5 1         ✓ 23.2          38.7    13.9                                              20    22.4   37.9    13.4
+
+                                                                          compared to UGS.
+small object examples becomes less pronounced compared
+                                                                          Effect of α, β, and n in Interval Non-uniform (IN) Label
+to the L2 loss. Fig. 5 also highlights UGS’s ability to learn
+                                                                          Quantization. We investigate the impact of three key pa-
+from uncertain examples, including occluded objects, ob-
+                                                                          rameters in UGS’s interval non-uniform (IN) label quanti-
+jects in cluttered backgrounds, and noise-resembling ob-
+                                                                          zation: the range parameter α, the IN modulator β, and the
+jects.
+                                                                          grid number n. Experiments show that a moderate range
+4.8. Ablation Study                                                       of α = 2 for RPN and α = 5 for R-CNN yields the best
+                                                                          performance improvements, achieving 1.2% AP and 0.6%
+In the following experiments, we demonstrate that UGS                     APs . Notably, the performance remains robust across dif-
+leads to consistent performance increment when applied on                 ferent values of α, indicating that UGS is not overly sen-
+baseline detectors and explore the best-performing structure              sitive to this parameter. A smaller β (e.g., 1.0) generally
+by ablating and tuning each component. We use Faster R-                   leads to better performance, as it creates a denser grid dis-
+CNN [44] with ResNet-50 [17] as the baseline and conduct                  tribution around zero. This design is particularly effective
+all tests on the VisDrone val dataset [62].                               for capturing finer details in small object instances, where
+Effectiveness of Components. According to Tab. 6, re-                     precise localization is critical. UGS demonstrates flexibility
+placing L2 with the classification-based localization ob-                 in the choice of grid number n, with performance remaining
+jective (LCE ) significantly improves performance, achiev-                stable across different configurations.
+ing 22.1 AP. Utilizing IN labels further increases perfor-
+mance by 1.2% AP and 0.6% APs , demonstrating the im-                     5. Conclusions
+portance of non-uniform quantization for ensuring balanced                In this paper, we demonstrate that conventional object local-
+supervision for small object detection. Adding uncertainty                ization methods tend to produce unstable gradients on small
+minimization loss with λ = 0.5 increases performance to                   objects and introduce an Uncertainty-Aware Gradient Sta-
+22.9 AP, validating the effectiveness of entropy-based un-                bilization (UGS) method to rectify gradients. UGS quan-
+certainty modeling. The full UGS framework, incorporat-                   tizes continuous labels into interval non-uniform discrete
+ing CE, UM, and the uncertainty-guided refinement mod-                    representations as supervision. In optimization, UGS em-
+ule (Lur ), achieves the best performance with 24.2 AP, 41.3              ploys a classification-based localization objective that gen-
+AP50 and 15.8 APs . This represents a 2.9 AP improvement                  erates bounded and confidence-driven gradients. Further,
+over the L2 baseline, which is significant. We also evalu-                UGS integrates a dual uncertainty-aware mechanism to en-
+ate existing gradient stabilization techniques for compari-               hance the robustness of localization. UGS consistently im-
+son, including normalized regression losses, gradient clip-               proves baselines and state-of-the-art small object detectors,
+ping (∥∇∥ ≤ 1.0), and uncertainty-aware method Bayesian                   demonstrating compatibility across different detection ar-
+YOLO [25]. While the methods effect in mitigating gra-                    chitectures. Future work includes extending UGS to video
+dient instability, their improvements are relatively marginal             or multi-modal small object detection scenarios.
+
+
+
+                                                                   8414
+Acknowledgments. This work was supported by the                                  Neyshabur. Sharpness-aware minimization for efficiently
+National Key Research and Development Program of                                 improving generalization. ICLR, 2021. 5
+China (No. 2023YFC3306401). This research was also                          [13] Ross Girshick. Fast r-cnn. In ICCV, pages 1440–1448, 2015.
+supported by the National Natural Science Foundation                             3
+of China (No. 61827901, 623B2016, 62406298), the                            [14] Ross Girshick, Jeff Donahue, Trevor Darrell, and Jitendra
+Zhejiang Provincial Natural Science Foundation (No.                              Malik. Rich feature hierarchies for accurate object detection
+LD24F020007), the Beijing Natural Science Founda-                                and semantic segmentation. In CVPR, pages 580–587, 2014.
+tion (No.    L223024, L244043, Z241100001324017),                                3
+the “One Thousand Plan” projects in Jiangxi Province                        [15] Jianyuan Guo, Kai Han, Yunhe Wang, Han Wu, Xinghao
+(No.     Jxsq2023102268), and the Fundamental Re-                                Chen, Chunjing Xu, and Chang Xu. Distilling object de-
+search Funds for the Central Universities (CUC25QT17).                           tectors via decoupled features. In CVPR, pages 2154–2164,
+                                                                                 2021. 1, 5
+                                                                            [16] Kaiming He and Jian Sun. Convolutional neural networks at
+References                                                                       constrained time cost. In CVPR, pages 5353–5360, 2015. 1
+                                                                            [17] Kaiming He, Xiangyu Zhang, Shaoqing Ren, and Jian Sun.
+ [1] Fatih Cagatay Akyon, Sinan Onur Altinuc, and Alptekin                       Deep residual learning for image recognition. In CVPR,
+     Temizel. Slicing aided hyper inference and fine-tuning for                  pages 770–778, 2016. 8
+     small object detection. In ICIP, pages 966–970. IEEE, 2022.            [18] Yihui He, Chenchen Zhu, Jianren Wang, Marios Savvides,
+     1                                                                           and Xiangyu Zhang. Bounding box regression with uncer-
+ [2] Syed Muhammad Arsalan Bashir and Yi Wang. Small ob-                         tainty for accurate object detection. In CVPR, pages 2888–
+     ject detection in remote sensing images with residual feature               2897, 2019. 3
+     aggregation-based super-resolution and object detector net-            [19] Yanxu Hu and Andy J Ma. Adversarial feature augmentation
+     work. Remote Sensing, 13(9):1854, 2021. 2                                   for cross-domain few-shot classification. In ECCV, pages
+ [3] Alexey Bochkovskiy, Chien-Yao Wang, and Hong-                               20–37. Springer, 2022. 5
+     Yuan Mark Liao. Yolov4: Optimal speed and accuracy of                  [20] Yi-Xin Huang, Hou-I Liu, Hong-Han Shuai, and Wen-Huang
+     object detection. arXiv preprint arXiv:2004.10934, 2020. 3                  Cheng. Dq-detr: Detr with dynamic query for tiny object
+ [4] Zhaowei Cai and Nuno Vasconcelos. Cascade r-cnn: Delving                    detection. In ECCV, pages 290–305. Springer, 2024. 6
+     into high quality object detection. In CVPR, pages 6154–               [21] Masato Ishii and Atsushi Sato. Training deep neural net-
+     6162, 2018. 1, 6                                                            works with adversarially augmented features for small-scale
+ [5] Bing Cao, Haiyu Yao, Pengfei Zhu, and Qinghua Hu. Visible                   training datasets. In IJCNN, pages 1–8. IEEE, 2019. 5
+     and clear: Finding tiny objects in difference map. In ECCV,            [22] Borui Jiang, Ruixuan Luo, Jiayuan Mao, Tete Xiao, and Yun-
+     2024. 1, 2                                                                  ing Jiang. Acquisition of localization confidence for accurate
+ [6] Chenyi Chen, Ming-Yu Liu, Oncel Tuzel, and Jianxiong                        object detection. In ECCV, pages 784–799, 2018. 3
+     Xiao. R-cnn for small object detection. In ACCV, pages                 [23] Woo Jae Kim, Yoonki Cho, Junsik Jung, and Sung-Eui Yoon.
+     214–230. Springer, 2017. 2                                                  Feature separation and recalibration for adversarial robust-
+                                                                                 ness. In CVPR, pages 8183–8192, 2023. 5
+ [7] Kai Chen, Jiaqi Wang, Jiangmiao Pang, Yuhang Cao, Yu
+                                                                            [24] Mate Kisantal, Zbigniew Wojna, Jakub Murawski, Jacek
+     Xiong, Xiaoxiao Li, Shuyang Sun, Wansen Feng, Ziwei Liu,
+                                                                                 Naruniec, Kyunghyun Cho, et al. Augmentation for small
+     Jiarui Xu, et al. Mmdetection: Open mmlab detection tool-
+                                                                                 object detection. In CS & IT Conference Proceedings. CS &
+     box and benchmark. arXiv preprint arXiv:1906.07155, 2019.
+                                                                                 IT Conference Proceedings, 2019. 2
+     6
+                                                                            [25] Florian Kraus and Klaus Dietmayer. Uncertainty estimation
+ [8] Liang-Chieh Chen, George Papandreou, Iasonas Kokkinos,
+                                                                                 in one-stage object detection. In ITSC, pages 53–60. IEEE,
+     Kevin Murphy, and Alan L Yuille. Deeplab: Semantic image
+                                                                                 2019. 8
+     segmentation with deep convolutional nets, atrous convolu-
+                                                                            [26] Youngwan Lee, Joong-won Hwang, Hyung-Il Kim, Kimin
+     tion, and fully connected crfs. IEEE TPAMI, 40(4):834–848,
+                                                                                 Yun, Yongjin Kwon, Yuseok Bae, and Sung Ju Hwang. Lo-
+     2017. 2
+                                                                                 calization uncertainty estimation for anchor-free object de-
+ [9] Gong Cheng, Xiang Yuan, Xiwen Yao, Kebing Yan, Qinghua                      tection. In ECCV, pages 27–42. Springer, 2022. 3
+     Zeng, Xingxing Xie, and Junwei Han. Towards large-scale                [27] Jianan Li, Xiaodan Liang, Yunchao Wei, Tingfa Xu, Jiashi
+     small object detection: Survey and benchmarks. IEEE                         Feng, and Shuicheng Yan. Perceptual generative adversarial
+     TPAMI, 2023. 5, 6                                                           networks for small object detection. In CVPR, pages 1222–
+[10] Bowei Du, Yecheng Huang, Jiaxin Chen, and Di Huang.                         1230, 2017. 2
+     Adaptive sparse convolutional networks with global context             [28] Wentong Li, Yijie Chen, Kaixuan Hu, and Jianke Zhu. Ori-
+     enhancement for faster object detection on drone images. In                 ented reppoints for aerial object detection. In CVPR, pages
+     CVPR, pages 13435–13444, 2023. 1, 6                                         1829–1838, 2022. 7
+[11] M. Everingham, L. Van Gool, C. K. I. Williams, J. Winn,                [29] Xiang Li, Wenhai Wang, Lijun Wu, Shuo Chen, Xiaolin Hu,
+     and A. Zisserman. The pascal visual object classes (voc)                    Jun Li, Jinhui Tang, and Jian Yang. Generalized focal loss:
+     challenge. IJCV, 88(2):303–338, 2010. 1, 5, 7                               Learning qualified and distributed bounding boxes for dense
+[12] Pierre Foret, Ariel Kleiner, Hossein Mobahi, and Behnam                     object detection. In NeurIPS, 2020. 2, 3, 4, 6
+
+
+
+
+                                                                     8415
+[30] Xiang Li, Chengqi Lv, Wenhai Wang, Gang Li, Lingfeng                    [46] Claude E Shannon. A mathematical theory of communi-
+     Yang, and Jian Yang. Generalized focal loss: Towards ef-                     cation. The Bell system technical journal, 27(3):379–423,
+     ficient representation learning for dense object detection.                  1948. 5
+     IEEE TPAMI, 2022. 5                                                     [47] Bharat Singh and Larry S Davis. An analysis of scale invari-
+[31] Yanghao Li, Yuntao Chen, Naiyan Wang, and Zhaoxiang                          ance in object detection snip. In CVPR, pages 3578–3587,
+     Zhang. Scale-aware trident networks for object detection.                    2018. 2
+     In ICCV, pages 6054–6063, 2019. 2                                       [48] Huixin Sun, Runqi Wang, Yanjing Li, Linlin Yang, Shaohui
+[32] Xi Liang, Jing Zhang, Li Zhuo, Yuzhao Li, and Qi Tian.                       Lin, Xianbin Cao, and Baochang Zhang. Set: Spectral en-
+     Small object detection in unmanned aerial vehicle images                     hancement for tiny object detection. In CVPR, pages 4713–
+     using feature fusion and scaling-based single shot detector                  4723, 2025. 2
+     with spatial context analysis. IEEE TCSVT, 30(6):1758–                  [49] Jingru Tan, Xin Lu, Gang Zhang, Changqing Yin, and Quan-
+     1770, 2019. 1, 2                                                             quan Li. Equalization loss v2: A new gradient balance
+[33] Tsung-Yi Lin, Michael Maire, Serge Belongie, James Hays,                     approach for long-tailed object detection. In CVPR, pages
+     Pietro Perona, Deva Ramanan, Piotr Dollár, and C Lawrence                   1685–1694, 2021. 2
+     Zitnick. Microsoft coco: Common objects in context. In                  [50] Zhi Tian, Chunhua Shen, Hao Chen, and Tong He. Fcos:
+     ECCV, pages 740–755. Springer, 2014. 1, 5, 7                                 Fully convolutional one-stage object detection. In ICCV,
+[34] Tsung-Yi Lin, Piotr Dollár, Ross Girshick, Kaiming He,                      pages 9627–9636, 2019. 3, 4, 6, 7
+     Bharath Hariharan, and Serge Belongie. Feature pyramid                  [51] Chien-Yao Wang, Alexey Bochkovskiy, and Hong-
+     networks for object detection. In CVPR, pages 2117–2125,                     Yuan Mark Liao. Scaled-yolov4: Scaling cross stage partial
+     2017. 1, 2, 5                                                                network. In CVPR, pages 13029–13038, 2021. 6
+[35] Tsung-Yi Lin, Priya Goyal, Ross Girshick, Kaiming He, and               [52] Chang Xu, Jinwang Wang, Wen Yang, and Lei Yu. Dot dis-
+     Piotr Dollár. Focal loss for dense object detection. In ICCV,               tance for tiny object detection in aerial images. In CVPR,
+     pages 2980–2988, 2017. 6, 7                                                  pages 1192–1201, 2021. 2, 3
+[36] Wei Liu, Dragomir Anguelov, Dumitru Erhan, Christian                    [53] Chang Xu, Jinwang Wang, Wen Yang, Huai Yu, Lei Yu, and
+     Szegedy, Scott Reed, Cheng-Yang Fu, and Alexander C                          Gui-Song Xia. Rfla: Gaussian receptive field based label
+     Berg. Ssd: Single shot multibox detector. In ECCV, pages                     assignment for tiny object detection. In ECCV, pages 526–
+     21–37, 2016. 2                                                               543, 2022. 2
+[37] Akhil Meethal, Eric Granger, and Marco Pedersoli. Cas-                  [54] Sheng Xu, Mingze Wang, Yanjing Li, Mingbao Lin,
+     caded zoom-in detector for high resolution aerial images. In                 Baochang Zhang, David Doermann, and Xiao Sun. Learning
+     CVPR, pages 2046–2055, 2023. 6                                               1-bit tiny object detector with discriminative feature refine-
+[38] Qi Ming, Lingjuan Miao, Zhe Ma, Lin Zhao, Zhiqiang Zhou,                     ment. In ICML, 2024. 1, 2
+     Xuhui Huang, Yuanpei Chen, and Yufei Guo. Deep dive into                [55] Chenhongyi Yang, Zehao Huang, and Naiyan Wang. Query-
+     gradients: Better optimization for 3d object detection with                  det: Cascaded sparse query for accelerating high-resolution
+     gradient-corrected iou supervision. In CVPR, pages 5136–                     small object detection. In CVPR, pages 13668–13677, 2022.
+     5145, 2023. 2                                                                1, 6
+[39] Yurii Nesterov et al. Lectures on convex optimization.                  [56] Jiangnan Yang, Shuangli Liu, Jingjun Wu, Xinyu Su, Nan
+     Springer, 2018. 3                                                            Hai, and Xueli Huang. Pinwheel-shaped convolution and
+[40] Adam Paszke, Sam Gross, Soumith Chintala, Gregory                            scale-based dynamic loss for infrared small target detection.
+     Chanan, Edward Yang, Zachary DeVito, Zeming Lin, Al-                         In AAAI, 2024. 1
+     ban Desmaison, Luca Antiga, and Adam Lerer. Automatic                   [57] Jiahui Yu, Yuning Jiang, Zhangyang Wang, Zhimin Cao, and
+     differentiation in pytorch. In NeurIPS Workshop, 2017. 6                     Thomas Huang. Unitbox: An advanced object detection net-
+[41] Siyuan Qiao, Liang-Chieh Chen, and Alan Yuille. Detectors:                   work. In Proceedings of the 24th ACM international confer-
+     Detecting objects with recursive feature pyramid and switch-                 ence on Multimedia, pages 516–520, 2016. 2, 3, 8
+     able atrous convolution. In CVPR, pages 10213–10224,                    [58] Xiang Yuan, Gong Cheng, Kebing Yan, Qinghua Zeng, and
+     2021. 6                                                                      Junwei Han. Small object detection via coarse-to-fine pro-
+[42] Heqian Qiu, Hongliang Li, Qingbo Wu, and Hengcan Shi.                        posal generation and imitation learning. In ICCV, pages
+     Offset bin classification network for accurate object detec-                 6317–6327, 2023. 2
+     tion. In CVPR, pages 13188–13197, 2020. 2                               [59] Hao Zhang, Feng Li, Shilong Liu, Lei Zhang, Hang Su, Jun
+[43] Joseph Redmon and Ali Farhadi. Yolov3: An incremental                        Zhu, Lionel M Ni, and Heung-Yeung Shum. Dino: Detr
+     improvement. arXiv preprint arXiv:1804.02767, 2018. 3                        with improved denoising anchor boxes for end-to-end object
+[44] Shaoqing Ren, Kaiming He, Ross Girshick, and Jian Sun.                       detection. ICLR, 2023. 1, 3, 6
+     Faster r-cnn: Towards real-time object detection with region            [60] Shifeng Zhang, Cheng Chi, Yongqiang Yao, Zhen Lei, and
+     proposal networks. In NeurIPS, 2015. 1, 2, 3, 4, 6, 8                        Stan Z Li. Bridging the gap between anchor-based and
+[45] Hamid Rezatofighi, Nathan Tsoi, JunYoung Gwak, Amir                          anchor-free detection via adaptive training sample selection.
+     Sadeghian, Ian Reid, and Silvio Savarese. Generalized in-                    In CVPR, pages 9759–9768, 2020. 3, 4
+     tersection over union: A metric and a loss for bounding box             [61] Zhaohui Zheng, Ping Wang, Wei Liu, Jinze Li, Rongguang
+     regression. In CVPR, pages 658–666, 2019. 3                                  Ye, and Dongwei Ren. Distance-iou loss: Faster and bet-
+
+
+
+
+                                                                      8416
+     ter learning for bounding box regression. In AAAI, pages
+     12993–13000, 2020. 3
+[62] Pengfei Zhu, Longyin Wen, Dawei Du, Xiao Bian, Haibin
+     Ling, Qinghua Hu, Qinqin Nie, Hao Cheng, Chenfeng Liu,
+     Xiaoyu Liu, et al. Visdrone-det2018: The vision meets drone
+     object detection in image challenge results. In ECCVW,
+     pages 0–0, 2018. 2, 5, 6, 8
+[63] Xizhou Zhu, Weijie Su, Lewei Lu, Bin Li, Xiaogang Wang,
+     and Jifeng Dai. Deformable detr: Deformable transformers
+     for end-to-end object detection. In ICLR, 2020. 6
+[64] Xingkui Zhu, Shuchang Lyu, Xu Wang, and Qi Zhao. Tph-
+     yolov5: Improved yolov5 based on transformer prediction
+     head for object detection on drone-captured scenarios. In
+     ICCV, pages 2778–2788, 2021. 3, 6
+[65] Barret Zoph, Ekin D Cubuk, Golnaz Ghiasi, Tsung-Yi Lin,
+     Jonathon Shlens, and Quoc V Le. Learning data augmenta-
+     tion strategies for object detection. In ECCV, pages 566–583.
+     Springer, 2020. 2
+
+
+
+
+                                                                     8417
+

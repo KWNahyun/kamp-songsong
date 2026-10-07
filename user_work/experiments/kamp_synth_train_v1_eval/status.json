@@ -1,0 +1,98 @@
+{
+  "started": "2026-10-07T09:39:05.894883+09:00",
+  "jobs": {
+    "dfine_s_synth25_seed20260929": {
+      "status": "complete",
+      "failed_stage": null,
+      "updated": "2026-10-07T09:45:14.546330+09:00"
+    },
+    "dfine_s_p2_synth25_seed20260929": {
+      "status": "complete",
+      "failed_stage": null,
+      "updated": "2026-10-07T09:45:21.175172+09:00"
+    },
+    "dfine_M_synth25_seed20260929": {
+      "status": "complete",
+      "failed_stage": null,
+      "updated": "2026-10-07T09:51:23.569138+09:00"
+    },
+    "yolov8s_synth25_seed20260929": {
+      "status": "complete",
+      "failed_stage": null,
+      "updated": "2026-10-07T09:48:25.129939+09:00"
+    },
+    "yolov8s_p2_synth25_seed20260929": {
+      "status": "complete",
+      "failed_stage": null,
+      "updated": "2026-10-07T09:51:40.990710+09:00"
+    },
+    "dfine_mal_UQ_synth25_seed20260929": {
+      "status": "failed",
+      "failed_stage": "real_evaluation",
+      "updated": "2026-10-07T09:57:28.848374+09:00"
+    },
+    "dfine_s_synth25_seed20260930": {
+      "status": "complete",
+      "failed_stage": null,
+      "updated": "2026-10-07T09:57:48.379458+09:00"
+    },
+    "dfine_s_p2_synth25_seed20260930": {
+      "status": "complete",
+      "failed_stage": null,
+      "updated": "2026-10-07T10:03:37.240479+09:00"
+    },
+    "dfine_M_synth25_seed20260930": {
+      "status": "complete",
+      "failed_stage": null,
+      "updated": "2026-10-07T10:04:04.846827+09:00"
+    },
+    "yolov8s_synth25_seed20260930": {
+      "status": "complete",
+      "failed_stage": null,
+      "updated": "2026-10-07T10:06:49.978685+09:00"
+    },
+    "yolov8s_p2_synth25_seed20260930": {
+      "status": "complete",
+      "failed_stage": null,
+      "updated": "2026-10-07T10:07:19.267796+09:00"
+    },
+    "dfine_mal_UQ_synth25_seed20260930": {
+      "status": "failed",
+      "failed_stage": "real_evaluation",
+      "updated": "2026-10-07T10:12:58.945060+09:00"
+    },
+    "dfine_s_synth25_seed20261001": {
+      "status": "complete",
+      "failed_stage": null,
+      "updated": "2026-10-07T10:13:18.963448+09:00"
+    },
+    "dfine_s_p2_synth25_seed20261001": {
+      "status": "complete",
+      "failed_stage": null,
+      "updated": "2026-10-07T10:19:08.727470+09:00"
+    },
+    "dfine_M_synth25_seed20261001": {
+      "status": "complete",
+      "failed_stage": null,
+      "updated": "2026-10-07T10:19:29.909077+09:00"
+    },
+    "yolov8s_synth25_seed20261001": {
+      "status": "complete",
+      "failed_stage": null,
+      "updated": "2026-10-07T10:22:21.156256+09:00"
+    },
+    "yolov8s_p2_synth25_seed20261001": {
+      "status": "complete",
+      "failed_stage": null,
+      "updated": "2026-10-07T10:22:46.366252+09:00"
+    },
+    "dfine_mal_UQ_synth25_seed20261001": {
+      "status": "failed",
+      "failed_stage": "real_evaluation",
+      "updated": "2026-10-07T10:28:25.264963+09:00"
+    }
+  },
+  "finished": "2026-10-07T10:28:25.265398+09:00",
+  "seconds": 2959.370534658432,
+  "complete": false
+}

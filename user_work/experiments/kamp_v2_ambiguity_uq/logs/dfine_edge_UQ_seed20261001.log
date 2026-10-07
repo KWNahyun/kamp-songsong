@@ -1,0 +1,33 @@
+building train_dataloader with batch_size=8...
+{"epoch": 0, "train_selector_quality": 0.11180996700105342, "lr": 0.0002, "elapsed_seconds": 6.57400107383728}
+{"epoch": 1, "train_selector_quality": 0.02312447511675683, "lr": 0.0002, "elapsed_seconds": 12.377449750900269}
+{"epoch": 2, "train_selector_quality": 0.004527640613642606, "lr": 0.0002, "elapsed_seconds": 18.282538175582886}
+{"epoch": 3, "train_selector_quality": 0.002532805321441794, "lr": 0.0002, "elapsed_seconds": 24.20897078514099}
+{"epoch": 4, "train_selector_quality": 0.0019040030892938375, "lr": 0.0002, "elapsed_seconds": 30.173091650009155}
+{"epoch": 5, "train_selector_quality": 0.0015811652648897673, "lr": 0.0002, "elapsed_seconds": 36.0878484249115}
+{"epoch": 6, "train_selector_quality": 0.001398838406947272, "lr": 0.0002, "elapsed_seconds": 42.03841686248779}
+{"epoch": 7, "train_selector_quality": 0.0012960846506757662, "lr": 0.0002, "elapsed_seconds": 47.830503940582275}
+{"epoch": 8, "train_selector_quality": 0.0012024078433486548, "lr": 0.0002, "elapsed_seconds": 53.87509608268738}
+{"epoch": 9, "train_selector_quality": 0.0011439531649970872, "lr": 0.0002, "elapsed_seconds": 59.79263758659363}
+{"epoch": 10, "train_selector_quality": 0.0011222760248611767, "lr": 0.0002, "elapsed_seconds": 65.79847407341003}
+{"epoch": 11, "train_selector_quality": 0.0010821010285078294, "lr": 0.0002, "elapsed_seconds": 71.85696172714233}
+{"epoch": 12, "train_selector_quality": 0.0010556861042542469, "lr": 0.0002, "elapsed_seconds": 77.82861280441284}
+{"epoch": 13, "train_selector_quality": 0.0009992534641324628, "lr": 0.0002, "elapsed_seconds": 83.83428883552551}
+{"epoch": 14, "train_selector_quality": 0.0009746130420932208, "lr": 0.0002, "elapsed_seconds": 89.71528744697571}
+{"epoch": 15, "train_selector_quality": 0.0009586670203134418, "lr": 0.0002, "elapsed_seconds": 95.69738364219666}
+{"epoch": 16, "train_selector_quality": 0.0009435254310532896, "lr": 0.0002, "elapsed_seconds": 101.79608058929443}
+{"epoch": 17, "train_selector_quality": 0.0009246015384137122, "lr": 0.0002, "elapsed_seconds": 107.81191897392273}
+{"epoch": 18, "train_selector_quality": 0.0009026858573303219, "lr": 0.0002, "elapsed_seconds": 113.76174092292786}
+{"epoch": 19, "train_selector_quality": 0.000894140993874647, "lr": 0.0002, "elapsed_seconds": 119.77683806419373}
+{"epoch": 20, "train_selector_quality": 0.0008956106969642199, "lr": 0.0002, "elapsed_seconds": 125.82449865341187}
+{"epoch": 21, "train_selector_quality": 0.0008658896681894971, "lr": 0.0002, "elapsed_seconds": 131.86866807937622}
+{"epoch": 22, "train_selector_quality": 0.0008980891976865347, "lr": 0.0002, "elapsed_seconds": 137.9122166633606}
+{"epoch": 23, "train_selector_quality": 0.0008955517676606013, "lr": 0.0002, "elapsed_seconds": 143.98473358154297}
+{"epoch": 24, "train_selector_quality": 0.0008409117875668347, "lr": 2e-05, "elapsed_seconds": 150.00196504592896}
+{"epoch": 25, "train_selector_quality": 0.0008206143161673522, "lr": 2e-05, "elapsed_seconds": 155.8760027885437}
+{"epoch": 26, "train_selector_quality": 0.0008214409119153225, "lr": 2e-05, "elapsed_seconds": 161.89381217956543}
+{"epoch": 27, "train_selector_quality": 0.0008172926199304956, "lr": 2e-05, "elapsed_seconds": 167.85048151016235}
+{"epoch": 28, "train_selector_quality": 0.0008153914208047685, "lr": 2e-05, "elapsed_seconds": 173.92787194252014}
+{"epoch": 29, "train_selector_quality": 0.0008152689155064185, "lr": 2e-05, "elapsed_seconds": 178.59701251983643}
+FROZEN_DETECTOR_IDENTITY_PASSED
+{"name": "dfine_edge_UQ_seed20261001", "variant": "edge", "seed": 20261001, "AP": 38.723911130584234, "AP50": 98.45899902222901, "AP75": 16.784404386839842, "raw_AP": 39.56274908542586, "raw_AP75": 18.9206486062392, "threshold": 0.22802753746509552, "TP": 142, "FP": 6, "recall": 0.9861111111111112, "FP_per_image": 0.09090909090909091, "conditions": {"M1": {"GT": 56, "TP": 56}, "M2": {"GT": 42, "TP": 42}, "M3": {"GT": 46, "TP": 44}}, "precise_candidate": 94, "precise_leader": 52, "precise_after_nms": 65, "checkpoint_sha256": "427e0b7555ab2915cc2ec0f19270816c36a59b4e3e728ac8441d183f992e5744", "epoch": null, "split": "val", "test_used": false, "UQ": true, "NMS": 0.7, "box_scale": 1, "operating_point": "validation-selected FP <= 6 over 66 images; not fixed operational deployment threshold"}

@@ -1,0 +1,47 @@
+주의: 예측이 하나도 없는 영상 5482장 (검출 0개로 처리). 예: ['001_20200629_082825(1)__erased', '001_20200629_082825(1)__gvxr_material_Al_x1__p0', '001_20200629_082825(1)__gvxr_material_Al_x1__p1']
+
+===== 신뢰도 임계값 0.25 (val) =====
+                     set  images  fp_per_image  any_det_rate  objects  detection_rate
+                  erased      66         0.076         0.030      NaN             NaN
+          pos_canon_k0.5      66         0.000         0.030  144.000           0.042
+          pos_canon_k1.0      66         0.000         0.030  144.000           0.042
+         pos_random_k0.5     264         0.076         0.030  792.000           0.027
+         pos_random_k1.0     264         0.076         0.030  792.000           0.030
+          gvxr_size_x0.5     132         0.076         0.030  396.000           0.000
+         gvxr_size_x0.75     132         0.083         0.030  396.000           0.025
+            gvxr_size_x1     132         0.076         0.030  396.000           0.030
+          gvxr_size_x1.5     132         0.076         0.030  396.000           0.030
+            gvxr_size_x2     132         0.076         0.030  396.000           0.030
+            gvxr_size_x3     132         0.076         0.030  396.000           0.030
+            gvxr_size_x5     132         0.076         0.030  396.000           0.030
+       gvxr_shape_sphere     132         0.076         0.030  396.000           0.028
+         gvxr_shape_cube     132         0.076         0.030  396.000           0.030
+    gvxr_shape_irregular     132         0.076         0.030  396.000           0.030
+        gvxr_shape_plate     132         0.076         0.030  396.000           0.028
+       gvxr_shape_wire10     132         0.083         0.030  396.000           0.023
+       gvxr_shape_wire20     132         0.076         0.030  396.000           0.010
+ gvxr_material_SUS304_x1     132         0.076         0.030  396.000           0.030
+ gvxr_material_SUS304_x2     132         0.076         0.030  396.000           0.030
+ gvxr_material_SUS304_x4     132         0.076         0.030  396.000           0.028
+ gvxr_material_SUS304_x8     132         0.038         0.015  396.000           0.000
+     gvxr_material_Al_x1     132         0.030         0.015  396.000           0.000
+     gvxr_material_Al_x2     132         0.030         0.015  396.000           0.005
+     gvxr_material_Al_x4     132         0.030         0.015  396.000           0.008
+     gvxr_material_Al_x8     132         0.030         0.015  396.000           0.000
+  gvxr_material_glass_x1     132         0.030         0.015  396.000           0.000
+  gvxr_material_glass_x2     132         0.030         0.015  396.000           0.000
+  gvxr_material_glass_x4     132         0.030         0.015  396.000           0.008
+  gvxr_material_glass_x8     132         0.038         0.015  396.000           0.000
+  gvxr_material_stone_x1     132         0.030         0.015  396.000           0.000
+  gvxr_material_stone_x2     132         0.030         0.015  396.000           0.013
+  gvxr_material_stone_x4     132         0.038         0.015  396.000           0.013
+  gvxr_material_stone_x8     132         0.030         0.015  396.000           0.000
+   gvxr_material_bone_x1     132         0.030         0.015  396.000           0.000
+   gvxr_material_bone_x2     132         0.030         0.015  396.000           0.000
+   gvxr_material_bone_x4     132         0.030         0.015  396.000           0.008
+   gvxr_material_bone_x8     132         0.030         0.015  396.000           0.000
+gvxr_material_plastic_x1     132         0.030         0.015  396.000           0.000
+gvxr_material_plastic_x2     132         0.030         0.015  396.000           0.000
+gvxr_material_plastic_x4     132         0.030         0.015  396.000           0.000
+gvxr_material_plastic_x8     132         0.030         0.015  396.000           0.000
+  erased: any_det_rate = 결함 없는 영상에서 검출이 나온 비율 (낮을수록 좋음)

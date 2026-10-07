@@ -1,0 +1,50 @@
+__include__: ['/home/viplab/contest/models/D-FINE/configs/dfine/dfine_hgnetv2_s_coco.yml']
+output_dir: /home/viplab/contest/experiments/kamp_pilot_v1/dfine_s
+num_classes: 1
+remap_mscoco_category: False
+epochs: 30
+use_amp: False
+use_ema: True
+sync_bn: False
+print_freq: 45
+checkpoint_freq: 30
+HGNetv2:
+  pretrained: False
+ema:
+  warmups: 100
+optimizer:
+  type: AdamW
+  lr: 0.0002
+  weight_decay: 0.0001
+lr_scheduler:
+  type: MultiStepLR
+  milestones: [24]
+  gamma: 0.1
+lr_warmup_scheduler:
+  type: LinearWarmup
+  warmup_duration: 45
+train_dataloader:
+  total_batch_size: 8
+  num_workers: 2
+  drop_last: False
+  dataset:
+    img_folder: /home/viplab/contest/data/processed/kamp500_telea_v1_640/images/train
+    ann_file: /home/viplab/contest/data/processed/kamp500_telea_v1_640/annotations/train.json
+    transforms:
+      ops:
+        - {type: ConvertPILImage, dtype: float32, scale: True}
+        - {type: ConvertBoxes, fmt: cxcywh, normalize: True}
+      policy:
+        epoch: 1000
+  collate_fn:
+    base_size_repeat: null
+    stop_epoch: 1000
+val_dataloader:
+  total_batch_size: 8
+  num_workers: 2
+  dataset:
+    img_folder: /home/viplab/contest/data/processed/kamp500_telea_v1_640/images/val
+    ann_file: /home/viplab/contest/data/processed/kamp500_telea_v1_640/annotations/val.json
+    transforms:
+      ops:
+        - {type: ConvertPILImage, dtype: float32, scale: True}

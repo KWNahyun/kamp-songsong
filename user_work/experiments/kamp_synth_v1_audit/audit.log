@@ -1,0 +1,32 @@
+0
+2000
+4000
+6000
+8000
+10000
+12000
+{
+  "images": 12750,
+  "objects": 37600,
+  "sets": 42,
+  "unique_sources": 150,
+  "split_counts": {
+    "test": 7140,
+    "val": 5610
+  },
+  "source_split_mismatches": 0,
+  "duplicate_image_ids": 0,
+  "modes": {
+    "L": 12750
+  },
+  "dimensions": "width  height\n316    332       5100\n352    332       3400\n576    444       4250",
+  "errors": [],
+  "exact_duplicate_groups": 39,
+  "unique_pixel_images": 12703,
+  "missing_label_files": 0,
+  "all_image_files": 12750,
+  "all_label_files": 12750,
+  "donor_source_splits": {
+    "train": 4300
+  }
+}

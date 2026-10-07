@@ -1,0 +1,17 @@
+Using Python 3.10.19 environment at: /home/viplab/contest/.train-venv
+Resolved 25 packages in 861ms
+Downloading nvidia-cudnn-cu12 (634.0MiB)
+Downloading triton (199.8MiB)
+Downloading torchvision (6.9MiB)
+Downloading torch (866.2MiB)
+Downloading pillow (6.6MiB)
+Downloading numpy (16.0MiB)
+Downloading nvidia-cublas-cu12 (346.6MiB)
+Downloading sympy (5.9MiB)
+Downloading nvidia-nccl-cu12 (179.9MiB)
+Downloading nvidia-cufft-cu12 (201.7MiB)
+Downloading nvidia-cuda-nvrtc-cu12 (23.5MiB)
+ Downloaded torchvision
+ Downloaded sympy
+ Downloaded pillow
+ Downloaded numpy

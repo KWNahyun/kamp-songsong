@@ -1,0 +1,8 @@
+{
+  "seed": 20260929,
+  "epochs": 12,
+  "train_images": 470,
+  "wall_seconds": 94.10770678520203,
+  "detector_checkpoint": "/home/viplab/contest/experiments/kamp_synth_train_v1/runs/dfine_M_synth25_seed20260929/best_stg1.pth",
+  "prior_uq_checkpoint": "/home/viplab/contest/experiments/kamp_v2_uq/runs_frozen/dfine_mal_UQ_seed20260929/last.pth"
+}

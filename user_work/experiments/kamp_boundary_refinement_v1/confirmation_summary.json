@@ -1,0 +1,288 @@
+{
+  "split": "validation",
+  "seeds": [
+    20260929,
+    20260930,
+    20261001
+  ],
+  "test_used": false,
+  "detector_bitwise_identity": {
+    "20260929_UQ": true,
+    "20260929_BR": true,
+    "20260929_BPS": true,
+    "20260930_UQ": true,
+    "20260930_BR": true,
+    "20260930_BPS": true,
+    "20261001_UQ": true,
+    "20261001_BR": true,
+    "20261001_BPS": true
+  },
+  "primary_setting": "hard_nms07_scale095",
+  "paired_deltas_vs_MAL": [
+    {
+      "seed": 20260929,
+      "model": "UQ",
+      "delta_AP": 1.1544881724883709,
+      "delta_AP50": 0.0,
+      "delta_AP75": 1.6598603457251464,
+      "delta_TP_FP6": 0,
+      "delta_coverage_iou75": 0,
+      "delta_mean_best_iou": 0.0
+    },
+    {
+      "seed": 20260929,
+      "model": "BR",
+      "delta_AP": -0.3815775961659966,
+      "delta_AP50": 0.0,
+      "delta_AP75": 1.0564457818895754,
+      "delta_TP_FP6": 0,
+      "delta_coverage_iou75": -12,
+      "delta_mean_best_iou": -0.006623411969418402
+    },
+    {
+      "seed": 20260929,
+      "model": "BPS",
+      "delta_AP": 0.6793133007451075,
+      "delta_AP50": 0.03486264119369764,
+      "delta_AP75": 2.1443045357968664,
+      "delta_TP_FP6": 0,
+      "delta_coverage_iou75": 1,
+      "delta_mean_best_iou": 0.0020649653818848313
+    },
+    {
+      "seed": 20260930,
+      "model": "UQ",
+      "delta_AP": 0.5048628239931148,
+      "delta_AP50": -0.014364589956244345,
+      "delta_AP75": -0.3753182259261614,
+      "delta_TP_FP6": 0,
+      "delta_coverage_iou75": 0,
+      "delta_mean_best_iou": 0.0
+    },
+    {
+      "seed": 20260930,
+      "model": "BR",
+      "delta_AP": -1.5232996751426384,
+      "delta_AP50": -1.5492774258893576,
+      "delta_AP75": -3.6639883724379594,
+      "delta_TP_FP6": -1,
+      "delta_coverage_iou75": -4,
+      "delta_mean_best_iou": -0.013268122970444884
+    },
+    {
+      "seed": 20260930,
+      "model": "BPS",
+      "delta_AP": -0.9036695334549805,
+      "delta_AP50": -1.5078092316273484,
+      "delta_AP75": -3.7659982079910677,
+      "delta_TP_FP6": -1,
+      "delta_coverage_iou75": -1,
+      "delta_mean_best_iou": -0.010354204554872126
+    },
+    {
+      "seed": 20261001,
+      "model": "UQ",
+      "delta_AP": 0.3291190001805333,
+      "delta_AP50": -0.03076749488236885,
+      "delta_AP75": 0.5230589993733545,
+      "delta_TP_FP6": 0,
+      "delta_coverage_iou75": 0,
+      "delta_mean_best_iou": 0.0
+    },
+    {
+      "seed": 20261001,
+      "model": "BR",
+      "delta_AP": 0.35831659207164535,
+      "delta_AP50": 0.2619211264465946,
+      "delta_AP75": -2.0932225006684746,
+      "delta_TP_FP6": 0,
+      "delta_coverage_iou75": -3,
+      "delta_mean_best_iou": -0.006883956059960394
+    },
+    {
+      "seed": 20261001,
+      "model": "BPS",
+      "delta_AP": 0.5893547402221415,
+      "delta_AP50": 0.3238699168215362,
+      "delta_AP75": -2.312128312279736,
+      "delta_TP_FP6": 0,
+      "delta_coverage_iou75": -2,
+      "delta_mean_best_iou": -0.0055127227839927295
+    }
+  ],
+  "aggregate_deltas_vs_MAL": [
+    {
+      "model": "UQ",
+      "mean_delta_AP": 0.662823332220673,
+      "std_delta_AP": 0.43476684472100974,
+      "positive_seeds_AP": 3,
+      "nonnegative_seeds_AP": 3,
+      "mean_delta_AP50": -0.015044028279537732,
+      "std_delta_AP50": 0.015394996351429192,
+      "positive_seeds_AP50": 0,
+      "nonnegative_seeds_AP50": 1,
+      "mean_delta_AP75": 0.6025337063907799,
+      "std_delta_AP75": 1.0199142740538507,
+      "positive_seeds_AP75": 2,
+      "nonnegative_seeds_AP75": 2,
+      "mean_delta_TP_FP6": 0.0,
+      "std_delta_TP_FP6": 0.0,
+      "positive_seeds_TP_FP6": 0,
+      "nonnegative_seeds_TP_FP6": 3,
+      "mean_delta_coverage_iou75": 0.0,
+      "std_delta_coverage_iou75": 0.0,
+      "positive_seeds_coverage_iou75": 0,
+      "nonnegative_seeds_coverage_iou75": 3,
+      "mean_delta_mean_best_iou": 0.0,
+      "std_delta_mean_best_iou": 0.0,
+      "positive_seeds_mean_best_iou": 0,
+      "nonnegative_seeds_mean_best_iou": 3
+    },
+    {
+      "model": "BR",
+      "mean_delta_AP": -0.5155202264123299,
+      "std_delta_AP": 0.9479321786970486,
+      "positive_seeds_AP": 1,
+      "nonnegative_seeds_AP": 1,
+      "mean_delta_AP50": -0.429118766480921,
+      "std_delta_AP50": 0.9788857113093146,
+      "positive_seeds_AP50": 1,
+      "nonnegative_seeds_AP50": 2,
+      "mean_delta_AP75": -1.5669216970722861,
+      "std_delta_AP75": 2.403823839892385,
+      "positive_seeds_AP75": 1,
+      "nonnegative_seeds_AP75": 1,
+      "mean_delta_TP_FP6": -0.3333333333333333,
+      "std_delta_TP_FP6": 0.5773502691896258,
+      "positive_seeds_TP_FP6": 0,
+      "nonnegative_seeds_TP_FP6": 2,
+      "mean_delta_coverage_iou75": -6.333333333333333,
+      "std_delta_coverage_iou75": 4.932882862316247,
+      "positive_seeds_coverage_iou75": 0,
+      "nonnegative_seeds_coverage_iou75": 0,
+      "mean_delta_mean_best_iou": -0.008925163666607894,
+      "std_delta_mean_best_iou": 0.0037633684966884785,
+      "positive_seeds_mean_best_iou": 0,
+      "nonnegative_seeds_mean_best_iou": 0
+    },
+    {
+      "model": "BPS",
+      "mean_delta_AP": 0.12166616917075619,
+      "std_delta_AP": 0.889105231658267,
+      "positive_seeds_AP": 2,
+      "nonnegative_seeds_AP": 2,
+      "mean_delta_AP50": -0.38302555787070486,
+      "std_delta_AP50": 0.9847512558527534,
+      "positive_seeds_AP50": 2,
+      "nonnegative_seeds_AP50": 2,
+      "mean_delta_AP75": -1.3112739948246457,
+      "std_delta_AP75": 3.079643105033953,
+      "positive_seeds_AP75": 1,
+      "nonnegative_seeds_AP75": 1,
+      "mean_delta_TP_FP6": -0.3333333333333333,
+      "std_delta_TP_FP6": 0.5773502691896258,
+      "positive_seeds_TP_FP6": 0,
+      "nonnegative_seeds_TP_FP6": 2,
+      "mean_delta_coverage_iou75": -0.6666666666666666,
+      "std_delta_coverage_iou75": 1.5275252316519465,
+      "positive_seeds_coverage_iou75": 1,
+      "nonnegative_seeds_coverage_iou75": 1,
+      "mean_delta_mean_best_iou": -0.004600653985660008,
+      "std_delta_mean_best_iou": 0.006259620403761,
+      "positive_seeds_mean_best_iou": 1,
+      "nonnegative_seeds_mean_best_iou": 1
+    }
+  ],
+  "coverage_at_score_floor_001": [
+    {
+      "seed": 20260929,
+      "model": "MAL",
+      "mean_best_iou": 0.7849947850273329,
+      "coverage_iou50": 141,
+      "coverage_iou75": 103
+    },
+    {
+      "seed": 20260929,
+      "model": "UQ",
+      "mean_best_iou": 0.7849947850273329,
+      "coverage_iou50": 141,
+      "coverage_iou75": 103
+    },
+    {
+      "seed": 20260929,
+      "model": "BR",
+      "mean_best_iou": 0.7783713730579145,
+      "coverage_iou50": 141,
+      "coverage_iou75": 91
+    },
+    {
+      "seed": 20260929,
+      "model": "BPS",
+      "mean_best_iou": 0.7870597504092177,
+      "coverage_iou50": 141,
+      "coverage_iou75": 104
+    },
+    {
+      "seed": 20260930,
+      "model": "MAL",
+      "mean_best_iou": 0.8056791425628088,
+      "coverage_iou50": 142,
+      "coverage_iou75": 107
+    },
+    {
+      "seed": 20260930,
+      "model": "UQ",
+      "mean_best_iou": 0.8056791425628088,
+      "coverage_iou50": 142,
+      "coverage_iou75": 107
+    },
+    {
+      "seed": 20260930,
+      "model": "BR",
+      "mean_best_iou": 0.7924110195923639,
+      "coverage_iou50": 142,
+      "coverage_iou75": 103
+    },
+    {
+      "seed": 20260930,
+      "model": "BPS",
+      "mean_best_iou": 0.7953249380079367,
+      "coverage_iou50": 142,
+      "coverage_iou75": 106
+    },
+    {
+      "seed": 20261001,
+      "model": "MAL",
+      "mean_best_iou": 0.7833937731215098,
+      "coverage_iou50": 141,
+      "coverage_iou75": 96
+    },
+    {
+      "seed": 20261001,
+      "model": "UQ",
+      "mean_best_iou": 0.7833937731215098,
+      "coverage_iou50": 141,
+      "coverage_iou75": 96
+    },
+    {
+      "seed": 20261001,
+      "model": "BR",
+      "mean_best_iou": 0.7765098170615494,
+      "coverage_iou50": 141,
+      "coverage_iou75": 93
+    },
+    {
+      "seed": 20261001,
+      "model": "BPS",
+      "mean_best_iou": 0.7778810503375171,
+      "coverage_iou50": 141,
+      "coverage_iou75": 94
+    }
+  ],
+  "limitations": [
+    "Three frozen detector seeds on one temporary preprocessing version.",
+    "The MAL base checkpoints and fixed NMS/0.95 settings were previously selected using validation.",
+    "The selector/refiner last epochs were evaluated without validation checkpoint selection.",
+    "The held-out test split remains untouched."
+  ]
+}

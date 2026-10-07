@@ -1,3 +1,9 @@
+# 사용자 연구 브랜치
+
+모든 작업 코드·보고서·그림과 예시 사진은 **[user_work/README.md](user_work/README.md)**에서 확인하세요.
+
+---
+
 # KAMP X-ray foreign-object detection
 
 KAMP 제6회 경진대회 ④번, **X-ray 영상 기반 완제품 이물질 탐지 및 AI 미탐지 조건 분석**을 위한 통합 코드 저장소입니다. 데이터 처리와 합성 X-ray 생성 파이프라인, YOLO/D-FINE 비교 실험, 최종 D-FINE-S + MAL + UQ 추론·평가 경로를 한 저장소에서 관리합니다.

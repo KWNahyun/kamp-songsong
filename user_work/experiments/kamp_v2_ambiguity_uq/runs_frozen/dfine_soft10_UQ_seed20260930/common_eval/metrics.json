@@ -1,0 +1,40 @@
+{
+  "name": "dfine_soft10_UQ_seed20260930",
+  "variant": "soft10",
+  "seed": 20260930,
+  "AP": 38.63494826587826,
+  "AP50": 99.0339522711536,
+  "AP75": 16.062699947998183,
+  "raw_AP": 39.22303189752238,
+  "raw_AP75": 18.148685722687315,
+  "threshold": 0.25127002596855164,
+  "TP": 142,
+  "FP": 6,
+  "recall": 0.9861111111111112,
+  "FP_per_image": 0.09090909090909091,
+  "conditions": {
+    "M1": {
+      "GT": 56,
+      "TP": 56
+    },
+    "M2": {
+      "GT": 42,
+      "TP": 42
+    },
+    "M3": {
+      "GT": 46,
+      "TP": 44
+    }
+  },
+  "precise_candidate": 107,
+  "precise_leader": 48,
+  "precise_after_nms": 82,
+  "checkpoint_sha256": "3205bd932ed66760469e21e3dcb3fca0dfc0ebf2c2a30556fe59f3ad1861b395",
+  "epoch": null,
+  "split": "val",
+  "test_used": false,
+  "UQ": true,
+  "NMS": 0.7,
+  "box_scale": 1,
+  "operating_point": "validation-selected FP <= 6 over 66 images; not fixed operational deployment threshold"
+}

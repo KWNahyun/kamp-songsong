@@ -1,0 +1,78 @@
+{
+  "started_KST": "2026-10-06T22:10:20.893741+09:00",
+  "elapsed_seconds": 2804.3666095733643,
+  "jobs": {
+    "dfine_mal_UQ_seed20260930": {
+      "stage": "complete",
+      "updated_KST": "2026-10-06T22:16:16.302588+09:00"
+    },
+    "dfine_M_seed20260930": {
+      "stage": "complete",
+      "updated_KST": "2026-10-06T22:16:07.222449+09:00"
+    },
+    "dfine_s_seed20260930": {
+      "stage": "complete",
+      "updated_KST": "2026-10-06T22:22:05.622223+09:00"
+    },
+    "yolov8s_seed20260930": {
+      "stage": "complete",
+      "updated_KST": "2026-10-06T22:19:14.894435+09:00"
+    },
+    "dfine_s_p2_seed20260930": {
+      "stage": "complete",
+      "updated_KST": "2026-10-06T22:25:04.981379+09:00"
+    },
+    "yolov8s_p2_seed20260930": {
+      "stage": "complete",
+      "updated_KST": "2026-10-06T22:25:23.941576+09:00"
+    },
+    "dfine_mal_UQ_seed20260929": {
+      "stage": "complete",
+      "updated_KST": "2026-10-06T22:30:59.306244+09:00"
+    },
+    "dfine_mal_UQ_seed20261001": {
+      "stage": "complete",
+      "updated_KST": "2026-10-06T22:31:24.818422+09:00"
+    },
+    "dfine_M_seed20260929": {
+      "stage": "complete",
+      "updated_KST": "2026-10-06T22:37:07.441172+09:00"
+    },
+    "dfine_M_seed20261001": {
+      "stage": "complete",
+      "updated_KST": "2026-10-06T22:37:34.053223+09:00"
+    },
+    "dfine_s_seed20260929": {
+      "stage": "complete",
+      "updated_KST": "2026-10-06T22:43:23.519876+09:00"
+    },
+    "dfine_s_seed20261001": {
+      "stage": "complete",
+      "updated_KST": "2026-10-06T22:43:45.902996+09:00"
+    },
+    "yolov8s_seed20260929": {
+      "stage": "complete",
+      "updated_KST": "2026-10-06T22:46:41.525042+09:00"
+    },
+    "yolov8s_seed20261001": {
+      "stage": "complete",
+      "updated_KST": "2026-10-06T22:47:00.695300+09:00"
+    },
+    "dfine_s_p2_seed20260929": {
+      "stage": "complete",
+      "updated_KST": "2026-10-06T22:53:02.555341+09:00"
+    },
+    "dfine_s_p2_seed20261001": {
+      "stage": "complete",
+      "updated_KST": "2026-10-06T22:53:21.080173+09:00"
+    },
+    "yolov8s_p2_seed20260929": {
+      "stage": "complete",
+      "updated_KST": "2026-10-06T22:56:46.669263+09:00"
+    },
+    "yolov8s_p2_seed20261001": {
+      "stage": "complete",
+      "updated_KST": "2026-10-06T22:57:05.260311+09:00"
+    }
+  }
+}

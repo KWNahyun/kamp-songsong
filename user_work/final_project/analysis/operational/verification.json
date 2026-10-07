@@ -1,0 +1,8 @@
+{
+  "union_geometry_sanity": true,
+  "coverage_bounded_and_monotonic": true,
+  "44_folds_account_for_144_GT_and_66_images_per_method": true,
+  "infeasible_policy_not_reported_as_valid_aggregate": true,
+  "fixed_checkpoint_and_threshold_unchanged": true,
+  "test_read": false
+}

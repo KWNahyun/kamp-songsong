@@ -1,0 +1,6 @@
+{
+  "status": "training_complete",
+  "epochs": 30,
+  "validation_geometry": "640 fixed square",
+  "note": "overrides archived val672 first run; common eval refreshed after all 30 epochs"
+}

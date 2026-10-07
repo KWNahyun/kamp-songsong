@@ -1,0 +1,24 @@
+{
+  "created": "2026-10-01",
+  "test_used": false,
+  "training_performed": false,
+  "input_runs": {
+    "20260929": "/home/viplab/contest/experiments/kamp_ablation_v3/runs/dfine_M_seed20260929",
+    "20260930": "/home/viplab/contest/experiments/kamp_ablation_v3/runs/dfine_M_seed20260930",
+    "20261001": "/home/viplab/contest/experiments/kamp_ablation_v3/runs/dfine_M_seed20261001"
+  },
+  "fixed_settings": {
+    "input_score_floor": 0.001,
+    "box_scale": 0.95,
+    "hard_nms_iou": 0.7,
+    "linear_soft_nms_iou": 0.7,
+    "gaussian_soft_nms_sigma": 0.5
+  },
+  "selection_warning": "Settings were fixed before inspecting these outputs; no sweep was performed.",
+  "oracle_warning": "Oracle outputs use GT and are diagnostic ceilings, never deployable inference.",
+  "source_hashes": {
+    "/home/viplab/contest/experiments/kamp_candidate_diagnostics_v1/analyze_candidates.py": "1006ebf858817933ecd9754b279847b0da3709d9639d5fe6b01afe40b81ffa08",
+    "/home/viplab/contest/data/processed/kamp500_telea_v1/annotations/val.json": "281458c6d14dfb1af2c6afad813da8e94d613da1888a6c856829f651d0bcae96",
+    "/home/viplab/contest/experiments/kamp_pilot_v1/failure_analysis/gt_conditions.csv": "3e85a7ec61172700c12f9b3a7bf80c4d7433239430624f63f19ce36c15b11a33"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "loss": "relative_size_huber_v31",
+  "mal": true,
+  "edge_cases": [
+    -0.1,
+    -0.004882931709289551,
+    0.0,
+    1e-12,
+    0.005,
+    0.01,
+    1.0,
+    100.0
+  ],
+  "empty_positive_passed": true,
+  "finite_gradient_and_recovery_direction": true,
+  "smoke_steps": [
+    {
+      "step": 0,
+      "loss": 34.27945327758789,
+      "size_loss": 0.6114863753318787
+    },
+    {
+      "step": 1,
+      "loss": 29.78669548034668,
+      "size_loss": 0.31452521681785583
+    },
+    {
+      "step": 2,
+      "loss": 32.23784255981445,
+      "size_loss": 0.3331605792045593
+    },
+    {
+      "step": 3,
+      "loss": 33.58500289916992,
+      "size_loss": 0.48922738432884216
+    }
+  ],
+  "smoke_is_not_comparative_training": true,
+  "peak_vram_MiB": 5091.00537109375
+}

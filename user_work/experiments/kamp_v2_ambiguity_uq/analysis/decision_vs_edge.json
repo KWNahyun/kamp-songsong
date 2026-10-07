@@ -1,0 +1,20 @@
+{
+  "control": "edge",
+  "mean_deltas": {
+    "AP": 0.3053661550909439,
+    "AP75": 0.5872729060345195,
+    "TP": 0.0,
+    "precise_candidate": 7.333333333333333,
+    "precise_leader": 0.0,
+    "precise_after_nms": 7.333333333333333
+  },
+  "positive_seeds": {
+    "AP": 2,
+    "AP75": 1,
+    "TP": 1,
+    "precise_candidate": 3,
+    "precise_leader": 0,
+    "precise_after_nms": 3
+  },
+  "passes": false
+}

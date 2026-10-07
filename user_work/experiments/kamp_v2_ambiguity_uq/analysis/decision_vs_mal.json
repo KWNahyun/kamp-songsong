@@ -1,0 +1,20 @@
+{
+  "control": "mal",
+  "mean_deltas": {
+    "AP": 1.332197099109538,
+    "AP75": 2.7310143388542687,
+    "TP": 0.6666666666666666,
+    "precise_candidate": 4.333333333333333,
+    "precise_leader": 2.6666666666666665,
+    "precise_after_nms": 12.333333333333334
+  },
+  "positive_seeds": {
+    "AP": 3,
+    "AP75": 3,
+    "TP": 1,
+    "precise_candidate": 2,
+    "precise_leader": 2,
+    "precise_after_nms": 3
+  },
+  "passes": true
+}

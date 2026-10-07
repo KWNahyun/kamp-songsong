@@ -1,0 +1,63 @@
+{
+  "status": "finished",
+  "started": "2026-09-30T20:34:00.566061+00:00",
+  "test_used": false,
+  "validation_used_for_checkpoint_selection": true,
+  "jobs": [
+    {
+      "name": "dfine_UQ_seed20260929",
+      "mode": "unary",
+      "config": "/home/viplab/contest/experiments/kamp_relative_selector_v1/configs/dfine_UQ_seed20260929.yml",
+      "seed": 20260929,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_relative_selector_v1/train_dfine.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_relative_selector_v1/configs/dfine_UQ_seed20260929.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260929",
+        "--selector",
+        "unary",
+        "--quality-weight",
+        "1.0"
+      ],
+      "status": "trained",
+      "started": "2026-09-30T20:34:00.592201+00:00",
+      "pid": 1262347,
+      "returncode": 0,
+      "finished": "2026-09-30T20:40:48.033826+00:00"
+    },
+    {
+      "name": "dfine_RQS_seed20260929",
+      "mode": "relation",
+      "config": "/home/viplab/contest/experiments/kamp_relative_selector_v1/configs/dfine_RQS_seed20260929.yml",
+      "seed": 20260929,
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_relative_selector_v1/train_dfine.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_relative_selector_v1/configs/dfine_RQS_seed20260929.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260929",
+        "--selector",
+        "relation",
+        "--quality-weight",
+        "1.0"
+      ],
+      "status": "trained",
+      "started": "2026-09-30T20:40:48.052099+00:00",
+      "pid": 1267582,
+      "returncode": 0,
+      "finished": "2026-09-30T20:47:42.540139+00:00"
+    }
+  ],
+  "finished": "2026-09-30T20:47:42.541616+00:00"
+}

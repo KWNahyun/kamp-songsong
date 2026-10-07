@@ -1,0 +1,40 @@
+{
+  "name": "fgl05_seed20260930",
+  "variant": "fgl05",
+  "seed": 20260930,
+  "AP": 36.66444939639506,
+  "AP50": 96.4074647248323,
+  "AP75": 15.721653521087257,
+  "raw_AP": 37.55857021143796,
+  "raw_AP75": 17.802519483173754,
+  "threshold": 0.2229141741991043,
+  "TP": 141,
+  "FP": 6,
+  "recall": 0.9791666666666666,
+  "FP_per_image": 0.09090909090909091,
+  "conditions": {
+    "M1": {
+      "GT": 56,
+      "TP": 56
+    },
+    "M2": {
+      "GT": 42,
+      "TP": 42
+    },
+    "M3": {
+      "GT": 46,
+      "TP": 43
+    }
+  },
+  "precise_candidate": 106,
+  "precise_leader": 52,
+  "precise_after_nms": 72,
+  "checkpoint_sha256": "5c3fc98628f97eba590413990e1641b306677ece4df6b6019f5c52236d90cf81",
+  "epoch": 5,
+  "split": "val",
+  "test_used": false,
+  "UQ": false,
+  "NMS": 0.7,
+  "box_scale": 1,
+  "operating_point": "validation-selected FP <= 6 over 66 images; not fixed operational deployment threshold"
+}

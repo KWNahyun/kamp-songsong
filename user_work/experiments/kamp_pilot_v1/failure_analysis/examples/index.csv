@@ -1,0 +1,9 @@
+﻿file,model,image_id,stem,selection
+case_00.png,yolov8s,357,002_20200629_163659(7),top-ranked FP
+case_01.png,yolov8s_p2,355,002_20200629_123505(0),top-ranked FP
+case_02.png,dfine_s,361,002_20200629_163711(8),top-ranked FP
+case_03.png,dfine_s_p2,499,002_20200907_204649(0),top-ranked FP
+case_04.png,yolov8s_p2,351,002_20200629_123447(0),gained
+case_05.png,yolov8s_p2,89,001_20200629_082825(1),lost
+case_06.png,dfine_s_p2,90,001_20200629_082828(0),gained
+case_07.png,dfine_s_p2,346,002_20200629_082831(3),lost

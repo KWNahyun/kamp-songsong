@@ -1,0 +1,94 @@
+{
+  "model": "dfine_frozen_BPS_seed20260930",
+  "split": "val",
+  "images": 64,
+  "objects": 142,
+  "AP50_95": 0.34765369172372845,
+  "AP50": 0.8830021358906761,
+  "AP75": 0.1525874588145522,
+  "AR100": 0.6429577464788733,
+  "operating_points": {
+    "0.1": {
+      "threshold": 0.6506029963493347,
+      "TP": 63,
+      "FP": 6,
+      "recall": 0.44366197183098594,
+      "FP_per_image": 0.09375,
+      "size_bins": {
+        "lt8": {
+          "GT": 17,
+          "TP": 9,
+          "FN": 8,
+          "recall": 0.5294117647058824
+        },
+        "8to12": {
+          "GT": 104,
+          "TP": 52,
+          "FN": 52,
+          "recall": 0.5
+        },
+        "12to16": {
+          "GT": 20,
+          "TP": 2,
+          "FN": 18,
+          "recall": 0.1
+        },
+        "ge16": {
+          "GT": 1,
+          "TP": 0,
+          "FN": 1,
+          "recall": 0.0
+        }
+      },
+      "all_objects_image_recall": 0.25
+    },
+    "0.5": {
+      "threshold": 0.5697274208068848,
+      "TP": 136,
+      "FP": 32,
+      "recall": 0.9577464788732394,
+      "FP_per_image": 0.5,
+      "size_bins": {
+        "lt8": {
+          "GT": 17,
+          "TP": 13,
+          "FN": 4,
+          "recall": 0.7647058823529411
+        },
+        "8to12": {
+          "GT": 104,
+          "TP": 104,
+          "FN": 0,
+          "recall": 1.0
+        },
+        "12to16": {
+          "GT": 20,
+          "TP": 19,
+          "FN": 1,
+          "recall": 0.95
+        },
+        "ge16": {
+          "GT": 1,
+          "TP": 0,
+          "FN": 1,
+          "recall": 0.0
+        }
+      },
+      "all_objects_image_recall": 0.921875
+    }
+  },
+  "settings": {
+    "score_floor": 0.001,
+    "prediction_cap": 300,
+    "COCO_maxDets": [
+      1,
+      10,
+      100
+    ],
+    "IoU_operating_points": 0.5,
+    "yolo_NMS_IoU": 0.7,
+    "dfine_NMS": false
+  },
+  "caution": "single seed 30-epoch pilot; val-selected checkpoint and thresholds; not held-out test or safety estimate; preprocessing artifacts may remain",
+  "evaluation_wall_seconds": 3.3266472816467285
+}

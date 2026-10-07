@@ -1,0 +1,78 @@
+{
+  "started": "2026-09-30T01:31:03.075637+00:00",
+  "pid": 394299,
+  "test_used": false,
+  "jobs": [
+    {
+      "name": "yolov8s",
+      "status": "complete",
+      "started": "2026-09-30T01:31:03.075654+00:00",
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/train_yolo.py"
+      ],
+      "pid": 394300,
+      "returncode": 0,
+      "finished": "2026-09-30T01:33:34.771926+00:00",
+      "evaluation_returncode": 0
+    },
+    {
+      "name": "dfine_s",
+      "status": "complete",
+      "started": "2026-09-30T01:33:38.158551+00:00",
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/train_dfine.py",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260929"
+      ],
+      "pid": 396271,
+      "returncode": 0,
+      "finished": "2026-09-30T01:41:57.665675+00:00",
+      "evaluation_returncode": 0
+    },
+    {
+      "name": "yolov8s_p2",
+      "status": "complete",
+      "started": "2026-09-30T01:42:04.972114+00:00",
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/train_yolo.py",
+        "--p2"
+      ],
+      "pid": 402968,
+      "returncode": 0,
+      "finished": "2026-09-30T01:45:33.979577+00:00",
+      "evaluation_returncode": 0
+    },
+    {
+      "name": "dfine_s_p2",
+      "status": "complete",
+      "started": "2026-09-30T01:45:37.547291+00:00",
+      "command": [
+        "/home/viplab/contest/.detector-venv/bin/python",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/train_dfine.py",
+        "--p2",
+        "-c",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_p2.yml",
+        "-t",
+        "/home/viplab/contest/experiments/kamp_pilot_v1/dfine_s_p2_init.pth",
+        "--device",
+        "cuda:0",
+        "--seed",
+        "20260929"
+      ],
+      "pid": 405576,
+      "returncode": 0,
+      "finished": "2026-09-30T01:53:30.371766+00:00",
+      "evaluation_returncode": 0
+    }
+  ],
+  "finished": "2026-09-30T01:53:37.698373+00:00"
+}

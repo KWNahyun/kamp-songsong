@@ -1,0 +1,27 @@
+[
+  {
+    "id": "27",
+    "url": "https://www.kamp-ai.kr/contestNoticeDetail?CPT_NOTICE_SEQ=27",
+    "error": "400 Client Error: Bad Request for url: https://www.kamp-ai.kr/contestNoticeDetail?CPT_NOTICE_SEQ=27"
+  },
+  {
+    "id": "28",
+    "url": "https://www.kamp-ai.kr/contestNoticeDetail?CPT_NOTICE_SEQ=28",
+    "error": "400 Client Error: Bad Request for url: https://www.kamp-ai.kr/contestNoticeDetail?CPT_NOTICE_SEQ=28"
+  },
+  {
+    "id": "18",
+    "url": "https://www.kamp-ai.kr/contestNoticeDetail?CPT_NOTICE_SEQ=18",
+    "error": "400 Client Error: Bad Request for url: https://www.kamp-ai.kr/contestNoticeDetail?CPT_NOTICE_SEQ=18"
+  },
+  {
+    "id": "21",
+    "url": "https://www.kamp-ai.kr/contestNoticeDetail?CPT_NOTICE_SEQ=21",
+    "error": "400 Client Error: Bad Request for url: https://www.kamp-ai.kr/contestNoticeDetail?CPT_NOTICE_SEQ=21"
+  },
+  {
+    "id": "notice_list",
+    "url": "https://www.kamp-ai.kr/contestNoticeList",
+    "error": "400 Client Error: Bad Request for url: https://www.kamp-ai.kr/contestNoticeList"
+  }
+]
