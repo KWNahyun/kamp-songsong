@@ -1,0 +1,12 @@
+{
+  "mode": "predict",
+  "seconds": 19.945722818374634,
+  "device": "cpu",
+  "torch": "2.10.0",
+  "seeds": [
+    20260930
+  ],
+  "scope": "MAL+UQ final-model path; historical baseline and synthesis experiments are separate",
+  "threshold": 0.19337229430675507,
+  "threshold_optimized_on_test": false
+}

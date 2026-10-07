@@ -1,0 +1,980 @@
+--- a/README.md
++++ b/README.md
+@@ -1,107 +1,171 @@
+-# KAMP X-ray foreign-object detection
++# KAMP X-ray 이물질 탐지 — 소스코드·데이터 재현 패키지
+ 
+-KAMP 제6회 경진대회 ④번, **X-ray 영상 기반 완제품 이물질 탐지 및 AI 미탐지 조건 분석**을 위한 통합 코드 저장소입니다. 데이터 처리와 합성 X-ray 생성 파이프라인, YOLO/D-FINE 비교 실험, 최종 D-FINE-S + MAL + UQ 추론·평가 경로를 한 저장소에서 관리합니다.
++## 가장 먼저: 실행 순서 (아나콘다 기준)
+ 
+-> 공식 TXT는 학습·평가 정답입니다. BMP의 색상 사각형은 이물 자체의 신호가 아니므로 입력 특징으로 사용하지 않습니다. 마커를 제거한 이미지를 사용하고, 전처리 방법과 영향을 보고서에 기록합니다.
++**이 폴더에서 터미널 열기 → 가상환경 생성·활성화 → PyTorch 설치 → `requirements.txt` 설치 → `run_all.py` 실행 → 결과 확인**
+ 
+-## 빠른 시작: 고정 최종 모델 추론과 평가
++통합 실행 파일은 **`run_all.py`**입니다. `run.sh all`도 같은 파일을 호출하지만, 아래 안내에서는 `run_all.py`를 직접 실행합니다. Anaconda Prompt 또는 터미널에서 **이 README와 `run_all.py`가 있는 폴더로 이동한 뒤**, CPU/GPU 중 사용할 환경의 명령을 위에서 아래로 실행하세요. 환경 생성과 패키지 설치는 처음 한 번만 필요하며, 이후에는 해당 환경을 활성화하고 실행 명령을 사용합니다.
+ 
+-아래는 대회 결과를 재현하는 가장 짧은 경로입니다. 대표 모델 가중치 `repro/checkpoints/maluq_seed20260930.pth`와 MAL 재학습 초기화 가중치 `repro/checkpoints/dfine_s_coco_init.pth`는 저장소에 포함되어 있다. KAMP 원본 데이터와 마커 제거 입력 영상은 대회 제공 조건에 따라 별도로 준비한다.
++### CPU에서 예측·평가하기
+ 
+ ```bash
+-# 1) 저장소와 Python 환경 준비
+-git clone https://github.com/KWNahyun/kamp-songsong.git
+-cd kamp-songsong
+-./repro/run.sh setup .venv
+-# CUDA/드라이버에 맞는 torch·torchvision을 먼저 설치한 뒤:
+-.venv/bin/python -m pip install -r repro/requirements.txt
++# 1. 아나콘다 가상환경 생성 및 활성화
++conda create -n kamp-xray-cpu python=3.13 -y
++conda activate kamp-xray-cpu
+ 
+-# 2) 마커 제거 PNG를 입력해 추론
+-PYTHON=.venv/bin/python ./repro/run.sh predict \
+-  --images /path/to/kamp_xray_v2/images/val \
+-  --output outputs/val_prediction
++# 2. PyTorch와 의존성 패키지 설치
++python -m pip install --upgrade pip
++python -m pip install torch==2.10.0 torchvision==0.25.0
++python -m pip install -r requirements.txt
++python -m pip check
+ 
+-# 4) 저장된 예측을 공식 COCO 라벨로 평가
+-PYTHON=.venv/bin/python ./repro/run.sh evaluate \
+-  --predictions outputs/val_prediction/predictions.json \
+-  --annotations /path/to/kamp_xray_v2/coco/instances_val.json \
+-  --output outputs/val_metrics
++# 3. 데이터 검사 → val/test 예측 → 평가 → CSV 저장을 한 번에 실행
++python run_all.py --mode predict --device cpu --output outputs/frozen_cpu
+ ```
+ 
+-`predict`는 TXT를 읽지 않습니다. `evaluate` 단계에서만 TXT에서 변환한 COCO 정답을 읽습니다. 출력에는 전체 후보(`predictions.json`), 경보 요약(`image_summary.json`), 시각화(`overlays/`)와 실행 설정이 저장됩니다.
++### NVIDIA GPU에서 예측·평가하기
+ 
+-## 저장소 구성
+-
+-| 경로 | 역할 |
+-| --- | --- |
+-| `prep/` | 원본 인벤토리, 마커 제거, group split, KAMP 전달 패키지 생성 |
+-| `prep/synth/` | 옮겨심기·gVXR 기반 합성 X-ray 생성 |
+-| `eval/` | 공통 평가, 조건별 실패·임계값·합성 스트레스 분석 |
+-| `eda/` | 데이터 특성·중복·마커·결함 다양성 분석 |
+-| `baseline/`, `yolov3/` | 초기 YOLO 기준선과 참고 구현 |
+-| `repro/` | 최종 D-FINE-S + MAL + UQ 고정 모델의 추론·평가·재학습 패키지 |
+-| `REPORT.md` | 나현 데이터·합성 파이프라인의 상세 연구 기록 |
+-| `docs/` | 재현성·데이터 경로·실행 순서 안내 |
+-
+-## 데이터 준비와 마커 제거
+-
+-`prep/build_dataset.py`는 원본 BMP에서 색상 마커를 제거하고, 장비·날짜 그룹이 train/val/test에 섞이지 않도록 고정 분할을 만듭니다. `prep/build_handoff.py`는 학습용 PNG, 공식 TXT, YOLO와 COCO 형식 라벨, split manifest를 포함한 `kamp_xray_v2` 패키지를 생성합니다.
++CUDA 12.8용 PyTorch를 사용할 수 있는 NVIDIA 드라이버 환경에서 실행합니다.
+ 
+ ```bash
+-# 원본 자료와 EDA 산출물이 준비된 작업 루트에서
+-export KAMP_ROOT="$PWD"
+-python prep/build_dataset.py
+-python prep/build_handoff.py
++# 1. 아나콘다 가상환경 생성 및 활성화
++conda create -n kamp-xray-gpu python=3.13 -y
++conda activate kamp-xray-gpu
++
++# 2. CUDA용 PyTorch와 의존성 패키지 설치
++python -m pip install --upgrade pip
++python -m pip install torch==2.10.0 torchvision==0.25.0 --index-url https://download.pytorch.org/whl/cu128
++python -m pip install -r requirements.txt
++python -m pip check
++
++# 3. 데이터 검사 → val/test 예측 → 평가 → CSV 저장을 한 번에 실행
++python run_all.py --mode predict --device cuda:0 --output outputs/frozen_gpu
+ ```
+ 
+-실행 전 [데이터 파이프라인 안내](docs/DATA_AND_SYNTHESIS.md)를 읽으세요. 원본 데이터는 `.gitignore`에 의해 저장소에 포함되지 않습니다.
+-
+-## 합성 X-ray 생성과 조건별 스트레스 테스트
+-
+-`prep/synth/`에는 실제 결함 패치를 옮겨심는 방식과 gVXR 기반 물리 시뮬레이션을 이용해 위치·크기·형상·재질·대비를 바꾸는 코드가 있습니다.
++**학습부터 다시 실행하려면:** 위 GPU 환경의 설치·활성화를 마친 뒤, 예측 실행 명령 대신 다음을 사용합니다. MAL+UQ를 3개 seed로 재학습하고 val/test 예측·평가까지 진행합니다. 이 전체 학습 경로의 완주는 아직 검증되지 않았습니다.
+ 
+ ```bash
+-export KAMP_ROOT="$PWD"
+-# gVXR와 원본 calibration/erased background 산출물이 준비된 뒤 실행
+-python prep/synth/build_synth_test.py
++python run_all.py --mode train --device cuda:0 --output outputs/retrain
+ ```
+ 
+-합성 test는 실제 모델의 최종 점수를 대체하지 않습니다. 고정된 실제 검증 임계값을 적용해 취약 조건을 찾고, 임계값 변화에 따른 경보 부담을 분석하는 용도입니다. 자세한 생성 의존성·평가 방법·학습 전후 비교는 [데이터·합성 파이프라인](docs/DATA_AND_SYNTHESIS.md)을 참고하세요.
++테스트 예측 CSV는 지정한 출력 폴더의 `test/prediction/predictions.csv`, 평가 수치는 `test/metrics/metrics.json`에서 확인합니다. 재학습 결과는 `outputs/retrain/seed_<seed>/test/` 아래에 저장됩니다. 출력 폴더가 이미 있으면 중단되므로, 재실행할 때에는 `--output`에 새로운 폴더 이름을 지정하세요.
+ 
+-## MAL+UQ 재학습
++> <sub><strong>환경 참고:</strong> 같은 데이터와 가중치라도 CPU/GPU, CUDA·PyTorch 버전과 연산 방식에 따라 예측값·평가지표·재학습 결과가 달라질 수 있습니다. 결과를 비교할 때 실행 환경도 함께 확인하세요.</sub>
++
++---
++
++X-ray 영상에서 이물질을 찾고, 탐지 성능을 평가하는 프로젝트입니다. 소스코드와 고정 데이터 분할을 함께 담아, 설치부터 결과 확인까지 순서대로 실행할 수 있도록 정리했습니다.
++
++**실제 테스트 예측 생성 완료.** GitHub의 두 가중치 해시를 확인하고 검증 66장·테스트 84장의 추론과 공식 COCO 평가를 끝냈습니다. 바로 볼 파일은 [테스트 예측 CSV](predictions/test_predictions.csv), [테스트 평가](predictions/test_metrics.json), [박스 표시 영상](predictions/overlays/)입니다. 원래 검증 AP와 이번 결과는 약 0.55포인트 차이가 있으며, 전체 3개 seed 재학습은 아직 미검증입니다. [검수 보고서](REVIEW_REPORT.md)에 구분해 기록했습니다.
++
++## 1. 무엇이 들어 있나요?
++
++| 파일·폴더 | 내용 |
++| --- | --- |
++| `run_all.py` | 데이터 검사, 고정 모델 예측·평가, MAL+UQ 3개 seed 재학습을 한 명령으로 실행 |
++| `requirements.txt` | 최종 모델 경로의 Python 패키지 목록 |
++| `repro/` | D-FINE-S + MAL + UQ 구현, 모델 설정, 고정 분할과 가중치 해시 |
++| `repro/vendor/dfine/` | 원래 저장소에 지정된 D-FINE 전체 소스코드. 폴더에 포함되어 별도 다운로드 불필요 |
++| `data/kamp_xray_v2/` | 마커 제거 PNG, YOLO 라벨, COCO 라벨, 고정 분할표 |
++| `predictions/` | 이번에 실제 생성한 테스트 예측 JSON·CSV, 84장 요약, 평가와 박스 표시 영상 |
++| `results/frozen_cpu/` | 이번 val/test 통합 실행의 전체 원본 결과와 완료 기록 |
++| `verification/` | 이번 검수의 데이터 검사 결과와 설치 환경 기록 |
++| `prep/`, `eda/`, `eval/`, `baseline/`, `yolov3/` | 원래 프로젝트의 전처리·분석·비교 실험 코드와 기존 산출물 |
++| `docs/EXPERIMENT_SCOPE.md` | 통합 실행 범위와 별도 자원이 필요한 과거 실험 목록 |
++| `REPORT.md`, `REPORT.pdf` | 원래 상세 연구 보고서. 이번에 다시 계산한 결과가 아님 |
++
++GitHub 기준 버전은 `7dd38486dde36839708d77a387d8967efba766e3`입니다. 패키지에 적용한 수정은 `verification/source_changes.patch`에 기록했습니다.
++
++## 2. 데이터 구성
++
++| 분할 | 이미지 | 이물질 박스 | 용도 |
++| --- | ---: | ---: | --- |
++| train | 350장 | 797개 | 학습 |
++| val | 66장 | 144개 | 모델 선택·검증 |
++| test | 84장 | 206개 | 최종 평가 |
++
++같은 장비·날짜 그룹이 서로 다른 분할에 섞이지 않습니다. 공식 TXT로부터 만든 YOLO/COCO 라벨을 사용하며, 색상 사각형을 제거한 흑백 PNG를 모델에 입력합니다. 분할을 임의로 다시 만들지 마세요.
++
++`train` 모드는 학습용 640×640 데이터를 만들 때 train과 val만 읽습니다. 테스트 정답은 학습에 사용하지 않으며, 저장된 테스트 예측을 평가할 때만 읽습니다. 전체 파일 검사 단계에서는 test의 파일·라벨 일치 여부도 검사합니다.
++
++## 3. 실행 환경 준비
++
++이번 구성요소 검사는 **Python 3.13.5, PyTorch 2.10.0, torchvision 0.25.0, macOS CPU**에서 수행했습니다. 원래 결과를 얻은 환경은 `repro/environment/runtime.json`에 기록되어 있으며 CUDA 12.8을 사용합니다. 전체 학습에는 NVIDIA CUDA GPU가 필요합니다.
++
++환경 생성·활성화와 설치 명령은 문서 맨 위의 **아나콘다 실행 순서**를 따르세요. CPU 예측은 `kamp-xray-cpu`, GPU 예측·재학습은 `kamp-xray-gpu` 환경을 사용합니다.
++
++`requirements.txt`는 이미 선택한 CPU/CUDA용 torch를 덮어쓰지 않도록 torch 설치를 분리했습니다. 과거 YOLO/PIDray/gVXR 실험에는 추가 의존성과 데이터가 필요합니다. 이 파일은 최종 MAL+UQ 경로의 설치 목록입니다.
++
++## 4. 먼저 데이터 검사
+ 
+ ```bash
+-PYTHON=.venv/bin/python ./repro/run.sh prepare-data \
+-  --dataset /path/to/kamp_xray_v2 \
+-  --output outputs/data640
+-PYTHON=.venv/bin/python ./repro/run.sh configure-train \
+-  --data640 outputs/data640 \
+-  --output outputs/train.yml
+-PYTHON=.venv/bin/python ./repro/run.sh train-mal \
+-  --config outputs/train.yml \
+-  --init repro/checkpoints/dfine_s_coco_init.pth \
+-  --seed 20260930
+-PYTHON=.venv/bin/python ./repro/run.sh train-uq \
+-  --config outputs/train.yml \
+-  --base-checkpoint outputs/mal_run/best_stg1.pth \
+-  --output outputs/uq_run \
+-  --seed 20260930
++python run_all.py --mode check --output outputs/check
+ ```
+ 
+-MAL은 D-FINE의 기존 matching을 유지하면서 DEIM의 Matchability-Aware Loss를 적용한 구현입니다. UQ는 최종 query 특징·경계 분포 통계·기존 점수·박스 기하 정보를 사용해 후보별 위치 품질을 예측하고 검출 점수를 재조정합니다. 세 seed 결과를 함께 보고하며, 재학습 가중치가 배포용 대표 checkpoint를 자동으로 교체하지 않습니다.
++고정 분할, 그룹 누수, 파일 누락, PNG 크기, YOLO/COCO 박스 일치, 분할 간 동일 파일을 검사합니다. `outputs/check/dataset_audit.json`에 검사 결과를 저장합니다. 이 명령의 성공은 데이터 검사 통과를 의미하며, 모델 재현 성공을 의미하지 않습니다.
+ 
+-## 재현성 범위
++## 5. 고정된 최종 모델로 예측·평가
+ 
+-- 고정 대표 가중치의 추론·평가 경로는 마커 제거 입력과 지정한 설정에서 재현하도록 구성했습니다.
+-- 대표 checkpoint와 MAL 재학습 초기화 checkpoint는 저장소에 포함한다. KAMP 데이터, 원본 BMP, 합성 이미지와 중간 산출물은 공개 권한을 확인하지 못했으므로 저장소에 포함하지 않는다.
+-- D-FINE은 Apache-2.0, DEIM/MAL은 해당 upstream 고지에 따라 출처를 기록했습니다. 자세한 사항은 [`repro/THIRD_PARTY_NOTICES.txt`](repro/THIRD_PARTY_NOTICES.txt)를 참고하세요.
+-- GPU, CUDA, torch 버전은 `repro/environment/`에 기록했습니다. 전체 학습은 CUDA 연산 특성상 bitwise 동일성을 보장하지 않으므로 seed 3회 평균과 표준편차로 비교합니다.
++확인된 원래 가중치를 다음 위치에 포함했습니다.
+ 
+-## 핵심 참고문헌
++```text
++repro/checkpoints/maluq_seed20260930.pth
++```
+ 
+-- Peng et al. (2025). *D-FINE: Redefine Regression Task of DETRs as Fine-Grained Distribution Refinement*. ICLR.
+-- Huang et al. (2025). *DEIM: DETR with Improved Matching for Fast Convergence*. CVPR.
+-- Andriiashen et al. (2023). *CT-based Data Generation for Foreign Object Detection on a Single X-ray Projection*. Scientific Reports.
+-- Andriiashen et al. (2024). *X-ray Image Generation as a Method of Performance Prediction for Real-time Inspection*. Journal of Nondestructive Evaluation.
++예상 SHA-256:
+ 
+-각 논문 아이디어와 프로젝트 구현 범위는 보고서에서 구분해 설명합니다.
++```text
++ddbdbc3638e661003b49922832edb84a44c8d0b95e30d33906ff4cae984c6461
++```
++
++```bash
++python run_all.py --mode predict --output outputs/frozen --device cuda:0
++# CPU에서 실행한다면 --device cpu
++```
++
++이 한 명령은 데이터 검사 → val 예측 → val 평가 → test 예측 → test 평가 → CSV 내보내기를 실행합니다. 예측 단계는 정답 파일을 읽지 않습니다.
++
++| 결과 위치 | 내용 |
++| --- | --- |
++| `outputs/frozen/test/prediction/predictions.json` | 테스트 전체 검출 후보. 원본 영상 좌표의 `[x, y, width, height]` |
++| `outputs/frozen/test/prediction/predictions.csv` | 표로 열어 볼 수 있는 동일 예측결과 |
++| `outputs/frozen/test/prediction/image_summary.json` | 모든 테스트 이미지별 검출 수와 입력 해시. 검출이 없는 영상도 포함 |
++| `outputs/frozen/test/prediction/overlays/` | 고정 임계값 이상 검출 박스를 표시한 영상 |
++| `outputs/frozen/test/metrics/metrics.json` | AP, AP50, AP75, TP/FP/FN, recall 등 |
++| `outputs/frozen/completed.json` | 모든 단계가 성공했을 때만 생기는 완료 기록 |
++
++예측의 클래스 ID는 `0=defect`입니다. 평가 시 파일명으로 원래 COCO 이미지 ID와 클래스 ID에 대응시킵니다. 전체 후보의 최저 점수는 0.001, NMS IoU는 0.7, 경보 표시 임계값은 원래 val에서 고정한 0.19337229430675507입니다. 점수는 보정된 불량 확률이 아닙니다.
++
++## 6. MAL+UQ 3개 seed 재학습
++
++다음 초기 가중치도 포함했습니다. 일반 COCO 다운로드 파일과 다른, 단일 클래스용 프로젝트 초기 가중치입니다.
++
++```text
++repro/checkpoints/dfine_s_coco_init.pth
++SHA-256: 0ac6124d45341889b9999b2294540cc6105add3679fe6182ea692c9e6917f531
++```
++
++```bash
++python run_all.py --mode train --output outputs/retrain --device cuda:0
++```
++
++학습용 데이터 준비 → seed 20260929·20260930·20260931 각각 MAL 30 epoch → 검출기 고정 후 UQ 30 epoch → val/test 예측·평가 → seed 평균과 표본 표준편차 집계를 순서대로 실행합니다. 학습은 새 출력 폴더에 저장됩니다.
++
++재학습 모델의 TP/FP/recall은 원래 대표 모델의 검증 임계값을 그대로 적용해 계산하며, seed마다 임계값을 다시 최적화하지 않습니다. AP는 후보 전체를 사용합니다. 이 재학습 경로의 완주와 과거 결과 일치는 아직 검증되지 않았습니다.
++
++모든 실행은 새 출력 폴더를 사용해야 합니다. 이미 존재하는 출력 폴더를 지정하면 중단됩니다. 실패한 실행에는 `completed.json`이 없으므로 완료 결과로 취급하지 마세요.
++
++## 7. 이번 실제 실행 결과
++
++| 분할 | AP | AP50 | AP75 | recall | TP / FP / FN |
++| --- | ---: | ---: | ---: | ---: | --- |
++| val 66장 | 38.7285 | 97.8630 | 18.2255 | 98.6111% | 142 / 8 / 2 |
++| test 84장 | 38.5547 | 94.4548 | 15.0455 | 95.6311% | 197 / 16 / 9 |
++
++AP는 COCO AP@[0.50:0.95]이며 0~100 척도입니다. TP/FP/FN과 recall은 고정 경보 임계값 0.19337229430675507, IoU 0.5에서 계산했습니다. 검출이 없는 영상이 있어도 자동 정상 판정을 의미하지 않습니다.
++
++원래 manifest의 val AP는 39.2758, 이번 값은 38.7285입니다. 포장 과정의 수정 때문에 달라진 것인지 확인하기 위해 원래 GitHub 예측 코드의 CUDA 호출만 CPU로 바꿔 같은 환경에서 실행했습니다. 검증 후보 전체가 현재 코드와 정확히 같았습니다. 차이의 원인이 실행 장치·라이브러리 또는 원래 입력 데이터/정답의 차이인지 아직 확정하지 못했습니다.
++
++전체 3개 seed 재학습과 GPU 대조는 미완료입니다. 과거 YOLO/PIDray 비교, 합성 스트레스 전체까지 재현한 폴더는 아닙니다. [실험 범위](docs/EXPERIMENT_SCOPE.md)를 확인하세요. 원래 REPORT §5의 YOLOv8s 최종 모델과 현재 GitHub README의 MAL+UQ 모델은 다르므로, 이번 폴더는 업로드된 MAL+UQ 대표 가중치를 기준으로 생성했습니다.
++
++데이터·코드·가중치 출처는 `repro/THIRD_PARTY_NOTICES.txt`와 `verification/results.json`에 기록했습니다.
+--- a/repro/README.md
++++ b/repro/README.md
+@@ -1,46 +1,15 @@
+-# 최종 MAL+UQ 재현 패키지
++# 최종 MAL+UQ 실행 코드
+ 
+-`repro/`는 대표 모델 **D-FINE-S + MAL + UQ + NMS(0.7)** 의 추론, 공식 COCO 평가, 그리고 MAL/UQ 재학습 경로를 담는다. 대표 추론 가중치와 MAL 재학습 초기화 가중치는 `checkpoints/`에 포함되어 있으며, KAMP 데이터만 별도로 준비한다.
++설치, 데이터, 실행 방법, 검수 상태는 루트의 [README](../README.md)를 읽으세요.
+ 
+-## 준비
++통합 실행:
+ 
+ ```bash
+-./repro/run.sh setup .venv
+-# 환경의 CUDA/드라이버에 맞는 torch와 torchvision을 먼저 설치
+-.venv/bin/python -m pip install -r repro/requirements.txt
++python run_all.py --mode check --output outputs/check
++python run_all.py --mode predict --output outputs/frozen --device cuda:0
++python run_all.py --mode train --output outputs/retrain --device cuda:0
+ ```
+ 
+-`environment/runtime.json`은 결과를 얻은 실행 환경이고, `environment/requirements.lock.txt`는 당시 전체 패키지 기록이다. GPU 환경마다 CUDA용 PyTorch wheel이 다르므로 설치 명령은 의도적으로 분리했다.
++`predict`에는 대표 checkpoint, `train`에는 프로젝트의 단일 클래스 초기 checkpoint가 필요합니다. `checkpoints/README.md`와 `manifests/`의 해시를 확인하세요.
+ 
+-## 입력과 가중치
+-
+-- 입력은 마커 제거 이미지로 구성한 `kamp_xray_v2` 패키지다.
+-- 대표 가중치와 MAL 재학습 초기화 가중치는 `repro/checkpoints/`에 포함되어 있다. 파일명과 SHA-256은 `checkpoints/README.md`에서 확인할 수 있다.
+-- `manifests/split_manifest.csv`와 `manifests/model.json`에는 고정 split, 이미지 크기, NMS IoU, box scale, 검증 operating point가 기록돼 있다.
+-
+-## 고정 모델 평가
+-
+-```bash
+-PYTHON=.venv/bin/python ./repro/run.sh predict \
+-  --images /path/to/kamp_xray_v2/images/val \
+-  --output outputs/val_prediction
+-
+-PYTHON=.venv/bin/python ./repro/run.sh evaluate \
+-  --predictions outputs/val_prediction/predictions.json \
+-  --annotations /path/to/kamp_xray_v2/coco/instances_val.json \
+-  --output outputs/val_metrics
+-```
+-
+-`predict`는 이미지와 고정 가중치만 사용하며 TXT/COCO 정답을 읽지 않는다. `evaluate`가 저장된 예측과 공식 정답을 분리해 AP, AP50, AP75, recall을 계산한다. 시각화와 이미지별 경보 요약도 `predict` 출력에 함께 생성된다.
+-
+-## 재학습
+-
+-`prepare-data`와 `configure-train`을 먼저 실행한 뒤, 세 난수 초기값으로 MAL과 UQ를 학습한다. 각 seed의 수치와 평균·표준편차를 함께 보고, 하나의 새 가중치가 기존 대표 checkpoint를 자동으로 대체하지 않도록 한다.
+-
+-```bash
+-PYTHON=.venv/bin/python ./repro/run.sh prepare-data --dataset /path/to/kamp_xray_v2 --output outputs/data640
+-PYTHON=.venv/bin/python ./repro/run.sh configure-train --data640 outputs/data640 --output outputs/train.yml
+-PYTHON=.venv/bin/python ./repro/run.sh train-mal --config outputs/train.yml --init repro/checkpoints/dfine_s_coco_init.pth --seed 20260930
+-```
+-
+-합성 데이터 생성과 조건별 스트레스 평가는 저장소 최상단의 `prep/synth/`, `eval/synth/`, 그리고 [데이터·합성 파이프라인](../docs/DATA_AND_SYNTHESIS.md)에서 안내한다.
++세부 단계는 기존 `repro/run.sh`로도 실행할 수 있습니다. `PYTHON=.venv/bin/python`을 지정해 준비한 환경을 사용하세요.
+--- a/repro/THIRD_PARTY_NOTICES.txt
++++ b/repro/THIRD_PARTY_NOTICES.txt
+@@ -28,3 +28,11 @@
+ including Ultralytics used for baseline comparisons. It is not a minimal D-FINE-only list.
+ Dependency packages and their license texts are not bundled as vendor source.
+ No blanket license is assigned to the team-created package or to KAMP data by this file.
++
++Packaging review, 2026-10-07:
++D-FINE submodule is expanded into real source files in this ZIP at the recorded commit.
++licenses/D_FINE_LICENSE was copied from that checkout.
++licenses/DEIM_LICENSE was retrieved from Intellindust-AI-Lab/DEIM/LICENSE
++(GitHub redirects the old ShihuaHuang95/DEIM repository there),
++blob SHA: 1fae0a691f08b2abcf738bf12e47b2218f8c5679.
++This does not recover the unrecorded historical MAL reference source commit.
+--- a/repro/predict.py
++++ b/repro/predict.py
+@@ -1,50 +1,127 @@
+-"""Frozen KAMP v2 inference on marker-removed grayscale images. No GT is read."""
++"""MAL+UQ inference on marker-removed grayscale images. No ground truth is read."""
+ from pathlib import Path
+-import argparse,json,hashlib,sys,time
+-import cv2,numpy as np,torch
+-R=Path(__file__).resolve().parent
++import argparse
++import hashlib
++import json
++import sys
++import time
++
++import cv2
++import numpy as np
++import torch
++
++ROOT = Path(__file__).resolve().parent
++
++
+ def main():
+- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--images',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--variant',choices=['dfine_mal_UQ'],default='dfine_mal_UQ');p.add_argument('--seed',type=int,choices=[20260930],default=20260930);p.add_argument('--preprocessed',action='store_true',required=True,help='Confirm inputs are the marker-removed grayscale images, not marked originals');a=p.parse_args()
+- paths=sorted([a.images] if a.images.is_file() else [p for p in a.images.iterdir() if p.suffix.lower() in ['.png','.bmp','.jpg','.jpeg']]);assert paths,'No input images';assert not a.output.exists(),'Use a new output directory to preserve earlier outputs';a.output.mkdir(parents=True);(a.output/'overlays').mkdir()
+- j=json.loads((R/'manifests/model.json').read_text());name=j['name'];assert a.variant=='dfine_mal_UQ' and a.seed==j['seed'];j['checkpoint']=str(R/j['checkpoint']);j['config']=str(R/j['config']);assert hashlib.sha256(Path(j['checkpoint']).read_bytes()).hexdigest()==j['sha256']
+- sys.path[:0]=[str(R/'vendor/dfine'),str(R/'src')]
+- from metrics import nms
+- torch.set_num_threads(4)
+- if a.variant.startswith('yolo'):
+-  from ultralytics import YOLO
+-  model=YOLO(j['checkpoint'])
+- else:
+-  if a.variant=='dfine_s_p2':
+-   import dfine_p2;dfine_p2.install()
+-  if a.variant=='dfine_mal_UQ':
+-   from selector_patch import install_model
+-   install_model('unary')
+-  from src.core import YAMLConfig
+-  cfg=YAMLConfig(j['config']);model=cfg.model;ck=torch.load(j['checkpoint'],map_location='cpu',weights_only=False);model.load_state_dict(ck['ema']['module'] if 'ema' in ck else ck['model']);model.cuda().eval()
+- start=time.time();allpred=[];summaries=[]
+- for iid,path in enumerate(paths,1):
+-  original=cv2.imread(str(path),cv2.IMREAD_UNCHANGED)
+-  if original is None or original.dtype!=np.uint8:raise ValueError(f'Expected decodable uint8 image: {path}')
+-  if original.ndim==3:
+-   if original.shape[2]!=3 or not np.array_equal(original[:,:,0],original[:,:,1]) or not np.array_equal(original[:,:,0],original[:,:,2]):raise ValueError('Marked/color input is outside the frozen preprocessing contract: '+str(path))
+-   gray=original[:,:,0]
+-  elif original.ndim==2:gray=original
+-  else:raise ValueError('Unexpected image channels')
+-  h,w=gray.shape;nw,nh=round(w*640/max(w,h)),round(h*640/max(w,h));px,py=(640-nw)//2,(640-nh)//2;canvas=np.full((640,640,3),114,np.uint8);canvas[py:py+nh,px:px+nw]=cv2.resize(cv2.cvtColor(gray,cv2.COLOR_GRAY2BGR),(nw,nh),interpolation=cv2.INTER_LINEAR)
+-  if a.variant.startswith('yolo'):
+-   q=model.predict(canvas,imgsz=640,device=0,conf=.001,iou=.7,max_det=300,rect=False,verbose=False)[0];boxes=q.boxes.xyxy.cpu().numpy();scores=q.boxes.conf.cpu().numpy()
+-  else:
+-   x=torch.from_numpy(canvas.copy()).permute(2,0,1)[None].float().cuda()/255
+-   with torch.no_grad():q=cfg.postprocessor(model(x),torch.tensor([[640,640]],device='cuda'))[0]
+-   valid=q['scores']>=.001;boxes=q['boxes'][valid].cpu().numpy();scores=q['scores'][valid].cpu().numpy()
+-  preds=[]
+-  for b,score in zip(boxes,scores):
+-   xx=np.clip((b[[0,2]].astype(float)-px)/(nw/w),0,w);yy=np.clip((b[[1,3]].astype(float)-py)/(nh/h),0,h)
+-   if xx[1]>xx[0] and yy[1]>yy[0]:preds.append(dict(image_id=iid,file_name=path.name,category_id=0,bbox=[float(xx[0]),float(yy[0]),float(xx[1]-xx[0]),float(yy[1]-yy[0])],score=float(score)))
+-  preds=nms(preds,.7);alarms=[q for q in preds if q['score']>=j['val_threshold']];allpred.extend(preds);overlay=cv2.cvtColor(gray,cv2.COLOR_GRAY2BGR)
+-  for q in alarms:
+-   x,y,bw,bh=q['bbox'];cv2.rectangle(overlay,(round(x),round(y)),(round(x+bw),round(y+bh)),(0,130,255),1);cv2.putText(overlay,f"{q['score']:.3f}",(max(0,round(x)),max(10,round(y)-3)),cv2.FONT_HERSHEY_SIMPLEX,.3,(0,80,220),1,cv2.LINE_AA)
+-  cv2.imwrite(str(a.output/'overlays'/f'{iid:04d}_{path.stem}.png'),overlay);summaries.append(dict(image_id=iid,file_name=path.name,width=w,height=h,source_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),threshold=j['val_threshold'],detections=len(alarms),status='detections_present' if alarms else 'no_detection_review_required',auto_pass_authorized=False))
+-  print(json.dumps(summaries[-1]),flush=True)
+- (a.output/'predictions.json').write_text(json.dumps(allpred,indent=2));(a.output/'image_summary.json').write_text(json.dumps(summaries,indent=2));(a.output/'run_metadata.json').write_text(json.dumps(dict(run=name,checkpoint_sha256=j['sha256'],val_threshold=j['val_threshold'],images=len(paths),seconds=time.time()-start,GT_used=False,preprocessing='provided marker-removed uint8 grayscale; original-resolution input; 640 central letterbox',NMS=.7,box_scale=1,score_floor=.001,score_is_calibrated_probability=False),indent=2))
+-if __name__=='__main__':main()
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--images', type=Path, required=True)
++    parser.add_argument('--output', type=Path, required=True)
++    parser.add_argument('--variant', choices=['dfine_mal_UQ'], default='dfine_mal_UQ')
++    parser.add_argument('--seed', type=int, default=20260930)
++    parser.add_argument('--device', default='cuda:0')
++    parser.add_argument('--checkpoint', type=Path, help='Explicit retrained MAL+UQ checkpoint')
++    parser.add_argument('--checkpoint-sha256', help='Required hash for an explicit checkpoint')
++    parser.add_argument('--preprocessed', action='store_true', required=True,
++                        help='Confirm marker-removed grayscale input, not marked originals')
++    args = parser.parse_args()
++    if not args.images.exists():
++        raise FileNotFoundError(args.images)
++    paths = sorted([args.images] if args.images.is_file() else
++                   [p for p in args.images.iterdir() if p.suffix.lower() in ('.png', '.bmp', '.jpg', '.jpeg')])
++    if not paths:
++        raise ValueError('No input images')
++    if args.output.exists():
++        raise FileExistsError('Use a new output directory to preserve earlier outputs')
++    manifest = json.loads((ROOT / 'manifests/model.json').read_text())
++    frozen = args.checkpoint is None
++    if frozen and args.seed != manifest['seed']:
++        raise ValueError('The frozen representative checkpoint requires seed 20260930')
++    checkpoint = args.checkpoint.resolve() if args.checkpoint else ROOT / manifest['checkpoint']
++    expected = args.checkpoint_sha256 if args.checkpoint else manifest['sha256']
++    if not expected:
++        raise ValueError('--checkpoint-sha256 is required for a retrained checkpoint')
++    digest = hashlib.sha256(checkpoint.read_bytes()).hexdigest()
++    if digest != expected:
++        raise ValueError(f'Checkpoint SHA256 mismatch: expected={expected}, actual={digest}')
++    device = torch.device(args.device)
++    if device.type == 'cuda' and not torch.cuda.is_available():
++        raise RuntimeError('CUDA is unavailable. Fixed-model inference supports --device cpu')
++    sys.path[:0] = [str(ROOT / 'vendor/dfine'), str(ROOT / 'src')]
++    from metrics import nms
++    from selector_patch import install_model
++    install_model('unary')
++    from src.core import YAMLConfig
++    torch.set_num_threads(4)
++    config = YAMLConfig(str(ROOT / manifest['config']))
++    model = config.model
++    state = torch.load(checkpoint, map_location='cpu', weights_only=False)
++    if not frozen and state.get('seed', args.seed) != args.seed:
++        raise ValueError('Retrained checkpoint seed differs from requested seed')
++    model.load_state_dict(state['ema']['module'] if 'ema' in state else state['model'])
++    model.to(device).eval()
++    args.output.mkdir(parents=True)
++    (args.output / 'overlays').mkdir()
++    started = time.time()
++    allpred, summaries = [], []
++    for image_id, path in enumerate(paths, 1):
++        image = cv2.imread(str(path), cv2.IMREAD_UNCHANGED)
++        if image is None or image.dtype != np.uint8:
++            raise ValueError(f'Expected decodable uint8 image: {path}')
++        if image.ndim == 3:
++            if image.shape[2] != 3 or not np.array_equal(image[:, :, 0], image[:, :, 1]) or not np.array_equal(image[:, :, 0], image[:, :, 2]):
++                raise ValueError(f'Marked/color image is outside the preprocessing contract: {path}')
++            gray = image[:, :, 0]
++        elif image.ndim == 2:
++            gray = image
++        else:
++            raise ValueError(f'Unexpected channels: {path}')
++        h, w = gray.shape
++        nw, nh = round(w * 640 / max(w, h)), round(h * 640 / max(w, h))
++        px, py = (640 - nw) // 2, (640 - nh) // 2
++        canvas = np.full((640, 640, 3), 114, np.uint8)
++        canvas[py:py+nh, px:px+nw] = cv2.resize(cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR), (nw, nh), interpolation=cv2.INTER_LINEAR)
++        tensor = torch.from_numpy(canvas.copy()).permute(2, 0, 1)[None].float().to(device) / 255
++        with torch.no_grad():
++            output = config.postprocessor(model(tensor), torch.tensor([[640, 640]], device=device))[0]
++        valid = output['scores'] >= manifest['score_floor']
++        boxes = output['boxes'][valid].cpu().numpy()
++        scores = output['scores'][valid].cpu().numpy()
++        predictions = []
++        for box, score in zip(boxes, scores):
++            xx = np.clip((box[[0, 2]].astype(float) - px) / (nw / w), 0, w)
++            yy = np.clip((box[[1, 3]].astype(float) - py) / (nh / h), 0, h)
++            if not np.isfinite(box).all() or not np.isfinite(score):
++                raise FloatingPointError('Nonfinite model output')
++            if xx[1] > xx[0] and yy[1] > yy[0]:
++                predictions.append(dict(image_id=image_id, file_name=path.name, category_id=0,
++                    bbox=[float(xx[0]), float(yy[0]), float(xx[1]-xx[0]), float(yy[1]-yy[0])], score=float(score)))
++        predictions = nms(predictions, manifest['NMS'])
++        alarms = [p for p in predictions if p['score'] >= manifest['val_threshold']]
++        allpred.extend(predictions)
++        overlay = cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
++        for pred in alarms:
++            x, y, bw, bh = pred['bbox']
++            cv2.rectangle(overlay, (round(x), round(y)), (round(x+bw), round(y+bh)), (0, 130, 255), 1)
++            cv2.putText(overlay, f"{pred['score']:.3f}", (max(0, round(x)), max(10, round(y)-3)), cv2.FONT_HERSHEY_SIMPLEX, .3, (0, 80, 220), 1, cv2.LINE_AA)
++        if not cv2.imwrite(str(args.output / 'overlays' / f'{image_id:04d}_{path.stem}.png'), overlay):
++            raise OSError(f'Could not save overlay for {path}')
++        summary = dict(image_id=image_id, file_name=path.name, width=w, height=h,
++            source_sha256=hashlib.sha256(path.read_bytes()).hexdigest(), threshold=manifest['val_threshold'],
++            detections=len(alarms), status='detections_present' if alarms else 'no_detection_review_required',
++            auto_pass_authorized=False)
++        summaries.append(summary)
++        print(json.dumps(summary), flush=True)
++    (args.output / 'predictions.json').write_text(json.dumps(allpred, indent=2))
++    (args.output / 'image_summary.json').write_text(json.dumps(summaries, indent=2))
++    metadata = dict(run=manifest['name'] if frozen else f'dfine_mal_UQ_retrained_seed{args.seed}',
++        frozen_representative=frozen, seed=args.seed, checkpoint_sha256=digest, device=str(device),
++        val_threshold=manifest['val_threshold'], threshold_policy='fixed original validation threshold; not reoptimized',
++        images=len(paths), seconds=time.time()-started, GT_used=False,
++        preprocessing='provided marker-removed uint8 grayscale; original-resolution input; 640 central letterbox',
++        NMS=manifest['NMS'], box_scale=1, score_floor=manifest['score_floor'], score_is_calibrated_probability=False)
++    (args.output / 'run_metadata.json').write_text(json.dumps(metadata, indent=2))
++
++
++if __name__ == '__main__':
++    main()
+--- a/repro/requirements.txt
++++ b/repro/requirements.txt
+@@ -15,3 +15,7 @@
+ tensorboard==2.21.0
+ tqdm==4.70.1
+ transformers==4.49.0
++
++# D-FINE training imports its FLOP profiler via src.misc.
++calflops==0.3.2
++pillow==12.3.0
+--- a/repro/train_mal.py
++++ b/repro/train_mal.py
+@@ -1,7 +1,16 @@
++"""Install the MAL loss patch and invoke the pinned D-FINE trainer."""
+ from pathlib import Path
+-import sys,runpy
+-R=Path(__file__).resolve().parent
+-sys.path[:0]=[str(R/'vendor/dfine'),str(R/'src')]
+-from loss_patch import install
+-install(0.0,True)
+-runpy.run_path(str(R/'vendor/dfine/train.py'),run_name='__main__')
++import sys
++import runpy
++
++
++def main():
++    root = Path(__file__).resolve().parent
++    sys.path[:0] = [str(root / 'vendor/dfine'), str(root / 'src')]
++    from loss_patch import install
++    install(0.0, True)
++    runpy.run_path(str(root / 'vendor/dfine/train.py'), run_name='__main__')
++
++
++if __name__ == '__main__':
++    main()
+--- a/repro/train_uq.py
++++ b/repro/train_uq.py
+@@ -22,6 +22,9 @@
+     random.seed(seed)
+     np.random.seed(seed)
+     torch.manual_seed(seed)
++    device = torch.device(arguments.device)
++    if device.type == "cuda" and not torch.cuda.is_available():
++        raise RuntimeError("CUDA is unavailable")
+     torch.cuda.manual_seed_all(seed)
+ 
+     from selector_patch import _max_iou_target, install_model
+@@ -29,11 +32,8 @@
+     install_model(mode)
+     from src.core import YAMLConfig
+ 
+-    config_name = "dfine_UQ_seed20260929.yml" if mode == "unary" else "dfine_RQS_seed20260929.yml"
+     config = YAMLConfig(str(arguments.config.resolve()))
+-    model = config.model.cuda()
+-    parent = 'kamp_v2_baselines' if base == 'base' else 'kamp_v2_mal'
+-    base_name = 'dfine_s' if base == 'base' else 'dfine_M'
++    model = config.model.to(device)
+     control_path = arguments.base_checkpoint.resolve()
+     control = torch.load(control_path, map_location="cpu", weights_only=False)
+     control_state = control["ema"]["module"] if "ema" in control else control["model"]
+@@ -63,10 +63,10 @@
+         epoch_losses = []
+         for batch_index, (samples, targets) in enumerate(train_loader):
+             if smoke and batch_index >= 2: break
+-            samples = samples.cuda(non_blocking=True)
++            samples = samples.to(device, non_blocking=True)
+             targets = [
+                 {
+-                    key: value.cuda(non_blocking=True) if torch.is_tensor(value) else value
++                    key: value.to(device, non_blocking=True) if torch.is_tensor(value) else value
+                     for key, value in target.items()
+                 }
+                 for target in targets
+@@ -140,5 +140,6 @@
+     parser.add_argument("--seed", type=int, default=20260929)
+     parser.add_argument("--base", choices=["mal"], default="mal")
+     parser.add_argument("--smoke", action="store_true")
++    parser.add_argument("--device", default="cuda:0")
+     arguments = parser.parse_args()
+     main(arguments.mode, arguments.seed, arguments.base, arguments.smoke)
+--- a/run.sh
++++ b/run.sh
+@@ -10,6 +10,7 @@
+     cat <<'USAGE'
+ KAMP unified runner
+ 
++  ./run.sh all [--mode check|predict|train] ...  Integrated MAL+UQ runner
+   ./run.sh final <command> ...      Final MAL+UQ package; see ./repro/run.sh help
+   ./run.sh data-build               Build marker-removed dataset (requires raw inputs + EDA outputs)
+   ./run.sh handoff-build            Build KAMP train/val/test handoff package
+@@ -19,6 +20,9 @@
+ prepare the raw data plus intermediate EDA/calibration assets described in
+ docs/DATA_AND_SYNTHESIS.md.
+ USAGE
++    ;;
++  all)
++    exec "${PYTHON:-python3}" "$ROOT/run_all.py" "$@"
+     ;;
+   final)
+     exec "$ROOT/repro/run.sh" "$@"
+--- /dev/null
++++ b/requirements.txt
+@@ -0,0 +1,2 @@
++# Python 3.13; CPU/CUDA torch installation is described in README.md.
++-r repro/requirements.txt
+--- /dev/null
++++ b/run_all.py
+@@ -0,0 +1,136 @@
++"""One command for fixed-model validation/test inference or three-seed MAL+UQ training."""
++from pathlib import Path
++import argparse
++import csv
++import json
++import statistics
++import subprocess
++import sys
++import time
++
++ROOT = Path(__file__).resolve().parent
++sys.path.insert(0, str(ROOT / 'repro' / 'scripts'))
++from audit_dataset import audit, sha256
++
++
++def run(command):
++    print('Running:', ' '.join(map(str, command)), flush=True)
++    subprocess.run(list(map(str, command)), cwd=ROOT, check=True)
++
++
++def checkpoint(path, expected):
++    if not path.is_file():
++        raise FileNotFoundError(f'Required checkpoint is missing: {path}')
++    actual = sha256(path)
++    if actual != expected:
++        raise ValueError(f'Checkpoint SHA256 differs: {path}; expected={expected}, actual={actual}')
++    return actual
++
++
++def predict_evaluate(dataset, output, device, ck=None, seed=20260930):
++    for split in ('val', 'test'):
++        prediction = output / split / 'prediction'
++        cmd = [sys.executable, ROOT / 'repro/predict.py', '--preprocessed', '--device', device,
++               '--images', dataset / 'images' / split, '--output', prediction, '--seed', seed]
++        if ck is not None:
++            cmd += ['--checkpoint', ck, '--checkpoint-sha256', sha256(ck)]
++        run(cmd)
++        run([sys.executable, ROOT / 'repro/evaluate.py', '--predictions', prediction / 'predictions.json',
++             '--annotations', dataset / 'coco' / f'instances_{split}.json', '--output', output / split / 'metrics'])
++        export_csv(prediction)
++
++
++def export_csv(folder):
++    rows = json.loads((folder / 'predictions.json').read_text())
++    fields = ['image_id', 'file_name', 'category_id', 'x', 'y', 'width', 'height', 'score']
++    with (folder / 'predictions.csv').open('w', newline='', encoding='utf-8-sig') as f:
++        writer = csv.DictWriter(f, fieldnames=fields)
++        writer.writeheader()
++        for row in rows:
++            box = row['bbox']
++            writer.writerow({**{k: row[k] for k in fields if k in row},
++                             **dict(zip(['x', 'y', 'width', 'height'], box))})
++
++
++def main():
++    parser = argparse.ArgumentParser(description=__doc__)
++    parser.add_argument('--mode', choices=['check', 'predict', 'train'], default='predict')
++    parser.add_argument('--dataset', type=Path, default=ROOT / 'data/kamp_xray_v2')
++    parser.add_argument('--output', type=Path, default=ROOT / 'outputs/reproduction')
++    parser.add_argument('--device', default='cuda:0')
++    parser.add_argument('--seeds', type=int, nargs='+', default=[20260929, 20260930, 20260931])
++    args = parser.parse_args()
++    dataset, output = args.dataset.resolve(), args.output.resolve()
++    result = audit(dataset, ROOT / 'repro/manifests/split_manifest.csv')
++    model = json.loads((ROOT / 'repro/manifests/model.json').read_text())
++    frozen = ROOT / 'repro' / model['checkpoint']
++    init = ROOT / 'repro/checkpoints/dfine_s_coco_init.pth'
++    result['checkpoints'] = {'frozen_present': frozen.is_file(), 'initialization_present': init.is_file()}
++    if args.mode == 'check':
++        output.mkdir(parents=True, exist_ok=False)
++        (output / 'dataset_audit.json').write_text(json.dumps(result, indent=2))
++        print(json.dumps({k: v for k, v in result.items() if k != 'files'}, indent=2))
++        print('DATA CHECK PASSED. This does not certify training or inference.')
++        return
++    if not (ROOT / 'repro/vendor/dfine/src/core/__init__.py').is_file():
++        raise FileNotFoundError('D-FINE source is missing; initialize Git submodules or use the complete ZIP')
++    if args.mode == 'predict':
++        checkpoint(frozen, model['sha256'])
++    else:
++        if not args.device.startswith('cuda'):
++            raise ValueError('Full training requires a CUDA GPU')
++        if len(set(args.seeds)) != len(args.seeds):
++            raise ValueError('Duplicate seeds')
++        provenance = json.loads((ROOT / 'repro/manifests/source_provenance.json').read_text())
++        init_hash = next(row['sha256'] for row in provenance['training_sources'] if row['source'].endswith('/dfine_s_init.pth'))
++        checkpoint(init, init_hash)
++    import torch
++    if args.device.startswith('cuda') and not torch.cuda.is_available():
++        raise RuntimeError('CUDA GPU is unavailable; fixed-model inference also supports --device cpu')
++    output.mkdir(parents=True, exist_ok=False)
++    (output / 'dataset_audit.json').write_text(json.dumps(result, indent=2))
++    started = time.time()
++    if args.mode == 'predict':
++        predict_evaluate(dataset, output, args.device)
++    else:
++        data640 = output / 'data640'
++        run([sys.executable, ROOT / 'repro/scripts/prepare_training.py', '--dataset', dataset, '--output', data640])
++        results = []
++        for seed in args.seeds:
++            seed_output = output / f'seed_{seed}'
++            config = seed_output / 'train.yml'
++            run([sys.executable, ROOT / 'repro/scripts/configure_training.py', '--data640', data640, '--output', config])
++            run([sys.executable, ROOT / 'repro/train_mal.py', '-c', config, '-t', init,
++                 '--device', args.device, '--seed', seed])
++            mal = seed_output / 'mal_run/best_stg1.pth'
++            if not mal.is_file():
++                raise FileNotFoundError(f'MAL training did not produce {mal}')
++            uq = seed_output / 'uq_run'
++            run([sys.executable, ROOT / 'repro/train_uq.py', '--config', config, '--base-checkpoint', mal,
++                 '--output', uq, '--device', args.device, '--seed', seed])
++            predict_evaluate(dataset, seed_output, args.device, uq / 'last.pth', seed)
++            for split in ('val', 'test'):
++                metrics = json.loads((seed_output / split / 'metrics/metrics.json').read_text())
++                results.append({'seed': seed, 'split': split, **metrics})
++        (output / 'seed_metrics.json').write_text(json.dumps(results, indent=2))
++        summary = {}
++        for split in ('val', 'test'):
++            summary[split] = {}
++            for metric in ('AP', 'AP50', 'AP75', 'recall', 'FP_per_image'):
++                values = [r[metric] for r in results if r['split'] == split]
++                summary[split][metric] = {'mean': statistics.mean(values),
++                                        'sample_std': statistics.stdev(values) if len(values) > 1 else 0}
++        (output / 'seed_summary.json').write_text(json.dumps(summary, indent=2))
++    (output / 'completed.json').write_text(json.dumps({'mode': args.mode, 'seconds': time.time()-started,
++        'device': args.device, 'torch': torch.__version__, 'seeds': args.seeds if args.mode == 'train' else [model['seed']],
++        'scope': 'MAL+UQ final-model path; historical baseline and synthesis experiments are separate',
++        'threshold': model['val_threshold'], 'threshold_optimized_on_test': False}, indent=2))
++    print(f'COMPLETED: {output}')
++
++
++if __name__ == '__main__':
++    try:
++        main()
++    except (ValueError, FileNotFoundError, RuntimeError, subprocess.CalledProcessError) as error:
++        print(f'FAILED: {error}', file=sys.stderr)
++        sys.exit(1)
+--- /dev/null
++++ b/repro/scripts/audit_dataset.py
+@@ -0,0 +1,90 @@
++"""Validate the bundled, fixed KAMP split without changing source data."""
++from pathlib import Path
++import collections
++import csv
++import hashlib
++import json
++import math
++import struct
++
++
++def sha256(path):
++    h = hashlib.sha256()
++    with Path(path).open('rb') as f:
++        for chunk in iter(lambda: f.read(1024 * 1024), b''):
++            h.update(chunk)
++    return h.hexdigest()
++
++
++def require(ok, message):
++    if not ok:
++        raise ValueError(message)
++
++
++def audit(dataset, reference_manifest):
++    dataset = Path(dataset).resolve()
++    manifest = dataset / 'split_manifest.csv'
++    require(sha256(manifest) == sha256(reference_manifest), 'Split manifest differs from the recorded experiment')
++    rows = list(csv.DictReader(manifest.open(encoding='utf-8-sig')))
++    require(len({r['image_id'] for r in rows}) == len(rows), 'Duplicate image IDs')
++    groups = collections.defaultdict(set)
++    seen = {}
++    result = {'passed': True, 'manifest_sha256': sha256(manifest), 'splits': {},
++              'files': [], 'scope': 'fixed split, groups, PNG dimensions, YOLO/COCO agreement, exact file duplicates'}
++    for row in rows:
++        require(row['split'] in {'train', 'val', 'test'}, 'Unknown split')
++        groups[row['group']].add(row['split'])
++    require(all(len(splits) == 1 for splits in groups.values()), 'Equipment/date group leakage')
++    for split in ('train', 'val', 'test'):
++        subset = [r for r in rows if r['split'] == split]
++        require(bool(subset), f'Empty split: {split}')
++        coco_path = dataset / 'coco' / f'instances_{split}.json'
++        coco = json.loads(coco_path.read_text())
++        require(len(coco['categories']) == 1, 'Expected one defect class')
++        category = coco['categories'][0]['id']
++        images = {Path(im['file_name']).name: im for im in coco['images']}
++        require(len(images) == len(coco['images']), 'Duplicate COCO filenames')
++        require(len({im['id'] for im in coco['images']}) == len(images), 'Duplicate COCO image IDs')
++        expected = {r['image_id'] + '.png' for r in subset}
++        require(set(images) == expected, f'{split}: COCO image set differs')
++        require({p.name for p in (dataset / 'images' / split).glob('*.png')} == expected,
++                f'{split}: missing or extra PNGs')
++        anns = collections.defaultdict(list)
++        require(len({a['id'] for a in coco['annotations']}) == len(coco['annotations']), 'Duplicate annotation IDs')
++        ids = {im['id'] for im in images.values()}
++        for ann in coco['annotations']:
++            require(ann['image_id'] in ids and ann['category_id'] == category, 'Unknown image/category in COCO')
++            anns[ann['image_id']].append(ann['bbox'])
++        boxes = 0
++        for row in subset:
++            path = dataset / row['image_path']
++            label = dataset / row['label_path']
++            require(path.resolve().is_relative_to(dataset) and label.resolve().is_relative_to(dataset), 'Unsafe data path')
++            header = path.read_bytes()[:24]
++            require(header[:8] == b'\x89PNG\r\n\x1a\n', f'Invalid PNG: {path}')
++            w, h = struct.unpack('>II', header[16:24])
++            im = images[path.name]
++            require((w, h) == (int(row['width']), int(row['height'])) == (im['width'], im['height']),
++                    f'Dimensions differ: {path.name}')
++            digest = sha256(path)
++            require(digest not in seen or seen[digest] == split, f'Exact duplicate across splits: {path.name}')
++            seen[digest] = split
++            targets = list(anns[im['id']])
++            lines = [line for line in label.read_text().splitlines() if line.strip()]
++            require(len(lines) == int(row['n_defects']) == len(targets), f'Box count differs: {path.name}')
++            for line in lines:
++                cls, cx, cy, bw, bh = map(float, line.split())
++                require(cls == 0 and all(math.isfinite(v) for v in (cx, cy, bw, bh)), 'Invalid YOLO values')
++                box = [(cx-bw/2)*w, (cy-bh/2)*h, bw*w, bh*h]
++                x, y, width, height = box
++                require(width > 0 and height > 0 and x >= -0.001 and y >= -0.001
++                        and x+width <= w+0.001 and y+height <= h+0.001, 'Box outside image')
++                match = next((i for i, target in enumerate(targets)
++                              if all(abs(a-b) <= 0.002 for a, b in zip(box, target))), None)
++                require(match is not None, f'YOLO/COCO boxes differ: {path.name}')
++                targets.pop(match)
++            boxes += len(lines)
++            result['files'].append({'path': row['image_path'], 'sha256': digest, 'split': split})
++        result['splits'][split] = {'images': len(subset), 'boxes': boxes}
++    result['groups'] = len(groups)
++    return result
+--- /dev/null
++++ b/repro/predict_upstream_cpu_check.py
+@@ -0,0 +1,50 @@
++"""Frozen KAMP v2 inference on marker-removed grayscale images. No GT is read."""
++from pathlib import Path
++import argparse,json,hashlib,sys,time
++import cv2,numpy as np,torch
++R=Path(__file__).resolve().parent
++def main():
++ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--images',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--variant',choices=['dfine_mal_UQ'],default='dfine_mal_UQ');p.add_argument('--seed',type=int,choices=[20260930],default=20260930);p.add_argument('--preprocessed',action='store_true',required=True,help='Confirm inputs are the marker-removed grayscale images, not marked originals');a=p.parse_args()
++ paths=sorted([a.images] if a.images.is_file() else [p for p in a.images.iterdir() if p.suffix.lower() in ['.png','.bmp','.jpg','.jpeg']]);assert paths,'No input images';assert not a.output.exists(),'Use a new output directory to preserve earlier outputs';a.output.mkdir(parents=True);(a.output/'overlays').mkdir()
++ j=json.loads((R/'manifests/model.json').read_text());name=j['name'];assert a.variant=='dfine_mal_UQ' and a.seed==j['seed'];j['checkpoint']=str(R/j['checkpoint']);j['config']=str(R/j['config']);assert hashlib.sha256(Path(j['checkpoint']).read_bytes()).hexdigest()==j['sha256']
++ sys.path[:0]=[str(R/'vendor/dfine'),str(R/'src')]
++ from metrics import nms
++ torch.set_num_threads(4)
++ if a.variant.startswith('yolo'):
++  from ultralytics import YOLO
++  model=YOLO(j['checkpoint'])
++ else:
++  if a.variant=='dfine_s_p2':
++   import dfine_p2;dfine_p2.install()
++  if a.variant=='dfine_mal_UQ':
++   from selector_patch import install_model
++   install_model('unary')
++  from src.core import YAMLConfig
++  cfg=YAMLConfig(j['config']);model=cfg.model;ck=torch.load(j['checkpoint'],map_location='cpu',weights_only=False);model.load_state_dict(ck['ema']['module'] if 'ema' in ck else ck['model']);model.to('cpu').eval()
++ start=time.time();allpred=[];summaries=[]
++ for iid,path in enumerate(paths,1):
++  original=cv2.imread(str(path),cv2.IMREAD_UNCHANGED)
++  if original is None or original.dtype!=np.uint8:raise ValueError(f'Expected decodable uint8 image: {path}')
++  if original.ndim==3:
++   if original.shape[2]!=3 or not np.array_equal(original[:,:,0],original[:,:,1]) or not np.array_equal(original[:,:,0],original[:,:,2]):raise ValueError('Marked/color input is outside the frozen preprocessing contract: '+str(path))
++   gray=original[:,:,0]
++  elif original.ndim==2:gray=original
++  else:raise ValueError('Unexpected image channels')
++  h,w=gray.shape;nw,nh=round(w*640/max(w,h)),round(h*640/max(w,h));px,py=(640-nw)//2,(640-nh)//2;canvas=np.full((640,640,3),114,np.uint8);canvas[py:py+nh,px:px+nw]=cv2.resize(cv2.cvtColor(gray,cv2.COLOR_GRAY2BGR),(nw,nh),interpolation=cv2.INTER_LINEAR)
++  if a.variant.startswith('yolo'):
++   q=model.predict(canvas,imgsz=640,device=0,conf=.001,iou=.7,max_det=300,rect=False,verbose=False)[0];boxes=q.boxes.xyxy.cpu().numpy();scores=q.boxes.conf.cpu().numpy()
++  else:
++   x=torch.from_numpy(canvas.copy()).permute(2,0,1)[None].float().to('cpu')/255
++   with torch.no_grad():q=cfg.postprocessor(model(x),torch.tensor([[640,640]],device='cpu'))[0]
++   valid=q['scores']>=.001;boxes=q['boxes'][valid].cpu().numpy();scores=q['scores'][valid].cpu().numpy()
++  preds=[]
++  for b,score in zip(boxes,scores):
++   xx=np.clip((b[[0,2]].astype(float)-px)/(nw/w),0,w);yy=np.clip((b[[1,3]].astype(float)-py)/(nh/h),0,h)
++   if xx[1]>xx[0] and yy[1]>yy[0]:preds.append(dict(image_id=iid,file_name=path.name,category_id=0,bbox=[float(xx[0]),float(yy[0]),float(xx[1]-xx[0]),float(yy[1]-yy[0])],score=float(score)))
++  preds=nms(preds,.7);alarms=[q for q in preds if q['score']>=j['val_threshold']];allpred.extend(preds);overlay=cv2.cvtColor(gray,cv2.COLOR_GRAY2BGR)
++  for q in alarms:
++   x,y,bw,bh=q['bbox'];cv2.rectangle(overlay,(round(x),round(y)),(round(x+bw),round(y+bh)),(0,130,255),1);cv2.putText(overlay,f"{q['score']:.3f}",(max(0,round(x)),max(10,round(y)-3)),cv2.FONT_HERSHEY_SIMPLEX,.3,(0,80,220),1,cv2.LINE_AA)
++  cv2.imwrite(str(a.output/'overlays'/f'{iid:04d}_{path.stem}.png'),overlay);summaries.append(dict(image_id=iid,file_name=path.name,width=w,height=h,source_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),threshold=j['val_threshold'],detections=len(alarms),status='detections_present' if alarms else 'no_detection_review_required',auto_pass_authorized=False))
++  print(json.dumps(summaries[-1]),flush=True)
++ (a.output/'predictions.json').write_text(json.dumps(allpred,indent=2));(a.output/'image_summary.json').write_text(json.dumps(summaries,indent=2));(a.output/'run_metadata.json').write_text(json.dumps(dict(run=name,checkpoint_sha256=j['sha256'],val_threshold=j['val_threshold'],images=len(paths),seconds=time.time()-start,GT_used=False,preprocessing='provided marker-removed uint8 grayscale; original-resolution input; 640 central letterbox',NMS=.7,box_scale=1,score_floor=.001,score_is_calibrated_probability=False),indent=2))
++if __name__=='__main__':main()
+--- /dev/null
++++ b/REVIEW_REPORT.md
+@@ -0,0 +1,51 @@
++# 재현성 검수 보고서 — 가중치 포함 재생성
++
++검수일: 2026-10-07 (한국 시간)  
++GitHub: `KWNahyun/kamp-songsong`, commit `7dd38486dde36839708d77a387d8967efba766e3`
++
++## 현재 판정
++
++**실제 고정 모델 예측·평가 완료. 전체 재학습과 원래 지표 일치는 미검증.**
++
++이번에는 ZIP을 만들지 않고 이 폴더에 소스, requirements, 학습 350장·검증 66장·테스트 84장, 가중치 2개, 개선 README와 실제 테스트 예측결과를 포함했습니다.
++
++- 테스트 예측: `predictions/test_predictions.csv`, `predictions/test_predictions.json`
++- 테스트 84장 처리 기록: `predictions/image_summary.json`
++- 표시 영상: `predictions/overlays/`
++- 테스트 평가: `predictions/test_metrics.json`
++- 통합 실행 완료: `results/frozen_cpu/completed.json`
++
++## 가중치 검증
++
++| 파일 | 확인한 SHA-256 | 판정 |
++| --- | --- | --- |
++| `maluq_seed20260930.pth` | `ddbdbc3638e661003b49922832edb84a44c8d0b95e30d33906ff4cae984c6461` | model manifest와 일치 |
++| `dfine_s_coco_init.pth` | `0ac6124d45341889b9999b2294540cc6105add3679fe6182ea692c9e6917f531` | source provenance와 일치 |
++
++## 실제 추론·공식 COCO 평가
++
++실행 환경은 Python 3.13.5, torch 2.10.0, torchvision 0.25.0, macOS CPU입니다. 추론은 정답 파일을 읽지 않고 수행했으며, 저장된 후보를 공식 COCO 라벨에 대조해 평가했습니다. 후보 점수 0.001 이상, NMS IoU 0.7, 원래 val 경보 임계값 0.19337229430675507을 유지했습니다.
++
++| 분할 | 이미지 | AP | AP50 | AP75 | TP | FP | FN | recall |
++| --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
++| val | 66 | 38.7285 | 97.8630 | 18.2255 | 142 | 8 | 2 | 98.6111% |
++| test | 84 | 38.5547 | 94.4548 | 15.0455 | 197 | 16 | 9 | 95.6311% |
++
++AP는 COCO AP@[0.50:0.95], 0~100 척도입니다. TP/FP/FN 및 recall은 경보 임계값을 적용하고 IoU 0.5로 대응한 값입니다. 정상 영상이 없어 normal specificity는 계산할 수 없습니다.
++
++원래 manifest의 val AP는 **39.27580797691046**, 이번 val AP는 **38.72851832282536**입니다. 차이는 **-0.54728965408510 AP 포인트**입니다. 원래 AP75는 19.660061547449224, 이번 AP75는 18.22549493920374입니다. 원래 수치와의 완전 일치를 주장할 수 없습니다.
++
++GitHub 원래 `predict.py`의 CUDA 호출만 CPU로 바꿔 동일 환경에서 별도로 실행했습니다. 검증 후보 13,300개의 점수·좌표·파일명 전체가 현재 패키지의 예측과 정확히 같았습니다. 따라서 이번 포장 코드 수정이 이 차이를 만들었다는 증거는 없습니다. 원래 GPU 실행 및 원래 입력·정답의 픽셀/파일 해시를 추가로 대조해야 원인을 확정할 수 있습니다. 임계값이나 정답을 변경해 점수를 맞추지 않았습니다.
++
++## 그 밖의 검사
++
++- 기존 검수의 데이터 500장, 고정 split hash, 37개 장비/날짜 그룹 분리, 이미지 디코딩, YOLO/COCO 좌표 일치, 분할 간 픽셀 중복 검사가 통과했습니다.
++- 두 가중치가 포함된 현재 폴더의 데이터 검사도 다시 통과했습니다.
++- 실제 초기 checkpoint를 로드해 실제 train 이미지의 MAL loss와 역전파를 확인했습니다.
++- 실제 대표 checkpoint를 로드한 UQ loss·역전파 검사에서 selector gradient를 확인하고, 한 번의 갱신 후 검출기 tensor 전체가 동일함을 확인했습니다. 공식 평가 fixture 검사도 통과했습니다.
++
++## 아직 완료하지 못한 범위
++
++전체 MAL+UQ 3개 seed 학습, GPU에서의 고정 모델 대조, 과거 YOLO/PIDray/합성 스트레스 전체 실험은 완료되지 않았습니다. 원래 REPORT §5는 YOLOv8s seed 1을 최종 모델로, 현재 GitHub README는 MAL+UQ를 최종 모델로 적고 있습니다. 이번 폴더의 실제 예측은 업로드된 MAL+UQ checkpoint 기준입니다.
++
++자동 승인 검토가 학습 데이터·소스·가중치를 연구 GPU 서버 `ailab5090-jeongwon`으로 복사하는 작업을 거절했습니다. 이유는 그 자료를 해당 서버로 내보내는 명시적 사용자 승인이 없다는 것입니다. GPU 대조와 전체 학습 검수에는 이 복사 작업에 대한 승인 또는 원래 GPU 서버에서 생성한 검증 자료가 추가로 필요합니다.
+--- /dev/null
++++ b/docs/EXPERIMENT_SCOPE.md
+@@ -0,0 +1,17 @@
++# 일괄 실행의 범위
++
++`run_all.py`는 **최종 D-FINE-S+MAL+UQ 경로**를 통합합니다. 저장소의 과거 연구 전체를 자동 재현하는 실행기로 검증된 상태는 아닙니다.
++
++| 실험 | 원래 코드 | 필요한 자원 | 이번 확인 상태 |
++| --- | --- | --- | --- |
++| 고정 MAL+UQ 추론·평가 | `repro/predict.py`, `repro/evaluate.py` | 대표 가중치, 가공 데이터 | 대표 checkpoint 실제 CPU 추론·평가 완료; 원래 val 지표와 차이 있음 |
++| MAL+UQ 3개 seed 재학습 | `repro/train_mal.py`, `repro/train_uq.py` | 단일 클래스 초기 가중치, CUDA GPU | 실제 checkpoint와 train 샘플의 손실·역전파 검사 통과; 전체 GPU 학습 보류 |
++| YOLOv8s/D-FINE-S, scratch/COCO/PIDray 비교 | `prep/run_nb2.sh`, `prep/run_pidray_pretrain.sh` | baseline 초기 가중치, PIDray 데이터, `data/nb2/`, CUDA GPU | 미실행; 원래 `/data/knhyun/KAMP` 경로가 남아 있음 |
++| 초기 YOLOv3-SPP 비교 | `prep/run_train.sh`, `yolov3/` | 원본/가공 데이터, 초기 가중치, 과거 버전 의존성 | 미실행 |
++| 마커 제거·의사 라벨 비교 | `prep/run_marker_factor.sh`, `prep/run_unlabeled_factor.sh` | 원본 BMP, GT 없는 영상, 기존 모델, 중간 산출물 | 미실행 |
++| gVXR/옮겨심기 합성 스트레스 | `prep/synth/`, `eval/synth/` | gVXR/OpenGL, calibration, erased background, OD 맵, 평가 모델 | 미실행 |
++| 전처리 데이터 생성 | `prep/build_dataset.py`, `prep/build_handoff.py` | 원본 BMP/TXT, EDA 인벤토리와 마커 정보 | 재생성 미실행; 기존 가공 데이터 500장 검사 통과 |
++
++최종 제출 모델이 YOLOv8s라면 해당 가중치와 실행 경로를 추가로 확정해야 합니다. 원래 상세 보고서의 YOLOv8s 최종 모델과 새 README의 MAL+UQ 최종 모델은 동일한 결과가 아닙니다.
++
++원래 연구의 CSV·그림·보고서는 참고 자료로 포함했습니다. 해당 파일이 존재한다는 이유로 이번 실행에서 재현되었다고 판정하지 않습니다.
+--- /dev/null
++++ b/predictions/STATUS.md
+@@ -0,0 +1,12 @@
++# 테스트 예측결과 생성 완료
++
++GitHub에 추가된 대표 가중치의 SHA-256을 확인하고 마커 제거 테스트 84장 전체를 실제 추론했습니다.
++
++- `test_predictions.csv`: 원본 영상 좌표의 검출 후보를 표로 확인
++- `test_predictions.json`: 동일 후보의 JSON
++- `image_summary.json`: 검출이 없는 경우를 포함한 모든 84장 처리 기록
++- `overlays/`: 고정 검증 임계값 이상 박스를 표시한 영상
++- `test_metrics.json`: 공식 COCO 라벨에 대한 실제 평가 결과
++- `run_metadata.json`: 모델 해시, 환경, 입력 처리, 실행 시간
++
++이번 CPU 실행의 테스트 AP는 38.55465015227687, AP50은 94.45480972250748입니다. 기록된 원래 validation AP와 이번 validation AP는 약 0.55포인트 차이가 있어 원래 수치와의 완전 일치는 확인되지 않았습니다. 자세한 내용은 루트 검수 보고서를 확인하세요.

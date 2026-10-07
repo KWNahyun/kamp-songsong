@@ -1,0 +1,6 @@
+{
+  "source_commit": "7dd38486dde36839708d77a387d8967efba766e3",
+  "comparison": "original GitHub predict.py with CUDA calls mechanically changed to CPU vs packaged predict.py CPU",
+  "predictions_exactly_equal": true,
+  "validation_candidate_count": 13300
+}
