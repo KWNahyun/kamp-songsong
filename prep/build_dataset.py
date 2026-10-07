@@ -9,17 +9,18 @@ import numpy as np
 import pandas as pd
 import cv2
 
+K = os.environ.get('KAMP_ROOT', '/data/knhyun/KAMP')
 sys.argv = ['x']
-exec(open('/data/knhyun/KAMP/eda/extract.py').read().split('# ─────────────────────────── 1.')[0])
+exec(open(f'{K}/eda/extract.py').read().split('# ─────────────────────────── 1.')[0])
 
-DATA = '/data/knhyun/KAMP/data'
+DATA = f'{K}/data'
 SEED = 42
 RATIOS = {'train': 0.70, 'val': 0.15, 'test': 0.15}
 
 # 데이터 출처: 장비 원본 BMP 폴더 (images 400 은 그중 400장의 바이트 동일 복사본)
-raw = pd.read_csv('/data/knhyun/KAMP/eda/out/raw_inventory.csv')
+raw = pd.read_csv(f'{K}/eda/out/raw_inventory.csv')
 stem2rawpath = raw.groupby('stem').path.first().to_dict()
-img = pd.read_csv('/data/knhyun/KAMP/eda/out/images_with_session.csv')
+img = pd.read_csv(f'{K}/eda/out/images_with_session.csv')
 
 for v in ['clean', 'marked']:
     for d in ['images', 'labels']:

@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 from PIL import Image
 
-K = '/data/knhyun/KAMP'
+K = os.environ.get('KAMP_ROOT', '/data/knhyun/KAMP')
 OUT = f'{K}/handoff/kamp_xray_v2'
 split = pd.read_csv(f'{K}/data/splits/split.csv')
 shutil.rmtree(OUT, ignore_errors=True)

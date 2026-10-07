@@ -1,0 +1,16 @@
+{
+  "name": "dfine_mal_UQ_seed20260930",
+  "variant": "dfine_mal_UQ",
+  "seed": 20260930,
+  "checkpoint": "checkpoints/maluq_seed20260930.pth",
+  "sha256": "ddbdbc3638e661003b49922832edb84a44c8d0b95e30d33906ff4cae984c6461",
+  "config": "configs/model.yml",
+  "val_threshold": 0.19337229430675507,
+  "val_AP": 39.27580797691046,
+  "val_AP75": 19.660061547449224,
+  "selection": "Median validation AP of original MAL+UQ three seeds; selected 2026-10-03, test scores not used in this rule",
+  "NMS": 0.7,
+  "box_scale": 1,
+  "score_floor": 0.001,
+  "GT_used_in_inference": false
+}

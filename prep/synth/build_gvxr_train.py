@@ -15,7 +15,7 @@ import pandas as pd
 import cv2
 from scipy import ndimage as ndi
 
-K = '/data/knhyun/KAMP'
+K = os.environ.get('KAMP_ROOT', '/data/knhyun/KAMP')
 sys.path.insert(0, f'{K}/prep/synth')
 import gvxr_core as G
 from synth_core import insert

@@ -30,3 +30,8 @@ eval/**/stress_fp*.csv
 # 합성 학습 모델(tpB/tpC/tpCC/tpG/tpX) 결과: 팀 결정으로 합성은 평가 전용 → 넣지 않음 (archive/ 참고)
 eval/**/*_tp[A-Z]*
 
+
+# Final-model package: data, checkpoints, generated outputs remain local
+/repro/.venv/
+/repro/checkpoints/*.pth
+/repro/outputs/

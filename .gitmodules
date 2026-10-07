@@ -1,0 +1,4 @@
+[submodule "repro/vendor/dfine"]
+	path = repro/vendor/dfine
+	url = https://github.com/Peterande/D-FINE.git
+	branch = master
